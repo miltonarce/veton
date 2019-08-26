@@ -1,2 +1,9 @@
-# veton
-Proyecto final para Davinci. Aplicacion de gestion para veterinarias y usuarios de mascotas.
+# Veton
+Proyecto final para Davinci. Aplicación de gestión para veterinarias y usuarios de mascotas.
+
+## Tecnologías
+- React
+- Redux
+- Lumen (laravel)
+
+
