@@ -1,0 +1,34 @@
+name: veton
+proxy:
+  nodejs:
+    - veton.lndo.site:3000
+  phpservice:
+    - api.lndo.site
+services:
+  nodejs:
+    type: node:10
+    build:
+      - "npm install pm2 -g"
+      - "cd /app/front && npm install"
+    port: 3000
+  phpservice:
+    type: php
+    webroot: back
+    via: apache
+    build:
+      - "cd /app/back && composer install"
+tooling:
+  node:
+    service: nodejs
+  npm:
+    service: nodejs
+    cmd:
+      - "npm"
+      - "--cwd=/app/front"
+  pm2:
+    service: nodejs
+    cmd:
+      - "pm2"
+events:
+  post-start:
+    - nodejs: "cd /app/front && npm install && cd /app && pm2 start ecosystem.yml"
