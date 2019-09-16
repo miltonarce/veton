@@ -24,6 +24,10 @@ services:
       user: mariadb
       password: mariadb
       database: veton
+  admindbservice:
+      type: phpmyadmin:4.7
+      hosts:
+        - dbservice
 tooling:
   node:
     service: nodeservice
@@ -36,6 +40,10 @@ tooling:
     service: nodeservice
     cmd:
       - "pm2"
+  artisan:
+    service: phpservice
+    cmd:
+      - "php artisan"
 events:
   post-start:
     - nodeservice: "cd /app/front && npm install && cd /app && pm2 start ecosystem.yml"

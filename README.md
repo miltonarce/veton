@@ -21,13 +21,13 @@ Cuando se termina de trabajar se debe correr el comando:
 Para reiniciar el contenedor usar el comando:
 - lando restart
 
-Y tambien se han expuesto comandos de npm y pm2 para utilizarlos en el proyecto agregar la palabra lando delante por ej:
+Y tambien se han expuesto comandos de npm ,pm2 y php artisan para utilizarlos en el proyecto agregar la palabra lando delante por ej:
 - lando npm install ....
 
 Si se desea exponer otros comandos por favor consultar con el equipo para configurar.
 
-En el caso de querer utilizar php artisan solo ingresar por cd back a la carpeta y utilizar ahi mismo los comandos requeridos por ej:
-- php artisan make:migration
+En el caso de querer utilizar php artisan solo ingresar por cd back a la carpeta y utilizar ahi mismo los comandos requeridos expuestos por lando por ej:
+- lando artisan make:migration
 
 ## Otros
 Para hacer un rebuild de toda la app y reinstalar dependencias utilizamos el comando:
@@ -36,6 +36,9 @@ Para hacer un rebuild de toda la app y reinstalar dependencias utilizamos el com
 Para destruir el contenedor y volverlo a generar utilizar los comandos:
 -lando destroy
 -lando start
+
+## back
+- generar el archivo local .env y copiar exactamente las lineas de .env.example este archivo no esta versionado cada usuario tendra su configuración local con la base de .env.example.
 
 
 
