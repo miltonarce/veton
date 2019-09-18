@@ -15,10 +15,6 @@ class CreateClinicalhistoriesTable extends Migration
     {
         Schema::create('clinicalhistories', function (Blueprint $table) {
             $table->increments('id_history');
-            $table->text('comments');
-            $table->text('hide_comments');
-            $table->text('afflictions_procedures');
-            $table->string('image', 255);
 
             $table->timestamps();
         });

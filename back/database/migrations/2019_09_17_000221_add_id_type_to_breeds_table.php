@@ -27,8 +27,8 @@ class AddIdTypeToBreedsTable extends Migration
     public function down()
     {
         Schema::table('breeds', function (Blueprint $table) {
-            $table->dropForeign(['id_types']);
-            $table->dropColumn('id_types');
+            $table->dropForeign(['id_type']);
+            $table->dropColumn('id_type');
         });
     }
 }
