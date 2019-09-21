@@ -14,7 +14,7 @@ class CreateVeterinariesTable extends Migration
     public function up()
     {
         Schema::create('veterinaries', function (Blueprint $table) {
-            $table->increments('id_veterinarie');
+            $table->increments('id_veterinary');
             $table->string('business_name', 150);
             $table->string('fantasy_name', 150);
             $table->integer('cuit_cuil')->unsigned();
