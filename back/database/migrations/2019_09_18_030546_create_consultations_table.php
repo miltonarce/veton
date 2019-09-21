@@ -17,6 +17,7 @@ class CreateConsultationsTable extends Migration
             $table->increments('id_consultation');
             $table->date('date');
             $table->text('comments');
+            $table->text('hide_comments');
             $table->text('afflictions_procedures');
             $table->string('image', 255);
 
