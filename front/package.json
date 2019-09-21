@@ -18,8 +18,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && npm run lint",
-      "pre-push": "npm run lint && npm run test"
+      "pre-commit": "pretty-quick --staged && npm run lint"
     }
   },
   "eslintConfig": {
