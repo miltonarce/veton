@@ -14,7 +14,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint --ext .jsx,.js src",
     "lint:fix": "eslint src --fix",
-    "prettier": "prettier --write '**/*.{js,css}'"
+    "prettier": "prettier --write '**/*.{js,jsx,css}'"
   },
   "husky": {
     "hooks": {
