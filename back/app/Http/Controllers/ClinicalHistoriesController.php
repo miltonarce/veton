@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
-use App\Models\Pet;
+use App\Models\ClinicalHistory;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class PetsController extends Controller
+class ClinicalHistoriesController extends Controller
 {
     public function all()
     {
@@ -17,7 +16,7 @@ class PetsController extends Controller
 
     public function new(Request $request)
     {
-        $request->validate(ClinicalHistory::$rules, ClinicalHistory::$errorMessages);
+        //no existe el metodo $request->validate(ClinicalHistory::$rules, ClinicalHistory::$errorMessages);
         $data = $request->all();
         /* if($request->hasFile('image')) {
              $file = $request->image;
