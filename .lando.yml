@@ -14,6 +14,7 @@ services:
   phpservice:
     type: php:7.2
     webroot: back/public
+    xdebug: true
     via: apache:2.4
     build:
       - "cd /app/back && composer install"

@@ -37,6 +37,8 @@ Para destruir el contenedor y volverlo a generar utilizar los comandos:
 -lando destroy
 -lando start
 
+Xdebug agregado para utilizar configurar su phpstorm o visual studio code.
+
 ## back
 - generar el archivo local .env y copiar exactamente las lineas de .env.example este archivo no esta versionado cada usuario tendra su configuración local con la base de .env.example.
 
