@@ -13,7 +13,7 @@ class CreateGendersTable extends Migration
      */
     public function up()
     {
-        Schema::create('genders', function (Blueprint $table) {
+        Schema::create('gender', function (Blueprint $table) {
             $table->increments('id_gender');
             $table->string('gender', 100);
 
@@ -28,6 +28,6 @@ class CreateGendersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('genders');
+        Schema::dropIfExists('gender');
     }
 }
