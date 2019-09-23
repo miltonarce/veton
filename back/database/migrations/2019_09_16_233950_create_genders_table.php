@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGenderTable extends Migration
+class CreateGendersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateGenderTable extends Migration
      */
     public function up()
     {
-        Schema::create('gender', function (Blueprint $table) {
+        Schema::create('genders', function (Blueprint $table) {
             $table->increments('id_gender');
             $table->string('gender', 100);
 

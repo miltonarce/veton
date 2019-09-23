@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Crypt;
 
 class UsersTableSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class UsersTableSeeder extends Seeder
             'last_name' =>'',
             'dni' =>12345678,
             'email' =>'admin@admin',
-            'password'=> bcrypt('1234'),
+            'password'=> Crypt::encrypt('1234'),
             'birthday'=>'1994-08-24 13:45:12',
             'image'=>'',
             'created_at' => date('Y-m-d H:i:s'),
@@ -31,7 +32,7 @@ class UsersTableSeeder extends Seeder
             'last_name' =>'',
             'dni' =>12345679,
             'email' =>'user@user',
-            'password'=> bcrypt('1234'),
+            'password'=>  Crypt::encrypt('1234'),
             'birthday'=>'1990-11-11 13:45:12',
             'image'=>'',
             'created_at' => date('Y-m-d H:i:s'),

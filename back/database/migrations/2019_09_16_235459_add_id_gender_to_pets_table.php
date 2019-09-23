@@ -15,7 +15,7 @@ class AddIdGenderToPetsTable extends Migration
     {
         Schema::table('pets', function (Blueprint $table) {
             $table->unsignedInteger('id_gender')->default(1)->after('id_breed');
-            $table->foreign('id_gender')->references('id_gender')->on('gender');
+            $table->foreign('id_gender')->references('id_gender')->on('genders');
         });
     }
 
