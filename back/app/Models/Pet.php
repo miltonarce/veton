@@ -40,9 +40,9 @@ class Pet extends Model
         'id_gender.integer' => 'El sexo debe ser un id.',
         'id_gender.exists' => 'El sexo seleccionado no existe',
         'name.required' => 'El nombre de la mascota no puede estar vacío.',
-        'name.min' => 'El nombre de la mascota de tener al menos :min caracteres',
+        'name.min' => 'El nombre de la mascota debe tener al menos :min caracteres',
         'last_name.required' => 'El apellido de la mascota no puede estar vacío.',
-        'last_name.min' => 'El apellido de la mascota de tener al menos :min caracteres'
+        'last_name.min' => 'El apellido de la mascota debe tener al menos :min caracteres'
 
     ];
 
