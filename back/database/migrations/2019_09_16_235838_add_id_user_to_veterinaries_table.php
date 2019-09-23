@@ -14,7 +14,7 @@ class AddIdUserToVeterinariesTable extends Migration
     public function up()
     {
         Schema::table('veterinaries', function (Blueprint $table) {
-            $table->unsignedInteger('id_user')->default(1)->after('id_veterinarie');
+            $table->unsignedInteger('id_user')->default(1)->after('id_veterinary');
             $table->foreign('id_user')->references('id_user')->on('users');
         });
     }
