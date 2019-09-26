@@ -1,8 +1,0 @@
-apps:
-  - script: 'npm'
-    args: 'start'
-    name: 'veton'
-    cwd: 'front'
-    instances: 1
-    exec_mode: cluster
-    watch: true
