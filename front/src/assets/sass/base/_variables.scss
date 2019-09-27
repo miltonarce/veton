@@ -1,0 +1,44 @@
+/* -------------------------------------------------------------------------- */
+// All Bootstrap 4 Sass Mixins [Cheat sheet]
+// Updated to Bootstrap v4.3.x
+// @author https://anschaef.de
+// @see https://github.com/twbs/bootstrap/tree/master/scss/mixins
+/* -------------------------------------------------------------------------- */
+
+// Grid variables
+$grid-columns: 12;
+$grid-gutter-width: 30px;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+);
+
+$font-size-base: 1.8rem !default;
+
+$h1-font-size: 3.3rem !default;
+$h2-font-size: 2.8rem !default;
+$h3-font-size: 2.5rem !default;
+$h4-font-size: 2.1rem !default;
+$h5-font-size: $font-size-base !default;
+$h6-font-size: 1.4rem !default;
+
+$enable-grid-classes: true;
+$enable-responsive-font-sizes: true;
+
+$border-none: 'none' !default;
+
+$link-color: $color-secondary !default;
+$link-decoration: none !default;
+$link-hover-color: $color-secondary !default;
+$link-hover-decoration: none !default;
