@@ -3,7 +3,7 @@
   @include make-container-max-widths();
 }
 
-@mixin make-veton-container-max-widths() {
+@mixin make-veton-container-max-widths(){
   @include make-container-max-widths();
 }
 
@@ -71,3 +71,4 @@
     padding-right: 18px;
   }
 }
+
