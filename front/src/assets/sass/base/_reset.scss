@@ -1,50 +1,55 @@
 html {
-  font-size:62.5%; /* This is to have 1 rem = 10px */
+  font-size: 62.5%; /* This is to have 1 rem = 10px */
 }
 
 body {
-  margin:0;
-  padding:0;
-  width:100%;
- font-size: $font-size-base;
-  font-family:$font-family-sans-serif;
-  line-height:1.3;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-size: $font-size-base;
+  font-family: $font-family-sans-serif;
+  line-height: 1.3;
 }
 
 ul {
-  list-style:none;
-  margin:0;
-  padding:0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 ul li {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
 
 ol {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
 p {
-  padding:0;
- margin: 0rem, 0rem, 5rem, 0rem;
+  padding: 0;
+  margin: 0rem, 0rem, 5rem, 0rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  padding:0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
   margin: 0rem, 0rem, 10rem, 0rem;
   font-weight: normal;
 }
 
 fieldset {
-  border:none;
-  margin:0;
-  padding:0;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 
 button {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 //placeholders
@@ -53,21 +58,21 @@ button {
 }
 
 %font-montserrat-bold {
-  font-family: "Montserrat Bold", sans-serif;
+  font-family: 'Montserrat Bold', sans-serif;
 }
 
 %font-montserrat-medium {
-  font-family: "Montserrat Medium", sans-serif;
+  font-family: 'Montserrat Medium', sans-serif;
 }
 
 %font-montserrat {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 %font-muli {
-  font-family: "Muli", sans-serif;
+  font-family: 'Muli', sans-serif;
 }
 
 %font-muli-bold {
-  font-family: "Muli Bold", sans-serif;
+  font-family: 'Muli Bold', sans-serif;
 }
