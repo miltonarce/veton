@@ -14,13 +14,13 @@ sites:
         map: api.veton
         to: /home/vagrant/code/apiveton/public
 databases:
-    - db_veton
+    - veton
 features:
     -
-        mariadb: true
+        mariadb: false
     -
         ohmyzsh: false
     -
         webdriver: false
-name: apiveton
-hostname: apiveton
+name: veton
+hostname: veton
