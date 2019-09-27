@@ -4,23 +4,18 @@ cpus: 2
 provider: virtualbox
 authorize: ~/.ssh/id_rsa.pub
 keys:
-    - ~/.ssh/id_rsa
+  - ~/.ssh/id_rsa
 folders:
-    -
-        map: 'D:\Milton\projects\veton\back'
-        to: /home/vagrant/code
+  - map: 'D:\Milton\projects\veton\back'
+    to: /home/vagrant/code
 sites:
-    -
-        map: api.veton
-        to: /home/vagrant/code/apiveton/public
+  - map: api.veton
+    to: /home/vagrant/code/apiveton/public
 databases:
-    - db_veton
+  - veton
 features:
-    -
-        mariadb: true
-    -
-        ohmyzsh: false
-    -
-        webdriver: false
-name: apiveton
-hostname: apiveton
+  - mariadb: false
+  - ohmyzsh: false
+  - webdriver: false
+name: veton
+hostname: veton
