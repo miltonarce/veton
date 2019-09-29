@@ -33,3 +33,6 @@ Esta aplicación esta corriendo bajo la virtualización en vagrant con una caja 
 ## back
 
 - generar el archivo local .env y copiar exactamente las lineas de .env.example este archivo no esta versionado cada usuario tendra su configuración local con la base de .env.example.
+
+- Actualizar la documentación de Swagger php artisan l5-swagger:generate
+- https://api.veton/api/documentation
