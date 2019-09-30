@@ -31,4 +31,10 @@ class ClinicalHistoriesController extends Controller
             'sucess' => true
         ]);
     }
+
+//    public function view($id)
+//    {
+//        $user = User::findorFail($id);
+//
+//    }
 }

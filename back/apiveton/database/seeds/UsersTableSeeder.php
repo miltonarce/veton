@@ -22,6 +22,7 @@ class UsersTableSeeder extends Seeder
             'password'=> Crypt::encrypt('1234'),
             'birthday'=>'1994-08-24 13:45:12',
             'image'=>'',
+            'id_role' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
@@ -35,6 +36,7 @@ class UsersTableSeeder extends Seeder
             'password'=>  Crypt::encrypt('1234'),
             'birthday'=>'1990-11-11 13:45:12',
             'image'=>'',
+            'id_role' => 2,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);

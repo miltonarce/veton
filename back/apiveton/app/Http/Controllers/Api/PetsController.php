@@ -3,6 +3,7 @@ namespace App\Http\Controllers\api;
 
 use App\Models\Pet;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PetsController extends Controller
@@ -30,4 +31,11 @@ class PetsController extends Controller
             'sucess' => true
         ]);
     }
+//    public function view($id)
+//    {
+//     $user = User::findOrFail($id);
+//     $pets = $user->id_user
+//
+//     return response()->json($pets);
+//    }
 }

@@ -6,7 +6,7 @@ authorize: ~/.ssh/id_rsa.pub
 keys:
   - ~/.ssh/id_rsa
 folders:
-  - map: 'D:\Milton\projects\veton\back'
+  - map: 'C:\Users\rochi\veton\back'
     to: /home/vagrant/code
 sites:
   - map: api.veton
