@@ -1,0 +1,154 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Pets",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "https://api.veton"
+        }
+    ],
+    "paths": {
+        "/api/clinicalhistories": {
+            "get": {
+                "summary": "Lista todas las historias clínicas",
+                "operationId": "App\\Http\\Controllers\\api\\ClinicalHistoriesController::all",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            },
+            "post": {
+                "summary": "Da de alta una historia clínica",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_pet": {
+                                        "description": "id de mascota",
+                                        "type": "integer"
+                                    },
+                                    "id_consultation": {
+                                        "description": "id de la consulta",
+                                        "type": "integer"
+                                    },
+                                    "date": {
+                                        "description": "fecha de la consulta",
+                                        "type": "string"
+                                    },
+                                    "comments": {
+                                        "description": "comentarios",
+                                        "type": "integer"
+                                    },
+                                    "hide_comments": {
+                                        "description": "comentarios extras",
+                                        "type": "string"
+                                    },
+                                    "afflictions_procedures": {
+                                        "description": "afecciones",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            }
+        },
+        "/api/pets": {
+            "get": {
+                "summary": "Lista todas las mascotas",
+                "operationId": "App\\Http\\Controllers\\api\\PetsController::all",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            },
+            "post": {
+                "summary": "Da de alta una mascota",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_user": {
+                                        "description": "id del usuario",
+                                        "type": "integer"
+                                    },
+                                    "id_type": {
+                                        "description": "id de mascota",
+                                        "type": "integer"
+                                    },
+                                    "id_breed": {
+                                        "description": "id deraza",
+                                        "type": "integer"
+                                    },
+                                    "id_gender": {
+                                        "description": "id de genero",
+                                        "type": "integer"
+                                    },
+                                    "birthday": {
+                                        "description": "fecha de nacimiento",
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "description": "nombre de la mascota",
+                                        "type": "string"
+                                    },
+                                    "last_name": {
+                                        "description": "apellido de la mascota",
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "description": "imagen de perfil de la mascota",
+                                        "type": "string"
+                                    },
+                                    "weight": {
+                                        "description": "peso de la mascota en Kgs",
+                                        "type": "integer"
+                                    },
+                                    "colors": {
+                                        "description": "color de la mascota",
+                                        "type": "string"
+                                    },
+                                    "comments": {
+                                        "description": "comentarios extras",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            }
+        }
+    }
+}
