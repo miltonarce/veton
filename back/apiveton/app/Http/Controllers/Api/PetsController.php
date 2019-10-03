@@ -1,9 +1,10 @@
 <?php
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Pet;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 /**
 * @OA\Info(title="API Pets", version="1.0")
@@ -66,14 +67,14 @@ class PetsController extends Controller
     {
         $request->validate(Pet::$rules, Pet::$errorMessages);
         $data = $request->all();
-       /* if($request->hasFile('image')) {
+       /if($request->hasFile('image')) {
             $file = $request->image;
             $nameImage = time() . "." . $file->extension();
             $file->move(public_path(path: '/imgs'), $nameImage);
             $data['image'] = 'imgs/' . $nameImage;
         }else {
             $data['image'] = '';
-        }*/
+        }
         Pet::create($data);
         return response()->json([
             'sucess' => true

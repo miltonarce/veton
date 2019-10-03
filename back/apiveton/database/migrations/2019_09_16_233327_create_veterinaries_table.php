@@ -18,11 +18,11 @@ class CreateVeterinariesTable extends Migration
             $table->string('business_name', 150);
             $table->string('fantasy_name', 150);
             $table->integer('cuit_cuil')->unsigned();
-            $table->string('image', 255);
+            $table->string('image', 255)->nullable();
             $table->integer('phone1')->unsigned();
-            $table->integer('phone2')->unsigned();
+            $table->integer('phone2')->unsigned()->nullable();
             $table->string('street', 100);
-            $table->string('between_streets', 200);
+            $table->string('between_streets', 200)->nullable();
 
             $table->timestamps();
         });

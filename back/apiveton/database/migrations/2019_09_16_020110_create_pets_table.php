@@ -17,11 +17,11 @@ class CreatePetsTable extends Migration
             $table->increments('id_pet');
             $table->string('name', 70);
             $table->string('last_name', 70);
-            $table->date('birthday');
-            $table->string('image', 255);
-            $table->tinyInteger('weight')->unsigned();
-            $table->string('colors', 150);
-            $table->text('comments');
+            $table->date('birthday')->nullable();
+            $table->string('image', 255)->nullable();
+            $table->tinyInteger('weight')->unsigned()->nullable();
+            $table->string('colors', 150)->nullable();
+            $table->text('comments')->nullable();
 
             $table->timestamps();
         });

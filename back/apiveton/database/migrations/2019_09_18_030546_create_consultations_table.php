@@ -18,7 +18,7 @@ class CreateConsultationsTable extends Migration
             $table->date('date');
             $table->text('comments');
             $table->text('afflictions_procedures');
-            $table->string('image', 255);
+            $table->string('image', 255)->nullable();
 
             $table->timestamps();
         });

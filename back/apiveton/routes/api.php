@@ -23,3 +23,5 @@ Route::get('clinicalhistories', 'api\\ClinicalHistoriesController@all');
 Route::post('clinicalhistories', 'api\\ClinicalHistoriesController@new');
 Route::get('consultations', 'api\\ConsultationsController@all');
 Route::post('consultations', 'api\\ConsultationsController@new');
+Route::get('veterinaries', 'api\\VeterinariesController@all');
+Route::post('veterinaries', 'api\\VeterinariesController@new');
