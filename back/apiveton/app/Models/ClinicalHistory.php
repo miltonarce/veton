@@ -15,6 +15,7 @@ class ClinicalHistory extends Model
     /** @var array las reglas de validación. */
     public static $rules = [
         'id_pet' => 'required|integer|exists:pets',
+        'date' => 'required',
         'comments' => 'min:10',
         'hide_comments' => 'min:10',
         'afflictions_procedures' => 'min:10'
@@ -25,6 +26,7 @@ class ClinicalHistory extends Model
         'id_pet.required' => 'La historia clínica debe estar asociada a una mascota.',
         'id_pet.integer' => 'La mascota debe ser un id.',
         'id_pet.exists' => 'La mascota seleccionada no existe.',
+        'date.required' => 'La fecha de la historia clínica no puede estar vacía',
         'comments.min' => 'El comentario debe tener al menos :min caracteres.',
         'hide_comments.min' => 'Los comentarios ocultos deben tener al menos :min caracteres',
         'afflictions_procedures.min' => 'Las aflicciones deben tener al menos :min caracteres'
@@ -32,11 +34,11 @@ class ClinicalHistory extends Model
 
     public function pet()
     {
-        return $this->belongsTo(Tipo::class, 'id_pet', 'id_pet');
+        return $this->belongsTo(Pet::class, 'id_pet', 'id_pet');
     }
 
     public function consultation()
     {
-        return $this->belongsTo(Tipo::class, 'id_consultation', 'id_consultation');
+        return $this->hasMany(Consultation::class, 'id_history', 'id_history');
     }
 }

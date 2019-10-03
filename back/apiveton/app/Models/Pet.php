@@ -43,7 +43,7 @@ class Pet extends Model
 
     public function user()
     {
-        return $this->belongsTo(Tipo::class, 'id_user', 'id_user');
+        return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
 
     public function type()
@@ -53,11 +53,11 @@ class Pet extends Model
 
     public function breed()
     {
-        return $this->belongsTo(Tipo::class, 'id_breed', 'id_breed');
+        return $this->belongsTo(Breed::class, 'id_breed', 'id_breed');
     }
     
     public function gender()
     {
-        return $this->belongsTo(Tipo::class, 'id_gender', 'id_gender');
+        return $this->belongsTo(Gender::class, 'id_gender', 'id_gender');
     }
 }
