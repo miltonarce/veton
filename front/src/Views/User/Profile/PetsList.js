@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import queryString from 'query-string';
@@ -51,5 +52,12 @@ PetsList.propTypes = {
     search: PropTypes.string,
   }),
 };
+
+
+class PetsList extends React.PureComponent {
+  render() {
+    return <h1>PetsList</h1>;
+  }
+}
 
 export default PetsList;

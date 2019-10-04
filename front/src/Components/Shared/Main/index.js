@@ -5,6 +5,8 @@ import { Route } from 'react-router-dom';
 import Contact from '../../../Views/User/Contact';
 import PetList from '../../../Views/User/Profile/PetsList';
 import AddPet from '../../../Views/User/AddPet/AddPet';
+import PetList from '../../../Views/User/Profile/PetsList';
+import Contact from '../../../Views/User/Contact/index';
 
 export default class Main extends React.PureComponent {
   render() {
