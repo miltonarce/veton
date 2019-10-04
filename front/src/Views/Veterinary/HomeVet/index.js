@@ -1,5 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import ApiVet from '../../../Services/ApiVet';
+import ListPets from '../../../Components/ListPets';
 
 class HomeVet extends React.PureComponent {
   constructor(props) {
@@ -21,10 +24,14 @@ class HomeVet extends React.PureComponent {
   render() {
     const { petsList } = this.state;
     return (
-      <div>
-        {petsList.map(pet => (
-          <div key={pet.id}>{pet.name}</div>
-        ))}
+      <div className="container">
+        <div className="my-pets">
+          <h2>Mis Pacientes</h2>
+          <Link className="btn btn-link btn-lg" to="/add-clinical-history">
+            Agregar nuevo paciente
+          </Link>
+        </div>
+        {petsList.length > 0 ? <ListPets pets={petsList} /> : <p>No tenes registrado ninguna mascota</p>}
       </div>
     );
   }

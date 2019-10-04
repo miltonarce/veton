@@ -8,7 +8,7 @@ export default class AddPet extends React.PureComponent {
     super(props);
     this.state = {
       isLoading: true,
-      races: {},
+      breeds: [],
       types: [],
       statusPet: {},
     };
@@ -18,11 +18,12 @@ export default class AddPet extends React.PureComponent {
   async componentDidMount() {
     try {
       this.setState({ ...this.state, isLoading: true });
-      const [races, types] = await Promise.all([Api.getRaces(), Api.getTypes()]);
+      const breeds = await Api.breeds.fetch();
+      const types = await Api.types.fetch();
       this.setState({
         ...this.state,
-        races,
-        types,
+        breeds: breeds.data,
+        types: types.data,
         isLoading: false,
       });
     } catch (err) {
@@ -31,11 +32,11 @@ export default class AddPet extends React.PureComponent {
   }
 
   render() {
-    const { races, types, isLoading, statusPet } = this.state;
+    const { breeds, types, isLoading, statusPet } = this.state;
     return (
       <React.Fragment>
         {statusPet.msg && <Alert message={statusPet.msg} type={statusPet.type} />}
-        {!isLoading && <FormAddPet title="Registar Mascota" types={types} races={races} onSubmit={this.handleSubmit} />}
+        {!isLoading && <FormAddPet title="Registar Mascota" types={types} breeds={breeds} onSubmit={this.handleSubmit} />}
       </React.Fragment>
     );
   }
@@ -50,7 +51,7 @@ export default class AddPet extends React.PureComponent {
     const errorAlert = { msg: 'Se produjo un error', type: 'danger' };
     const successAlert = { msg: 'Se dió de alta correctamente!', type: 'success' };
     try {
-      const response = await Api.createPet(pet);
+      const response = await Api.pets.createPet(pet);
       if (response.status === 'OK') {
         this.setState({ ...this.state, statusPet: successAlert });
       } else {
