@@ -16,7 +16,7 @@ class ConsultationsController extends Controller
         return response()->json($consultations);
     }
 
-    public function new(Request $request)
+    public function store(Request $request)
     {
         $request->validate(Consultation::$rules, Consultation::$errorMessages);
         $data = $request->all();

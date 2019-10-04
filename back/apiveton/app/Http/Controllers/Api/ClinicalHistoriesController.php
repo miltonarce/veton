@@ -54,7 +54,7 @@ class ClinicalHistoriesController extends Controller
     *     )
     * )
     */
-    public function new(Request $request)
+    public function store(Request $request)
     {
         $request->validate(ClinicalHistory::$rules, ClinicalHistory::$errorMessages);
         $data = $request->all();
