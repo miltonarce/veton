@@ -15,14 +15,6 @@ class HomeVet extends React.PureComponent {
       const petsList = await ApiVet.pets.fetch();
       this.setState({ isLoading: false, petsList: petsList.data });
     } catch (err) {
-
-
-
-
-
-
-
-
       console.log(err);
     }
   }
