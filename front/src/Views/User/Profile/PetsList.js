@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import queryString from 'query-string';
 import Api from '../../../Services/Api';
 import ListPets from '../../../Components/ListPets';
@@ -32,7 +33,12 @@ class PetsList extends React.PureComponent {
     const { pets } = this.state;
     return (
       <div className="container">
-        <h2 className="my-pets-title">Mis Mascotas</h2>
+        <div className="my-pets">
+          <h2>Mis Mascotas</h2>
+          <Link className="btn btn-link btn-lg" to="/add-pet">
+            Agregar mascota
+          </Link>
+        </div>
         {pets.length > 0 && <ListPets pets={pets} />}
         {/* {pets.length === 0 && <p>No tenes registrado ninguna mascota</p>} */}
       </div>
