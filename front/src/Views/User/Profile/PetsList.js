@@ -11,7 +11,7 @@ class PetsList extends React.PureComponent {
   constructor() {
     super();
     this.state = {
-      pets: [],
+      petsList: [],
       isLoading: false,
       error: null,
     };
@@ -22,8 +22,8 @@ class PetsList extends React.PureComponent {
     // if (id) {
     try {
       this.setState({ ...this.state, isLoading: true });
-      const pets = await Api.pets.getPetsByUser(id);
-      this.setState({ ...this.state, isLoading: false, pets });
+      const pets = await Api.pets.fetch();
+      this.setState({ ...this.state, isLoading: false, petsList: pets.data });
     } catch (err) {
       this.setState({ isLoading: false });
     }
@@ -31,7 +31,7 @@ class PetsList extends React.PureComponent {
   }
 
   render() {
-    const { pets } = this.state;
+    const { petsList } = this.state;
     return (
       <div className="container">
         <div className="my-pets">
@@ -40,8 +40,7 @@ class PetsList extends React.PureComponent {
             Agregar mascota
           </Link>
         </div>
-        {pets.length > 0 && <ListPets pets={pets} />}
-        {/* {pets.length === 0 && <p>No tenes registrado ninguna mascota</p>} */}
+        {petsList.length > 0 ? <ListPets pets={petsList} /> : <p>No tenes registrado ninguna mascota</p>}
       </div>
     );
   }
@@ -52,12 +51,5 @@ PetsList.propTypes = {
     search: PropTypes.string,
   }),
 };
-
-
-class PetsList extends React.PureComponent {
-  render() {
-    return <h1>PetsList</h1>;
-  }
-}
 
 export default PetsList;

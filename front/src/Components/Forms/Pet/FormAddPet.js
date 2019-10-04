@@ -4,19 +4,19 @@ import PropTypes from 'prop-types';
 export default class FormAddPet extends React.PureComponent {
   constructor(props) {
     super(props);
-    const [firstType] = props.types;
     this.state = {
       form: {
+        id_user: 2,
+        id_type: 1,
         name: '',
-        lastname: '',
-        birdthay: '',
+        last_name: '',
+        birdthay: null,
         image: '',
-        weight: '',
-        color: '',
+        weight: null,
+        colors: null,
         comments: '',
-        type: firstType.id,
-        race: '',
-        gender: '',
+        id_breed: 1,
+        id_gender: 1,
       },
     };
     this.handleChange = this.handleChange.bind(this);
@@ -40,13 +40,27 @@ export default class FormAddPet extends React.PureComponent {
    */
   handleChange(event) {
     const { name, value } = event.target;
-    this.setState({ form: { ...this.state.form, [name]: value } });
+    if (name == 'id_type' || name == 'id_breed' || name == 'id_gender') {
+      this.setState({ form: { ...this.state.form, [name]: Number(value) } });
+    } else {
+      this.setState({ form: { ...this.state.form, [name]: value } });
+    }
   }
 
   render() {
-    const { types, races, title } = this.props;
-    const { name, lastname, birdthay, image, weight, color, comments, type, race, gender } = this.state.form;
-    const racesForType = races[type];
+    const { types, breeds, title } = this.props;
+    const {
+      name,
+      last_name,
+      birdthay,
+      image,
+      weight,
+      colors,
+      comments,
+      id_type,
+      id_breed,
+      id_gender,
+    } = this.state.form;
     return (
       <div className="container py-2">
         <h2 className="text-center">{title}</h2>
@@ -68,9 +82,9 @@ export default class FormAddPet extends React.PureComponent {
             <input
               type="text"
               className="form-control"
-              id="lastname"
-              name="lastname"
-              value={lastname}
+              id="last_name"
+              name="last_name"
+              value={last_name}
               onChange={this.handleChange}
               required
             />
@@ -119,9 +133,9 @@ export default class FormAddPet extends React.PureComponent {
             <input
               type="text"
               className="form-control"
-              id="color"
-              name="color"
-              value={color}
+              id="colors"
+              name="colors"
+              value={colors}
               onChange={this.handleChange}
             />
           </div>
@@ -131,20 +145,26 @@ export default class FormAddPet extends React.PureComponent {
           </div>
           <div className="form-group">
             <label htmlFor="type">Tipo</label>
-            <select className="form-control" id="type" name="type" value={type} onChange={this.handleChange}>
+            <select className="form-control" id="id_type" name="id_type" value={id_type} onChange={this.handleChange}>
               {types.map((type, index) => (
-                <option value={type.id} key={index}>
-                  {type.name}
+                <option value={type.id_type} key={index}>
+                  {type.type}
                 </option>
               ))}
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="race">Raza</label>
-            <select className="form-control" id="race" name="race" value={race} onChange={this.handleChange}>
-              {racesForType.map((race, index) => (
-                <option value={race.id} key={index}>
-                  {race.name}
+            <label htmlFor="breeds">Raza</label>
+            <select
+              className="form-control"
+              id="id_breed"
+              name="id_breed"
+              value={id_breed}
+              onChange={this.handleChange}
+            >
+              {breeds.map((breed, index) => (
+                <option value={breed.id_breed} key={index}>
+                  {breed.breed}
                 </option>
               ))}
             </select>
@@ -154,10 +174,9 @@ export default class FormAddPet extends React.PureComponent {
               <input
                 className="form-check-input"
                 type="radio"
-                name="gender"
+                name="id_gender"
                 id="exampleRadios1"
-                value="male"
-                checked={gender === 'male'}
+                value={2}
                 onChange={this.handleChange}
               />
               <label className="form-check-label" htmlFor="exampleRadios1">
@@ -168,10 +187,9 @@ export default class FormAddPet extends React.PureComponent {
               <input
                 className="form-check-input"
                 type="radio"
-                name="gender"
+                name="id_gender"
                 id="gender"
-                value="female"
-                checked={gender === 'female'}
+                value={1}
                 onChange={this.handleChange}
               />
               <label className="form-check-label" htmlFor="gender">
@@ -189,13 +207,12 @@ export default class FormAddPet extends React.PureComponent {
 }
 
 FormAddPet.propTypes = {
-  types: PropTypes.arrayOf(
+  breeds: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
+      id_breed: PropTypes.number.isRequired,
+      breed: PropTypes.string.isRequired,
     }).isRequired,
   ),
-  races: PropTypes.shape({}).isRequired,
   title: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
 };

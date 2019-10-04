@@ -9,7 +9,7 @@ export default class Pet extends React.PureComponent {
       <a className="pet">
         <div className="pet__info">
           <p className="pet__text">
-            <span className="pet__title">Nombre:</span>
+            <span className="pet__title">Nombre: </span>
             {name}
           </p>
           <p className="pet__text">
@@ -22,7 +22,11 @@ export default class Pet extends React.PureComponent {
           </p>
         </div>
         <div>
-          <img className="pet__img img-fluid rounded" src={image} alt={name} />
+          <img
+            className="pet__img img-fluid rounded"
+            src={image ? image : 'https://via.placeholder.com/300x200'}
+            alt={name}
+          />
         </div>
       </a>
     );
