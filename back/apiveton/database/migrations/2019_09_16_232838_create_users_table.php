@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password', 255);
             $table->date('birthday');
             $table->string('image', 255);
-
+            $table->integer('id_role');
             $table->timestamps();
         });
     }

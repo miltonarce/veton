@@ -67,14 +67,14 @@ class PetsController extends Controller
     {
         $request->validate(Pet::$rules, Pet::$errorMessages);
         $data = $request->all();
-       /if($request->hasFile('image')) {
-            $file = $request->image;
-            $nameImage = time() . "." . $file->extension();
-            $file->move(public_path(path: '/imgs'), $nameImage);
-            $data['image'] = 'imgs/' . $nameImage;
-        }else {
-            $data['image'] = '';
-        }
+        if($request->hasFile('image')) {
+                $file = $request->image;
+                $nameImage = time() . "." . $file->extension();
+                $file->move(public_path('/imgs'), $nameImage);
+                $data['image'] = 'imgs/' . $nameImage;
+            }else {
+                $data['image'] = '';
+            }
         Pet::create($data);
         return response()->json([
             'sucess' => true
