@@ -35,4 +35,33 @@ export default class Api {
       status: 'OK',
     });
   }
+
+  /**
+   * Get all pets by user
+   * @param {number} idUser
+   * @returns {Promise}
+   */
+  static getPetsByUser(idUser) {
+    console.info('get pets for user', idUser);
+    return Promise.resolve([
+      {
+        name: 'Lester',
+        last_name: 'Torre',
+        birthday: '2017-04-22',
+        image: 'https://via.placeholder.com/300x200',
+      },
+      {
+        name: 'Lester',
+        last_name: 'Torre',
+        birthday: '2017-04-22',
+        image: 'https://via.placeholder.com/300x200',
+      },
+      {
+        name: 'Lester',
+        last_name: 'Torre',
+        birthday: '2017-04-22',
+        image: 'https://via.placeholder.com/300x200',
+      },
+    ]);
+  }
 }
