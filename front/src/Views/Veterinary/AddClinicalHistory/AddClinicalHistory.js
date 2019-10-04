@@ -29,9 +29,7 @@ class AddClinicalHistory extends React.PureComponent {
     }
   }
 
-  handleSubmit() {
-
-  }
+  handleSubmit() {}
   render() {
     const { breeds, types } = this.state;
     return (

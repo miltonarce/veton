@@ -22,7 +22,11 @@ export default class Pet extends React.PureComponent {
           </p>
         </div>
         <div>
-          <img className="pet__img img-fluid rounded" src={image ? image : 'https://via.placeholder.com/300x200'} alt={name} />
+          <img
+            className="pet__img img-fluid rounded"
+            src={image ? image : 'https://via.placeholder.com/300x200'}
+            alt={name}
+          />
         </div>
       </a>
     );

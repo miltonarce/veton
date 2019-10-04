@@ -36,7 +36,9 @@ export default class AddPet extends React.PureComponent {
     return (
       <React.Fragment>
         {statusPet.msg && <Alert message={statusPet.msg} type={statusPet.type} />}
-        {!isLoading && <FormAddPet title="Registar Mascota" types={types} breeds={breeds} onSubmit={this.handleSubmit} />}
+        {!isLoading && (
+          <FormAddPet title="Registar Mascota" types={types} breeds={breeds} onSubmit={this.handleSubmit} />
+        )}
       </React.Fragment>
     );
   }

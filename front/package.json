@@ -20,11 +20,6 @@
     "lint:fix": "eslint src --fix",
     "prettier": "prettier --write '**/*.{js,jsx,css}'"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged && npm run lint"
-    }
-  },
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -50,7 +45,6 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "husky": "^3.0.5",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1"
   }
