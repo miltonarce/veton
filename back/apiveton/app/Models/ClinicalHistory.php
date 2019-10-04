@@ -37,7 +37,7 @@ class ClinicalHistory extends Model
         return $this->belongsTo(Pet::class, 'id_pet', 'id_pet');
     }
 
-    public function consultation()
+    public function consultations()
     {
         return $this->hasMany(Consultation::class, 'id_history', 'id_history');
     }

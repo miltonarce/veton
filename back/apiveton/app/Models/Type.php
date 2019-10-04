@@ -12,7 +12,7 @@ class Type extends Model
 
     public function pets()
     {
-        return $this->hasMany(Pet::class, 'id_type', 'id_type');
+        return $this->hasMany(Pet::class, 'id_pet', 'id_pet');
     }
 
     public function breeds()

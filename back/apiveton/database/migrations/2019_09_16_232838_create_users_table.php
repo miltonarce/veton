@@ -20,9 +20,8 @@ class CreateUsersTable extends Migration
             $table->integer('dni')->unsigned();
             $table->string('email', 150);
             $table->string('password', 255);
-            $table->date('birthday');
-            $table->string('image', 255);
-            $table->integer('id_role');
+            $table->date('birthday')->nullable();
+            $table->string('image', 255)->nullable();
             $table->timestamps();
         });
     }

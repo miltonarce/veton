@@ -18,10 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('pets', 'api\\PetsController@all');
-Route::post('pets', 'api\\PetsController@new');
+Route::post('pets', 'api\\PetsController@store');
 Route::get('clinicalhistories', 'api\\ClinicalHistoriesController@all');
-Route::post('clinicalhistories', 'api\\ClinicalHistoriesController@new');
+Route::post('clinicalhistories', 'api\\ClinicalHistoriesController@store');
 Route::get('consultations', 'api\\ConsultationsController@all');
-Route::post('consultations', 'api\\ConsultationsController@new');
+Route::post('consultations', 'api\\ConsultationsController@store');
 Route::get('veterinaries', 'api\\VeterinariesController@all');
-Route::post('veterinaries', 'api\\VeterinariesController@new');
+Route::post('veterinaries', 'api\\VeterinariesController@store');

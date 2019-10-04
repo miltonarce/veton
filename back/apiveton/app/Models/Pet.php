@@ -60,4 +60,9 @@ class Pet extends Model
     {
         return $this->belongsTo(Gender::class, 'id_gender', 'id_gender');
     }
+
+    public function clinicalHistory()
+    {
+        return $this->belongsTo(ClinicalHistory::class, 'id_pet', 'id_pet');
+    }
 }

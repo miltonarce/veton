@@ -12,7 +12,7 @@ class Gender extends Model
 
     public function pets()
     {
-        return $this->belongsTo(Pet::class, 'id_pet', 'id_pet');
+        return $this->hasMany(Pet::class, 'id_gender', 'id_gender');
     }
 
 }

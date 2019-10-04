@@ -63,7 +63,7 @@ class PetsController extends Controller
     *     )
     * )
     */
-    public function new(Request $request)
+    public function store(Request $request)
     {
         $request->validate(Pet::$rules, Pet::$errorMessages);
         $data = $request->all();

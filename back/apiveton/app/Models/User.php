@@ -25,4 +25,14 @@ class User extends Model
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function pets()
+    {
+        return $this->hasMany(Pet::class, 'id_user', 'id_user');
+    }
+
+    public function veterinaries()
+    {
+        return $this->hasMany(Veterinary::class, 'id_user', 'id_user');
+    }
 }

@@ -35,4 +35,9 @@ class Consultation extends Model
     {
         return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
+
+    public function clinicalHistory()
+    {
+        return $this->belongsTo(ClinicalHistory::class, 'id_history', 'id_history');
+    }
 }
