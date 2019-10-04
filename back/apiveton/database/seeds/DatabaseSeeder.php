@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GenderTableSeeder::class);
         $this->call(PetsTableSeeder::class);
         $this->call(VeterinariesTableSeeder::class);
-        $this->call(ConsultationsTableSeeder::class);
         $this->call(ClinicalHistoriesTableSeeder::class);
+        $this->call(ConsultationsTableSeeder::class);
     }
 }

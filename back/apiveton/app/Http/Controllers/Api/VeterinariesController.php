@@ -15,7 +15,7 @@ class VeterinariesController extends Controller
         return response()->json($veterinaries);
     }
 
-    public function new(Request $request)
+    public function store(Request $request)
     {
         $request->validate(Veterinary::$rules, Veterinary::$errorMessages);
         $data = $request->all();

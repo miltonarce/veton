@@ -3,7 +3,7 @@ import FormAddPet from '../../../Components/Forms/Pet/FormAddPet';
 import Alert from '../../../Components/Alert';
 import Api from '../../../Services/Api';
 
-export default class Home extends React.PureComponent {
+export default class AddPet extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
