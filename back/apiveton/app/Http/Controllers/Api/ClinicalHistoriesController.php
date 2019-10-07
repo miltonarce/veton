@@ -59,13 +59,13 @@ class ClinicalHistoriesController extends Controller
         $request->validate(ClinicalHistory::$rules, ClinicalHistory::$errorMessages);
         $data = $request->all();
         if($request->hasFile('image')) {
-             $file = $request->image;
-             $nameImage = time() . "." . $file->extension();
-             $file->move(public_path(path: '/imgs'), $nameImage);
-             $data['image'] = 'imgs/' . $nameImage;
-         }else {
-             $data['image'] = '';
-         }
+            $file = $request->image;
+            $nameImage = time() . "." . $file->extension();
+            $file->move(public_path('/imgs'), $nameImage);
+            $data['image'] = 'imgs/' . $nameImage;
+        }else {
+            $data['image'] = '';
+        }
         ClinicalHistory::create($data);
         return response()->json([
             'sucess' => true
