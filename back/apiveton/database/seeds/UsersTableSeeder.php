@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'id_user' => 1,
-            'id_profile' =>1,
+//            'id_profile' =>1,
             'name' => 'Admin',
             'last_name' =>'',
             'dni' =>12345678,
@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder
         ]);
         DB::table('users')->insert([
             'id_user' => 2,
-            'id_profile' =>2,
+//            'id_profile' =>2,
             'name' => 'TestUser',
             'last_name' =>'',
             'dni' =>12345679,
@@ -42,7 +42,7 @@ class UsersTableSeeder extends Seeder
         ]);
         DB::table('users')->insert([
             'id_user' => 3,
-            'id_profile' =>3,
+//            'id_profile' =>3,
             'name' => 'TestVet',
             'last_name' =>'vet_lastname',
             'dni' =>12345679,

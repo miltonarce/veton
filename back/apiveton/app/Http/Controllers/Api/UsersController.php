@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    public function index()
+    public function view($id)
     {
-        $users = User::with('role')
-            ->withTrashed()
-            ->get();
+        $users = User::with(['role', 'pets', 'pets.breed', 'pets.type', 'pets.gender'])
+//            ->withTrashed()
+            ->findOrFail($id);
         return response()->json($users);
     }
 }

@@ -33,6 +33,12 @@ class PetsController extends Controller
         return response()->json($pets);
     }
 
+    public function view($id)
+    {
+        $pets = Pet::with(['type', 'breed', 'gender', 'user', 'clinicalHistory', 'clinicalHistory.consultations'])->findOrFail($id);
+        return response()->json($pets);
+    }
+
     /**
     * @OA\Post(
     *     path="/api/pets",
