@@ -48,7 +48,7 @@ class Pet extends Model
 
     public function type()
     {
-        return $this->belongsTo(Tipo::class, 'id_type', 'id_type');
+        return $this->belongsTo(Type::class, 'id_type', 'id_type');
     }
 
     public function breed()

@@ -10,7 +10,7 @@ class Consultation extends Model
     protected $primaryKey = 'id_consultation';
 
     /** @var array La lista de campos que se pueden cargar masivamente. */
-    protected $fillable = ['id_consultation', 'date', 'comments', 'afflictions_procedures', 'image' ];
+    protected $fillable = ['id_consultation', 'id_history', 'id_user', 'date', 'comments', 'afflictions_procedures', 'image' ];
 
     /** @var array las reglas de validación. */
     public static $rules = [

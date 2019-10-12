@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProfilesTable extends Migration
+class UserVeterinaryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('profiles', function (Blueprint $table) {
-            $table->increments('id_profile');
-            $table->string('description', 100);
-            $table->integer('val')->unsigned();
-
+        Schema::create('user_veterinary', function (Blueprint $table) {
+            $table->unsignedInteger('id_user');
+            $table->unsignedInteger('id_veterinary');
+            $table->primary(['id_user', 'id_veterinary']);
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('user_veterinary');
     }
 }

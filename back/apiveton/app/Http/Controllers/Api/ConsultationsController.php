@@ -16,7 +16,7 @@ class ConsultationsController extends Controller
         return response()->json($consultations);
     }
 
-    public function store(Request $request)
+    public function store($idHistory, Request $request)
     {
         $request->validate(Consultation::$rules, Consultation::$errorMessages);
         $data = $request->all();
@@ -28,9 +28,15 @@ class ConsultationsController extends Controller
         }else {
             $data['image'] = '';
         }
+        $data['id_history'] = $idHistory;
         Consultation::create($data);
         return response()->json([
             'sucess' => true
         ]);
+    }
+
+    public function findById($id) {
+        $consultations = Consultation::all()->where('id_history', '=', $id);
+        return response()->json($consultations);
     }
 }

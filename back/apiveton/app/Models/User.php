@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
+    protected $primaryKey = "id_user";
+
     protected $fillable = [
         'name', 'last_name', 'dni', 'email', 'birthday', 'image',
     ];
@@ -21,6 +23,7 @@ class User extends Model
         'email' => 'required|email',
         'password' => 'required'
     ];
+
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -31,8 +34,13 @@ class User extends Model
         return $this->hasMany(Pet::class, 'id_user', 'id_user');
     }
 
-    public function veterinaries()
+    /*public function veterinaries()
     {
         return $this->hasMany(Veterinary::class, 'id_user', 'id_user');
+    }*/
+
+    public function veterinaries()
+    {
+        return $this->belongsToMany(Veterinary::class, 'user_veterinary', 'id_user', 'id_veterinary', 'id_user', 'id_veterinary')->withTimestamps();
     }
 }
