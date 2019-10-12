@@ -18,7 +18,6 @@ class CreateClinicalhistoriesTable extends Migration
             $table->text('comments');
             $table->text('hide_comments');
             $table->text('afflictions_procedures');
-            $table->tinyInteger('weight')->unsigned()->nullable();
 
             $table->timestamps();
         });
