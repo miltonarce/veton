@@ -24,7 +24,7 @@ class AuthController extends Controller
     public function logout(Request $request) 
     {
         Auth::logout();
-        return response()->json(['success' => false, 'msg' => 'Se deslogueo correctamente!']);
+        return response()->json(['success' => true, 'msg' => 'Se deslogueo correctamente!']);
     }
 
     public function register(Request $request)
@@ -35,9 +35,9 @@ class AuthController extends Controller
             $user['password'] = Hash::make($request['password']);
             $user['id_role'] = 3;
             User::create($user);
-            return response()->json(['success' => false, 'msg' => 'Se creo su usuario!']);
+            return response()->json(['success' => true, 'msg' => 'Se creo su usuario!']);
         } catch (QueryException $e) {
-            return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear su usuario']);
+            return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear su usuario', 'error_stack' => $e]);
         }
     }
 
