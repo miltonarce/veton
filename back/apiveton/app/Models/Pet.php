@@ -9,7 +9,7 @@ class Pet extends Model
     protected $primaryKey = 'id_pet';
 
     /** @var array La lista de campos que se pueden cargar masivamente. */
-    protected $fillable = ['id_user', 'id_type', 'id_breed', 'id_gender', 'name', 'last_name', 'birthday', 'image', 'weight', 'colors', 'comments' ];
+    protected $fillable = ['id_user', 'id_type', 'id_breed', 'id_gender', 'name', 'last_name', 'birthday', 'image', 'colors', 'comments' ];
    
     /** @var array las reglas de validación. */
     public static $rules = [

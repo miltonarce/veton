@@ -19,7 +19,6 @@ class CreatePetsTable extends Migration
             $table->string('last_name', 70);
             $table->date('birthday')->nullable();
             $table->string('image', 255)->nullable();
-            $table->tinyInteger('weight')->unsigned()->nullable();
             $table->string('colors', 150)->nullable();
             $table->text('comments')->nullable();
 
