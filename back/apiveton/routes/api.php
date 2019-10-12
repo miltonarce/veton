@@ -17,13 +17,30 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('users/{id}', 'Api\\UsersController@view');
+// Pets (Obtener todas las mascotas)
 Route::get('pets', 'Api\\PetsController@all');
-Route::get('pets/{id}', 'Api\\PetsController@view');
+// Pets (Obtener el detalle de una mascota)
+Route::get('pets/{id}', 'Api\\PetsController@detail');
+// Pets (Obtener las mascotas de un usuario)
+Route::get('pets/users/{id}', 'Api\\PetsController@findByUser');
+
+// Users (Obtener un usuario por dni)
+Route::get('/users/{dni}', 'Api\\UsersController@find');
+
+// ClinicalHistories (Obtener todas las historias clinicas)
 Route::get('clinicalhistories', 'Api\\ClinicalHistoriesController@all');
-Route::post('clinicalhistories', 'Api\\ClinicalHistoriesController@store');
+// ClinicalHistories (Obtener las historias clinicas de una mascota)
+Route::get('clinicalhistories/{id}', 'Api\\ClinicalHistoriesController@findById');
+// ClinicalHistories (Crear una historia clinica de una mascota)
+Route::post('clinicalhistories/{idPet}', 'Api\\ClinicalHistoriesController@store');
+
+// Consultations (Obtener todas las consultas)
 Route::get('consultations', 'Api\\ConsultationsController@all');
-Route::post('consultations', 'Api\\ConsultationsController@store');
+// Consultations (Obtener las consultas de una historia clinica)
+Route::get('consultations/{id}', 'Api\\ConsultationsController@findById');
+// Consultations (Crear una consulta para una historia clinica)
+Route::post('consultations/{idHistory}', 'Api\\ConsultationsController@store');
+
 Route::get('veterinaries', 'Api\\VeterinariesController@all');
 Route::post('veterinaries', 'Api\\VeterinariesController@store');
 Route::get('breeds', 'Api\\BreedsController@all');

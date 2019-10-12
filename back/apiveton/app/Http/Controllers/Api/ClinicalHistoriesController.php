@@ -54,7 +54,7 @@ class ClinicalHistoriesController extends Controller
     *     )
     * )
     */
-    public function store(Request $request)
+    public function store($idPet, Request $request)
     {
         $request->validate(ClinicalHistory::$rules, ClinicalHistory::$errorMessages);
         $data = $request->all();
@@ -66,10 +66,16 @@ class ClinicalHistoriesController extends Controller
         }else {
             $data['image'] = '';
         }
+        $data['id_pet'] = $idPet;
         ClinicalHistory::create($data);
         return response()->json([
             'sucess' => true
         ]);
+    }
+
+    public function findById($id) {
+        $clinicalHistories = ClinicalHistory::all()->where('id_pet', '=', $id);
+        return response()->json($clinicalHistories);
     }
 
     //        ClinicalHistory::with(['pet', 'pet.user', 'consultations', 'consultations.user', 'consultations.veterinary']);
