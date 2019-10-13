@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import Logo from '../../../assets/images/Logo.png';
-import SearchBox from '../../Forms/SearchBox';
+import SearchBox from '../../../Components/Forms/SearchBox';
 import './index.scss';
 
 class Header extends React.PureComponent {
@@ -13,7 +13,7 @@ class Header extends React.PureComponent {
     } = this.props;
     return (
       <nav className="navbar-veton navbar navbar-expand-lg navbar-light bg-light">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/user">
           <img src={Logo} className="logo_app" alt="VetOn, veterinaria online" />
         </Link>
         <SearchBox placeholder="Buscar" onSearch={onSearch} />
@@ -23,25 +23,25 @@ class Header extends React.PureComponent {
         <div className="collapse navbar-collapse" id="navbarVeton">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <Link className={this.getClassForLink(pathname, '/')} to="/">
+              <Link className={this.getClassForLink(pathname, '/user')} to="/user">
                 <i className="material-icons">home</i>
                 Inicio
               </Link>
             </li>
             <li className="nav-item">
-              <Link className={this.getClassForLink(pathname, '/option')} to="/option">
+              <Link className={this.getClassForLink(pathname, '/user/option')} to="/user/option">
                 <i className="material-icons">language</i>
                 Opción
               </Link>
             </li>
             <li className="nav-item">
-              <Link className={this.getClassForLink(pathname, '/pets')} to="/pets">
+              <Link className={this.getClassForLink(pathname, '/user/pets')} to="/user/pets">
                 <i className="material-icons">pets</i>
                 Mascotas
               </Link>
             </li>
             <li className="nav-item">
-              <Link className={this.getClassForLink(pathname, '/profile')} to="/profile">
+              <Link className={this.getClassForLink(pathname, '/user/profile')} to="/user/profile">
                 <i className="material-icons">account_circle</i>
                 Perfil
               </Link>

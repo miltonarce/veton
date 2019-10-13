@@ -27,7 +27,7 @@ class HomeVet extends React.PureComponent {
       <div className="container">
         <div className="my-pets">
           <h2>Mis Pacientes</h2>
-          <Link className="btn btn-link btn-lg" to="/add-clinical-history">
+          <Link className="btn btn-link btn-lg" to="veterinary/add-clinical-history">
             Agregar nuevo paciente
           </Link>
         </div>

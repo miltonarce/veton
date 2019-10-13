@@ -11,4 +11,9 @@ export default {
   types: {
     fetch: () => axios.get('http://api.veton/api/types'),
   },
+  auth: {
+    register: request => axios.post('http://api.veton/api/auth/register', request),
+    login: request => axios.post('http://api.veton/api/auth/login', request),
+    logout: () => axios.get('http://api.veton/api/auth/logout'),
+  },
 };

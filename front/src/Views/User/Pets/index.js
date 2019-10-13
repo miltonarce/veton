@@ -35,7 +35,7 @@ class Pets extends React.PureComponent {
       <div className="container">
         <div className="my-pets">
           <h2>Mis Mascotas</h2>
-          <Link className="btn btn-link btn-lg" to="/add-pet">
+          <Link className="btn btn-link btn-lg" to="/user/add-pet">
             Agregar mascota
           </Link>
         </div>
