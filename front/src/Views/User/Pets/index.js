@@ -1,13 +1,12 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import queryString from 'query-string';
 import Api from '../../../Services/Api';
 import ListPets from '../../../Components/ListPets';
-import './PetsList.scss';
+import './index.scss';
 
-class PetsList extends React.PureComponent {
+class Pets extends React.PureComponent {
   constructor() {
     super();
     this.state = {
@@ -46,10 +45,10 @@ class PetsList extends React.PureComponent {
   }
 }
 
-PetsList.propTypes = {
+Pets.propTypes = {
   location: PropTypes.shape({
     search: PropTypes.string,
   }),
 };
 
-export default PetsList;
+export default Pets;
