@@ -17,6 +17,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Auth (Autenticarse con email y password)
+Route::post('auth/login', 'Api\\AuthController@login');
+// Auth (Desloguearse)
+Route::get('auth/logout', 'Api\\AuthController@logout');
+// Auth (Registrase con email y password, usuarios con rol "3")
+Route::post('auth/register', 'Api\\AuthController@register');
+
 // Pets (Obtener todas las mascotas)
 Route::get('pets', 'Api\\PetsController@all');
 // Pets (Obtener el detalle de una mascota)
