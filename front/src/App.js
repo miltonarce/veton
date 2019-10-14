@@ -8,10 +8,14 @@ import Header from './Components/Shared/Header/index';
 import Footer from './Components/Shared/Footer/index';
 import Main from './Components/Shared/Main/index';
 
+const handleSearch = search => {
+  console.log('searching...', search);
+};
+
 function App() {
   return (
     <Router>
-      <Header />
+      <Header onSearch={handleSearch} />
       <Main />
       <Footer />
     </Router>
