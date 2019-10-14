@@ -4,14 +4,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './assets/sass/styles.scss';
 
 // Template Header, Main, Footer
-import Header from './Components/Shared/Header/index';
-import Footer from './Components/Shared/Footer/index';
-import Main from './Components/Shared/Main/index';
+import Footer from './Components/Footer/index';
+import Main from './Components/Main/index';
 
 function App() {
   return (
     <Router>
-      <Header />
       <Main />
       <Footer />
     </Router>

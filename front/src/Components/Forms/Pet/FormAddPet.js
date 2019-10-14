@@ -40,7 +40,7 @@ export default class FormAddPet extends React.PureComponent {
    */
   handleChange(event) {
     const { name, value } = event.target;
-    if (name == 'id_type' || name == 'id_breed' || name == 'id_gender') {
+    if (name === 'id_type' || name === 'id_breed' || name === 'id_gender') {
       this.setState({ form: { ...this.state.form, [name]: Number(value) } });
     } else {
       this.setState({ form: { ...this.state.form, [name]: value } });
@@ -49,18 +49,7 @@ export default class FormAddPet extends React.PureComponent {
 
   render() {
     const { types, breeds, title } = this.props;
-    const {
-      name,
-      last_name,
-      birdthay,
-      image,
-      weight,
-      colors,
-      comments,
-      id_type,
-      id_breed,
-      id_gender,
-    } = this.state.form;
+    const { name, last_name, birdthay, image, weight, colors, comments, id_type, id_breed } = this.state.form;
     return (
       <div className="container py-2">
         <h2 className="text-center">{title}</h2>
