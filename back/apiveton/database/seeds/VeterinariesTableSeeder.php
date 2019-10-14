@@ -13,11 +13,11 @@ class VeterinariesTableSeeder extends Seeder
     {
         DB::table('veterinaries')->insert([
             'id_veterinary' => 1,
-            'id_user' =>3,
-            'business_name' => 'Veterinaria Test SA',
-            'fantasy_name' =>'VeterinariaTest',
+            'id_user' =>4,
+            'business_name' => 'Maskkotas SA',
+            'fantasy_name' =>'Maskkotas',
             'cuit_cuil' =>12345678,
-            'image'=>'',
+            'image'=>'maskkotas.jpg',
             'phone1' => 123456789,
             'phone2'=> 123456789,
             'street'=> 'Calle falsa 123',
@@ -28,11 +28,11 @@ class VeterinariesTableSeeder extends Seeder
 
         DB::table('veterinaries')->insert([
             'id_veterinary' => 2,
-            'id_user' =>3,
-            'business_name' => 'Patitas SA',
-            'fantasy_name' =>'Veterinaria Patitas',
+            'id_user' =>4,
+            'business_name' => 'Encalada SA',
+            'fantasy_name' =>'Veterinaria Encalada',
             'cuit_cuil' =>55896987,
-            'image'=>'',
+            'image'=>'encalada.jpg',
             'phone1' => 45785874,
             'phone2'=> 45785875,
             'street'=> 'Av. Gaona 3258',
@@ -43,11 +43,11 @@ class VeterinariesTableSeeder extends Seeder
 
         DB::table('veterinaries')->insert([
             'id_veterinary' => 3,
-            'id_user' =>3,
-            'business_name' => 'MascotaFeliz SA',
-            'fantasy_name' =>'Veterinaria Mascota Feliz',
+            'id_user' =>4,
+            'business_name' => 'Drovenort SA',
+            'fantasy_name' =>'Veterinaria Drovenort',
             'cuit_cuil' =>11254759,
-            'image'=>'',
+            'image'=>'drovenort.jpg',
             'phone1' => 46118956,
             'phone2'=> 46118957,
             'street'=> 'Av. Rivadavia 8858',
