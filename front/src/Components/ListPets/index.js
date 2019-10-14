@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import Pet from '../Pet';
 import './index.scss';
 
@@ -10,7 +12,9 @@ export default class ListPets extends React.PureComponent {
       <ol className="list-pets">
         {pets.map((pet, i) => (
           <li key={i}>
-            <Pet {...pet} />
+            <Link to={`/user/pet/${pet.id_pet}`}>
+              <Pet {...pet} />
+            </Link>
           </li>
         ))}
       </ol>

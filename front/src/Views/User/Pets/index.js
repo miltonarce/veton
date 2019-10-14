@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import queryString from 'query-string';
+
+import Spinner from '../../../Components/Spinner/index';
 import Api from '../../../Services/Api';
 import ListPets from '../../../Components/ListPets';
 import './index.scss';
@@ -29,8 +31,14 @@ class Pets extends React.PureComponent {
     // }
   }
 
+
   render() {
-    const { petsList } = this.state;
+    const { petsList, isLoading } = this.state;
+    if (isLoading) return (
+      <div className="container">
+        <Spinner />
+      </div>
+    );
     return (
       <div className="container">
         <div className="my-pets">

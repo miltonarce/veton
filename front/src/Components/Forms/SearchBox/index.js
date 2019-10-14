@@ -52,7 +52,7 @@ class SearchBox extends React.PureComponent {
 
 SearchBox.propTypes = {
   placeholder: PropTypes.string,
-  onSearch: PropTypes.func.isRequired,
+  onSearch: PropTypes.func,
 };
 
 export default SearchBox;

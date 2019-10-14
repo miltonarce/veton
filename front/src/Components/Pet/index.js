@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import './index.scss';
 
 export default class Pet extends React.PureComponent {
   render() {
     const { name, last_name, image, birthday } = this.props;
     return (
-      <a className="pet">
+      <div className="pet">
         <div className="pet__info">
           <p className="pet__text">
             <span className="pet__title">Nombre: </span>
@@ -28,7 +30,7 @@ export default class Pet extends React.PureComponent {
             alt={name}
           />
         </div>
-      </a>
+      </div>
     );
   }
 }
