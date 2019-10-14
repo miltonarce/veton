@@ -40,7 +40,7 @@ class PetsController extends Controller
     }
 
     public function findByUser($idUser) {
-        $pets = Pet::all()->where('id_user', '=', $idUser);
+        $pets = Pet::where('id_user', '=', $idUser)->get();
         return response()->json($pets);
     }
 

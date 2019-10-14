@@ -3,26 +3,33 @@ import { Link } from 'react-router-dom';
 
 import ApiVet from '../../../Services/ApiVet';
 import ListPets from '../../../Components/ListPets';
+import SearchBox from '../../../Components/Forms/SearchBox';
+import Spinner from '../../../Components/Spinner';
 
 class HomeVet extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
+      isLoading: false,
       petsList: [],
     };
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
-  async componentDidMount() {
+  async handleSearch(dni) {
     try {
-      const petsList = await ApiVet.pets.fetch();
-      this.setState({ isLoading: false, petsList: petsList.data });
-    } catch (err) {
-      console.log(err);
+      this.setState({ ...this.state, isLoading: true });
+      const user = await ApiVet.users.fetch(dni);
+      const petsList = await ApiVet.userPets.fetch(user.data.id_user);
+      console.log(petsList.data);
+      this.setState({ petsList: petsList.data, isLoading: false });
+    } catch (error) {
+      console.log(error);
     }
   }
+
   render() {
-    const { petsList } = this.state;
+    const { petsList, isLoading } = this.state;
     return (
       <div className="container">
         <div className="my-pets">
@@ -31,7 +38,10 @@ class HomeVet extends React.PureComponent {
             Agregar nuevo paciente
           </Link>
         </div>
-        {petsList.length > 0 ? <ListPets pets={petsList} /> : <p>No tenes registrado ninguna mascota</p>}
+        <div className="d-flex justify-content-center">
+          <SearchBox placeholder="Buscar" onSearch={this.handleSearch} />
+        </div>
+        {isLoading ? <Spinner /> : petsList.length > 0 ? <ListPets pets={petsList} /> : <p>No tenes registrado ninguna mascota</p>}
       </div>
     );
   }
