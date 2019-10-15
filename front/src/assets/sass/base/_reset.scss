@@ -58,7 +58,10 @@ a{
 
 a:hover{
   color: $link-hover-color;
+  text-decoration: none;
 }
+
+button:focus {outline:0;}
 
 //placeholders
 %text-small {

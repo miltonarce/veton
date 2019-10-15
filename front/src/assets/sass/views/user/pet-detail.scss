@@ -1,0 +1,294 @@
+.veton-container{
+  @include  make-veton-container();
+  &__hero-row{
+    @include make-veton-row();
+    padding-top: 2.3rem;
+    padding-bottom: 2.3rem;
+    h2{
+      font-size: $h2-font-size;
+      @include main-titles;
+    }
+  }
+
+  &__main-veton{
+    @include  make-veton-container();
+    
+    &__data-pet{
+      @include make-veton-row();
+
+      &__image{
+        @include make-veton-col(3);
+        &__content{
+          display: flex;
+          justify-content: center;
+          img{
+            width: 16rem;
+            height: 16rem;
+            border-radius: 10rem;
+            border: 5px solid $color-secondary;
+          }
+        }
+      }
+      &__info{
+        @include make-veton-col(6);
+
+        &__title{
+          @include make-veton-row();
+          margin-bottom: 1.3rem;
+          h3{
+            color: $color-primary;
+            font-size: $h3-font-size;
+            text-align: left;
+            margin-top: 1rem;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+        }
+        &__data1{
+          @include make-veton-row();
+          margin-bottom: 3rem;
+          &__breed{
+            @include make-veton-col(4);
+            &__title{
+              font-size: $h6-font-size;
+              color: $color-med-gray;
+              font-weight: 700;
+            }
+            &__data{
+              font-size: $h6-font-size;
+              color: $color-light-gray;
+              font-weight: 300;
+            }
+          }
+          &__color{
+            @include make-veton-col(4);
+            &__title{
+              font-size: $h6-font-size;
+              color: $color-med-gray;
+              font-weight: 700;
+            }
+            &__data{
+              font-size: $h6-font-size;
+              color: $color-light-gray;
+              font-weight: 300;
+            }
+            
+          }
+          &__weight{
+            @include make-veton-col(4);
+            &__title{
+              font-size: $h6-font-size;
+              color: $color-med-gray;
+              font-weight: 700;
+            }
+            &__data{
+              font-size: $h6-font-size;
+              color: $color-light-gray;
+              font-weight: 300;
+            }
+          }
+        }
+        &__data2{
+          @include make-veton-row();
+
+          &__age{
+            @include make-veton-col(4);
+            &__title{
+              font-size: $h6-font-size;
+              color: $color-med-gray;
+              font-weight: 700;
+            }
+            &__data{
+              font-size: $h6-font-size;
+              color: $color-light-gray;
+              font-weight: 300;
+            }
+          }
+          &__birthday{
+            @include make-veton-col(4);
+            &__title{
+              font-size: $h6-font-size;
+              color: $color-med-gray;
+              font-weight: 700;
+            }
+            &__data{
+              font-size: $h6-font-size;
+              color: $color-light-gray;
+              font-weight: 300;
+            }
+            
+          }
+          &__gender{
+            @include make-veton-col(4);
+            &__title{
+              font-size: $h6-font-size;
+              color: $color-med-gray;
+              font-weight: 700;
+            }
+            &__data{
+              font-size: $h6-font-size;
+              color: $color-light-gray;
+              font-weight: 300;
+            }
+          }
+        }
+      }
+      &__comments{
+        @include make-veton-col(3);
+        padding-top: 8rem;
+        &__title{
+          font-size: $h6-font-size;
+          color: $color-med-gray;
+          font-weight: 700;
+        }
+        &__text{
+          font-size: $h6-font-size;
+          color: $color-light-gray;
+          font-weight: 300;
+        }
+      }
+    }
+    &__history-pet{
+      @include make-veton-row();
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+
+      &__actions{
+        @include make-veton-col(12);
+        margin-bottom: 3rem;
+        &__row{
+          @include make-veton-row();
+          div{
+            @include make-veton-col(2);
+            button{
+              background: $color-lightest-gray;
+              border: none;
+              padding: 1.5rem 3rem;
+              border-radius: .7rem;
+            }
+            button:hover{
+              transition: .2s;
+              background: $color-secondary-hover;
+            }
+          }
+        }
+       
+      }
+
+      &__data{
+        @include make-veton-col(12);
+        &__container{
+          @include make-veton-row();
+          padding: 3rem 3rem 0 3rem;
+          min-height: 40rem;
+          background: $color-lightest-gray;
+          border-radius: .7rem;
+
+          &__data{
+            @include make-veton-col(6);
+            &__id{
+              @include make-veton-row();
+              margin-bottom: 3rem;
+              &__title{
+                @include make-veton-col(12);
+                font-size: $h6-font-size;
+                color: $color-med-gray;
+                font-weight: 700;
+              }
+              &__info{
+                font-size: $h6-font-size;
+                color: $color-light-gray;
+                font-weight: 300;
+              }
+            }
+
+            &__date-init{
+              @include make-veton-row();
+              margin-bottom: 3rem;
+              &__title{
+                @include make-veton-col(12);
+                font-size: $h6-font-size;
+                color: $color-med-gray;
+                font-weight: 700;
+              }
+              &__info{
+                font-size: $h6-font-size;
+                color: $color-light-gray;
+                font-weight: 300;
+              }
+            }
+
+            &__date-update{
+              @include make-veton-row();
+              margin-bottom: 3rem;
+              &__title{
+                @include make-veton-col(12);
+                font-size: $h6-font-size;
+                color: $color-med-gray;
+                font-weight: 700;
+              }
+              &__info{
+                font-size: $h6-font-size;
+                color: $color-light-gray;
+                font-weight: 300;
+              }
+            }
+
+            &__afflictions{
+              @include make-veton-row();
+              margin-bottom: 3rem;
+              &__title{
+                @include make-veton-col(12);
+                font-size: $h6-font-size;
+                color: $color-med-gray;
+                font-weight: 700;
+              }
+              &__info{
+                font-size: $h6-font-size;
+                color: $color-light-gray;
+                font-weight: 300;
+              }
+            }
+
+            &__observations{
+              @include make-veton-row();
+              margin-bottom: 3rem;
+              &__title{
+                @include make-veton-col(12);
+                font-size: $h6-font-size;
+                color: $color-med-gray;
+                font-weight: 700;
+              }
+              &__info{
+                font-size: $h6-font-size;
+                color: $color-light-gray;
+                font-weight: 300;
+              }
+            }
+          }
+          &__images{
+            @include make-veton-col(6);
+            padding-left: 3rem;
+            &__title{
+              @include make-veton-col(12);
+                font-size: $h6-font-size;
+                color: $color-med-gray;
+                font-weight: 700;
+            }
+            &__info{
+              div{
+                margin-top: 10rem;
+                text-align: center;
+                color: $color-light-gray;
+                i{
+                  font-size: 4rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
