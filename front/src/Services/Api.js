@@ -8,6 +8,7 @@ export default {
   clinicalhistories: {
     create: (idPet, request) => axios.post(`http://api.veton/api/clinicalhistories/${idPet}`, request),
     getDetail: id => axios.get('http://api.veton/api/clinicalhistories/' + id),
+    all: () => axios.get('http://api.veton/api/clinicalhistories'),
   },
   pet: {
     fetch: id => axios.get('http://api.veton/api/pets/' + id),

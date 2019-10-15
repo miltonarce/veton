@@ -15,15 +15,16 @@ class AddClinicalHistory extends React.PureComponent {
   async handleSubmit(request) {
     const errorAlert = { msg: 'Se produjo un error', type: 'danger' };
     const successAlert = { msg: 'Se dió de alta correctamente!', type: 'success' };
+    const { idPet } = this.props.match.params
     try {
-      const { data } = await Api.clinicalhistories.create(3, request);
+      const { data } = await Api.clinicalhistories.create(idPet, request);
       if (data.sucess) {
         this.setState({ ...this.state, statusClinicalHistory: successAlert });
       } else {
         this.setState({ ...this.state, statusClinicalHistory: errorAlert });
       }
     } catch (err) {
-      this.setState({ ...this.state, statusPet: errorAlert });
+      this.setState({ ...this.state, statusClinicalHistory: errorAlert });
     }
   }
 
@@ -32,7 +33,7 @@ class AddClinicalHistory extends React.PureComponent {
     return (
       <React.Fragment>
         {statusClinicalHistory.msg && <Alert message={statusClinicalHistory.msg} type={statusClinicalHistory.type} />}
-        <FormClinicalHistory title="Registrar Historia Clínica" onSubmit={this.handleSubmit} />}
+        <FormClinicalHistory title="Registrar Historia Clínica" onSubmit={this.handleSubmit} />
       </React.Fragment>
     );
   }
