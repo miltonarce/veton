@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import './index.scss';
 
@@ -26,7 +25,7 @@ export default class Pet extends React.PureComponent {
         <div>
           <img
             className="pet__img img-fluid rounded"
-            src={image ? image : 'https://via.placeholder.com/300x200'}
+            src={image ? `https://api.veton/imgs/${image}`: 'https://via.placeholder.com/300x200'}
             alt={name}
           />
         </div>
