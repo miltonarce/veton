@@ -1,34 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './index.scss';
 
 export default class Pet extends React.PureComponent {
   render() {
-    const { name, last_name, image, birthday } = this.props;
+    const { name, last_name, image, birthday, weight, addHistor } = this.props;
+    console.log(this.props);
     return (
-      <div className="pet">
-        <div className="pet__info">
-          <p className="pet__text">
-            <span className="pet__title">Nombre: </span>
-            {name}
-          </p>
-          <p className="pet__text">
-            <span className="pet__title">Apellido: </span>
-            {last_name}
-          </p>
-          <p className="pet__text">
-            <span className="pet__title">Cumpleaños: </span>
-            {birthday}
-          </p>
-        </div>
-        <div>
+      <div className="card-pet">
+        <div className="card-pet__image">
           <img
-            className="pet__img img-fluid rounded"
-            src={image ? `https://api.veton/imgs/${image}`: 'https://via.placeholder.com/300x200'}
+            src={image ? `http://api.veton/imgs/${image}` : 'https://via.placeholder.com/300x200'}
             alt={name}
           />
         </div>
+        <div className="card-pet__name">
+          <h3>{`${name} ${last_name}`}</h3>
+        </div>
+        <div className="card-pet__data">
+          <div className="card-pet__data__birthday">
+            {birthday || 'Sin cumpleaños.'}
+          </div>
+          <div className="card-pet__data__weight">
+            {weight || '0'} Kg.
+          </div>
+        </div>
+        <div className="card-pet__info-chips">
+          <div className="card-pet__info-chips__vacuna">
+            VACUNAS
+          </div>
+          <div className="card-pet__info-chips__consulta">
+            CONSULTAS
+          </div>
+        </div>
+        <div className="card-pet__alert">
+          Tiene una consulta próxima.
+        </div>
+        {
+          addHistor ?
+            <div className="card-pet__addHistory">
+              <i class="material-icons">all_inbox</i> {addHistor}
+            </div> :
+            <div className="card-pet__hidebutton">
+
+            </div>
+        }
       </div>
     );
   }

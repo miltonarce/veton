@@ -33,17 +33,27 @@ class HomeVet extends React.PureComponent {
   render() {
     const { petsList, clinicalHistories, isLoading } = this.state;
     return (
-      <div className="container">
-        <div className="my-pets">
-          <h2>Mis Pacientes</h2>
-          {/* <Link className="btn btn-link btn-lg" to="veterinary/add-clinical-history">
+      <div className="veton-container">
+        <div className="veton-container__hero">
+          <h2>Mis Mascotas</h2>
+        </div>
+        {/* <Link className="btn btn-link btn-lg" to="veterinary/add-clinical-history">
             Agregar nuevo paciente
           </Link> */}
+        <div className="veton-container__list">
+          <div className="veton-container__list__container-search">
+            <div>
+
+              <SearchBox placeholder="Ingrese dni del paciente" class="search-box-border" onSearch={this.handleSearch} />
+            </div>
+          </div>
+          <div className="veton-container__list__container-list">
+            <div className="veton-container__list__container-list__row">
+              {isLoading ? <Spinner /> : petsList.length > 0 ? <ListPets pets={petsList} clinicalHistories={clinicalHistories} /> : <p>No tenes registrado ninguna mascota</p>}
+            </div>
+          </div>
         </div>
-        <div className="d-flex justify-content-center">
-          <SearchBox placeholder="Buscar" onSearch={this.handleSearch} />
-        </div>
-        {isLoading ? <Spinner /> : petsList.length > 0 ? <ListPets pets={petsList} clinicalHistories={clinicalHistories} /> : <p>No tenes registrado ninguna mascota</p>}
+
       </div>
     );
   }
