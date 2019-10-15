@@ -49,6 +49,7 @@ class AuthController extends Controller
             'email' => $data['email'],
             'birthday' => date('d-m-Y', strtotime($data['birthday'])),
             'image' => $data['image'],
+            'id_role' => $data['id_role']
         ];
     }
 

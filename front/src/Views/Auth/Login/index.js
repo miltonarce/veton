@@ -20,18 +20,13 @@ class Login extends React.PureComponent {
    */
   async handleSubmit(request) {
     try {
-      if (request.email === 'admin@admin' && request.password === '1234') {
-        this.props.history.push('/veterinary');
+      const { data } = await Api.auth.login(request);
+      if (data.success) {
+        const defaultHome = data.additional_info.id_role === 1 ? 'veterinary' : 'user';
+        this.props.history.push(`/${defaultHome}`);
       } else {
-        this.props.history.push('/user');
+        alert('Datos incorrectos!!');
       }
-
-      // const { data } = await Api.auth.login(request);
-      // if (data.success) {
-      //   this.props.history.push('/');
-      // } else {
-      //   alert('Datos incorrectos!!');
-      // }
     } catch (err) {
       console.error(`Error to login the user ${err}`);
       alert('se produjo un error', err);
