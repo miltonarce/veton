@@ -9,7 +9,7 @@ class User extends Model
     protected $primaryKey = "id_user";
 
     protected $fillable = [
-        'name', 'last_name', 'dni', 'email', 'birthday', 'image', 'password', 'id_role'
+        'id_user', 'name', 'last_name', 'dni', 'email', 'birthday', 'image', 'password', 'id_role'
     ];
 
     protected $hidden = [

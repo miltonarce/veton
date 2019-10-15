@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 
 export default class Pet extends React.PureComponent {
   render() {
-    const { name, last_name, image, birthday, weight, addHistor } = this.props;
-    console.log(this.props);
+    const { name, last_name, image, birthday, weight, addHistor, addConsult } = this.props;
     return (
       <div className="card-pet">
         <div className="card-pet__image">
@@ -37,13 +36,18 @@ export default class Pet extends React.PureComponent {
           Tiene una consulta próxima.
         </div>
         {
+          addConsult ?
+            <div className="card-pet__addConsultation ">
+              <i className="material-icons">assignment</i> {addConsult}
+            </div> :
+            ''
+        }
+        {
           addHistor ?
             <div className="card-pet__addHistory">
-              <i class="material-icons">all_inbox</i> {addHistor}
+              <i className="material-icons">all_inbox</i> {addHistor}
             </div> :
-            <div className="card-pet__hidebutton">
-
-            </div>
+            ''
         }
       </div>
     );

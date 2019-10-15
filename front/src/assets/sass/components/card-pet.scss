@@ -97,12 +97,26 @@
     transition: .2s;
     background: $color-primary-hover;
   }
-  &__hidebutton{
+  &__addConsultation{
     margin-top: 2rem;
-    width: 18rem;
-    height: 5.4rem;
+    @include make-veton-row();
+    color: $color-white;
+    text-align: center;
+    background: $color-secondary;
+    padding: 1.5rem 1rem;
+    border-radius: .7rem;
+    font-size: 1.6rem;
+    i{
+      margin-right: 1rem;
+    }
+    a{
+      color: $color-white;
+    }
   }
-  
+  &__addConsultation:hover{
+    transition: .2s;
+    background: $color-secondary-hover;
+  }
 }
 .card-pet:hover{
   transition: .2s;
