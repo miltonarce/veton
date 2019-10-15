@@ -40,14 +40,22 @@ class Pets extends React.PureComponent {
         </div>
       );
     return (
-      <div className="container">
-        <div className="my-pets">
-          <h2>Mis Mascotas</h2>
-          <Link className="btn btn-link btn-lg" to="/user/add-pet">
-            Agregar mascota
+      <div className="hero-veton-container">
+        <div className="hero-veton-container__veton-row">
+          <div className="hero-veton-container__veton-row__col1">
+            <h2>Mis Mascotas</h2>
+          </div>
+          <div className="hero-veton-container__veton-row__col2">
+            <Link to="/user/add-pet">
+              Agregar mascota
           </Link>
+          </div>
         </div>
-        {petsList.length > 0 ? <ListPets pets={petsList} /> : <p>No tenes registrado ninguna mascota</p>}
+        <div className="veton-container__veton-row">
+          <div className="hero-veton-container__veton-row__list">
+            {petsList.length > 0 ? <ListPets pets={petsList} /> : <p>No tenes registrado ninguna mascota</p>}
+          </div>
+        </div>
       </div>
     );
   }

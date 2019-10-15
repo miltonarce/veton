@@ -1,9 +1,19 @@
+//bootstrap mixins and vars
+@import "~bootstrap/scss/bootstrap";
+
 //generic base styles
 @import 'base/colors';
 @import 'base/fonts';
 @import 'base/variables';
 @import 'base/reset';
 @import 'base/mixins';
+
+
+//Components
+@import './components/heros.scss';
+
+//Views
+@import './views/user/pets.scss';
 
 .veton_app {
   min-height: 100vh;
