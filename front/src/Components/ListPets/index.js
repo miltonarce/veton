@@ -17,7 +17,12 @@ export default class ListPets extends React.PureComponent {
     return pets.map((pet, i) => (
       <div key={i} className="box-list">
         <Link to={`/user/pet/${pet.id_pet}`}>
-          <Pet {...pet} addHistor={clinicalHistories && this.showAddClinicalHistory(pet.id_pet) && <Link to={`/veterinary/add-clinical-history/${pet.id_pet}`}>Agregar Historia</Link>} />
+          <Pet
+            {...pet}
+            addConsult={clinicalHistories && this.showAddClinicalHistory(pet.id_pet) && <Link to={`/veterinary/add-clinical-history/${pet.id_pet}`}>
+              Agregar Consulta</Link>}
+            addHistor={clinicalHistories && this.showAddClinicalHistory(pet.id_pet) && <Link to={`/veterinary/add-clinical-history/${pet.id_pet}`}>
+              Agregar Historia</Link>} />
         </Link>
       </div>
     ))
