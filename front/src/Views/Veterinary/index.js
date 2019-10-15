@@ -12,7 +12,7 @@ class Veterinary extends React.PureComponent {
       <React.Fragment>
         <Header />
         <Route exact path={this.props.match.path} component={HomeVet} />
-        <Route path={`${this.props.match.path}/add-clinical-history`} component={AddClinicalHistory} />
+        <Route path={`${this.props.match.path}/add-clinical-history/:idPet`} component={AddClinicalHistory} />
       </React.Fragment>
     );
   }
