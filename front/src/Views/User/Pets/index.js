@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+
 import queryString from 'query-string';
 
 import Spinner from '../../../Components/Spinner/index';
@@ -22,7 +23,7 @@ class Pets extends React.PureComponent {
     // if (id) {
     try {
       this.setState({ ...this.state, isLoading: true });
-      const pets = await Api.pets.fetch();
+      const pets = await Api.pets.fetch(this.props.history.id_user);
       setTimeout(() => {
         this.setState({ ...this.state, isLoading: false, petsList: pets.data });
       }, 1000);
@@ -68,4 +69,4 @@ Pets.propTypes = {
   }),
 };
 
-export default Pets;
+export default withRouter(props => <Pets {...props} />);

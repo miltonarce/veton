@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default {
   pets: {
-    fetch: () => axios.get('http://api.veton/api/pets'),
+    fetch: idUser => axios.get('http://api.veton/api/pets/users/' + idUser),
     createPet: data => axios.post('http://api.veton/api/pets', data),
   },
   clinicalhistories: {

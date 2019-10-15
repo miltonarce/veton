@@ -44,7 +44,7 @@ class HomeVet extends React.PureComponent {
           <div className="veton-container__list__container-search">
             <div>
 
-              <SearchBox placeholder="Ingrese dni del paciente" class="search-box-border" onSearch={this.handleSearch} />
+              <SearchBox placeholder="Ingrese dni del paciente" className="search-box-border" onSearch={this.handleSearch} />
             </div>
           </div>
           <div className="veton-container__list__container-list">

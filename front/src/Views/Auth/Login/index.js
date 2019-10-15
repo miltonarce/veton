@@ -24,6 +24,7 @@ class Login extends React.PureComponent {
       if (data.success) {
         const defaultHome = data.additional_info.id_role === 1 ? 'veterinary' : 'user';
         this.props.history.push(`/${defaultHome}`);
+        this.props.history.id_user = data.additional_info.id_user;
       } else {
         alert('Datos incorrectos!!');
       }
