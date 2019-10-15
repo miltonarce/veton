@@ -10,11 +10,11 @@ class ClinicalHistory extends Model
     protected $primaryKey = 'id_history';
 
     /** @var array La lista de campos que se pueden cargar masivamente. */
-    protected $fillable = ['id_pet', 'id_consultation',' comments', 'hide_comments', 'afflictions_procedures' ];
+    protected $fillable = ['id_pet','comments', 'hide_comments', 'afflictions_procedures'];
     
     /** @var array las reglas de validación. */
     public static $rules = [
-        'id_pet' => 'required|integer|exists:pets',
+        // 'id_pet' => 'required|integer|exists:pets',
         'comments' => 'min:10',
         'hide_comments' => 'min:10',
         'afflictions_procedures' => 'min:10'

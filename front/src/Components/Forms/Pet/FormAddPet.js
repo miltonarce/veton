@@ -8,6 +8,7 @@ export default class FormAddPet extends React.PureComponent {
       form: {
         id_user: 2,
         id_type: 1,
+        id_breed: 1,
         name: '',
         last_name: '',
         birdthay: null,
@@ -15,7 +16,6 @@ export default class FormAddPet extends React.PureComponent {
         weight: null,
         colors: null,
         comments: '',
-        id_breed: 1,
         id_gender: 1,
       },
     };
@@ -50,6 +50,8 @@ export default class FormAddPet extends React.PureComponent {
   render() {
     const { types, breeds, title } = this.props;
     const { name, last_name, birdthay, image, weight, colors, comments, id_type, id_breed } = this.state.form;
+    const breedsByType = breeds.filter(breed => breed.id_type === id_type);
+
     return (
       <div className="container py-2">
         <h2 className="text-center">{title}</h2>
@@ -135,8 +137,8 @@ export default class FormAddPet extends React.PureComponent {
           <div className="form-group">
             <label htmlFor="type">Tipo</label>
             <select className="form-control" id="id_type" name="id_type" value={id_type} onChange={this.handleChange}>
-              {types.map((type, index) => (
-                <option value={type.id_type} key={index}>
+              {types.map(type => (
+                <option value={type.id_type} key={type.id_type}>
                   {type.type}
                 </option>
               ))}
@@ -151,8 +153,8 @@ export default class FormAddPet extends React.PureComponent {
               value={id_breed}
               onChange={this.handleChange}
             >
-              {breeds.map((breed, index) => (
-                <option value={breed.id_breed} key={index}>
+              {breedsByType.map(breed => (
+                <option value={breed.id_breed} key={breed.id_breed}>
                   {breed.breed}
                 </option>
               ))}
@@ -164,11 +166,11 @@ export default class FormAddPet extends React.PureComponent {
                 className="form-check-input"
                 type="radio"
                 name="id_gender"
-                id="exampleRadios1"
+                id="gender_male"
                 value={2}
                 onChange={this.handleChange}
               />
-              <label className="form-check-label" htmlFor="exampleRadios1">
+              <label className="form-check-label" htmlFor="gender_male">
                 Macho
               </label>
             </div>
@@ -177,11 +179,11 @@ export default class FormAddPet extends React.PureComponent {
                 className="form-check-input"
                 type="radio"
                 name="id_gender"
-                id="gender"
+                id="gender_female"
                 value={1}
                 onChange={this.handleChange}
               />
-              <label className="form-check-label" htmlFor="gender">
+              <label className="form-check-label" htmlFor="gender_female">
                 Hembra
               </label>
             </div>
@@ -200,6 +202,12 @@ FormAddPet.propTypes = {
     PropTypes.shape({
       id_breed: PropTypes.number.isRequired,
       breed: PropTypes.string.isRequired,
+    }).isRequired,
+  ),
+  types: PropTypes.arrayOf(
+    PropTypes.shape({
+      id_type: PropTypes.number.isRequired,
+      type: PropTypes.string.isRequired,
     }).isRequired,
   ),
   title: PropTypes.string,

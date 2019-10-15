@@ -76,19 +76,23 @@ class PetsController extends Controller
     */
     public function store(Request $request)
     {
-        $request->validate(Pet::$rules, Pet::$errorMessages);
-        $data = $request->all();
-        if($request->hasFile('image')) {
-                $file = $request->image;
-                $nameImage = time() . "." . $file->extension();
-                $file->move(public_path('/imgs'), $nameImage);
-                $data['image'] = 'imgs/' . $nameImage;
-            }else {
-                $data['image'] = '';
-            }
-        Pet::create($data);
-        return response()->json([
-            'sucess' => true
-        ]);
+        try {
+            $request->validate(Pet::$rules, Pet::$errorMessages);
+            $data = $request->all();
+            if($request->hasFile('image')) {
+                    $file = $request->image;
+                    $nameImage = time() . "." . $file->extension();
+                    $file->move(public_path('/imgs'), $nameImage);
+                    $data['image'] = 'imgs/' . $nameImage;
+                }else {
+                    $data['image'] = '';
+                }
+            Pet::create($data);
+            return response()->json([
+                'sucess' => true
+            ]);
+        } catch (QueryException $e) {
+            return response()->json(['sucess' => false, 'msg' => 'Se produjo un error al crear la mascota', 'error_stack' => $e]);
+        }
     }
 }

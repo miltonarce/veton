@@ -18,6 +18,7 @@ class ConsultationsController extends Controller
 
     public function store($idHistory, Request $request)
     {
+       try {
         $request->validate(Consultation::$rules, Consultation::$errorMessages);
         $data = $request->all();
         if($request->hasFile('image')) {
@@ -33,6 +34,9 @@ class ConsultationsController extends Controller
         return response()->json([
             'sucess' => true
         ]);
+       } catch (QueryException $e) {
+            return response()->json(['sucess' => false, 'msg' => 'Se produjo un error al crear la consulta', 'error_stack' => $e]);
+        }
     }
 
     public function findById($id) {

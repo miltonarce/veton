@@ -31,14 +31,14 @@ class Pets extends React.PureComponent {
     // }
   }
 
-
   render() {
     const { petsList, isLoading } = this.state;
-    if (isLoading) return (
-      <div className="container">
-        <Spinner />
-      </div>
-    );
+    if (isLoading)
+      return (
+        <div className="container">
+          <Spinner />
+        </div>
+      );
     return (
       <div className="container">
         <div className="my-pets">

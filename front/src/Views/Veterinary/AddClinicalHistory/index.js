@@ -1,40 +1,38 @@
 import React from 'react';
-import FormAddPet from '../../../Components/Forms/Pet/FormAddPet';
+import FormClinicalHistory from '../../../Components/Forms/FormClinicalHistory';
 import Api from '../../../Services/Api';
+import Alert from '../../../Components/Alert';
 
 class AddClinicalHistory extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
-      breeds: {},
-      types: [],
-      statusPet: {},
+      statusClinicalHistory: {},
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async componentDidMount() {
+  async handleSubmit(request) {
+    const errorAlert = { msg: 'Se produjo un error', type: 'danger' };
+    const successAlert = { msg: 'Se dió de alta correctamente!', type: 'success' };
     try {
-      this.setState({ ...this.state, isLoading: true });
-      const [breeds, types] = await Promise.all([Api.getRaces(), Api.getTypes()]);
-      this.setState({
-        ...this.state,
-        breeds,
-        types,
-        isLoading: false,
-      });
+      const { data } = await Api.clinicalhistories.create(3, request);
+      if (data.sucess) {
+        this.setState({ ...this.state, statusClinicalHistory: successAlert });
+      } else {
+        this.setState({ ...this.state, statusClinicalHistory: errorAlert });
+      }
     } catch (err) {
-      this.setState({ ...this.state, isLoading: false });
+      this.setState({ ...this.state, statusPet: errorAlert });
     }
   }
 
-  handleSubmit() {}
   render() {
-    const { breeds, types } = this.state;
+    const { statusClinicalHistory } = this.state;
     return (
       <React.Fragment>
-        {<FormAddPet title="Registrar Historia Clinica" types={types} races={breeds} onSubmit={this.handleSubmit} />}
+        {statusClinicalHistory.msg && <Alert message={statusClinicalHistory.msg} type={statusClinicalHistory.type} />}
+        <FormClinicalHistory title="Registrar Historia Clínica" onSubmit={this.handleSubmit} />}
       </React.Fragment>
     );
   }

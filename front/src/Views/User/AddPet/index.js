@@ -18,8 +18,7 @@ export default class AddPet extends React.PureComponent {
   async componentDidMount() {
     try {
       this.setState({ ...this.state, isLoading: true });
-      const breeds = await Api.breeds.fetch();
-      const types = await Api.types.fetch();
+      const [breeds, types] = await Promise.all([Api.breeds.fetch(), Api.types.fetch()]);
       this.setState({
         ...this.state,
         breeds: breeds.data,
@@ -53,8 +52,8 @@ export default class AddPet extends React.PureComponent {
     const errorAlert = { msg: 'Se produjo un error', type: 'danger' };
     const successAlert = { msg: 'Se dió de alta correctamente!', type: 'success' };
     try {
-      const response = await Api.pets.createPet(pet);
-      if (response.status === 'OK') {
+      const { data } = await Api.pets.createPet(pet);
+      if (data.sucess) {
         this.setState({ ...this.state, statusPet: successAlert });
       } else {
         this.setState({ ...this.state, statusPet: errorAlert });
