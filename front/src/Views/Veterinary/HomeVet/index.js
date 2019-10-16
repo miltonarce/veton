@@ -1,11 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
 
-import ApiVet from '../../../Services/ApiVet';
-import Api from '../../../Services/Api';
-import ListPets from '../../../Components/ListPets';
-import SearchBox from '../../../Components/Forms/SearchBox';
-import Spinner from '../../../Components/Spinner';
+import ApiVet from "../../../Services/ApiVet";
+import Api from "../../../Services/Api";
+import ListPets from "../../../Components/ListPets";
+import SearchBox from "../../../Components/Forms/SearchBox";
+import Spinner from "../../../Components/Spinner";
 
 class HomeVet extends React.PureComponent {
   constructor(props) {
@@ -20,18 +19,23 @@ class HomeVet extends React.PureComponent {
 
   async handleSearch(dni) {
     try {
-      this.setState({ ...this.state, isLoading: true });
+      this.setState({...this.state, isLoading: true});
       const user = await ApiVet.users.fetch(dni);
       const petsList = await ApiVet.userPets.fetch(user.data.id_user);
       const clinicalHistories = await Api.clinicalhistories.all();
-      this.setState({ ...this.state, petsList: petsList.data, clinicalHistories: clinicalHistories.data, isLoading: false });
+      this.setState({
+        ...this.state,
+        petsList: petsList.data,
+        clinicalHistories: clinicalHistories.data,
+        isLoading: false,
+      });
     } catch (error) {
       console.log(error);
     }
   }
 
   render() {
-    const { petsList, clinicalHistories, isLoading } = this.state;
+    const {petsList, clinicalHistories, isLoading} = this.state;
     return (
       <div className="veton-container">
         <div className="veton-container__hero">
@@ -43,17 +47,28 @@ class HomeVet extends React.PureComponent {
         <div className="veton-container__list">
           <div className="veton-container__list__container-search">
             <div>
-
-              <SearchBox placeholder="Ingrese dni del paciente" className="search-box-border" onSearch={this.handleSearch} />
+              <SearchBox
+                className="search-box-border"
+                placeholder="Ingrese dni del paciente"
+                onSearch={this.handleSearch}
+              />
             </div>
           </div>
           <div className="veton-container__list__container-list">
             <div className="veton-container__list__container-list__row">
-              {isLoading ? <Spinner /> : petsList.length > 0 ? <ListPets pets={petsList} clinicalHistories={clinicalHistories} /> : <p>No tenes registrado ninguna mascota</p>}
+              {isLoading ? (
+                <Spinner />
+              ) : petsList.length > 0 ? (
+                <ListPets
+                  clinicalHistories={clinicalHistories}
+                  pets={petsList}
+                />
+              ) : (
+                <p>No tenes registrado ninguna mascota</p>
+              )}
             </div>
           </div>
         </div>
-
       </div>
     );
   }

@@ -1,18 +1,22 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
+import React from "react";
+import {Route} from "react-router-dom";
 
 // Veterinary Views
-import HomeVet from './HomeVet';
-import AddClinicalHistory from './AddClinicalHistory';
-import Header from './Header';
+import HomeVet from "./HomeVet";
+import AddClinicalHistory from "./AddClinicalHistory";
+import Header from "./Header";
 
 class Veterinary extends React.PureComponent {
   render() {
+    const {match} = this.props;
     return (
       <React.Fragment>
         <Header />
-        <Route exact path={this.props.match.path} component={HomeVet} />
-        <Route path={`${this.props.match.path}/add-clinical-history/:idPet`} component={AddClinicalHistory} />
+        <Route exact component={HomeVet} path={match.path} />
+        <Route
+          component={AddClinicalHistory}
+          path={`${match.path}/add-clinical-history/:idPet`}
+        />
       </React.Fragment>
     );
   }
