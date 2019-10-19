@@ -10,18 +10,22 @@ class Consultation extends Model
     protected $primaryKey = 'id_consultation';
 
     /** @var array La lista de campos que se pueden cargar masivamente. */
-    protected $fillable = ['id_consultation', 'id_history', 'id_user', 'date', 'comments', 'afflictions_procedures', 'image' ];
+    protected $fillable = ['id_consultation', 'id_user', 'id_veterinary', 'id_history', 'comments', 'afflictions_procedures', 'image' ];
 
     /** @var array las reglas de validación. */
     public static $rules = [
-        'date' => 'required',
+        'id_history' => 'required|integer|exists:clinicalhistories',
+        'id_user' => 'required|integer|exists:users',
         'comments' => 'min:10',
         'afflictions_procedures' => 'min:10'
     ];
 
     /** @var array Los mensajes de error de las $rules */
     public static  $errorMessages= [
-        'date.required' => 'La fecha de la consulta no puede estar vacía',
+        'id_history.required' => 'La consulta debe estar asociada a una Historia Clinica.',
+        'id_history.exist' => 'La Historia Clinica seleccionada no existe.',
+        'id_user.required' => 'La consulta debe estar asociada a un Usuario Veterinario.',
+        'id_user.exist' => 'El Usuario Veterinatio seleccionado no existe.',
         'comments.min' => 'El comentario debe tener al menos :min caracteres.',
         'afflictions_procedures.min' => 'Las aflicciones deben tener al menos :min caracteres'
     ];
