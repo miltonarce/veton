@@ -49,7 +49,7 @@ Route::get('consultations/{id}', 'Api\\ConsultationsController@findById');
 Route::post('consultations/{idHistory}', 'Api\\ConsultationsController@store');
 
 Route::get('veterinaries', 'Api\\VeterinariesController@all');
-Route::post('veterinaries', 'Api\\VeterinariesController@store');
+Route::post('veterinaries', 'Api\\VeterinariesController@storePendingApproval');
 Route::get('breeds', 'Api\\BreedsController@all');
 Route::get('types', 'Api\\TypesController@all');
 
