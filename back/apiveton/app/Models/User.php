@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
+    protected $table = 'users';
     protected $primaryKey = "id_user";
 
-    protected $fillable = [
-        'id_user', 'name', 'last_name', 'dni', 'email', 'birthday', 'image', 'password', 'id_role'
-    ];
+    protected $fillable = ['name', 'last_name', 'dni', 'email', 'birthday', 'image', 'password', 'id_role'];
 
     protected $hidden = [
         'password', 'remember_token'
@@ -21,7 +20,17 @@ class User extends Model
 
     public static $rules = [
         'email' => 'required|email',
-        'password' => 'required'
+        'dni' => 'required',
+        'password' => 'required|min:4'
+    ];
+
+    /** @var array Los mensajes de error de las $rules */
+    public static  $errorMessages= [
+        'email.required' => 'El email no puede estar vacío.',
+        'email.email' => 'El email debe ser un email.',
+        'dni.required' => 'El DNI no puede estar vacío.',
+        'password.required' => 'El password no puede estar vacío.',
+        'password.min' => 'El password debe tener al menos :min caracteres.',
     ];
 
     public function role()
