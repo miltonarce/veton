@@ -1,0 +1,20 @@
+.view {
+    background-color: #f5f5f5;
+    .login-view {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 500px;
+        margin: auto;
+        height: 100vh;
+        background-color: #f5f5f5;
+        .logo-app {
+            padding: 10px;
+        }
+        .status-view {
+            margin-top: 20px;
+            width: 100%;
+        }
+    }
+}

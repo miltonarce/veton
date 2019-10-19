@@ -1,9 +1,8 @@
 .login {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    .login__form{
-        width: 300px;
+    .form__err {
+        font-weight: bold;
+        color: red;
+        padding-top: 5px;
+        display: block;
     }
 }

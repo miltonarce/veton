@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Validator from '../../../Services/Validator';
 import './index.scss';
 
 class LoginForm extends React.PureComponent {
@@ -10,15 +11,20 @@ class LoginForm extends React.PureComponent {
         email: '',
         password: '',
       },
+      errors: {
+        email: {},
+        password: {},
+      }
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
   }
 
   render() {
+    const { errors } = this.state;
     return (
-      <div className="login">
-        <form className="login__form" onSubmit={this.handleSubmit}>
+      <div className="login container">
+        <form onSubmit={this.handleSubmit} noValidate>
           <div className="form-group row">
             <label htmlFor="email" className="col-sm-2 col-form-label">
               Email
@@ -30,9 +36,10 @@ class LoginForm extends React.PureComponent {
                 className="form-control"
                 id="email"
                 placeholder="Ingrese su email"
-                required
                 onChange={this.handleOnChange}
               />
+              <span className="form__err">{errors.email.isEmpty && 'El campo email es obligatorio'}</span>
+              <span className="form__err">{errors.email.isInvalidEmail && 'No es un email válido'}</span>
             </div>
           </div>
           <div className="form-group row">
@@ -49,6 +56,7 @@ class LoginForm extends React.PureComponent {
                 required
                 onChange={this.handleOnChange}
               />
+              <span className="form__err">{errors.password.isEmpty && 'El campo password es obligatorio'}</span>
             </div>
           </div>
           <button type="submit" className="btn btn-primary btn-block">
@@ -57,16 +65,6 @@ class LoginForm extends React.PureComponent {
         </form>
       </div>
     );
-  }
-
-  /**
-   * Method to validate form (email, password)
-   * @param {string} email
-   * @param {string} password
-   * @returns {boolean}
-   */
-  validateForm(email, password) {
-    return email.trim() !== '' && password.trim() !== '';
   }
 
   /**
@@ -84,13 +82,20 @@ class LoginForm extends React.PureComponent {
         ...this.state.request,
         [name]: value,
       },
+      errors: {
+        ...this.state.errors,
+        [name] : {
+          isEmpty: Validator.isEmpty(value),
+          isInvalidEmail: name === 'email' ? !Validator.isEmail(value) : {}
+        }
+      }
     });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const { email, password } = this.state.request;
-    if (this.validateForm(email, password)) {
+    const { email , password } = this.state.errors;
+    if (!email.isInvalidEmail && !email.isEmpty && !password.isEmpty) {
       this.props.onSubmit(this.state.request);
     }
   }

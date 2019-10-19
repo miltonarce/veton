@@ -15,10 +15,13 @@ class AuthController extends Controller
     public function login(Request $request) 
     {
         $request->validate(User::$rules);
-        if (Auth::attempt(['password' => $request['password'], 'email' => $request['email']])) {
-            return response()->json(['success' => true, 'additional_info' => $this->getAditionalInfo(Auth::user())]);
-    	}
-        return response()->json(['success' => false, 'msg' => 'Datos incorrectos']);
+        if ($this->existsMail($request['email'])) {
+            if (Auth::attempt(['password' => $request['password'], 'email' => $request['email']])) {
+                return response()->json(['success' => true, 'additional_info' => $this->getAditionalInfo(Auth::user())]);
+            }
+            return response()->json(['success' => false, 'msg' => 'Datos incorrectos']);
+        }
+        return response()->json(['success' => false, 'msg' => 'El email no existe']);
     }
 
     public function logout(Request $request) 
@@ -41,7 +44,8 @@ class AuthController extends Controller
         }
     }
 
-    private function getAditionalInfo($data) {
+    private function getAditionalInfo($data) 
+    {
         return [
             'name' => $data['name'],
             'last_name' => $data['last_name'],
@@ -51,6 +55,12 @@ class AuthController extends Controller
             'image' => $data['image'],
             'id_role' => $data['id_role']
         ];
+    }
+
+    private function existsMail($email) 
+    {
+        $email = User::all()->where('email', '=', $email)->first();
+        return $email ? true : false;
     }
 
 }
