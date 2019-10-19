@@ -15,7 +15,6 @@ class CreateConsultationsTable extends Migration
     {
         Schema::create('consultations', function (Blueprint $table) {
             $table->increments('id_consultation');
-            $table->date('date');
             $table->text('comments');
             $table->text('afflictions_procedures');
             $table->string('image', 255)->nullable();

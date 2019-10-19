@@ -47,6 +47,8 @@ Route::get('consultations', 'Api\\ConsultationsController@all');
 Route::get('consultations/{id}', 'Api\\ConsultationsController@findById');
 // Consultations (Crear una consulta para una historia clinica)
 Route::post('consultations/{idHistory}', 'Api\\ConsultationsController@store');
+Route::put('consultations/{idConsultation}', 'Api\\ConsultationsController@editConsultation');
+Route::delete('consultations/{idConsultation}', 'Api\\ConsultationsController@removeConsultation');
 
 Route::get('veterinaries', 'Api\\VeterinariesController@all');
 Route::post('veterinaries', 'Api\\VeterinariesController@storePendingApproval');
