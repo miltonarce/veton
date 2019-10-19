@@ -47,6 +47,7 @@ class AuthController extends Controller
     private function getAditionalInfo($data) 
     {
         return [
+            'id_user'=> $data['id_user'],
             'name' => $data['name'],
             'last_name' => $data['last_name'],
             'dni' => $data['dni'],

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+
 import queryString from 'query-string';
 
 import Spinner from '../../../Components/Spinner/index';
 import Api from '../../../Services/Api';
 import ListPets from '../../../Components/ListPets';
-import './index.scss';
 
 class Pets extends React.PureComponent {
   constructor() {
@@ -23,8 +23,10 @@ class Pets extends React.PureComponent {
     // if (id) {
     try {
       this.setState({ ...this.state, isLoading: true });
-      const pets = await Api.pets.fetch();
-      this.setState({ ...this.state, isLoading: false, petsList: pets.data });
+      const pets = await Api.pets.fetch(this.props.history.id_user);
+      setTimeout(() => {
+        this.setState({ ...this.state, isLoading: false, petsList: pets.data });
+      }, 1000);
     } catch (err) {
       this.setState({ isLoading: false });
     }
@@ -35,8 +37,10 @@ class Pets extends React.PureComponent {
     const { petsList, isLoading } = this.state;
     if (isLoading)
       return (
-        <div className="container">
-          <Spinner />
+        <div className="veton-container-spinner">
+          <div>
+            <Spinner />
+          </div>
         </div>
       );
     return (
@@ -51,10 +55,8 @@ class Pets extends React.PureComponent {
           </Link>
           </div>
         </div>
-        <div className="veton-container__veton-row">
-          <div className="hero-veton-container__veton-row__list">
-            {petsList.length > 0 ? <ListPets pets={petsList} /> : <p>No tenes registrado ninguna mascota</p>}
-          </div>
+        <div className="hero-veton-container__veton-row">
+          {petsList.length > 0 ? <ListPets pets={petsList} /> : <p>No tenes registrado ninguna mascota</p>}
         </div>
       </div>
     );
@@ -67,4 +69,4 @@ Pets.propTypes = {
   }),
 };
 
-export default Pets;
+export default withRouter(props => <Pets {...props} />);

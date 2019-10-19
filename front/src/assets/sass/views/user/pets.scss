@@ -18,8 +18,13 @@
         align-self: center;
       }
     }
-    &__list{
-      @include make-veton-col(12);
-    }
   }
+}
+
+.veton-container-spinner{
+  @include  make-veton-container();
+  min-height: 50rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

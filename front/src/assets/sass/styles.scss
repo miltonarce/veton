@@ -11,9 +11,15 @@
 
 //Components
 @import './components/heros.scss';
+@import './components/list-pets.scss';
+@import './components/card-pet.scss';
 
 //Views
 @import './views/user/pets.scss';
+@import './views/user/pet-detail.scss';
+
+//Veterinary views
+@import './views/veterinary/pets.scss';
 
 .veton_app {
   min-height: 100vh;
