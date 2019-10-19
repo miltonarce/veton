@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
             'password'=> Hash::make('1234'),
             'birthday'=>'1994-08-24 13:45:12',
             'image'=>'',
-            'id_role' => 1,
+            'id_role' => 2,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
@@ -36,7 +36,7 @@ class UsersTableSeeder extends Seeder
             'password'=>  Hash::make('1234'),
             'birthday'=>'1990-11-11 13:45:12',
             'image'=>'paulaperez.jpg',
-            'id_role' => 3,
+            'id_role' => 4,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
@@ -50,7 +50,7 @@ class UsersTableSeeder extends Seeder
             'password'=>  Hash::make('1234'),
             'birthday'=>'1983-10-10 13:45:12',
             'image'=>'federicofernandez.jpg',
-            'id_role' => 3,
+            'id_role' => 4,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
@@ -64,7 +64,7 @@ class UsersTableSeeder extends Seeder
             'password'=>  Hash::make('1234'),
             'birthday'=>'1989-09-09 13:45:12',
             'image'=>'pedrososa.jpg',
-            'id_role' => 2,
+            'id_role' => 3,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
