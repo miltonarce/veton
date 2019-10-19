@@ -68,5 +68,20 @@ class UsersTableSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
+
+        DB::table('users')->insert([
+            'id_user' => 5,
+//            'id_profile' =>3,
+            'name' => 'Administradores',
+            'last_name' =>'Vet On',
+            'dni' =>00000000,
+            'email' =>'administradores@gmail.com',
+            'password'=>  Hash::make('1234'),
+            'birthday'=>'1989-09-09 13:45:12',
+            'image'=>'',
+            'id_role' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
     }
 }
