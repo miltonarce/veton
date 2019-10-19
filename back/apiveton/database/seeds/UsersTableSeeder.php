@@ -15,10 +15,10 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'id_user' => 1,
 //            'id_profile' =>1,
-            'name' => 'Admin',
-            'last_name' =>'',
+            'name' => 'Pablo',
+            'last_name' =>'Maskkotas',
             'dni' =>12345678,
-            'email' =>'admin@admin',
+            'email' =>'pablo_maskkotas@gmail.com',
             'password'=> Hash::make('1234'),
             'birthday'=>'1994-08-24 13:45:12',
             'image'=>'',
