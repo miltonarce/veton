@@ -62,10 +62,37 @@ class ClinicalHistoriesController extends Controller
             $data['id_pet'] = $idPet;
             ClinicalHistory::create($data);
             return response()->json([
-                'sucess' => true
+                'success' => true
             ]);
         } catch (QueryException $e) {
-            return response()->json(['sucess' => false, 'msg' => 'Se produjo un error al crear la historia clínica', 'error_stack' => $e]);
+            return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear la historia clínica', 'error_stack' => $e]);
+        }
+    }
+
+    public function editHistory (Request $request, $idHistory){
+            try{
+                
+                $request->validate(ClinicalHistory::$rules, ClinicalHistory::$errorMessages);
+                $data = $request->all();
+                $history = ClinicalHistory::findOrFail($idHistory);
+                $history->update($data);
+                return response()->json([
+                    'success' => true
+                ]);
+            }catch (QueryException $e){
+                return response()->json(['success' => false, 'msg' => 'Se produjo un error al editar la historia clínica', 'error_stack' => $e]);
+            }
+    }
+
+    public function removeHistory($idHistory){
+        try{
+            $history = ClinicalHistory::findOrFail($idHistory);
+            $history->delete();
+            return response()->json([
+                'success' => true,
+            ]);
+        }catch(QueryException $e){
+            return response()->json(['success' => false, 'msg' => 'Se produjo un error al borrar la historia clínica', 'error_stack' => $e]);
         }
     }
 

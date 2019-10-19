@@ -40,6 +40,11 @@ Route::get('clinicalhistories', 'Api\\ClinicalHistoriesController@all');
 Route::get('clinicalhistories/{id}', 'Api\\ClinicalHistoriesController@findById');
 // ClinicalHistories (Crear una historia clinica de una mascota)
 Route::post('clinicalhistories/{idPet}', 'Api\\ClinicalHistoriesController@store');
+// editar una historia clinica 
+Route::put('clinicalhistories/{idHistory}', 'Api\\ClinicalHistoriesController@editHistory');
+// borrar una historia clinica
+Route::delete('clinicalhistories/{idHistory}', 'Api\\ClinicalHistoriesController@removeHistory');
+
 
 // Consultations (Obtener todas las consultas)
 Route::get('consultations', 'Api\\ConsultationsController@all');
