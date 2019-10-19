@@ -95,4 +95,31 @@ class PetsController extends Controller
             return response()->json(['sucess' => false, 'msg' => 'Se produjo un error al crear la mascota', 'error_stack' => $e]);
         }
     }
+    public function editPet(Request $request, $idPet)
+    {
+        try{
+            $request->validate(Pet::$rules, Pet::$errorMessages);
+            $data = $request->all();
+//            if($request->hasFile('image')){
+//                $file = $request->image;
+//                $imageName= time(). "." . $file->extension();
+//                $file->move(public_path('/imgs'), $imageName);
+//                $data['image'] = 'imgs/' . $imageName;
+//            }else {
+//                $data['image'] = '';
+//            }
+            $pet = Pet::findOrFail($idPet);
+            $pet->update($data);
+            return response()->json([
+                'success' => true
+            ]);
+        }catch (QueryException $e){
+            return response()->json([
+                'success' => false,
+                'msg' => 'Se produjo un error al editar la mascota',
+                'error_stack' => $e
+            ]);
+        }
+
+    }
 }
