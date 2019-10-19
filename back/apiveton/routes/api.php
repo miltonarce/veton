@@ -28,6 +28,7 @@ Route::post('auth/register', 'Api\\AuthController@register');
 Route::get('pets', 'Api\\PetsController@all');
 // Pets (Obtener el detalle de una mascota)
 Route::get('pets/{id}', 'Api\\PetsController@detail');
+Route::put('pets/{id}', 'Api\\PetsController@editPet');
 // Pets (Obtener las mascotas de un usuario)
 Route::get('pets/users/{id}', 'Api\\PetsController@findByUser');
 
