@@ -67,7 +67,6 @@ class RegisterVeterinary extends React.Component {
    * @returns {void}
    */
   handleOnSubmitVeterinary(veterinary) {
-    console.log("en el registro", veterinary);
     this.setState(
       {
         ...this.state,

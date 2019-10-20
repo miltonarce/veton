@@ -101,7 +101,7 @@ class Register extends React.PureComponent {
       this.setState({ ...this.state, isLoading: true });
       const {
         data: { success, id, msg }
-      } = await Api.auth.register(user);
+      } = await Auth.register(user);
       if (success) {
         const requestVet = {
           ...veterinary,
