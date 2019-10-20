@@ -1,14 +1,11 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-
 import Logo from "../../../assets/images/Logo.png";
-import SearchBox from "../../../Components/Forms/SearchBox";
 import "./index.scss";
 
 class Header extends React.Component {
   render() {
     const {
-      onSearch,
       location: { pathname }
     } = this.props;
     return (
@@ -20,7 +17,6 @@ class Header extends React.Component {
             src={Logo}
           />
         </Link>
-        <SearchBox placeholder="Buscar" onSearch={onSearch} />
         <button
           className="navbar-toggler"
           data-target="#navbarVeton"
