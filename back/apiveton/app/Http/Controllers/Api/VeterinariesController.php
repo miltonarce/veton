@@ -30,6 +30,18 @@ class VeterinariesController extends Controller
         }
     }
 */
+
+    public function getAllUsersByVeterinary($idVeterinary) 
+    {
+        $vets = [[
+        'name' => 'Jorge',
+        'last_name' => 'Flores',
+        'email' => 'jorge_flores@gmail.com',
+        'created_at' => '2019-10-20 17:45:33'
+        ]];
+        return response()->json(['success' => true, 'vets' => $vets]);
+    }
+
     public function storePendingApproval(Request $request)
     {
         try {

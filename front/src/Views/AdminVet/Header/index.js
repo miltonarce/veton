@@ -6,11 +6,12 @@ import "./index.scss";
 class Header extends React.Component {
   render() {
     const {
+      onSearch,
       location: { pathname }
     } = this.props;
     return (
       <nav className="navbar-veton navbar navbar-expand-lg navbar-light bg-light">
-        <Link className="navbar-brand" to="/veterinary">
+        <Link className="navbar-brand" to="/admin-vet">
           <img
             alt="VetOn, veterinaria online"
             className="logo_app"
@@ -29,8 +30,8 @@ class Header extends React.Component {
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
               <Link
-                className={this.getClassForLink(pathname, "/veterinary")}
-                to="/veterinary"
+                className={this.getClassForLink(pathname, "/admin-vet")}
+                to="/admin-vet"
               >
                 <i className="material-icons">home</i>
                 Inicio
@@ -40,12 +41,12 @@ class Header extends React.Component {
               <Link
                 className={this.getClassForLink(
                   pathname,
-                  "/veterinary/profile"
+                  "/admin-vet/register-vet"
                 )}
-                to="/veterinary/profile"
+                to="/admin-vet/register-vet"
               >
-                <i className="material-icons">account_circle</i>
-                Perfil
+                <i className="material-icons">person_add</i>
+                Registrar Veterinario
               </Link>
             </li>
           </ul>

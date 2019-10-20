@@ -57,6 +57,7 @@ Route::put('consultations/{idConsultation}', 'Api\\ConsultationsController@editC
 Route::delete('consultations/{idConsultation}', 'Api\\ConsultationsController@removeConsultation');
 
 Route::get('veterinaries', 'Api\\VeterinariesController@all');
+Route::get('veterinaries/{idVeterinary}/users', 'Api\\VeterinariesController@getAllUsersByVeterinary');
 Route::post('veterinaries', 'Api\\VeterinariesController@storePendingApproval');
 Route::get('breeds', 'Api\\BreedsController@all');
 Route::get('types', 'Api\\TypesController@all');

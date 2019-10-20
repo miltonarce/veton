@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Validator from "../../../Services/Validator";
+import Utils from "../../../Utils/globals";
 import {
   EMPTY_BUSINESS_NAME,
   EMPTY_CUIT_CUIL,
@@ -90,7 +90,7 @@ class FormRegisterVeterinary extends React.Component {
       street,
       fantasy_name
     } = this.state.request;
-    if (Validator.isEmpty(business_name)) {
+    if (Utils.isEmpty(business_name)) {
       this.setState({
         ...this.state,
         errors: {
@@ -102,7 +102,7 @@ class FormRegisterVeterinary extends React.Component {
       });
       return false;
     }
-    if (Validator.isEmpty(cuit_cuil)) {
+    if (Utils.isEmpty(cuit_cuil)) {
       this.setState({
         ...this.state,
         errors: {
@@ -114,7 +114,7 @@ class FormRegisterVeterinary extends React.Component {
       });
       return false;
     }
-    if (Validator.isEmpty(phone1)) {
+    if (Utils.isEmpty(phone1)) {
       this.setState({
         ...this.state,
         errors: {
@@ -126,7 +126,7 @@ class FormRegisterVeterinary extends React.Component {
       });
       return false;
     }
-    if (Validator.isEmpty(street)) {
+    if (Utils.isEmpty(street)) {
       this.setState({
         ...this.state,
         errors: {
@@ -138,7 +138,7 @@ class FormRegisterVeterinary extends React.Component {
       });
       return false;
     }
-    if (Validator.isEmpty(fantasy_name)) {
+    if (Utils.isEmpty(fantasy_name)) {
       this.setState({
         ...this.state,
         errors: {
@@ -200,7 +200,9 @@ class FormRegisterVeterinary extends React.Component {
             value={request.cuit_cuil}
             onChange={handleOnChange}
           />
-          <p className="text-muted m-0">El cuit / cuil, sin espacios ni guiones</p>
+          <p className="text-muted m-0">
+            El cuit / cuil, sin espacios ni guiones
+          </p>
           <span className="form__err">
             {errors.cuit_cuil && errors.cuit_cuil.isEmpty}
           </span>

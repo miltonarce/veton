@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import Logo from "../../../assets/images/Logo.png";
-import SearchBox from "../../../Components/Forms/SearchBox";
 import "./index.scss";
 
 class Header extends React.Component {
@@ -20,7 +19,6 @@ class Header extends React.Component {
             alt="VetOn, veterinaria online"
           />
         </Link>
-        <SearchBox placeholder="Buscar" onSearch={onSearch} />
         <button
           className="navbar-toggler"
           type="button"

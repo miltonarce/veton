@@ -6,6 +6,7 @@ import RouteAuth from "../../Components/RouteAuth";
 import User from "../../Views/User";
 import Veterinary from "../../Views/Veterinary";
 import Admin from "../../Views/Admin";
+import AdminVet from "../../Views/AdminVet";
 import Login from "../../Views/Auth/Login";
 import Register from "../../Views/Auth/Register";
 
@@ -65,7 +66,7 @@ export default class Main extends React.Component {
             render={props => <User {...props} idUser={user.id_user} />}
           />
           <RouteAuth auth={logged} path="/veterinary" component={Veterinary} />
-          <RouteAuth auth={logged} path="/admin-vet" component={Veterinary} />
+          <RouteAuth auth={logged} path="/admin-vet" component={AdminVet} />
           <RouteAuth auth={logged} path="/admin" component={Admin} />
         </Switch>
       </section>

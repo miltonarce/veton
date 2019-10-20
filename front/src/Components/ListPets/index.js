@@ -12,7 +12,6 @@ class ListPets extends React.Component {
   render() {
     const { pets, clinicalHistories = null } = this.props;
     const { showAddClinicalHistory } = this;
-
     return pets.map((pet, i) => (
       <div key={i} className="box-list">
         <Link to={`/user/pet/${pet.id_pet}`}>
@@ -40,6 +39,11 @@ class ListPets extends React.Component {
     ));
   }
 
+  /**
+   * Method to show clinical history if exist
+   * @param {number} idPet
+   * @param {object | undefined}
+   */
   showAddClinicalHistory(idPet) {
     return (
       this.props.clinicalHistories.find(
