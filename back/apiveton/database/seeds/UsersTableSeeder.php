@@ -14,7 +14,6 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'id_user' => 1,
-//            'id_profile' =>1,
             'name' => 'Pablo',
             'last_name' =>'Maskkotas',
             'dni' =>12345678,
@@ -28,7 +27,6 @@ class UsersTableSeeder extends Seeder
         ]);
         DB::table('users')->insert([
             'id_user' => 2,
-//            'id_profile' =>2,
             'name' => 'Paula',
             'last_name' =>'Pérez',
             'dni' =>37225879,
@@ -42,7 +40,6 @@ class UsersTableSeeder extends Seeder
         ]);
         DB::table('users')->insert([
             'id_user' => 3,
-//            'id_profile' =>2,
             'name' => 'Federico',
             'last_name' =>'Fernández',
             'dni' =>30369896,
@@ -56,7 +53,6 @@ class UsersTableSeeder extends Seeder
         ]);
         DB::table('users')->insert([
             'id_user' => 4,
-//            'id_profile' =>3,
             'name' => 'Pedro',
             'last_name' =>'Sosa',
             'dni' =>35879456,
@@ -68,10 +64,8 @@ class UsersTableSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
-
         DB::table('users')->insert([
             'id_user' => 5,
-//            'id_profile' =>3,
             'name' => 'Administradores',
             'last_name' =>'Vet On',
             'dni' =>00000000,
@@ -80,6 +74,58 @@ class UsersTableSeeder extends Seeder
             'birthday'=>'1989-09-09 13:45:12',
             'image'=>'',
             'id_role' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('users')->insert([
+            'id_user' => 6,
+            'name' => 'Jorge',
+            'last_name' =>'Flores',
+            'dni' =>12702215,
+            'email' =>'jorge_flores@gmail.com',
+            'password'=>  Hash::make('1234'),
+            'birthday'=>'1989-09-09 13:45:12',
+            'image'=>'',
+            'id_role' => 2,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('users')->insert([
+            'id_user' => 7,
+            'name' => 'Matias',
+            'last_name' =>'Peréz',
+            'dni' =>35960343,
+            'email' =>'matias_perez@gmail.com',
+            'password'=>  Hash::make('1234'),
+            'birthday'=>'1989-09-09 13:45:12',
+            'image'=>'',
+            'id_role' => 2,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('users')->insert([
+            'id_user' => 8,
+            'name' => 'Belen',
+            'last_name' =>'Gomez',
+            'dni' =>34023872,
+            'email' =>'belu91@gmail.com',
+            'password'=>  Hash::make('1234'),
+            'birthday'=>'1989-09-09 13:45:12',
+            'image'=>'',
+            'id_role' => 3,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('users')->insert([
+            'id_user' => 9,
+            'name' => 'Daiana',
+            'last_name' =>'Dimitri',
+            'dni' =>33123456,
+            'email' =>'dai@gmail.com',
+            'password'=>  Hash::make('1234'),
+            'birthday'=>'1989-09-09 13:45:12',
+            'image'=>'',
+            'id_role' => 3,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
