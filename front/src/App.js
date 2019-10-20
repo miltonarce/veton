@@ -1,11 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-
 import "./assets/sass/styles.scss";
 
 // Template Header, Main, Footer
-import Footer from "./Components/Footer/index";
-import Main from "./Components/Main/index";
+import Footer from "./Components/Footer";
+import Main from "./Components/Main";
 
 function App() {
   return (

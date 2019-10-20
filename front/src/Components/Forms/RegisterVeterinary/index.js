@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import RegisterUser from "../RegisterUser";
 import FormRegisterVeterinary from "../FormRegisterVeterinary";
 
-class RegisterVeterinary extends React.PureComponent {
+class RegisterVeterinary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -67,7 +67,6 @@ class RegisterVeterinary extends React.PureComponent {
    * @returns {void}
    */
   handleOnSubmitVeterinary(veterinary) {
-    console.log("en el registro", veterinary);
     this.setState(
       {
         ...this.state,
@@ -96,7 +95,7 @@ class RegisterVeterinary extends React.PureComponent {
       <React.Fragment>
         {currentStep === 0 && (
           <div>
-            <h2>Datos personales</h2>
+            <h2 className="text-center mb-3">Datos personales</h2>
             <RegisterUser
               initialValue={user}
               onSubmit={handleOnSubmitUser}
@@ -106,7 +105,7 @@ class RegisterVeterinary extends React.PureComponent {
         )}
         {currentStep === 1 && (
           <div>
-            <h2>Datos de la veterinaria</h2>
+            <h2 className="text-center mb-3">Datos de la veterinaria</h2>
             <FormRegisterVeterinary
               initialValue={veterinary}
               onClickBeforeStep={handleOnClickBeforeStep}

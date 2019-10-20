@@ -3,16 +3,16 @@ import FormClinicalHistory from "../../../Components/Forms/FormClinicalHistory";
 import Api from "../../../Services/Api";
 import Alert from "../../../Components/Alert";
 
-class AddClinicalHistory extends React.PureComponent {
+class AddClinicalHistory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       statusClinicalHistory: {}
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
-  async handleSubmit(request) {
+  async handleOnSubmit(request) {
     const errorAlert = { msg: "Se produjo un error", type: "danger" };
     const successAlert = {
       msg: "Se dió de alta correctamente!",
@@ -33,6 +33,7 @@ class AddClinicalHistory extends React.PureComponent {
 
   render() {
     const { statusClinicalHistory } = this.state;
+    const { handleOnSubmit } = this;
     return (
       <React.Fragment>
         {statusClinicalHistory.msg && (
@@ -43,7 +44,7 @@ class AddClinicalHistory extends React.PureComponent {
         )}
         <FormClinicalHistory
           title="Registrar Historia Clínica"
-          onSubmit={this.handleSubmit}
+          onSubmit={handleOnSubmit}
         />
       </React.Fragment>
     );

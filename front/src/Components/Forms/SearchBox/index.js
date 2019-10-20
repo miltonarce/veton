@@ -2,27 +2,29 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./index.scss";
 
-class SearchBox extends React.PureComponent {
+class SearchBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       search: ""
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
   }
 
   render() {
+    const { handleOnChange, handleOnSubmit } = this;
+    const { placeholder } = this.props;
     return (
       <div className="searchbox">
-        <form className="searchbox__form" onSubmit={this.handleSubmit}>
+        <form className="searchbox__form" onSubmit={handleOnSubmit}>
           <div className="form-group has-search">
             <i className="material-icons form-control-feedback">search</i>
             <input
               className="form-control searchbox__input"
               type="search"
-              placeholder={this.props.placeholder}
-              onChange={this.handleChange}
+              placeholder={placeholder}
+              onChange={handleOnChange}
             />
           </div>
         </form>
@@ -35,7 +37,7 @@ class SearchBox extends React.PureComponent {
    * @param {Event} event
    * @returns {void}
    */
-  handleSubmit(event) {
+  handleOnSubmit(event) {
     event.preventDefault();
     this.props.onSearch(this.state.search);
   }
@@ -45,7 +47,7 @@ class SearchBox extends React.PureComponent {
    * @param {Event} event
    * @returns {void}
    */
-  handleChange(event) {
+  handleOnChange(event) {
     this.setState({ ...this.state, search: event.target.value });
   }
 }

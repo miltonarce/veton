@@ -5,10 +5,10 @@ import {
   EMPTY_MAIL,
   EMPTY_PASSWORD,
   INVALID_MAIL
-} from "../../../utils/messages";
+} from "../../../Utils/messages";
 import "./index.scss";
 
-class LoginForm extends React.PureComponent {
+class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +20,6 @@ class LoginForm extends React.PureComponent {
         email: null,
         password: null
       },
-      isDirty: false
     };
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
@@ -28,7 +27,7 @@ class LoginForm extends React.PureComponent {
   }
 
   render() {
-    const { errors, isDirty } = this.state;
+    const { errors } = this.state;
     const { handleOnSubmit, handleOnChange } = this;
     return (
       <div className="container">
@@ -75,7 +74,6 @@ class LoginForm extends React.PureComponent {
           <button
             type="submit"
             className="btn btn-primary btn-block"
-            disabled={!isDirty}
           >
             Aceptar
           </button>
@@ -95,7 +93,6 @@ class LoginForm extends React.PureComponent {
     } = event;
     this.setState({
       ...this.state,
-      isDirty: true,
       request: {
         ...this.state.request,
         [name]: value
