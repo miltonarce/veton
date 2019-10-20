@@ -1,14 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
-
 import queryString from "query-string";
-
 import Spinner from "../../../Components/Spinner/index";
 import Api from "../../../Services/Api";
 import ListPets from "../../../Components/ListPets";
 
-class Pets extends React.PureComponent {
+class Pets extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -19,18 +17,14 @@ class Pets extends React.PureComponent {
   }
 
   async componentDidMount() {
-    const { id } = queryString.parse(this.props.location.search);
-    // if (id) {
+    const { idUser } = this.props;
     try {
       this.setState({ ...this.state, isLoading: true });
-      const pets = await Api.pets.fetch(this.props.history.id_user);
-      setTimeout(() => {
-        this.setState({ ...this.state, isLoading: false, petsList: pets.data });
-      }, 1000);
+      const pets = await Api.pets.fetch(idUser);
+      this.setState({ ...this.state, isLoading: false, petsList: pets.data });
     } catch (err) {
       this.setState({ isLoading: false });
     }
-    // }
   }
 
   render() {
@@ -66,9 +60,7 @@ class Pets extends React.PureComponent {
 }
 
 Pets.propTypes = {
-  location: PropTypes.shape({
-    search: PropTypes.string
-  })
+  idUser: PropTypes.number.isRequired
 };
 
 export default withRouter(props => <Pets {...props} />);

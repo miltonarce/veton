@@ -7,10 +7,10 @@ import {
   EMPTY_PHONE,
   EMPTY_STREET,
   EMPTY_FANTASY_NAME
-} from "../../../utils/messages";
+} from "../../../Utils/messages";
 import "./index.scss";
 
-class FormRegisterVeterinary extends React.PureComponent {
+class FormRegisterVeterinary extends React.Component {
   constructor(props) {
     super(props);
     const {

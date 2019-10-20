@@ -10,14 +10,18 @@ import PetDetail from "./PetDetail";
 import AddPet from "./AddPet";
 import Header from "./Header";
 
-class User extends React.PureComponent {
+class User extends React.Component {
   render() {
+    const { idUser } = this.props;
     return (
       <React.Fragment>
         <Header />
         <Route exact path={this.props.match.path} component={HomeUser} />
         <Route path={`${this.props.match.path}/option`} component={Option} />
-        <Route path={`${this.props.match.path}/pets`} component={Pets} />
+        <Route
+          path={`${this.props.match.path}/pets`}
+          render={() => <Pets idUser={idUser} />}
+        />
         <Route
           path={`${this.props.match.path}/pet/:id`}
           component={PetDetail}

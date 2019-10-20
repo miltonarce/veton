@@ -6,7 +6,7 @@ import HomeVet from "./HomeVet";
 import AddClinicalHistory from "./AddClinicalHistory";
 import Header from "./Header";
 
-class Veterinary extends React.PureComponent {
+class Veterinary extends React.Component {
   render() {
     const { match } = this.props;
     return (

@@ -1,13 +1,18 @@
 import axios from "axios";
 
+const axiosInstance = axios.create({
+  baseURL: "http://api.veton/api",
+  timeout: 2000
+});
+
 export default {
   pets: {
-    fetch: () => axios.get("http://api.veton/api/pets")
+    fetch: () => axiosInstance.get("/pets")
   },
   users: {
-    fetch: val => axios.get("http://api.veton/api/users/" + val)
+    fetch: id => axiosInstance.get(`/users/${id}`)
   },
   userPets: {
-    fetch: id => axios.get("http://api.veton/api/pets/users/" + id)
+    fetch: id => axiosInstance.get(`/pets/users/${id}`)
   }
 };

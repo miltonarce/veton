@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import RegisterUser from "../RegisterUser";
 import FormRegisterVeterinary from "../FormRegisterVeterinary";
 
-class RegisterVeterinary extends React.PureComponent {
+class RegisterVeterinary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

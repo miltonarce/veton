@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class Contact extends React.PureComponent {
+class Contact extends React.Component {
   render() {
     return (
       <React.Fragment>
@@ -9,3 +9,5 @@ export default class Contact extends React.PureComponent {
     );
   }
 }
+
+export default Contact;

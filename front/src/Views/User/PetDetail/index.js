@@ -1,26 +1,26 @@
 import React from "react";
 import Api from "../../../Services/Api";
 import Spinner from "../../../Components/Spinner";
+import calculateAge from "../../../Utils/globals";
 
-import calculateAge from "../../../utils/globals";
-
-class PetDetail extends React.PureComponent {
-  state = {
-    dataPet: {},
-    isLoading: true,
-    error: null
-  };
+class PetDetail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataPet: {},
+      isLoading: true,
+      error: null
+    };
+  }
 
   async componentDidMount() {
     try {
-      const dataPet = await Api.pet.fetch(this.props.match.params.id);
-      setTimeout(() => {
-        this.setState({
-          ...this.state,
-          dataPet: dataPet.data,
-          isLoading: false
-        });
-      }, 1000);
+      const { data } = await Api.pet.fetch(this.props.match.params.id);
+      this.setState({
+        ...this.state,
+        dataPet: data,
+        isLoading: false
+      });
     } catch (error) {
       this.setState({ ...this.state, isLoading: false, error: true });
       console.log("error");

@@ -5,10 +5,10 @@ import {
   EMPTY_MAIL,
   EMPTY_PASSWORD,
   INVALID_MAIL
-} from "../../../utils/messages";
+} from "../../../Utils/messages";
 import "./index.scss";
 
-class LoginForm extends React.PureComponent {
+class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

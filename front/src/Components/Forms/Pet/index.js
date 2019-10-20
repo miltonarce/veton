@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default class FormAddPet extends React.PureComponent {
+class FormAddPet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,8 +19,8 @@ export default class FormAddPet extends React.PureComponent {
         id_gender: 1
       }
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
   /**
@@ -28,7 +28,7 @@ export default class FormAddPet extends React.PureComponent {
    * @param {Event} event
    * @returns {void}
    */
-  handleSubmit(event) {
+  handleOnSubmit(event) {
     event.preventDefault();
     this.props.onSubmit(this.state.form);
   }
@@ -38,7 +38,7 @@ export default class FormAddPet extends React.PureComponent {
    * @param {Event} event
    * @returns {void}
    */
-  handleChange(event) {
+  handleOnChange(event) {
     const { name, value } = event.target;
     if (name === "id_type" || name === "id_breed" || name === "id_gender") {
       this.setState({ form: { ...this.state.form, [name]: Number(value) } });
@@ -61,11 +61,12 @@ export default class FormAddPet extends React.PureComponent {
       id_breed
     } = this.state.form;
     const breedsByType = breeds.filter(breed => breed.id_type === id_type);
+    const { handleOnChange, handleOnSubmit } = this;
 
     return (
       <div className="container py-2">
         <h2 className="text-center">{title}</h2>
-        <form className="form_pet" onSubmit={this.handleSubmit}>
+        <form className="form_pet" onSubmit={handleOnSubmit}>
           <div className="form-group">
             <label htmlFor="name">Nombre</label>
             <input
@@ -74,7 +75,7 @@ export default class FormAddPet extends React.PureComponent {
               id="name"
               name="name"
               value={name}
-              onChange={this.handleChange}
+              onChange={handleOnChange}
               required
             />
           </div>
@@ -86,7 +87,7 @@ export default class FormAddPet extends React.PureComponent {
               id="last_name"
               name="last_name"
               value={last_name}
-              onChange={this.handleChange}
+              onChange={handleOnChange}
               required
             />
           </div>
@@ -98,7 +99,7 @@ export default class FormAddPet extends React.PureComponent {
               id="birdthay"
               name="birdthay"
               value={birdthay}
-              onChange={this.handleChange}
+              onChange={handleOnChange}
             />
           </div>
           <div className="form-group">
@@ -110,7 +111,7 @@ export default class FormAddPet extends React.PureComponent {
                 id="imagePet"
                 name="image"
                 value={image}
-                onChange={this.handleChange}
+                onChange={handleOnChange}
               />
               <label className="custom-file-label" htmlFor="imagePet">
                 {image ? image : "No se cargó ninguna imagen"}
@@ -125,7 +126,7 @@ export default class FormAddPet extends React.PureComponent {
               id="weight"
               name="weight"
               value={weight}
-              onChange={this.handleChange}
+              onChange={handleOnChange}
             />
             <span className="text-secondary">Medidas en Kg</span>
           </div>
@@ -137,7 +138,7 @@ export default class FormAddPet extends React.PureComponent {
               id="colors"
               name="colors"
               value={colors}
-              onChange={this.handleChange}
+              onChange={handleOnChange}
             />
           </div>
           <div className="form-group">
@@ -146,7 +147,7 @@ export default class FormAddPet extends React.PureComponent {
               name="comments"
               className="form-control"
               value={comments}
-              onChange={this.handleChange}
+              onChange={handleOnChange}
             />
           </div>
           <div className="form-group">
@@ -156,7 +157,7 @@ export default class FormAddPet extends React.PureComponent {
               id="id_type"
               name="id_type"
               value={id_type}
-              onChange={this.handleChange}
+              onChange={handleOnChange}
             >
               {types.map(type => (
                 <option value={type.id_type} key={type.id_type}>
@@ -172,7 +173,7 @@ export default class FormAddPet extends React.PureComponent {
               id="id_breed"
               name="id_breed"
               value={id_breed}
-              onChange={this.handleChange}
+              onChange={handleOnChange}
             >
               {breedsByType.map(breed => (
                 <option value={breed.id_breed} key={breed.id_breed}>
@@ -189,7 +190,7 @@ export default class FormAddPet extends React.PureComponent {
                 name="id_gender"
                 id="gender_male"
                 value={2}
-                onChange={this.handleChange}
+                onChange={handleOnChange}
               />
               <label className="form-check-label" htmlFor="gender_male">
                 Macho
@@ -202,7 +203,7 @@ export default class FormAddPet extends React.PureComponent {
                 name="id_gender"
                 id="gender_female"
                 value={1}
-                onChange={this.handleChange}
+                onChange={handleOnChange}
               />
               <label className="form-check-label" htmlFor="gender_female">
                 Hembra
@@ -234,3 +235,5 @@ FormAddPet.propTypes = {
   title: PropTypes.string,
   onSubmit: PropTypes.func.isRequired
 };
+
+export default FormAddPet;

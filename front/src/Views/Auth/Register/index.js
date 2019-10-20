@@ -6,6 +6,7 @@ import RegisterUser from "../../../Components/Forms/RegisterUser";
 import Alert from "../../../Components/Alert";
 import Spinner from "../../../Components/Spinner";
 import Api from "../../../Services/Api";
+import Auth from "../../../Services/Auth";
 import "./index.scss";
 
 // Roles by view
@@ -71,7 +72,7 @@ class Register extends React.PureComponent {
       this.setState({ ...this.state, isLoading: true });
       const {
         data: { success, msg }
-      } = await Api.auth.register(request);
+      } = await Auth.register(request);
       const viewWithRole = ROLES[request.id_role];
       if (success) {
         this.setState({ ...this.state, isLoading: false });
