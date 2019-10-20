@@ -36,11 +36,14 @@ class AuthController extends Controller
             $request->validate(User::$rules);
             $user = $request->all();
             $user['password'] = Hash::make($request['password']);
-            $user['id_role'] = 3;
-            User::create($user);
-            return response()->json(['success' => true, 'msg' => 'Se creo su usuario!']);
+            //SACARLO CUANDO PONGAN QUE ACEPTA NULL
+            $user['name'] = '';
+            $user['last_name'] = '';
+            //SACARLO CUANDO PONGAN QUE ACEPTA NULL
+            $user = User::create($user);
+            return response()->json(['success' => true, 'msg' => 'Se creo su usuario!', 'id' => $user->id_user]);
         } catch (QueryException $e) {
-            return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear su usuario', 'error_stack' => $e]);
+            return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear su usuario', 'stack' => $e]);
         }
     }
 

@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 export default class Alert extends React.PureComponent {
   render() {
@@ -16,5 +16,5 @@ export default class Alert extends React.PureComponent {
 
 Alert.propTypes = {
   message: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired
 };

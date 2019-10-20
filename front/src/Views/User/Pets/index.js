@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link, withRouter } from "react-router-dom";
 
-import queryString from 'query-string';
+import queryString from "query-string";
 
-import Spinner from '../../../Components/Spinner/index';
-import Api from '../../../Services/Api';
-import ListPets from '../../../Components/ListPets';
+import Spinner from "../../../Components/Spinner/index";
+import Api from "../../../Services/Api";
+import ListPets from "../../../Components/ListPets";
 
 class Pets extends React.PureComponent {
   constructor() {
@@ -14,7 +14,7 @@ class Pets extends React.PureComponent {
     this.state = {
       petsList: [],
       isLoading: false,
-      error: null,
+      error: null
     };
   }
 
@@ -50,13 +50,15 @@ class Pets extends React.PureComponent {
             <h2>Mis Mascotas</h2>
           </div>
           <div className="hero-veton-container__veton-row__col2">
-            <Link to="/user/add-pet">
-              Agregar mascota
-          </Link>
+            <Link to="/user/add-pet">Agregar mascota</Link>
           </div>
         </div>
         <div className="hero-veton-container__veton-row">
-          {petsList.length > 0 ? <ListPets pets={petsList} /> : <p>No tenes registrado ninguna mascota</p>}
+          {petsList.length > 0 ? (
+            <ListPets pets={petsList} />
+          ) : (
+            <p>No tenes registrado ninguna mascota</p>
+          )}
         </div>
       </div>
     );
@@ -65,8 +67,8 @@ class Pets extends React.PureComponent {
 
 Pets.propTypes = {
   location: PropTypes.shape({
-    search: PropTypes.string,
-  }),
+    search: PropTypes.string
+  })
 };
 
 export default withRouter(props => <Pets {...props} />);

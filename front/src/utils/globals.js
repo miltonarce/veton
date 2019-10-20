@@ -8,6 +8,6 @@ const calculateAge = date => {
     age--;
   }
   return age;
-}
+};
 
 export default calculateAge;

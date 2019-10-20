@@ -23,10 +23,10 @@ class VeterinariesController extends Controller
             $data = $request->all();
             Veterinary::create($data);
             return response()->json([
-                'sucess' => true
+                'success' => true
             ]);
         } catch (QueryException $e) {
-            return response()->json(['sucess' => false, 'msg' => 'Se produjo un error al crear una veterinaria', 'error_stack' => $e]);
+            return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear una veterinaria', 'error_stack' => $e]);
         }
     }
 */

@@ -12,14 +12,14 @@ class HomeVet extends React.PureComponent {
     this.state = {
       isLoading: false,
       petsList: [],
-      clinicalHistories: [],
+      clinicalHistories: []
     };
     this.handleSearch = this.handleSearch.bind(this);
   }
 
   async handleSearch(dni) {
     try {
-      this.setState({...this.state, isLoading: true});
+      this.setState({ ...this.state, isLoading: true });
       const user = await ApiVet.users.fetch(dni);
       const petsList = await ApiVet.userPets.fetch(user.data.id_user);
       const clinicalHistories = await Api.clinicalhistories.all();
@@ -27,7 +27,7 @@ class HomeVet extends React.PureComponent {
         ...this.state,
         petsList: petsList.data,
         clinicalHistories: clinicalHistories.data,
-        isLoading: false,
+        isLoading: false
       });
     } catch (error) {
       console.log(error);
@@ -35,7 +35,7 @@ class HomeVet extends React.PureComponent {
   }
 
   render() {
-    const {petsList, clinicalHistories, isLoading} = this.state;
+    const { petsList, clinicalHistories, isLoading } = this.state;
     return (
       <div className="veton-container">
         <div className="veton-container__hero">

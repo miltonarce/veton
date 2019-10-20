@@ -1,30 +1,38 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Validator from '../../../Services/Validator';
-import './index.scss';
+import React from "react";
+import PropTypes from "prop-types";
+import Validator from "../../../Services/Validator";
+import {
+  EMPTY_MAIL,
+  EMPTY_PASSWORD,
+  INVALID_MAIL
+} from "../../../utils/messages";
+import "./index.scss";
 
 class LoginForm extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       request: {
-        email: '',
-        password: '',
+        email: "",
+        password: ""
       },
       errors: {
-        email: {},
-        password: {},
-      }
+        email: null,
+        password: null
+      },
+      isDirty: false
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
+    this.getStatusFormAndSetErrors = this.getStatusFormAndSetErrors.bind(this);
   }
 
   render() {
-    const { errors } = this.state;
+    const { errors, isDirty } = this.state;
+    const { handleOnSubmit, handleOnChange } = this;
     return (
-      <div className="login container">
-        <form onSubmit={this.handleSubmit} noValidate>
+      <div className="container">
+        <form onSubmit={handleOnSubmit} noValidate>
           <div className="form-group row">
             <label htmlFor="email" className="col-sm-2 col-form-label">
               Email
@@ -36,10 +44,14 @@ class LoginForm extends React.PureComponent {
                 className="form-control"
                 id="email"
                 placeholder="Ingrese su email"
-                onChange={this.handleOnChange}
+                onChange={handleOnChange}
               />
-              <span className="form__err">{errors.email.isEmpty && 'El campo email es obligatorio'}</span>
-              <span className="form__err">{errors.email.isInvalidEmail && 'No es un email válido'}</span>
+              <span className="form__err">
+                {errors.email && errors.email.isEmpty}
+              </span>
+              <span className="form__err">
+                {errors.email && errors.email.isInvalidEmail}
+              </span>
             </div>
           </div>
           <div className="form-group row">
@@ -53,13 +65,18 @@ class LoginForm extends React.PureComponent {
                 className="form-control"
                 id="password"
                 placeholder="Ingrese su password"
-                required
-                onChange={this.handleOnChange}
+                onChange={handleOnChange}
               />
-              <span className="form__err">{errors.password.isEmpty && 'El campo password es obligatorio'}</span>
+              <span className="form__err">
+                {errors.password && errors.password.isEmpty}
+              </span>
             </div>
           </div>
-          <button type="submit" className="btn btn-primary btn-block">
+          <button
+            type="submit"
+            className="btn btn-primary btn-block"
+            disabled={!isDirty}
+          >
             Aceptar
           </button>
         </form>
@@ -68,41 +85,91 @@ class LoginForm extends React.PureComponent {
   }
 
   /**
-   * Method to handle event change form
+   * Method to handle event on change in form login
    * @param {Event} event
    * @returns {void}
    */
   handleOnChange(event) {
     const {
-      target: { name, value },
+      target: { name, value }
     } = event;
     this.setState({
       ...this.state,
+      isDirty: true,
       request: {
         ...this.state.request,
-        [name]: value,
+        [name]: value
       },
       errors: {
-        ...this.state.errors,
-        [name] : {
-          isEmpty: Validator.isEmpty(value),
-          isInvalidEmail: name === 'email' ? !Validator.isEmail(value) : {}
-        }
+        email: null,
+        password: null
       }
     });
   }
 
-  handleSubmit(event) {
+  /**
+   * Method to handle event submit form login
+   * @param {Event} event
+   * @returns {void}
+   */
+  handleOnSubmit(event) {
     event.preventDefault();
-    const { email , password } = this.state.errors;
-    if (!email.isInvalidEmail && !email.isEmpty && !password.isEmpty) {
+    if (this.getStatusFormAndSetErrors()) {
       this.props.onSubmit(this.state.request);
     }
+  }
+
+  /**
+   * Method to get the current status form is valid or not.
+   * Set new state if errors
+   * @returns {bool} isValid
+   */
+  getStatusFormAndSetErrors() {
+    const { email, password } = this.state.request;
+    if (Validator.isEmpty(email)) {
+      this.setState({
+        ...this.state,
+        errors: {
+          ...this.state.errors,
+          email: {
+            isEmpty: EMPTY_MAIL,
+            isInvalidEmail: INVALID_MAIL
+          }
+        }
+      });
+      return false;
+    }
+    if (!Validator.isEmail(email)) {
+      this.setState({
+        ...this.state,
+        errors: {
+          ...this.state.errors,
+          email: {
+            isEmpty: null,
+            isInvalidEmail: INVALID_MAIL
+          }
+        }
+      });
+      return false;
+    }
+    if (Validator.isEmpty(password)) {
+      this.setState({
+        ...this.state,
+        errors: {
+          ...this.state.errors,
+          password: {
+            isEmpty: EMPTY_PASSWORD
+          }
+        }
+      });
+      return false;
+    }
+    return true;
   }
 }
 
 LoginForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default LoginForm;

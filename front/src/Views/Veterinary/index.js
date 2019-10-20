@@ -1,5 +1,5 @@
 import React from "react";
-import {Route} from "react-router-dom";
+import { Route } from "react-router-dom";
 
 // Veterinary Views
 import HomeVet from "./HomeVet";
@@ -8,7 +8,7 @@ import Header from "./Header";
 
 class Veterinary extends React.PureComponent {
   render() {
-    const {match} = this.props;
+    const { match } = this.props;
     return (
       <React.Fragment>
         <Header />
