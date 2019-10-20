@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./index.scss";
 
-class RolSelect extends React.PureComponent {
+class RolSelect extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

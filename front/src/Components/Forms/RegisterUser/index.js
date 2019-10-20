@@ -6,10 +6,10 @@ import {
   EMPTY_PASSWORD,
   INVALID_MAIL,
   EMPTY_DNI
-} from "../../../utils/messages";
+} from "../../../Utils/messages";
 import "./index.scss";
 
-class RegisterUser extends React.PureComponent {
+class RegisterUser extends React.Component {
   constructor(props) {
     super(props);
     const {

@@ -1,10 +1,11 @@
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
 import Api from "../../../Services/Api";
+import Auth from "../../../Services/Auth";
 import LoginForm from "../../../Components/Forms/LoginForm";
 import Alert from "../../../Components/Alert";
 import Spinner from "../../../Components/Spinner";
-import Logo from "../../../assets/images/Logo.png";
+import Logo from "../../../assets/images/logo.svg";
 import "./index.scss";
 
 // Roles by view
@@ -59,9 +60,10 @@ class Login extends React.PureComponent {
       this.setState({ ...this.state, isLoading: true });
       const {
         data: { success, additional_info, msg }
-      } = await Api.auth.login(request);
+      } = await Auth.login(request);
       if (success) {
         this.setState({ ...this.state, isLoading: false, hasError: null });
+        this.props.onAuthSuccess(additional_info);
         const defaultView = ROLES[additional_info.id_role];
         this.props.history.push(`/${defaultView}`);
       } else {

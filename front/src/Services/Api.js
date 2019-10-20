@@ -1,34 +1,32 @@
 import axios from "axios";
 
+const axiosInstance = axios.create({
+  baseURL: "http://api.veton/api",
+  timeout: 2000
+});
+
 export default {
   pets: {
-    fetch: idUser => axios.get("http://api.veton/api/pets/users/" + idUser),
-    createPet: data => axios.post("http://api.veton/api/pets", data)
+    fetch: idUser => axiosInstance.get(`/pets/users/${idUser}`),
+    createPet: data => axiosInstance.post("/pets", data)
   },
   clinicalhistories: {
     create: (idPet, request) =>
-      axios.post(`http://api.veton/api/clinicalhistories/${idPet}`, request),
-    getDetail: id => axios.get("http://api.veton/api/clinicalhistories/" + id),
-    all: () => axios.get("http://api.veton/api/clinicalhistories")
+      axiosInstance.post(`/clinicalhistories/${idPet}`, request),
+    getDetail: id => axiosInstance.get(`/clinicalhistories/${id}`),
+    all: () => axiosInstance.get(`/clinicalhistories`)
   },
   veterinaries: {
-    register: request =>
-      axios.post("http://api.veton/api/veterinaries", request)
+    register: request => axiosInstance.post("/veterinaries", request)
   },
   pet: {
-    fetch: id => axios.get("http://api.veton/api/pets/" + id)
+    fetch: id => axiosInstance.get(`/pets/${id}`)
   },
   breeds: {
-    fetch: () => axios.get("http://api.veton/api/breeds")
+    fetch: () => axiosInstance.get("/breeds")
   },
   types: {
-    fetch: () => axios.get("http://api.veton/api/types")
-  },
-  auth: {
-    register: request =>
-      axios.post("http://api.veton/api/auth/register", request),
-    login: request => axios.post("http://api.veton/api/auth/login", request),
-    logout: () => axios.get("http://api.veton/api/auth/logout")
+    fetch: () => axiosInstance.get("/types")
   },
   roles: {
     all: () => {

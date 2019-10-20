@@ -1,12 +1,11 @@
 import React from "react";
-
 import ApiVet from "../../../Services/ApiVet";
 import Api from "../../../Services/Api";
 import ListPets from "../../../Components/ListPets";
 import SearchBox from "../../../Components/Forms/SearchBox";
 import Spinner from "../../../Components/Spinner";
 
-class HomeVet extends React.PureComponent {
+class HomeVet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,10 +13,10 @@ class HomeVet extends React.PureComponent {
       petsList: [],
       clinicalHistories: []
     };
-    this.handleSearch = this.handleSearch.bind(this);
+    this.handleOnSearch = this.handleOnSearch.bind(this);
   }
 
-  async handleSearch(dni) {
+  async handleOnSearch(dni) {
     try {
       this.setState({ ...this.state, isLoading: true });
       const user = await ApiVet.users.fetch(dni);
@@ -36,21 +35,19 @@ class HomeVet extends React.PureComponent {
 
   render() {
     const { petsList, clinicalHistories, isLoading } = this.state;
+    const { handleOnSearch } = this;
     return (
       <div className="veton-container">
         <div className="veton-container__hero">
           <h2>Mis Mascotas</h2>
         </div>
-        {/* <Link className="btn btn-link btn-lg" to="veterinary/add-clinical-history">
-            Agregar nuevo paciente
-          </Link> */}
         <div className="veton-container__list">
           <div className="veton-container__list__container-search">
             <div>
               <SearchBox
                 className="search-box-border"
                 placeholder="Ingrese dni del paciente"
-                onSearch={this.handleSearch}
+                onSearch={handleOnSearch}
               />
             </div>
           </div>
