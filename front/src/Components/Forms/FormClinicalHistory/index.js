@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 export default class FormClinicalHistory extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       form: {
-        comments: '',
-        hide_comments: '',
-        afflictions_procedures: '',
-      },
+        comments: "",
+        hide_comments: "",
+        afflictions_procedures: ""
+      }
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,7 +45,13 @@ export default class FormClinicalHistory extends React.PureComponent {
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <span>Comentarios</span>
-            <textarea name="comments" className="form-control" value={comments} onChange={this.handleChange} required />
+            <textarea
+              name="comments"
+              className="form-control"
+              value={comments}
+              onChange={this.handleChange}
+              required
+            />
           </div>
           <div className="form-group">
             <span>Comentarios Ocultos</span>
@@ -78,5 +84,5 @@ export default class FormClinicalHistory extends React.PureComponent {
 
 FormClinicalHistory.propTypes = {
   title: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 };

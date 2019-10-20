@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, withRouter} from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import Logo from "../../../assets/images/Logo.png";
 import SearchBox from "../../../Components/Forms/SearchBox";
@@ -9,7 +9,7 @@ class Header extends React.PureComponent {
   render() {
     const {
       onSearch,
-      location: {pathname},
+      location: { pathname }
     } = this.props;
     return (
       <nav className="navbar-veton navbar navbar-expand-lg navbar-light bg-light">

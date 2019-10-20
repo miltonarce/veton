@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './index.scss';
+import React from "react";
+import PropTypes from "prop-types";
+import "./index.scss";
 
 class SearchBox extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      search: '',
+      search: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -52,7 +52,7 @@ class SearchBox extends React.PureComponent {
 
 SearchBox.propTypes = {
   placeholder: PropTypes.string,
-  onSearch: PropTypes.func,
+  onSearch: PropTypes.func
 };
 
 export default SearchBox;

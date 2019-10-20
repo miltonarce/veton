@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 export default class FormAddPet extends React.PureComponent {
   constructor(props) {
@@ -9,15 +9,15 @@ export default class FormAddPet extends React.PureComponent {
         id_user: 2,
         id_type: 1,
         id_breed: 1,
-        name: '',
-        last_name: '',
+        name: "",
+        last_name: "",
         birdthay: null,
-        image: '',
+        image: "",
         weight: null,
         colors: null,
-        comments: '',
-        id_gender: 1,
-      },
+        comments: "",
+        id_gender: 1
+      }
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,7 +40,7 @@ export default class FormAddPet extends React.PureComponent {
    */
   handleChange(event) {
     const { name, value } = event.target;
-    if (name === 'id_type' || name === 'id_breed' || name === 'id_gender') {
+    if (name === "id_type" || name === "id_breed" || name === "id_gender") {
       this.setState({ form: { ...this.state.form, [name]: Number(value) } });
     } else {
       this.setState({ form: { ...this.state.form, [name]: value } });
@@ -49,7 +49,17 @@ export default class FormAddPet extends React.PureComponent {
 
   render() {
     const { types, breeds, title } = this.props;
-    const { name, last_name, birdthay, image, weight, colors, comments, id_type, id_breed } = this.state.form;
+    const {
+      name,
+      last_name,
+      birdthay,
+      image,
+      weight,
+      colors,
+      comments,
+      id_type,
+      id_breed
+    } = this.state.form;
     const breedsByType = breeds.filter(breed => breed.id_type === id_type);
 
     return (
@@ -103,7 +113,7 @@ export default class FormAddPet extends React.PureComponent {
                 onChange={this.handleChange}
               />
               <label className="custom-file-label" htmlFor="imagePet">
-                {image ? image : 'No se cargó ninguna imagen'}
+                {image ? image : "No se cargó ninguna imagen"}
               </label>
             </div>
           </div>
@@ -132,11 +142,22 @@ export default class FormAddPet extends React.PureComponent {
           </div>
           <div className="form-group">
             <span>Comentarios</span>
-            <textarea name="comments" className="form-control" value={comments} onChange={this.handleChange} />
+            <textarea
+              name="comments"
+              className="form-control"
+              value={comments}
+              onChange={this.handleChange}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="type">Tipo</label>
-            <select className="form-control" id="id_type" name="id_type" value={id_type} onChange={this.handleChange}>
+            <select
+              className="form-control"
+              id="id_type"
+              name="id_type"
+              value={id_type}
+              onChange={this.handleChange}
+            >
               {types.map(type => (
                 <option value={type.id_type} key={type.id_type}>
                   {type.type}
@@ -201,15 +222,15 @@ FormAddPet.propTypes = {
   breeds: PropTypes.arrayOf(
     PropTypes.shape({
       id_breed: PropTypes.number.isRequired,
-      breed: PropTypes.string.isRequired,
-    }).isRequired,
+      breed: PropTypes.string.isRequired
+    }).isRequired
   ),
   types: PropTypes.arrayOf(
     PropTypes.shape({
       id_type: PropTypes.number.isRequired,
-      type: PropTypes.string.isRequired,
-    }).isRequired,
+      type: PropTypes.string.isRequired
+    }).isRequired
   ),
   title: PropTypes.string,
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 };

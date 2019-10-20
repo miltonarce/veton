@@ -1,42 +1,48 @@
-import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
-import Api from '../../../Services/Api';
-import LoginForm from '../../../Components/Forms/LoginForm';
-import Alert from '../../../Components/Alert';
-import Spinner from '../../../Components/Spinner';
-import Logo from '../../../assets/images/Logo.png';
-import './index.scss';
+import React from "react";
+import { withRouter, Link } from "react-router-dom";
+import Api from "../../../Services/Api";
+import LoginForm from "../../../Components/Forms/LoginForm";
+import Alert from "../../../Components/Alert";
+import Spinner from "../../../Components/Spinner";
+import Logo from "../../../assets/images/Logo.png";
+import "./index.scss";
+
+// Roles by view
+const ROLES = Api.roles.all();
 
 class Login extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       isLoading: false,
-      hasError: null,
-    }
-    this.roles = {
-      1: 'admin',
-      2: 'veterinary',
-      3: 'user'
-    }
+      hasError: null
+    };
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
   render() {
     const { isLoading, hasError } = this.state;
+    const { handleOnSubmit } = this;
     return (
       <div className="view">
         <div className="login-view">
           <div className="logo-app">
-            <img src={Logo} className="img-fluid" alt="Logo vetOn, veterinaria oline" />
+            <img
+              src={Logo}
+              className="img-fluid"
+              alt="Logo vetOn, veterinaria oline"
+            />
           </div>
-          <LoginForm onSubmit={this.handleSubmit} />
+          <LoginForm onSubmit={handleOnSubmit} />
           <div className="status-view">
             {hasError && <Alert message={hasError} type="danger" />}
             {isLoading && <Spinner />}
           </div>
           <div>
-            No tienes cuenta?  <Link to="/register" className="btn btn-link">Registrarse</Link>
+            No tienes cuenta?{" "}
+            <Link to="/register" className="btn btn-link">
+              Registrarse
+            </Link>
           </div>
         </div>
       </div>
@@ -44,23 +50,29 @@ class Login extends React.PureComponent {
   }
 
   /**
-   * Method to handle submit login and redirect to home user
-   * @param {Event} event
+   * Method to handle submit login and redirect to home by role
+   * @param {object} request
    * @returns {void}
    */
-  async handleSubmit(request) {
+  async handleOnSubmit(request) {
     try {
       this.setState({ ...this.state, isLoading: true });
-      const { data: { success, additional_info, msg } } = await Api.auth.login(request);
+      const {
+        data: { success, additional_info, msg }
+      } = await Api.auth.login(request);
       if (success) {
         this.setState({ ...this.state, isLoading: false, hasError: null });
-        const defaultView = this.roles[additional_info.id_role];
+        const defaultView = ROLES[additional_info.id_role];
         this.props.history.push(`/${defaultView}`);
       } else {
         this.setState({ ...this.state, isLoading: false, hasError: msg });
       }
     } catch (err) {
-      this.setState({ ...this.state, isLoading: false, hasError: 'Se produjo un error al autenticarse' });
+      this.setState({
+        ...this.state,
+        isLoading: false,
+        hasError: "Se produjo un error al autenticarse"
+      });
     }
   }
 }

@@ -1,13 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   pets: {
-    fetch: () => axios.get('http://api.veton/api/pets'),
+    fetch: () => axios.get("http://api.veton/api/pets")
   },
   users: {
-    fetch: val => axios.get('http://api.veton/api/users/' + val),
+    fetch: val => axios.get("http://api.veton/api/users/" + val)
   },
   userPets: {
-    fetch: id => axios.get('http://api.veton/api/pets/users/' + id),
+    fetch: id => axios.get("http://api.veton/api/pets/users/" + id)
   }
 };

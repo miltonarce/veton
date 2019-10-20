@@ -1,7 +1,7 @@
-import React from 'react';
-import FormAddPet from '../../../Components/Forms/Pet/FormAddPet';
-import Alert from '../../../Components/Alert';
-import Api from '../../../Services/Api';
+import React from "react";
+import FormAddPet from "../../../Components/Forms/Pet/FormAddPet";
+import Alert from "../../../Components/Alert";
+import Api from "../../../Services/Api";
 
 export default class AddPet extends React.PureComponent {
   constructor(props) {
@@ -10,7 +10,7 @@ export default class AddPet extends React.PureComponent {
       isLoading: true,
       breeds: [],
       types: [],
-      statusPet: {},
+      statusPet: {}
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -18,12 +18,15 @@ export default class AddPet extends React.PureComponent {
   async componentDidMount() {
     try {
       this.setState({ ...this.state, isLoading: true });
-      const [breeds, types] = await Promise.all([Api.breeds.fetch(), Api.types.fetch()]);
+      const [breeds, types] = await Promise.all([
+        Api.breeds.fetch(),
+        Api.types.fetch()
+      ]);
       this.setState({
         ...this.state,
         breeds: breeds.data,
         types: types.data,
-        isLoading: false,
+        isLoading: false
       });
     } catch (err) {
       this.setState({ ...this.state, isLoading: false });
@@ -34,9 +37,16 @@ export default class AddPet extends React.PureComponent {
     const { breeds, types, isLoading, statusPet } = this.state;
     return (
       <React.Fragment>
-        {statusPet.msg && <Alert message={statusPet.msg} type={statusPet.type} />}
+        {statusPet.msg && (
+          <Alert message={statusPet.msg} type={statusPet.type} />
+        )}
         {!isLoading && (
-          <FormAddPet title="Registar Mascota" types={types} breeds={breeds} onSubmit={this.handleSubmit} />
+          <FormAddPet
+            title="Registar Mascota"
+            types={types}
+            breeds={breeds}
+            onSubmit={this.handleSubmit}
+          />
         )}
       </React.Fragment>
     );
@@ -49,8 +59,11 @@ export default class AddPet extends React.PureComponent {
    * @returns {void}
    */
   async handleSubmit(pet) {
-    const errorAlert = { msg: 'Se produjo un error', type: 'danger' };
-    const successAlert = { msg: 'Se dió de alta correctamente!', type: 'success' };
+    const errorAlert = { msg: "Se produjo un error", type: "danger" };
+    const successAlert = {
+      msg: "Se dió de alta correctamente!",
+      type: "success"
+    };
     try {
       const { data } = await Api.pets.createPet(pet);
       if (data.sucess) {
