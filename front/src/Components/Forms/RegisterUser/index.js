@@ -6,7 +6,7 @@ import {
   EMPTY_PASSWORD,
   INVALID_MAIL,
   EMPTY_DNI
-} from "../../../Utils/messages";
+} from "../../../utils/messages";
 import "./index.scss";
 
 class RegisterUser extends React.Component {

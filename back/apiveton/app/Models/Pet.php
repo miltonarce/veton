@@ -61,8 +61,8 @@ class Pet extends Model
         return $this->belongsTo(Gender::class, 'id_gender', 'id_gender');
     }
 
-    public function clinicalHistories()
+    public function clinicalHistory()
     {
-        return $this->hasMany(ClinicalHistory::class, 'id_history', 'id_history');
+        return $this->hasMany(ClinicalHistory::class, 'id_pet', 'id_pet');
     }
 }
