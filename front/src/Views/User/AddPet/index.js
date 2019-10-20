@@ -1,9 +1,9 @@
 import React from "react";
-import FormAddPet from "../../../Components/Forms/Pet/FormAddPet";
+import FormAddPet from "../../../Components/Forms/Pet";
 import Alert from "../../../Components/Alert";
 import Api from "../../../Services/Api";
 
-export default class AddPet extends React.PureComponent {
+class AddPet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,7 +12,7 @@ export default class AddPet extends React.PureComponent {
       types: [],
       statusPet: {}
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
   async componentDidMount() {
@@ -35,6 +35,7 @@ export default class AddPet extends React.PureComponent {
 
   render() {
     const { breeds, types, isLoading, statusPet } = this.state;
+    const { handleOnSubmit } = this;
     return (
       <React.Fragment>
         {statusPet.msg && (
@@ -45,7 +46,7 @@ export default class AddPet extends React.PureComponent {
             title="Registar Mascota"
             types={types}
             breeds={breeds}
-            onSubmit={this.handleSubmit}
+            onSubmit={handleOnSubmit}
           />
         )}
       </React.Fragment>
@@ -58,7 +59,7 @@ export default class AddPet extends React.PureComponent {
    * @param {Object} pet request
    * @returns {void}
    */
-  async handleSubmit(pet) {
+  async handleOnSubmit(pet) {
     const errorAlert = { msg: "Se produjo un error", type: "danger" };
     const successAlert = {
       msg: "Se dió de alta correctamente!",
@@ -76,3 +77,5 @@ export default class AddPet extends React.PureComponent {
     }
   }
 }
+
+export default AddPet;

@@ -6,6 +6,7 @@ import RegisterUser from "../../../Components/Forms/RegisterUser";
 import Alert from "../../../Components/Alert";
 import Spinner from "../../../Components/Spinner";
 import Api from "../../../Services/Api";
+import Auth from "../../../Services/Auth";
 import "./index.scss";
 
 // Roles by view
@@ -36,7 +37,8 @@ class Register extends React.PureComponent {
       handleOnRolSelected
     } = this;
     return (
-      <div className="container">
+      <div className="container register-view">
+        <h2>Registrarse</h2>
         <RolSelect initialValue={id_role} onRolSelected={handleOnRolSelected} />
         {id_role === 4 && (
           <RegisterUser onSubmit={handleOnSubmitRegisterUser} />
@@ -71,7 +73,7 @@ class Register extends React.PureComponent {
       this.setState({ ...this.state, isLoading: true });
       const {
         data: { success, msg }
-      } = await Api.auth.register(request);
+      } = await Auth.register(request);
       const viewWithRole = ROLES[request.id_role];
       if (success) {
         this.setState({ ...this.state, isLoading: false });
@@ -100,7 +102,7 @@ class Register extends React.PureComponent {
       this.setState({ ...this.state, isLoading: true });
       const {
         data: { success, id, msg }
-      } = await Api.auth.register(user);
+      } = await Auth.register(user);
       if (success) {
         const requestVet = {
           ...veterinary,

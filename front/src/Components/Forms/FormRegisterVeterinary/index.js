@@ -7,10 +7,10 @@ import {
   EMPTY_PHONE,
   EMPTY_STREET,
   EMPTY_FANTASY_NAME
-} from "../../../utils/messages";
+} from "../../../Utils/messages";
 import "./index.scss";
 
-class FormRegisterVeterinary extends React.PureComponent {
+class FormRegisterVeterinary extends React.Component {
   constructor(props) {
     super(props);
     const {
@@ -200,6 +200,7 @@ class FormRegisterVeterinary extends React.PureComponent {
             value={request.cuit_cuil}
             onChange={handleOnChange}
           />
+          <p className="text-muted m-0">El cuit / cuil, sin espacios ni guiones</p>
           <span className="form__err">
             {errors.cuit_cuil && errors.cuit_cuil.isEmpty}
           </span>
@@ -215,6 +216,7 @@ class FormRegisterVeterinary extends React.PureComponent {
             value={request.phone1}
             onChange={handleOnChange}
           />
+          <p className="text-muted m-0">El télefono, sin espacios ni guiones</p>
           <span className="form__err">
             {errors.phone1 && errors.phone1.isEmpty}
           </span>
@@ -234,7 +236,7 @@ class FormRegisterVeterinary extends React.PureComponent {
             {errors.street && errors.street.isEmpty}
           </span>
         </div>
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-lg-between">
           <button
             type="button"
             className="btn btn-primary btn-lg"

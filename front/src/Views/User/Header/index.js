@@ -5,7 +5,7 @@ import Logo from "../../../assets/images/Logo.png";
 import SearchBox from "../../../Components/Forms/SearchBox";
 import "./index.scss";
 
-class Header extends React.PureComponent {
+class Header extends React.Component {
   render() {
     const {
       onSearch,

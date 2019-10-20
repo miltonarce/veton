@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-
 import Pet from "../Pet";
 
-export default class ListPets extends React.PureComponent {
+class ListPets extends React.Component {
   constructor(props) {
     super(props);
     this.showAddClinicalHistory = this.showAddClinicalHistory.bind(this);
@@ -12,6 +11,7 @@ export default class ListPets extends React.PureComponent {
 
   render() {
     const { pets, clinicalHistories = null } = this.props;
+    const { showAddClinicalHistory } = this;
 
     return pets.map((pet, i) => (
       <div key={i} className="box-list">
@@ -20,7 +20,7 @@ export default class ListPets extends React.PureComponent {
             {...pet}
             addConsult={
               clinicalHistories &&
-              this.showAddClinicalHistory(pet.id_pet) && (
+              showAddClinicalHistory(pet.id_pet) && (
                 <Link to={`/veterinary/add-clinical-history/${pet.id_pet}`}>
                   Agregar Consulta
                 </Link>
@@ -28,7 +28,7 @@ export default class ListPets extends React.PureComponent {
             }
             addHistor={
               clinicalHistories &&
-              this.showAddClinicalHistory(pet.id_pet) && (
+              showAddClinicalHistory(pet.id_pet) && (
                 <Link to={`/veterinary/add-clinical-history/${pet.id_pet}`}>
                   Agregar Historia
                 </Link>
@@ -59,3 +59,5 @@ ListPets.propTypes = {
     })
   )
 };
+
+export default ListPets;

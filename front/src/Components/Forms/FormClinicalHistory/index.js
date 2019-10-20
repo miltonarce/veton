@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default class FormClinicalHistory extends React.PureComponent {
+class FormClinicalHistory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,8 +11,8 @@ export default class FormClinicalHistory extends React.PureComponent {
         afflictions_procedures: ""
       }
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
   /**
@@ -20,7 +20,7 @@ export default class FormClinicalHistory extends React.PureComponent {
    * @param {Event} event
    * @returns {void}
    */
-  handleSubmit(event) {
+  handleOnSubmit(event) {
     event.preventDefault();
     this.props.onSubmit(this.state.form);
   }
@@ -30,7 +30,7 @@ export default class FormClinicalHistory extends React.PureComponent {
    * @param {Event} event
    * @returns {void}
    */
-  handleChange(event) {
+  handleOnChange(event) {
     const { name, value } = event.target;
     this.setState({ form: { ...this.state.form, [name]: value } });
   }
@@ -38,18 +38,18 @@ export default class FormClinicalHistory extends React.PureComponent {
   render() {
     const { title } = this.props;
     const { comments, hide_comments, afflictions_procedures } = this.state.form;
-
+    const { handleOnSubmit, handleOnChange } = this;
     return (
       <div className="container py-2">
         <h2 className="text-center">{title}</h2>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={handleOnSubmit}>
           <div className="form-group">
             <span>Comentarios</span>
             <textarea
               name="comments"
               className="form-control"
               value={comments}
-              onChange={this.handleChange}
+              onChange={handleOnChange}
               required
             />
           </div>
@@ -60,7 +60,7 @@ export default class FormClinicalHistory extends React.PureComponent {
               className="form-control"
               minLength="10"
               value={hide_comments}
-              onChange={this.handleChange}
+              onChange={handleOnChange}
               required
             />
           </div>
@@ -70,7 +70,7 @@ export default class FormClinicalHistory extends React.PureComponent {
               name="afflictions_procedures"
               className="form-control"
               value={afflictions_procedures}
-              onChange={this.handleChange}
+              onChange={handleOnChange}
             />
           </div>
           <button type="submit" className="btn btn-primary btn-block">
@@ -86,3 +86,5 @@ FormClinicalHistory.propTypes = {
   title: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired
 };
+
+export default FormClinicalHistory;

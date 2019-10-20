@@ -1,6 +1,6 @@
 import React from "react";
 
-class Option extends React.PureComponent {
+class Option extends React.Component {
   render() {
     return (
       <React.Fragment>
