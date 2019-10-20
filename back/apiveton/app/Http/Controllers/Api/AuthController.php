@@ -8,20 +8,28 @@ use App\Models\User;
 use App\Models\Role;
 use Auth;
 use Hash;
+use Validator;
 
 class AuthController extends Controller
 {
 
     public function login(Request $request) 
     {
-        $request->validate(User::$rules);
-        if ($this->existsMail($request['email'])) {
-            if (Auth::attempt(['password' => $request['password'], 'email' => $request['email']])) {
-                return response()->json(['success' => true, 'additional_info' => $this->getAditionalInfo(Auth::user())]);
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|min:4'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'errors' => $validator->errors()]);
+        } else {
+            if ($this->existsMail($request['email'])) {
+                if (Auth::attempt(['password' => $request['password'], 'email' => $request['email']])) {
+                    return response()->json(['success' => true, 'additional_info' => $this->getAditionalInfo(Auth::user())]);
+                }
+                return response()->json(['success' => false, 'msg' => 'Datos incorrectos']);
             }
-            return response()->json(['success' => false, 'msg' => 'Datos incorrectos']);
+            return response()->json(['success' => false, 'msg' => 'El email no existe']);
         }
-        return response()->json(['success' => false, 'msg' => 'El email no existe']);
     }
 
     public function logout(Request $request) 

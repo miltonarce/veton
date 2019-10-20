@@ -35,12 +35,13 @@ class VeterinariesController extends Controller
         try {
             $request->validate(VeterinaryPendingApproval::$rules, VeterinaryPendingApproval::$errorMessages);
             $data = $request->all();
+            $data['approved'] = 1;
             VeterinaryPendingApproval::create($data);
             return response()->json([
-                'sucess' => true
+                'success' => true
             ]);
         } catch (QueryException $e) {
-            return response()->json(['sucess' => false, 'msg' => 'Se produjo un error al crear una veterinaria', 'error_stack' => $e]);
+            return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear una veterinaria', 'error_stack' => $e]);
         }
     }
 }

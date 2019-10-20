@@ -22,14 +22,14 @@ class PetDetail extends React.Component {
         isLoading: false
       });
     } catch (error) {
+      console.log("error", error);
       this.setState({ ...this.state, isLoading: false, error: true });
-      console.log("error");
     }
   }
 
   render() {
-    const { dataPet, isLoading } = this.state;
-    if (isLoading)
+    const { dataPet, isLoading, error } = this.state;
+    if (isLoading) {
       return (
         <div className="veton-container-spinner">
           <div>
@@ -37,6 +37,11 @@ class PetDetail extends React.Component {
           </div>
         </div>
       );
+    } else {
+      if (error) {
+        return <p>Se produjo un error</p>;
+      }
+    }
     return (
       <div className="veton-container">
         <div className="veton-container__hero-row">
