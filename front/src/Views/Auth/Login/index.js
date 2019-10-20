@@ -5,7 +5,7 @@ import Auth from "../../../Services/Auth";
 import LoginForm from "../../../Components/Forms/LoginForm";
 import Alert from "../../../Components/Alert";
 import Spinner from "../../../Components/Spinner";
-import Logo from "../../../assets/images/Logo.png";
+import Logo from "../../../assets/images/logo.svg";
 import "./index.scss";
 
 // Roles by view

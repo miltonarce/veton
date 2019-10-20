@@ -20,7 +20,6 @@ class LoginForm extends React.Component {
         email: null,
         password: null
       },
-      isDirty: false
     };
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
@@ -28,7 +27,7 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    const { errors, isDirty } = this.state;
+    const { errors } = this.state;
     const { handleOnSubmit, handleOnChange } = this;
     return (
       <div className="container">
@@ -75,7 +74,6 @@ class LoginForm extends React.Component {
           <button
             type="submit"
             className="btn btn-primary btn-block"
-            disabled={!isDirty}
           >
             Aceptar
           </button>
@@ -95,7 +93,6 @@ class LoginForm extends React.Component {
     } = event;
     this.setState({
       ...this.state,
-      isDirty: true,
       request: {
         ...this.state.request,
         [name]: value

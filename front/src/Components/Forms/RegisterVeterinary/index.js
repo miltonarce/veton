@@ -95,7 +95,7 @@ class RegisterVeterinary extends React.Component {
       <React.Fragment>
         {currentStep === 0 && (
           <div>
-            <h2>Datos personales</h2>
+            <h2 className="text-center mb-3">Datos personales</h2>
             <RegisterUser
               initialValue={user}
               onSubmit={handleOnSubmitUser}
@@ -105,7 +105,7 @@ class RegisterVeterinary extends React.Component {
         )}
         {currentStep === 1 && (
           <div>
-            <h2>Datos de la veterinaria</h2>
+            <h2 className="text-center mb-3">Datos de la veterinaria</h2>
             <FormRegisterVeterinary
               initialValue={veterinary}
               onClickBeforeStep={handleOnClickBeforeStep}

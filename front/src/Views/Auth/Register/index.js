@@ -37,7 +37,8 @@ class Register extends React.PureComponent {
       handleOnRolSelected
     } = this;
     return (
-      <div className="container">
+      <div className="container register-view">
+        <h2>Registrarse</h2>
         <RolSelect initialValue={id_role} onRolSelected={handleOnRolSelected} />
         {id_role === 4 && (
           <RegisterUser onSubmit={handleOnSubmitRegisterUser} />
