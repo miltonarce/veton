@@ -7,7 +7,7 @@ import {
   EMPTY_PHONE,
   EMPTY_STREET,
   EMPTY_FANTASY_NAME
-} from "../../../Utils/messages";
+} from "../../../utils/messages";
 import "./index.scss";
 
 class FormRegisterVeterinary extends React.Component {

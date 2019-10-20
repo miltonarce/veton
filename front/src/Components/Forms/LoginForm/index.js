@@ -5,7 +5,7 @@ import {
   EMPTY_MAIL,
   EMPTY_PASSWORD,
   INVALID_MAIL
-} from "../../../Utils/messages";
+} from "../../../utils/messages";
 import "./index.scss";
 
 class LoginForm extends React.Component {

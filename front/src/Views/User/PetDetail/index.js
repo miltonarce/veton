@@ -1,7 +1,7 @@
 import React from "react";
 import Api from "../../../Services/Api";
 import Spinner from "../../../Components/Spinner";
-import calculateAge from "../../../Utils/globals";
+import calculateAge from "../../../utils/globals";
 
 class PetDetail extends React.Component {
   constructor(props) {
@@ -197,8 +197,8 @@ class PetDetail extends React.Component {
                   </div>
                 </div>
               ) : (
-                <p>No hay historia clínica registrada.</p>
-              )}
+                  <p>No hay historia clínica registrada.</p>
+                )}
             </div>
           </div>
         </div>
