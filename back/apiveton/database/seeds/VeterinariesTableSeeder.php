@@ -13,7 +13,7 @@ class VeterinariesTableSeeder extends Seeder
     {
         DB::table('veterinaries')->insert([
             'id_veterinary' => 1,
-            'id_user' =>4,
+            'id_user' =>1,
             'business_name' => 'Maskkotas SA',
             'fantasy_name' =>'Maskkotas',
             'cuit_cuil' =>12345678,
@@ -28,7 +28,7 @@ class VeterinariesTableSeeder extends Seeder
 
         DB::table('veterinaries')->insert([
             'id_veterinary' => 2,
-            'id_user' =>4,
+            'id_user' =>6,
             'business_name' => 'Encalada SA',
             'fantasy_name' =>'Veterinaria Encalada',
             'cuit_cuil' =>55896987,
@@ -43,7 +43,7 @@ class VeterinariesTableSeeder extends Seeder
 
         DB::table('veterinaries')->insert([
             'id_veterinary' => 3,
-            'id_user' =>4,
+            'id_user' =>7,
             'business_name' => 'Drovenort SA',
             'fantasy_name' =>'Veterinaria Drovenort',
             'cuit_cuil' =>11254759,
