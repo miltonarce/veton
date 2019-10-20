@@ -19,7 +19,7 @@ class LoginForm extends React.Component {
       errors: {
         email: null,
         password: null
-      },
+      }
     };
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
@@ -71,10 +71,7 @@ class LoginForm extends React.Component {
               </span>
             </div>
           </div>
-          <button
-            type="submit"
-            className="btn btn-primary btn-block"
-          >
+          <button type="submit" className="btn btn-primary btn-block">
             Aceptar
           </button>
         </form>

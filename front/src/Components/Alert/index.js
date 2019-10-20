@@ -9,9 +9,9 @@ const Alert = ({ message, type }) => (
   </div>
 );
 
-export default Alert;
-
 Alert.propTypes = {
   message: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired
 };
+
+export default Alert;

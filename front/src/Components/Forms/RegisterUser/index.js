@@ -198,7 +198,8 @@ RegisterUser.defaultProps = {
 
 RegisterUser.propTypes = {
   initialValue: PropTypes.shape({}),
-  name: PropTypes.string
+  name: PropTypes.string,
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default RegisterUser;

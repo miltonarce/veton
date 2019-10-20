@@ -200,7 +200,9 @@ class FormRegisterVeterinary extends React.Component {
             value={request.cuit_cuil}
             onChange={handleOnChange}
           />
-          <p className="text-muted m-0">El cuit / cuil, sin espacios ni guiones</p>
+          <p className="text-muted m-0">
+            El cuit / cuil, sin espacios ni guiones
+          </p>
           <span className="form__err">
             {errors.cuit_cuil && errors.cuit_cuil.isEmpty}
           </span>
