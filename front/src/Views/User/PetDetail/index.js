@@ -1,7 +1,7 @@
 import React from "react";
 import Api from "../../../Services/Api";
 import Spinner from "../../../Components/Spinner";
-import calculateAge from "../../../Utils/globals";
+import Utils from "../../../Utils/globals";
 
 class PetDetail extends React.Component {
   constructor(props) {
@@ -97,7 +97,7 @@ class PetDetail extends React.Component {
                     EDAD
                   </div>
                   <div className="veton-container__main-veton__data-pet__info__data2__age__data">
-                    {calculateAge(dataPet.birthday)}
+                    {Utils.calculateAge(dataPet.birthday)}
                   </div>
                 </div>
                 <div className="veton-container__main-veton__data-pet__info__data2__birthday">

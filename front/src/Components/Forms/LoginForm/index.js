@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Validator from "../../../Services/Validator";
+import Utils from "../../../Utils/globals";
 import {
   EMPTY_MAIL,
   EMPTY_PASSWORD,
@@ -120,7 +120,7 @@ class LoginForm extends React.Component {
    */
   getStatusFormAndSetErrors() {
     const { email, password } = this.state.request;
-    if (Validator.isEmpty(email)) {
+    if (Utils.isEmpty(email)) {
       this.setState({
         ...this.state,
         errors: {
@@ -133,7 +133,7 @@ class LoginForm extends React.Component {
       });
       return false;
     }
-    if (!Validator.isEmail(email)) {
+    if (!Utils.isEmail(email)) {
       this.setState({
         ...this.state,
         errors: {
@@ -146,7 +146,7 @@ class LoginForm extends React.Component {
       });
       return false;
     }
-    if (Validator.isEmpty(password)) {
+    if (Utils.isEmpty(password)) {
       this.setState({
         ...this.state,
         errors: {
