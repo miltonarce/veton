@@ -2,6 +2,7 @@ import React from "react";
 import Api from "../../../Services/Api";
 import Spinner from "../../../Components/Spinner";
 import calculateAge from "../../../utils/globals";
+import ListHistories from "../../../Components/ListHistories";
 
 class PetDetail extends React.Component {
   constructor(props) {
@@ -128,81 +129,17 @@ class PetDetail extends React.Component {
             </div>
           </div>
           <div className="veton-container__main-veton__history-pet">
-            <div className="veton-container__main-veton__history-pet__actions">
-              <div className="veton-container__main-veton__history-pet__actions__row">
-                <div>
-                  <button>Historia Clínica</button>
-                </div>
-                <div>
-                  <button>Consultas</button>
-                </div>
-              </div>
-            </div>
+            <h3>Historia Clínica</h3>
             <div className="veton-container__main-veton__history-pet__data">
-              {dataPet.clinical_history ? (
-                <div className="veton-container__main-veton__history-pet__data__container">
-                  <div className="veton-container__main-veton__history-pet__data__container__data">
-                    <div className="veton-container__main-veton__history-pet__data__container__data__id">
-                      <div className="veton-container__main-veton__history-pet__data__container__data__id__title">
-                        #ID HISTORIA
-                      </div>
-                      <div className="veton-container__main-veton__history-pet__data__container__data__id__info">
-                        {dataPet.clinical_history.id_history}
-                      </div>
-                    </div>
-                    <div className="veton-container__main-veton__history-pet__data__container__data__date-init">
-                      <div className="veton-container__main-veton__history-pet__data__container__data__date-init__title">
-                        FECHA DE INICIO DE HISTORIA CLÍNICA
-                      </div>
-                      <div className="veton-container__main-veton__history-pet__data__container__data__date-init__info">
-                        {dataPet.clinical_history.created_at}
-                      </div>
-                    </div>
-                    <div className="veton-container__main-veton__history-pet__data__container__data__date-update">
-                      <div className="veton-container__main-veton__history-pet__data__container__data__date-update__title">
-                        FECHA DE ÚLTIMA ACTUALIZACIÓN
-                      </div>
-                      <div className="veton-container__main-veton__history-pet__data__container__data__date-update__info">
-                        {dataPet.clinical_history.updated_at}
-                      </div>
-                    </div>
-                    <div className="veton-container__main-veton__history-pet__data__container__data__afflictions">
-                      <div className="veton-container__main-veton__history-pet__data__container__data__afflictions__title">
-                        AFLICCIONES
-                      </div>
-                      <div className="veton-container__main-veton__history-pet__data__container__data__afflictions__info">
-                        {dataPet.clinical_history.afflictions_procedures}
-                      </div>
-                    </div>
-                    <div className="veton-container__main-veton__history-pet__data__container__data__observations">
-                      <div className="veton-container__main-veton__history-pet__data__container__data__observations__title">
-                        OBSERVACIONES
-                      </div>
-                      <div className="veton-container__main-veton__history-pet__data__container__data__observations__info">
-                        {dataPet.clinical_history.comments}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="veton-container__main-veton__history-pet__data__container__images">
-                    <div className="veton-container__main-veton__history-pet__data__container__images__title">
-                      IMÁGENES
-                    </div>
-                    <div className="veton-container__main-veton__history-pet__data__container__images__info">
-                      <div>
-                        <i className="material-icons">move_to_inbox</i>
-                        <br />
-                        Aún no se han cargado imágenes
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              {dataPet.clinical_history.length > 0 ? (
+                <ListHistories histories={dataPet.clinical_history} />
               ) : (
-                  <p>No hay historia clínica registrada.</p>
+                  <p>No hay historias clínicas registradas.</p>
                 )}
             </div>
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }
