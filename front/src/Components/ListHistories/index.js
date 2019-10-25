@@ -5,6 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import { Link } from "react-router-dom";
 
 import History from "../../Components/History";
 import ListConsultations from "../../Components/ListConsultations";
@@ -84,6 +85,9 @@ const ListHistories = ({ histories }) => {
             history.consultations.length > 0 ?
               (<div>
                 <h3>Consultas</h3>
+                <Link to={`/veterinary/add-consultation/${history.id_history}`}>
+                  Agregar Consulta
+                </Link>
                 <ListConsultations consultations={history.consultations} />
               </div>) :
               (

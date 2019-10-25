@@ -3,6 +3,7 @@ import Api from "../../../Services/Api";
 import Spinner from "../../../Components/Spinner";
 import calculateAge from "../../../utils/globals";
 import ListHistories from "../../../Components/ListHistories";
+import { Link } from "react-router-dom";
 
 class PetDetail extends React.Component {
   constructor(props) {
@@ -134,7 +135,12 @@ class PetDetail extends React.Component {
               {dataPet.clinical_history.length > 0 ? (
                 <ListHistories histories={dataPet.clinical_history} />
               ) : (
-                  <p>No hay historias clínicas registradas.</p>
+                  <>
+                    <p>No hay historias clínicas registradas.</p>
+                    <Link to={`/veterinary/add-clinical-history/${dataPet.id_pet}`}>
+                      Agregar Historia
+                    </Link>
+                  </>
                 )}
             </div>
           </div>

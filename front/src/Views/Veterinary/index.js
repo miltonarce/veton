@@ -4,6 +4,7 @@ import { Route } from "react-router-dom";
 // Veterinary Views
 import HomeVet from "./HomeVet";
 import AddClinicalHistory from "./AddClinicalHistory";
+import AddConsultation from "./AddConsultation";
 import Header from "./Header";
 
 class Veterinary extends React.Component {
@@ -16,6 +17,10 @@ class Veterinary extends React.Component {
         <Route
           component={AddClinicalHistory}
           path={`${match.path}/add-clinical-history/:idPet`}
+        />
+        <Route
+          component={AddConsultation}
+          path={`${match.path}/add-consultation/:idHistory`}
         />
       </React.Fragment>
     );
