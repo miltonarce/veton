@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
+import ApiVet from '../../Services/ApiVet';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -30,6 +31,8 @@ const Consultation = ({ dataConsultation, user }) => {
   const classes = useStyles();
   const [values, setValues] = React.useState({
     id_consultation: dataConsultation.id_consultation,
+    id_user: user.id_user,
+    id_history: dataConsultation.id_history,
     created_at: dataConsultation.created_at,
     updated_at: dataConsultation.updated_at,
     afflictions_procedures: dataConsultation.afflictions_procedures,
@@ -40,7 +43,10 @@ const Consultation = ({ dataConsultation, user }) => {
 
   React.useEffect(() => {
     if (user.id_role == 3) {
-      setValues({ hasDisabled: false });
+      setValues({
+        hasDisabled: false, afflictions_procedures: dataConsultation.afflictions_procedures,
+        comments: dataConsultation.comments
+      });
     }
   }, []);
 
@@ -49,8 +55,23 @@ const Consultation = ({ dataConsultation, user }) => {
   };
 
   const handleOnSubmit = async event => {
-
-    console.log("algo");
+    event.preventDefault();
+    try {
+      const data = await ApiVet.consultations.edit(dataConsultation.id_consultation, {
+        ...values,
+        id_user: user.id_user,
+        id_history: dataConsultation.id_history,
+      });
+      if (data.data.success) {
+        alert("La consulta se edito correctamente");
+        console.log(data);
+      } else {
+        console.log(data);
+        alert("Hubo un error al editar la consulta");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

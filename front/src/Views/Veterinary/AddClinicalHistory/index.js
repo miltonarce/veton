@@ -21,7 +21,7 @@ class AddClinicalHistory extends React.Component {
     const { idPet } = this.props.match.params;
     try {
       const { data } = await Api.clinicalhistories.create(idPet, request);
-      if (data.sucess) {
+      if (data.success) {
         this.setState({ ...this.state, statusClinicalHistory: successAlert });
       } else {
         this.setState({ ...this.state, statusClinicalHistory: errorAlert });

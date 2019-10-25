@@ -3,6 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const RouteAuth = ({ auth, component: Component, render, ...props }) => {
+  console.log(props);
   return (
     <Route
       {...props}

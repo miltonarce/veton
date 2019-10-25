@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
 
+import ApiVet from "../../Services/ApiVet"
+
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -48,8 +50,22 @@ const History = ({ dataHistory, user }) => {
     setValues({ ...values, [name]: event.target.value });
   };
 
+  const handleSubmit = async event => {
+    event.preventDefault();
+    try {
+      const data = await ApiVet.clinicalhistories.edit(dataHistory.id_history, values);
+      if (data.data.success) {
+        alert("La historia clínica se edito correctamente");
+      } else {
+        alert("Hubo un error al editar la historia clínica");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <form className={classes.container} noValidate autoComplete="off">
+    <form className={classes.container} onSubmit={handleSubmit} noValidate autoComplete="off">
       <TextField
         disabled
         id="outlined-idHistory"
@@ -115,6 +131,7 @@ const History = ({ dataHistory, user }) => {
               size="small"
               className={classes.button}
               startIcon={<SaveIcon />}
+              type="submit"
             >
               Guardar historia
       </Button>) : ''

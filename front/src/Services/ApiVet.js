@@ -9,6 +9,16 @@ export default {
   pets: {
     fetch: () => axiosInstance.get("/pets")
   },
+  clinicalhistories: {
+    edit: (idHistory, request) =>
+      axiosInstance.put(`/clinicalhistories/${idHistory}`, request),
+  },
+  consultations: {
+    create: (idHistory, request) =>
+      axiosInstance.post(`/consultations/${idHistory}`, request),
+    edit: (idConsultation, request) =>
+      axiosInstance.put(`/consultations/${idConsultation}`, request),
+  },
   users: {
     fetch: id => axiosInstance.get(`/users/${id}`)
   },
