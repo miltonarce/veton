@@ -1,7 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { styled } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
+
 import Pet from "../Pet";
+
+const PetLink = styled(Link)({
+  textDecoration: "none",
+})
 
 class ListPets extends React.Component {
   constructor(props) {
@@ -12,13 +19,18 @@ class ListPets extends React.Component {
   render() {
     const { pets } = this.props;
 
-    return pets.map((pet, i) => (
-      <div key={i} className="box-list">
-        <Link to={`/user/pet/${pet.id_pet}`}>
-          <Pet {...pet} />
-        </Link>
-      </div>
-    ));
+    return (
+      <Grid container direction="row" justify="flex-start" alignItems="flex-start" spacing={2}>
+        {pets.map((pet, i) => (
+          <Grid item xs={3} key={i}>
+            <PetLink to={`/user/pet/${pet.id_pet}`}>
+              <Pet {...pet} />
+            </PetLink>
+          </Grid>
+        ))}
+      </Grid>
+
+    );
   }
 
   showAddClinicalHistory(idPet) {

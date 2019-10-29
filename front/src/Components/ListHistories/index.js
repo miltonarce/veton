@@ -1,10 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import { Card, Tab, Tabs, Typography, Box } from '@material-ui/core';
 import { Link } from "react-router-dom";
 
 import History from "../../Components/History";
@@ -45,7 +42,6 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
-    height: 524,
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
@@ -63,7 +59,7 @@ const ListHistories = ({ histories }) => {
   };
 
   return (
-    <div className={classes.root}>
+    <Card className={classes.root}>
       <Tabs
         orientation="vertical"
         variant="scrollable"
@@ -92,7 +88,7 @@ const ListHistories = ({ histories }) => {
               )}
         </TabPanel>
       ))}
-    </div>
+    </Card>
   );
 }
 
