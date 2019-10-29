@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import Consultation from "../../Components/Consultation";
+import { AppContext } from '../../Store';
 
 
 const TabPanel = props => {
@@ -61,6 +62,8 @@ const ListConsultations = ({ consultations }) => {
     setValue(index);
   };
 
+  const { auth: { user } } = useContext(AppContext);
+
   return (
 
     <div className={classes.root}>
@@ -84,12 +87,13 @@ const ListConsultations = ({ consultations }) => {
       >
         {consultations.map((consultation, index) => (
           <TabPanel value={value} index={index} dir={theme.direction}>
-            <Consultation dataConsultation={consultation} user={value} />
+            <Consultation dataConsultation={consultation} user={user} />
           </TabPanel>
         ))}
       </SwipeableViews>
     </div>
   )
 }
+
 
 export default ListConsultations;

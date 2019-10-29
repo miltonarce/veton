@@ -38,7 +38,7 @@ const Consultation = ({ dataConsultation, user }) => {
     afflictions_procedures: dataConsultation.afflictions_procedures,
     comments: dataConsultation.comments,
     hasError: null,
-    hasDisabled: true,
+    hasDisabled: user.id_role === 3 ? false : true,
   });
 
   React.useEffect(() => {

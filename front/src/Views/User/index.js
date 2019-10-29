@@ -21,21 +21,14 @@ const ContentMain = styled('div')({
 
 class User extends React.Component {
   render() {
-    const { idUser } = this.props;
     return (
       <ContentMain>
         <CssBaseline />
         <Header />
         <Route exact path={this.props.match.path} component={HomeUser} />
         <Route path={`${this.props.match.path}/option`} component={Option} />
-        <Route
-          path={`${this.props.match.path}/pets`}
-          render={() => <Pets idUser={idUser} />}
-        />
-        <Route
-          path={`${this.props.match.path}/pet/:id`}
-          component={PetDetail}
-        />
+        <Route path={`${this.props.match.path}/pets`} component={Pets} />
+        <Route path={`${this.props.match.path}/pet/:id`} component={PetDetail} />
         <Route path={`${this.props.match.path}/profile`} component={Profile} />
         <Route path={`${this.props.match.path}/add-pet`} component={AddPet} />
       </ContentMain>

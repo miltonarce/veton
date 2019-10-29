@@ -1,8 +1,7 @@
 import React from "react";
 import FormConsultation from "../../../Components/Forms/FormConsultation";
 import ApiVet from "../../../Services/ApiVet";
-
-import Consumer from "../../../Store";
+import { AppContext } from "../../../Store";
 
 class AddConsultation extends React.Component {
   constructor(props) {
@@ -35,23 +34,22 @@ class AddConsultation extends React.Component {
   render() {
     const { statusConsultation } = this.state;
     const { handleOnSubmit } = this;
+    const { auth: { user } } = this.context;
     return (
       <React.Fragment>
         {statusConsultation.msg && (
           "Alert"
         )}
-        <Consumer>
-          {
-            value => (
-              <FormConsultation
-                title="Registrar Consulta"
-                onSubmit={handleOnSubmit}
-                user={value}
-              />)}
-        </Consumer>
+        <FormConsultation
+          title="Registrar Consulta"
+          onSubmit={handleOnSubmit}
+          user={user}
+        />
       </React.Fragment>
     );
   }
 }
+
+AddConsultation.contextType = AppContext;
 
 export default AddConsultation;

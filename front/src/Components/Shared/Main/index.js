@@ -17,7 +17,7 @@ const Main = props => {
     <Switch>
       <Route exact path="/" component={Login} />
       <Route exact path="/register" component={Register} />
-      <RouteAuth auth={logged} path="/user" render={props => <User {...props} idUser={user.id_user} />} />
+      <RouteAuth auth={logged} path="/user" render={props => <User {...props} />} />
       <RouteAuth auth={logged} path="/veterinary" component={Veterinary} />
       <RouteAuth auth={logged} path="/admin-vet" component={Veterinary} />
       <RouteAuth auth={logged} path="/admin" component={Admin} />
