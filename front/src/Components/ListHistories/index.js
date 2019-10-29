@@ -76,7 +76,7 @@ const ListHistories = ({ histories }) => {
       </Tabs>
       {histories.map((history, index) => (
         <TabPanel value={value} index={index}>
-          <History dataHistory={history} user={value} />
+          <History dataHistory={history} user={user} />
           <h3>Consultas</h3>
           {user.id_role === 3 ?
             <Link to={`/veterinary/add-consultation/${history.id_history}`}>

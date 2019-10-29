@@ -7,6 +7,7 @@ import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
 
 import ApiVet from "../../Services/ApiVet"
+import { AppContext } from "../../Store";
 
 
 const useStyles = makeStyles(theme => ({
@@ -37,7 +38,7 @@ const History = ({ dataHistory, user }) => {
     updated_at: dataHistory.updated_at,
     afflictions_procedures: dataHistory.afflictions_procedures,
     comments: dataHistory.comments,
-    hasDisabled: true,
+    hasDisabled: user.id_role === 3 ? false : true,
   });
 
   React.useEffect(() => {
