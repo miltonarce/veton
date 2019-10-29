@@ -10,7 +10,7 @@ class Consultation extends Model
     protected $primaryKey = 'id_consultation';
 
     /** @var array La lista de campos que se pueden cargar masivamente. */
-    protected $fillable = ['id_consultation', 'id_user', 'id_veterinary', 'id_history', 'comments', 'afflictions_procedures', 'image' ];
+    protected $fillable = ['id_user', 'id_history', 'comments', 'afflictions_procedures', 'image' ];
 
     /** @var array las reglas de validación. */
     public static $rules = [
@@ -30,10 +30,6 @@ class Consultation extends Model
         'afflictions_procedures.min' => 'Las aflicciones deben tener al menos :min caracteres'
     ];
 
-    public function veterinary()
-    {
-        return $this->belongsTo(Veterinary::class, 'id_veterinary', 'id_veterinary');
-    }
 
     public function user()
     {

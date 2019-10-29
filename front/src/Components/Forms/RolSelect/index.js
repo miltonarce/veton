@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./index.scss";
+import { InputLabel, MenuItem, Select, FormControl } from '@material-ui/core';
 
 class RolSelect extends React.Component {
   constructor(props) {
@@ -11,11 +11,10 @@ class RolSelect extends React.Component {
     this.handleOnChange = this.handleOnChange.bind(this);
   }
 
-  /**
-   * Method to handle on change select with current rol, call function to send value
-   * @param {Event} event
-   * @returns void
-   */
+  componentDidMount() {
+    this.props.onSetNext(true);
+  }
+
   handleOnChange(event) {
     const type_rol = Number(event.target.value);
     this.setState({ ...this.state, type_rol });
@@ -26,20 +25,20 @@ class RolSelect extends React.Component {
     const { type_rol } = this.state;
     const { handleOnChange } = this;
     return (
-      <form className="form-rol" noValidate>
-        <div className="form-group">
-          <label htmlFor="type_rol">¿Qué tipo de usuario eres?</label>
-          <select
-            className="form-control"
-            id="type_rol"
-            onChange={handleOnChange}
-            value={type_rol}
-          >
-            <option value={4}>Usuario</option>
-            <option value={2}>Veterinaria</option>
-          </select>
-        </div>
-      </form>
+      <FormControl fullWidth>
+        <InputLabel htmlFor="age-simple">Tipo de usuario</InputLabel>
+        <Select
+          value={type_rol}
+          onChange={handleOnChange}
+          inputProps={{
+            name: 'tipo',
+            id: 'user-type',
+          }}
+        >
+          <MenuItem value={4}>Usuario</MenuItem>
+          <MenuItem value={2}>Veterinaria</MenuItem>
+        </Select>
+      </FormControl>
     );
   }
 }

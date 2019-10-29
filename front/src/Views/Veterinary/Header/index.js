@@ -1,9 +1,7 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 
-import Logo from "../../../assets/images/Logo.png";
 import SearchBox from "../../../Components/Forms/SearchBox";
-import "./index.scss";
 
 class Header extends React.Component {
   render() {
@@ -17,7 +15,7 @@ class Header extends React.Component {
           <img
             alt="VetOn, veterinaria online"
             className="logo_app"
-            src={Logo}
+            src="assets/Logo.svg"
           />
         </Link>
         <SearchBox placeholder="Buscar" onSearch={onSearch} />

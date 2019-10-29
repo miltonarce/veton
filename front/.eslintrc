@@ -1,81 +1,26 @@
 {
   "root": true,
   "extends": [
-    "airbnb",
-    "prettier",
+    "react-app",
+    "plugin:prettier/recommended",
     "prettier/react"
   ],
   "plugins": [
-    "import",
-    "react",
-    "prettier"
+    "react-hooks"
   ],
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaVersion": 2016,
-    "sourceType": "module",
-    "jsx": true,
-    "ecmaFeatures": {
-      "jsx": true
+  "settings": {
+    "react": {
+      "version": "detect"
     }
   },
-  "env": {
-    "browser": true,
-    "commonjs": true,
-    "node": true,
-    "es6": true,
-    "jest": true,
-    "mocha": true
-  },
   "rules": {
-    "no-debugger": "warn",
-    "no-console": "warn",
-    "import/prefer-default-export": "off",
-    "react/jsx-filename-extension": "off",
-    "react/jsx-no-bind": "off",
-    "no-underscore-dangle": "off",
-    "no-nested-ternary": "off",
-    "jsx-a11y/click-events-have-key-events": "off",
-    "react/prefer-stateless-function": "off",
-    "jsx-a11y/no-autofocus": "off",
-    "consistent-return": "off",
-    "react/no-array-index-key": "off",
-    "eqeqeq": "off",
-    "no-multi-assign": "off",
-    "import/no-mutable-exports": "off",
-    "prefer-const": [
+    "no-console": "error",
+    "no-unused-vars": [
       "error",
       {
-        "destructuring": "all"
-      }
-    ],
-    "no-unused-expressions": [
-      "error",
-      {
-        "allowShortCircuit": true
-      }
-    ],
-    "linebreak-style": "off",
-    "react/prop-types": "off",
-    "react/jsx-sort-props": [
-      "error",
-      {
-        "callbacksLast": true,
-        "shorthandFirst": true,
-        "noSortAlphabetically": false,
-        "reservedFirst": true
-      }
-    ],
-    "react/sort-comp": [
-      "error",
-      {
-        "order": [
-          "type-annotations",
-          "static-methods",
-          "lifecycle",
-          "everything-else",
-          "render"
-        ]
+        "args": "after-used",
+        "ignoreRestSiblings": false,
+        "argsIgnorePattern": "^_$"
       }
     ],
     "prettier/prettier": [
@@ -83,12 +28,25 @@
       {
         "semi": true,
         "trailingComma": "es5",
-        "useTabs": false,
-        "printWidth": 80,
-        "tabWidth": 2,
-        "singleQuote": false,
-        "bracketSpacing": false,
-        "jsxBracketSameLine": false
+        "printWidth": 120
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always"
+      }
+    ],
+    "react/self-closing-comp": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-sort-props": [
+      "error",
+      {
+        "callbacksLast": true,
+        "shorthandFirst": true,
+        "noSortAlphabetically": false,
+        "reservedFirst": true
       }
     ]
   }

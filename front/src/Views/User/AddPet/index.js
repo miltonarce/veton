@@ -1,6 +1,5 @@
 import React from "react";
 import FormAddPet from "../../../Components/Forms/Pet";
-import Alert from "../../../Components/Alert";
 import Api from "../../../Services/Api";
 
 class AddPet extends React.Component {
@@ -39,7 +38,7 @@ class AddPet extends React.Component {
     return (
       <React.Fragment>
         {statusPet.msg && (
-          <Alert message={statusPet.msg} type={statusPet.type} />
+          "Alert"
         )}
         {!isLoading && (
           <FormAddPet

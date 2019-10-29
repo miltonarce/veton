@@ -6,6 +6,8 @@ use Illuminate\Database\QueryException;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\VeterinaryPendingApproval;
+use Illuminate\Support\Facades\DB;
 use Auth;
 use Hash;
 use Validator;
@@ -40,19 +42,38 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        try {
-            $request->validate(User::$rules);
-            $user = $request->all();
-            $user['password'] = Hash::make($request['password']);
-            //SACARLO CUANDO PONGAN QUE ACEPTA NULL
-            $user['name'] = '';
-            $user['last_name'] = '';
-            //SACARLO CUANDO PONGAN QUE ACEPTA NULL
-            $user = User::create($user);
-            return response()->json(['success' => true, 'msg' => 'Se creo su usuario!', 'id' => $user->id_user]);
-        } catch (QueryException $e) {
-            return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear su usuario', 'stack' => $e]);
+        if($request['id_role'] == '2' ){
+             DB::beginTransaction();
+            try{
+                $request->validate(User::$rules);
+                $user = $request->all();
+                $user['password'] = Hash::make($request['password']);
+                $user = User::create($user);
+                $request['id_user'] = $user['id_user'];
+                $request['approved'] = 1;
+                $request->validate(VeterinaryPendingApproval::$rules, VeterinaryPendingApproval::$errorMessages);
+                $data = $request->all();
+                VeterinaryPendingApproval::create($data);
+                DB::commit();
+                return response()->json([
+                    'success' => true
+                ]);
+            }catch(QueryException $e){
+                 DB::rollback();
+                return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear su usuario', 'stack' => $e]);
+            }
+        }else{
+            try {
+                $request->validate(User::$rules);
+                $user = $request->all();
+                $user['password'] = Hash::make($request['password']);
+                $user = User::create($user);
+                return response()->json(['success' => true, 'msg' => 'Se creo su usuario!', 'id' => $user->id_user]);
+            } catch (QueryException $e) {
+                return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear su usuario', 'stack' => $e]);
+            }
         }
+       
     }
 
     private function getAditionalInfo($data) 

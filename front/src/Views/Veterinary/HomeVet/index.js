@@ -3,7 +3,6 @@ import ApiVet from "../../../Services/ApiVet";
 import Api from "../../../Services/Api";
 import ListPets from "../../../Components/ListPets";
 import SearchBox from "../../../Components/Forms/SearchBox";
-import Spinner from "../../../Components/Spinner";
 
 class HomeVet extends React.Component {
   constructor(props) {
@@ -54,15 +53,15 @@ class HomeVet extends React.Component {
           <div className="veton-container__list__container-list">
             <div className="veton-container__list__container-list__row">
               {isLoading ? (
-                <Spinner />
+                "SPinner"
               ) : petsList.length > 0 ? (
                 <ListPets
                   clinicalHistories={clinicalHistories}
                   pets={petsList}
                 />
               ) : (
-                <p>No tenes registrado ninguna mascota</p>
-              )}
+                    <p>No tenes registrado ninguna mascota</p>
+                  )}
             </div>
           </div>
         </div>

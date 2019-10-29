@@ -1,7 +1,6 @@
 import React from "react";
 import Api from "../../../Services/Api";
-import Spinner from "../../../Components/Spinner";
-import calculateAge from "../../../utils/globals";
+import calculateAge from "../../../Utils/globals";
 import ListHistories from "../../../Components/ListHistories";
 import { Link } from "react-router-dom";
 
@@ -35,7 +34,7 @@ class PetDetail extends React.Component {
       return (
         <div className="veton-container-spinner">
           <div>
-            <Spinner />
+            Spinner
           </div>
         </div>
       );

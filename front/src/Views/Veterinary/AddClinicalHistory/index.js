@@ -1,7 +1,6 @@
 import React from "react";
 import FormClinicalHistory from "../../../Components/Forms/FormClinicalHistory";
 import Api from "../../../Services/Api";
-import Alert from "../../../Components/Alert";
 
 class AddClinicalHistory extends React.Component {
   constructor(props) {
@@ -37,10 +36,7 @@ class AddClinicalHistory extends React.Component {
     return (
       <React.Fragment>
         {statusClinicalHistory.msg && (
-          <Alert
-            message={statusClinicalHistory.msg}
-            type={statusClinicalHistory.type}
-          />
+          "ALert"
         )}
         <FormClinicalHistory
           title="Registrar Historia Clínica"

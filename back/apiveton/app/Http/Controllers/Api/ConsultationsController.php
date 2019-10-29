@@ -20,6 +20,7 @@ class ConsultationsController extends Controller
     public function store($idHistory, Request $request)
     {
        try {
+        $request['id_history'] = $idHistory;
         $request->validate(Consultation::$rules, Consultation::$errorMessages);
         $data = $request->all();
         if($request->hasFile('image')) {
@@ -30,7 +31,6 @@ class ConsultationsController extends Controller
         }else {
             $data['image'] = '';
         }
-        $data['id_history'] = $idHistory;
         Consultation::create($data);
         return response()->json([
             'sucess' => true

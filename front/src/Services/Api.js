@@ -16,9 +16,6 @@ export default {
     getDetail: id => axiosInstance.get(`/clinicalhistories/${id}`),
     all: () => axiosInstance.get(`/clinicalhistories`)
   },
-  veterinaries: {
-    register: request => axiosInstance.post("/veterinaries", request)
-  },
   pet: {
     fetch: id => axiosInstance.get(`/pets/${id}`)
   },

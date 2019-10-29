@@ -1,265 +1,322 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Validator from "../../../Services/Validator";
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import {
-  EMPTY_BUSINESS_NAME,
-  EMPTY_CUIT_CUIL,
-  EMPTY_PHONE,
-  EMPTY_STREET,
-  EMPTY_FANTASY_NAME
-} from "../../../utils/messages";
-import "./index.scss";
+  InputAdornment, FormControlLabel, Button, Grid, IconButton, Typography, ExpansionPanel,
+  ExpansionPanelSummary, ExpansionPanelDetails
+} from '@material-ui/core';
+import {
+  Email, Visibility, VisibilityOff, FeaturedPlayList, BusinessCenter, MyLocation, Apartment,
+  Phone, AspectRatio, ExpandMore
+} from '@material-ui/icons';
+import { styled } from '@material-ui/core/styles';
 
-class FormRegisterVeterinary extends React.Component {
-  constructor(props) {
-    super(props);
-    const {
-      business_name = "",
-      cuit_cuil = "",
-      phone1 = "",
-      street = "",
-      fantasy_name = ""
-    } = props.initialValue;
-    this.state = {
-      request: {
-        business_name,
-        cuit_cuil,
-        phone1,
-        street,
-        fantasy_name
-      },
-      errors: {
-        business_name: null,
-        cuit_cuil: null,
-        phone1: null,
-        street: null,
-        fantasy_name: null
-      }
-    };
-    this.handleOnSubmit = this.handleOnSubmit.bind(this);
-    this.handleOnChange = this.handleOnChange.bind(this);
+const Adorment = styled(InputAdornment)({
+  marginRight: "8px",
+});
+
+
+class FormRegisterVeterinary extends Component {
+  state = {
+    formData: {
+      email: '',
+      password: '',
+      dni: '',
+      id_role: this.props.idRole,
+      business_name: '',
+      cuit_cuil: '',
+      phone1: '',
+      street: '',
+      fantasy_name: ''
+    },
+    showPassword: false,
+    expanded: false,
+  };
+
+  emailRef = React.createRef();
+  passwordRef = React.createRef();
+  dniRef = React.createRef();
+  businessRef = React.createRef();
+  fantasyRef = React.createRef();
+  ccRef = React.createRef();
+  phone1Ref = React.createRef();
+  streetRef = React.createRef();
+
+  componentDidMount() {
+    this.props.onSubmit({ data: this.state.formData, disabled: true });
   }
 
-  /**
-   * Method to handle event on change in form register
-   * @param {Event} event
-   * @returns {void}
-   */
-  handleOnChange(event) {
-    const {
-      target: { name, value }
-    } = event;
-    this.setState({
-      ...this.state,
-      request: {
-        ...this.state.request,
-        [name]: value
-      },
-      errors: {
-        business_name: null,
-        cuit_cuil: null,
-        phone1: null,
-        street: null,
-        fantasy_name: null
+  handleExpanded = panel => (event, isExpanded) => {
+    this.setState({ ...this.state, expanded: isExpanded ? panel : false });
+  };
+
+  handleOnBlur = event => {
+    const { emailRef, passwordRef, dniRef, businessRef, fantasyRef, ccRef, phone1Ref, streetRef } = this;
+    switch (event.target.name) {
+      case "email":
+        emailRef.current.validate(event.target.value);
+      case "password":
+        passwordRef.current.validate(event.target.value);
+      case "dni":
+        dniRef.current.validate(event.target.value);
+      case "business_name":
+        businessRef.current.validate(event.target.value);
+      case "cuit_cuil":
+        ccRef.current.validate(event.target.value);
+      case "phone1":
+        phone1Ref.current.validate(event.target.value);
+      case "street":
+        streetRef.current.validate(event.target.value);
+      case "fantasy_name":
+        fantasyRef.current.validate(event.target.value);
+    }
+
+    this.form.isFormValid().then((isValid) => {
+      if (isValid) {
+        this.props.onSubmit({ data: this.state.formData, disabled: false });
       }
     });
   }
 
-  /**
-   * Method to handle event submit form register
-   * @param {Event} event
-   * @returns {void}
-   */
-  handleOnSubmit(event) {
+  handleOnSubmit = event => {
     event.preventDefault();
-    if (this.getStatusFormAndSetErrors()) {
-      this.props.onSubmit(this.state.request);
-    }
+    this.props.onSubmit(this.state.formData);
   }
 
-  /**
-   * Method to get the current status form is valid or not.
-   * Set new state if errors
-   * @returns {bool} isValid
-   */
-  getStatusFormAndSetErrors() {
-    const {
-      business_name,
-      cuit_cuil,
-      phone1,
-      street,
-      fantasy_name
-    } = this.state.request;
-    if (Validator.isEmpty(business_name)) {
-      this.setState({
-        ...this.state,
-        errors: {
-          ...this.state.errors,
-          business_name: {
-            isEmpty: EMPTY_BUSINESS_NAME
-          }
-        }
-      });
-      return false;
-    }
-    if (Validator.isEmpty(cuit_cuil)) {
-      this.setState({
-        ...this.state,
-        errors: {
-          ...this.state.errors,
-          cuit_cuil: {
-            isEmpty: EMPTY_CUIT_CUIL
-          }
-        }
-      });
-      return false;
-    }
-    if (Validator.isEmpty(phone1)) {
-      this.setState({
-        ...this.state,
-        errors: {
-          ...this.state.errors,
-          phone1: {
-            isEmpty: EMPTY_PHONE
-          }
-        }
-      });
-      return false;
-    }
-    if (Validator.isEmpty(street)) {
-      this.setState({
-        ...this.state,
-        errors: {
-          ...this.state.errors,
-          street: {
-            isEmpty: EMPTY_STREET
-          }
-        }
-      });
-      return false;
-    }
-    if (Validator.isEmpty(fantasy_name)) {
-      this.setState({
-        ...this.state,
-        errors: {
-          ...this.state.errors,
-          fantasy_name: {
-            isEmpty: EMPTY_FANTASY_NAME
-          }
-        }
-      });
-      return false;
-    }
-    return true;
+  handleOnChange = event => {
+    const { formData } = this.state;
+    formData[event.target.name] = event.target.value;
+    this.setState({ formData });
   }
+
+  handleClickShowPassword = () => {
+    this.setState({ ...this.state, showPassword: !this.state.showPassword });
+  };
+
+  handleMouseDownPassword = event => {
+    event.preventDefault();
+  };
 
   render() {
-    const { onClickBeforeStep } = this.props;
-    const { errors, request } = this.state;
-    const { handleOnSubmit, handleOnChange } = this;
+    const { formData, showPassword, expanded } = this.state;
+    const { handleOnSubmit, handleOnChange, handleOnBlur, handleClickShowPassword,
+      handleMouseDownPassword, handleExpanded, emailRef, passwordRef, dniRef, businessRef,
+      fantasyRef, ccRef, phone1Ref, streetRef } = this;
     return (
-      <form className="container" onSubmit={handleOnSubmit} noValidate>
-        <div className="form-group text-left">
-          <label htmlFor="business_name">Nombre de la veterinaria</label>
-          <input
-            type="text"
-            className="form-control"
-            id="business_name"
-            name="business_name"
-            placeholder="Ingrese el nombre de la veterinaria"
-            value={request.business_name}
-            onChange={handleOnChange}
-          />
-          <span className="form__err">
-            {errors.business_name && errors.business_name.isEmpty}
-          </span>
-        </div>
-        <div className="form-group text-left">
-          <label htmlFor="fantasy_name">Nombre fantasía</label>
-          <input
-            type="text"
-            className="form-control"
-            id="fantasy_name"
-            name="fantasy_name"
-            placeholder="Ingrese el nombre fantasía"
-            value={request.fantasy_name}
-            onChange={handleOnChange}
-          />
-          <span className="form__err">
-            {errors.fantasy_name && errors.fantasy_name.isEmpty}
-          </span>
-        </div>
-        <div className="form-group text-left">
-          <label htmlFor="cuit_cuil">CUIT / CUIL</label>
-          <input
-            type="number"
-            className="form-control"
-            id="cuit_cuil"
-            name="cuit_cuil"
-            placeholder="Ingrese su CUIT / CUIL"
-            value={request.cuit_cuil}
-            onChange={handleOnChange}
-          />
-          <p className="text-muted m-0">El cuit / cuil, sin espacios ni guiones</p>
-          <span className="form__err">
-            {errors.cuit_cuil && errors.cuit_cuil.isEmpty}
-          </span>
-        </div>
-        <div className="form-group text-left">
-          <label htmlFor="phone1">Teléfono</label>
-          <input
-            type="tel"
-            className="form-control"
-            id="phone1"
-            name="phone1"
-            placeholder="Ingrese el télefono"
-            value={request.phone1}
-            onChange={handleOnChange}
-          />
-          <p className="text-muted m-0">El télefono, sin espacios ni guiones</p>
-          <span className="form__err">
-            {errors.phone1 && errors.phone1.isEmpty}
-          </span>
-        </div>
-        <div className="form-group text-left">
-          <label htmlFor="street">Dirección</label>
-          <input
-            type="tel"
-            className="form-control"
-            id="street"
-            name="street"
-            placeholder="Ingrese la dirección de la veterinaria"
-            value={request.street}
-            onChange={handleOnChange}
-          />
-          <span className="form__err">
-            {errors.street && errors.street.isEmpty}
-          </span>
-        </div>
-        <div className="d-flex justify-content-lg-between">
-          <button
-            type="button"
-            className="btn btn-primary btn-lg"
-            onClick={() => onClickBeforeStep(request)}
+      <ValidatorForm onSubmit={handleOnSubmit} ref={(r) => { this.form = r; }} instantValidate>
+        <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleExpanded('panel1')}>
+          <ExpansionPanelSummary
+            expandIcon={<ExpandMore />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
           >
-            Anterior
-          </button>
-          <button type="submit" className="btn btn-primary btn-lg">
-            Finalizar
-          </button>
-        </div>
-      </form>
+            <Typography variant="body2" gutterBottom>Datos personales</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <Grid container>
+              <Grid item xs={12}>
+                <TextValidator
+                  margin="normal"
+                  label="Email"
+                  name="email"
+                  value={formData.email}
+                  ref={emailRef}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
+                  validators={['required', 'isEmail']}
+                  errorMessages={['Este campo es requerido.', 'No es un email valido.']}
+                  fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">
+                        <Email color="secondary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextValidator
+                  margin="normal"
+                  name="password"
+                  label="Contraseña"
+                  type={showPassword ? 'text' : 'password'}
+                  fullWidth
+                  value={formData.password}
+                  ref={passwordRef}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
+                  validators={['required']}
+                  errorMessages={['Este campo es requerido.']}
+                  InputProps={{
+                    endAdornment: (
+                      <Adorment position="end">
+                        <IconButton
+                          edge="end"
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <VisibilityOff color="secondary" /> : <Visibility color="secondary" />}
+                        </IconButton>
+                      </Adorment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextValidator
+                  margin="normal"
+                  label="DNI"
+                  type="number"
+                  name="dni"
+                  value={formData.dni}
+                  ref={dniRef}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
+                  validators={['required', 'isNumber']}
+                  errorMessages={['Este campo es requerido.', 'El dni debe ser un número.']}
+                  fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">
+                        <FeaturedPlayList color="secondary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+        <ExpansionPanel expanded={expanded === 'panel2'} onChange={handleExpanded('panel2')}>
+          <ExpansionPanelSummary
+            expandIcon={<ExpandMore />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography variant="body2" gutterBottom>Datos de la veterinaria</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <Grid container direction="row"
+              justify="space-between"
+              alignItems="center">
+              <Grid item xs={5}>
+                <TextValidator
+                  margin="normal"
+                  label="Nombre de la empresa"
+                  name="business_name"
+                  value={formData.business_name}
+                  ref={businessRef}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
+                  validators={['required']}
+                  errorMessages={['Este campo es requerido.']}
+                  fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">
+                        <BusinessCenter color="secondary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={5}>
+                <TextValidator
+                  margin="normal"
+                  label="Nombre de fantasía"
+                  name="fantasy_name"
+                  value={formData.fantasy_name}
+                  ref={fantasyRef}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
+                  validators={['required']}
+                  errorMessages={['Este campo es requerido.']}
+                  fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">
+                        <Apartment color="secondary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={5}>
+                <TextValidator
+                  margin="normal"
+                  label="CUIT / CUIL"
+                  type="number"
+                  name="cuit_cuil"
+                  value={formData.cuit_cuil}
+                  ref={ccRef}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
+                  validators={['required',]}
+                  errorMessages={['Este campo es requerido.']}
+                  fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">
+                        <AspectRatio color="secondary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={5}>
+                <TextValidator
+                  margin="normal"
+                  label="Teléfono"
+                  type="number"
+                  name="phone1"
+                  value={formData.phone1}
+                  ref={phone1Ref}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
+                  validators={['required']}
+                  errorMessages={['Este campo es requerido.']}
+                  fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">
+                        <Phone color="secondary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={5}>
+                <TextValidator
+                  margin="normal"
+                  label="Domicilio"
+                  name="street"
+                  value={formData.street}
+                  ref={streetRef}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
+                  validators={['required',]}
+                  errorMessages={['Este campo es requerido.']}
+                  fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">
+                        <MyLocation color="secondary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      </ValidatorForm>
     );
   }
 }
 
-FormRegisterVeterinary.defaultProps = {
-  initialValue: {}
-};
-
 FormRegisterVeterinary.propTypes = {
-  initialValue: PropTypes.shape({}).isRequired,
   onSubmit: PropTypes.func.isRequired
 };
-
 export default FormRegisterVeterinary;
