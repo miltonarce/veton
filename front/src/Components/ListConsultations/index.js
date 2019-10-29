@@ -10,7 +10,6 @@ import Box from '@material-ui/core/Box';
 
 import Consultation from "../../Components/Consultation";
 
-import Consumer from "../../store";
 
 const TabPanel = props => {
   const { children, value, index, ...other } = props;
@@ -85,13 +84,7 @@ const ListConsultations = ({ consultations }) => {
       >
         {consultations.map((consultation, index) => (
           <TabPanel value={value} index={index} dir={theme.direction}>
-            <Consumer>
-              {
-                value => (
-                  <Consultation dataConsultation={consultation} user={value} />
-
-                )}
-            </Consumer>
+            <Consultation dataConsultation={consultation} user={value} />
           </TabPanel>
         ))}
       </SwipeableViews>

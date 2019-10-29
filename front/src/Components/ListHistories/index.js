@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 
 import History from "../../Components/History";
 import ListConsultations from "../../Components/ListConsultations";
-import Consumer from "../../store";
 
 const TabPanel = props => {
   const { children, value, index, ...other } = props;
@@ -74,13 +73,7 @@ const ListHistories = ({ histories }) => {
       </Tabs>
       {histories.map((history, index) => (
         <TabPanel value={value} index={index}>
-          <Consumer>
-            {
-              value => (
-                <History dataHistory={history} user={value} />
-              )
-            }
-          </Consumer>
+          <History dataHistory={history} user={value} />
           {
             history.consultations.length > 0 ?
               (<div>

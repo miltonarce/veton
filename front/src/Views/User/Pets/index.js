@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
-import queryString from "query-string";
-import Spinner from "../../../Components/Spinner/index";
 import Api from "../../../Services/Api";
 import ListPets from "../../../Components/ListPets";
 
@@ -33,7 +31,7 @@ class Pets extends React.Component {
       return (
         <div className="veton-container-spinner">
           <div>
-            <Spinner />
+            Spinner
           </div>
         </div>
       );
@@ -51,8 +49,8 @@ class Pets extends React.Component {
           {petsList.length > 0 ? (
             <ListPets pets={petsList} />
           ) : (
-            <p>No tenes registrado ninguna mascota</p>
-          )}
+              <p>No tenes registrado ninguna mascota</p>
+            )}
         </div>
       </div>
     );

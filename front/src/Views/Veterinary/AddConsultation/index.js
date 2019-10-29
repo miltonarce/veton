@@ -1,9 +1,8 @@
 import React from "react";
 import FormConsultation from "../../../Components/Forms/FormConsultation";
 import ApiVet from "../../../Services/ApiVet";
-import Alert from "../../../Components/Alert";
 
-import Consumer from "../../../store";
+import Consumer from "../../../Store";
 
 class AddConsultation extends React.Component {
   constructor(props) {
@@ -39,10 +38,7 @@ class AddConsultation extends React.Component {
     return (
       <React.Fragment>
         {statusConsultation.msg && (
-          <Alert
-            message={handleOnSubmit.msg}
-            type={handleOnSubmit.type}
-          />
+          "Alert"
         )}
         <Consumer>
           {

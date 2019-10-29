@@ -1,9 +1,0 @@
-.veton-header{
-  @include make-veton-container();
-  &__veton-logo{
-    font-size: 0px;
-    background: url('./../../images/logo.svg')no-repeat;
-    width: 140px;
-    height: 37px;
-  }
-}

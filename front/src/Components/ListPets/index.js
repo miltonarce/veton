@@ -10,8 +10,7 @@ class ListPets extends React.Component {
   }
 
   render() {
-    const { pets, clinicalHistories = null } = this.props;
-    const { showAddClinicalHistory } = this;
+    const { pets } = this.props;
 
     return pets.map((pet, i) => (
       <div key={i} className="box-list">
