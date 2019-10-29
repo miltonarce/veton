@@ -3,6 +3,7 @@ import Api from "../../../Services/Api";
 import calculateAge from "../../../Utils/globals";
 import ListHistories from "../../../Components/ListHistories";
 import { Link } from "react-router-dom";
+import { AppContext } from "../../../Store";
 
 class PetDetail extends React.Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class PetDetail extends React.Component {
 
   render() {
     const { dataPet, isLoading, error } = this.state;
+    const { auth: { user } } = this.context;
     if (isLoading) {
       return (
         <div className="veton-container-spinner">
@@ -136,9 +138,11 @@ class PetDetail extends React.Component {
               ) : (
                   <>
                     <p>No hay historias clínicas registradas.</p>
-                    <Link to={`/veterinary/add-clinical-history/${dataPet.id_pet}`}>
-                      Agregar Historia
-                    </Link>
+                    {user.id_role === 3 ?
+                      <Link to={`/veterinary/add-clinical-history/${dataPet.id_pet}`}>
+                        Agregar Historia
+                      </Link> :
+                      ''}
                   </>
                 )}
             </div>
@@ -148,5 +152,7 @@ class PetDetail extends React.Component {
     );
   }
 }
+
+PetDetail.contextType = AppContext;
 
 export default PetDetail;

@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
+
 import Api from "../../../Services/Api";
 import ListPets from "../../../Components/ListPets";
+import { AppContext } from "../../../Store";
 
 class Pets extends React.Component {
   constructor() {
@@ -15,10 +17,10 @@ class Pets extends React.Component {
   }
 
   async componentDidMount() {
-    const { idUser } = this.props;
+    const { auth: { user } } = this.context;
     try {
       this.setState({ ...this.state, isLoading: true });
-      const pets = await Api.pets.fetch(idUser);
+      const pets = await Api.pets.fetch(user.id_user);
       this.setState({ ...this.state, isLoading: false, petsList: pets.data });
     } catch (err) {
       this.setState({ isLoading: false });
@@ -57,8 +59,6 @@ class Pets extends React.Component {
   }
 }
 
-Pets.propTypes = {
-  idUser: PropTypes.number.isRequired
-};
+Pets.contextType = AppContext;
 
-export default withRouter(props => <Pets {...props} />);
+export default Pets;
