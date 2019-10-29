@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
+import { Home, Language, Pets, AccountCircle } from "@material-ui/icons";
 import { styled } from '@material-ui/core/styles';
 
 import SearchBox from "../../Forms/SearchBox";
@@ -11,6 +12,18 @@ const Logo = styled(Typography)({
   height: '42px',
   backgroundImage: "url('assets/Logo.png')",
   fontSize: 0,
+})
+const ContentLogo = styled('div')({
+  flexGrow: 1,
+})
+
+const ContentLink = styled(Link)({
+  marginRight: "2rem",
+  textDecoration: "none",
+  color: "white",
+})
+const ContentIcon = styled('div')({
+  marginRight: ".5rem",
 })
 
 
@@ -24,45 +37,22 @@ class Header extends Component {
     return (
       <AppBar position="static">
         <Toolbar>
-          <Logo variant="h1" noWrap>Vet On</Logo>
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link
-                className={this.getClassForLink(pathname, "/user")}
-                to="/user"
-              >
-                <i className="material-icons">home</i>
-                Inicio
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className={this.getClassForLink(pathname, "/user/option")}
-                to="/user/option"
-              >
-                <i className="material-icons">language</i>
-                Opción
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className={this.getClassForLink(pathname, "/user/pets")}
-                to="/user/pets"
-              >
-                <i className="material-icons">pets</i>
-                Mascotas
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className={this.getClassForLink(pathname, "/user/profile")}
-                to="/user/profile"
-              >
-                <i className="material-icons">account_circle</i>
-                Perfil
-              </Link>
-            </li>
-          </ul>
+          <ContentLogo>
+            <Logo variant="h1" noWrap>Vet On</Logo>
+          </ContentLogo>
+          <ContentLink className={this.getClassForLink(pathname, "/user")} to="/user">
+            <Button color="inherit" ><ContentIcon><Home /></ContentIcon> Inicio</Button>
+          </ContentLink>
+          <ContentLink className={this.getClassForLink(pathname, "/user/option")} to="/user/option">
+            <Button color="inherit" ><ContentIcon><Language /></ContentIcon> Opción</Button>
+          </ContentLink>
+          <ContentLink className={this.getClassForLink(pathname, "/user/pets")} to="/user/pets">
+            <Button color="inherit" ><ContentIcon><Pets /></ContentIcon> Mascotas</Button>
+          </ContentLink>
+          <ContentLink className={this.getClassForLink(pathname, "/user/profile")} to="/user/profile">
+            <Button color="inherit" ><ContentIcon><AccountCircle /></ContentIcon> Perfil</Button>
+          </ContentLink>
+
         </Toolbar>
       </AppBar>
       // <nav className="navbar-veton navbar navbar-expand-lg navbar-light bg-light">

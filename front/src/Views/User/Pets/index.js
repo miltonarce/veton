@@ -1,10 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
+import { CssBaseline, Container, Typography, Button } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
+import { styled } from '@material-ui/core/styles';
 
 import Api from "../../../Services/Api";
 import ListPets from "../../../Components/ListPets";
 import { AppContext } from "../../../Store";
+
+const PetLink = styled(Link)({
+  textDecoration: "none",
+  margin: "1rem",
+});
+
+const ContainerMain = styled('div')({
+  margin: "2rem",
+})
+const ContainerTypo = styled(Typography)({
+  margin: "2rem",
+  fontSize: "2rem",
+  color: "#5c2299",
+})
 
 class Pets extends React.Component {
   constructor() {
@@ -38,23 +55,27 @@ class Pets extends React.Component {
         </div>
       );
     return (
-      <div className="hero-veton-container">
-        <div className="hero-veton-container__veton-row">
-          <div className="hero-veton-container__veton-row__col1">
-            <h2>Mis Mascotas</h2>
-          </div>
-          <div className="hero-veton-container__veton-row__col2">
-            <Link to="/user/add-pet">Agregar mascota</Link>
-          </div>
-        </div>
-        <div className="hero-veton-container__veton-row">
+      <>
+        <CssBaseline />
+        <Container fixed>
+          <ContainerTypo variant="h2" component="h2">Mis mascotas</ContainerTypo>
+          <PetLink to="/user/add-pet">
+            <Button
+              variant="contained"
+              color="secondary"
+              endIcon={<Add />}
+            >
+              Agregar mascota
+              </Button>
+          </PetLink>
+
           {petsList.length > 0 ? (
-            <ListPets pets={petsList} />
+            <ContainerMain><ListPets pets={petsList} /></ContainerMain>
           ) : (
-              <p>No tenes registrado ninguna mascota</p>
+              <ContainerMain><p>No tenes registrado ninguna mascota</p></ContainerMain>
             )}
-        </div>
-      </div>
+        </Container>
+      </>
     );
   }
 }
