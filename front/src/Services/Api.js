@@ -2,7 +2,11 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
   baseURL: "http://api.veton/api",
-  timeout: 2000
+  timeout: 2000,
+  withCredentials: true,
+  headers: {
+    'X-Requested-With': 'XMLHttpRequest'
+  }
 });
 
 export default {

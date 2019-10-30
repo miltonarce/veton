@@ -25,10 +25,18 @@ class AuthController extends Controller
             return response()->json(['success' => false, 'errors' => $validator->errors()]);
         } else {
             if ($this->existsMail($request['email'])) {
-                if (Auth::attempt(['password' => $request['password'], 'email' => $request['email']])) {
-                    return response()->json(['success' => true, 'additional_info' => $this->getAditionalInfo(Auth::user())]);
+                $credentials = [
+                    'email' => $request['email'],
+                    'password' => $request['password']
+                ];
+                if (! $token = auth()->attempt($credentials)) {
+                    return response()->json(['success' => false, 'msg' => 'Datos incorrectos']);
                 }
-                return response()->json(['success' => false, 'msg' => 'Datos incorrectos']);
+                $user = auth()->user();
+                return response()->json([
+                    'success' => true, 
+                    'additional_info' => $this->getAditionalInfo($user)
+                ])->withCookie('token', $token, auth()->factory()->getTTL() * 60, '/', null, false, true);
             }
             return response()->json(['success' => false, 'msg' => 'El email no existe']);
         }
@@ -36,7 +44,7 @@ class AuthController extends Controller
 
     public function logout(Request $request) 
     {
-        Auth::logout();
+        auth()->logout();
         return response()->json(['success' => true, 'msg' => 'Se deslogueo correctamente!']);
     }
 

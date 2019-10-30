@@ -17,6 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::options('/{any}', function() {return '';})->where('any', '.*');
+
 // Auth (Autenticarse con email y password)
 Route::post('auth/login', 'Api\\AuthController@login');
 // Auth (Desloguearse)
@@ -64,3 +66,8 @@ Route::get('types', 'Api\\TypesController@all');
 Route::group(['middleware' => 'api'], function() {
 Route::post('pets', 'Api\\PetsController@store');
  });
+
+//Endpoints protegidos, tiene que estar logueado el user con JWT
+Route::middleware('auth')->group(function() {
+    Route::get('protected', 'API\\PetsController@endpointProtected');
+});

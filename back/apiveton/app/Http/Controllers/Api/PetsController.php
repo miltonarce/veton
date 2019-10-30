@@ -44,6 +44,10 @@ class PetsController extends Controller
         return response()->json($pets);
     }
 
+    public function endpointProtected() {
+        return response()->json(['msg' => 'estas logueado con jwt']);
+    }
+
     /**
     * @OA\Post(
     *     path="/api/pets",
