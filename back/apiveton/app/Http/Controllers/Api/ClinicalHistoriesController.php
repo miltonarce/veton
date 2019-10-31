@@ -62,10 +62,15 @@ class ClinicalHistoriesController extends Controller
             $data['id_pet'] = $idPet;
             ClinicalHistory::create($data);
             return response()->json([
-                'success' => true
+                'success' => true,
+                'msg' => 'La historia clinica se creo correctamente',
+                'stack' => '',
             ]);
         } catch (QueryException $e) {
-            return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear la historia clínica', 'error_stack' => $e]);
+            return response()->json([
+                'success' => false,
+                'msg' => 'Se produjo un error al crear la historia clínica',
+                'stack' => $e]);
         }
     }
 
@@ -77,10 +82,15 @@ class ClinicalHistoriesController extends Controller
                 $history = ClinicalHistory::findOrFail($idHistory);
                 $history->update($data);
                 return response()->json([
-                    'success' => true
+                    'success' => true,
+                    'msg' => 'La historia clinica ha sido guardada',
+                    'stack' => ''
                 ]);
             }catch (QueryException $e){
-                return response()->json(['success' => false, 'msg' => 'Se produjo un error al editar la historia clínica', 'error_stack' => $e]);
+                return response()->json([
+                    'success' => false,
+                    'msg' => 'Se produjo un error al editar la historia clínica',
+                    'stack' => $e]);
             }
     }
 
@@ -90,9 +100,14 @@ class ClinicalHistoriesController extends Controller
             $history->delete();
             return response()->json([
                 'success' => true,
+                'msg' => 'La historia clinica se eliminó correctamente',
+                'stack' => ''
             ]);
         }catch(QueryException $e){
-            return response()->json(['success' => false, 'msg' => 'Se produjo un error al borrar la historia clínica', 'error_stack' => $e]);
+            return response()->json([
+                'success' => false,
+                'msg' => 'Se produjo un error al borrar la historia clínica',
+                'stack' => $e]);
         }
     }
 

@@ -68,9 +68,17 @@ class AuthController extends Controller
                 $user = $request->all();
                 $user['password'] = Hash::make($request['password']);
                 $user = User::create($user);
-                return response()->json(['success' => true, 'msg' => 'Se creo su usuario!', 'id' => $user->id_user]);
+                return response()->json([
+                    'success' => true,
+                    'msg' => 'Se creo su usuario!',
+                    'id' => $user->id_user,
+                    'stack' => ''
+                ]);
             } catch (QueryException $e) {
-                return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear su usuario', 'stack' => $e]);
+                return response()->json([
+                    'success' => false,
+                    'msg' => 'Se produjo un error al crear su usuario',
+                    'stack' => $e]);
             }
         }
        

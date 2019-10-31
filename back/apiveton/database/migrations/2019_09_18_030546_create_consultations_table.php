@@ -18,8 +18,8 @@ class CreateConsultationsTable extends Migration
             $table->text('comments');
             $table->text('afflictions_procedures');
             $table->string('image', 255)->nullable();
-
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

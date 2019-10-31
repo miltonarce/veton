@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->date('birthday')->nullable();
             $table->string('image', 255)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

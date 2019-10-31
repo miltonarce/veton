@@ -3,11 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Model
 {
     protected $table = 'users';
     protected $primaryKey = "id_user";
+
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
     protected $fillable = ['name', 'last_name', 'dni', 'email', 'birthday', 'image', 'password', 'id_role'];
 

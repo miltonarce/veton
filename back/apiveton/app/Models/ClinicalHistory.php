@@ -11,6 +11,9 @@ class ClinicalHistory extends Model
     protected $table = 'clinicalhistories';
     protected $primaryKey = 'id_history';
 
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+
     /** @var array La lista de campos que se pueden cargar masivamente. */
     protected $fillable = ['id_pet','comments', 'hide_comments', 'afflictions_procedures'];
     

@@ -3,11 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Veterinary extends Model
 {
     protected $table = 'veterinaries';
     protected $primaryKey = 'id_veterinary';
+
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
     /** @var array La lista de campos que se pueden cargar masivamente. */
     protected $fillable = ['id_user', 'business_name', 'fantasy_name', 'cuit_cuil', 'phone1', 'phone2', 'street', 'between_streets'];
