@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Model
+class User extends Authenticatable implements JWTSubject
 {
+    use Notifiable;
     protected $table = 'users';
     protected $primaryKey = "id_user";
 
@@ -55,5 +59,15 @@ class User extends Model
     public function veterinaries()
     {
         return $this->belongsToMany(Veterinary::class, 'user_veterinary', 'id_user', 'id_veterinary', 'id_user', 'id_veterinary')->withTimestamps();
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

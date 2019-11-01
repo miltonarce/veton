@@ -17,21 +17,24 @@ class AuthController extends Controller
 
     public function login(Request $request) 
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|min:4'
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['success' => false, 'errors' => $validator->errors()]);
-        } else {
+        
             if ($this->existsMail($request['email'])) {
-                if (Auth::attempt(['password' => $request['password'], 'email' => $request['email']])) {
-                    return response()->json(['success' => true, 'additional_info' => $this->getAditionalInfo(Auth::user())]);
+                $credentials = [
+                    'email' => $request['email'],
+                    'password' => $request['password']
+                ];
+                if (! $token = auth()->attempt($credentials)) {
+                    return response()->json(['success' => false, 'msg' => 'Datos incorrectos, vuelva a intentar.']);
                 }
-                return response()->json(['success' => false, 'msg' => 'Datos incorrectos']);
+                $user = auth()->user();
+                return response()->json([
+                    'success' => true,
+                    'msg' => 'Login exitoso',
+                    'additional_info' => $this->getAditionalInfo($user),
+                ])->withCookie('token', $token, auth()->factory()->getTTL() * 60, '/', null, false, true);
+            }else{
+                return response()->json(['success' => false, 'msg' => 'El email ingresado no es valido.']);
             }
-            return response()->json(['success' => false, 'msg' => 'El email no existe']);
-        }
     }
 
     public function logout(Request $request) 
