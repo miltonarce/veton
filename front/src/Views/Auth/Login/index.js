@@ -60,6 +60,7 @@ class Login extends Component {
       if (success) {
         this.setState({ ...this.state, isLoading: false, hasError: null });
         this.context.login({ logged: true, user: additional_info });
+        localStorage.setItem('userData', JSON.stringify(additional_info));
         const defaultView = ROLES[additional_info.id_role];
         this.props.history.push(`/${defaultView}`);
       } else {

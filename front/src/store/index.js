@@ -12,6 +12,19 @@ class AppProvider extends Component {
       this.setState({ ...this.state, auth: val });
     }
   }
+
+  componentDidMount() {
+    if (localStorage.getItem('userData') !== null) {
+      this.setState({
+        ...this.state,
+        auth: {
+          logged: true,
+          user: JSON.parse(localStorage.getItem('userData'))
+        }
+      });
+    }
+  }
+
   render() {
     return (
       <AppContext.Provider value={this.state}>
