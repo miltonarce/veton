@@ -12,7 +12,8 @@ import Register from "../../../Views/Auth/Register";
 
 
 const Main = props => {
-  const { auth: { logged, user } } = useContext(AppContext);
+  const { auth: { logged } } = useContext(AppContext);
+  console.log(logged);
   return (
     <Switch>
       <Route exact path="/" component={Login} />
