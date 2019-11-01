@@ -13,9 +13,9 @@ class AddDeletedAtFieldToClinicalhistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::table('clinicalhistories', function (Blueprint $table) {
-            $table->softDeletes();
-        });
+//        Schema::table('clinicalhistories', function (Blueprint $table) {
+//            $table->softDeletes();
+//        });
     }
 
     /**
@@ -25,8 +25,8 @@ class AddDeletedAtFieldToClinicalhistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::table('clinicalhistories', function (Blueprint $table) {
-            $table->removeColumn('deleted_at');
-        });
+//        Schema::table('clinicalhistories', function (Blueprint $table) {
+//            $table->removeColumn('deleted_at');
+//        });
     }
 }

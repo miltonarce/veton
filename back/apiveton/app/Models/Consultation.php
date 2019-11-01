@@ -3,11 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Consultation extends Model
 {
     protected $table = 'consultations';
     protected $primaryKey = 'id_consultation';
+
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
     /** @var array La lista de campos que se pueden cargar masivamente. */
     protected $fillable = ['id_user', 'id_history', 'comments', 'afflictions_procedures', 'image' ];

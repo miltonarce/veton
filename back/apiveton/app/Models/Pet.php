@@ -2,12 +2,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pet extends Model
 {
     protected $table = 'pets';
     protected $primaryKey = 'id_pet';
-
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
     /** @var array La lista de campos que se pueden cargar masivamente. */
     protected $fillable = ['id_user', 'id_type', 'id_breed', 'id_gender', 'name', 'last_name', 'birthday', 'image','weight', 'colors', 'comments' ];
    

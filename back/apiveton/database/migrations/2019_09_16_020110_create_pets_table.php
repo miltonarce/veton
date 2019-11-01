@@ -22,8 +22,8 @@ class CreatePetsTable extends Migration
             $table->tinyInteger('weight')->unsigned()->nullable();
             $table->string('colors', 150)->nullable();
             $table->text('comments')->nullable();
-
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

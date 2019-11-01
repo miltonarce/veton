@@ -18,8 +18,8 @@ class CreateClinicalhistoriesTable extends Migration
             $table->text('comments');
             $table->text('hide_comments');
             $table->text('afflictions_procedures');
-
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

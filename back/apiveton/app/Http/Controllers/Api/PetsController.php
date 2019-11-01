@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Pet;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -89,10 +90,15 @@ class PetsController extends Controller
                 }
             Pet::create($data);
             return response()->json([
-                'sucess' => true
+                'success' => true,
+                'msg' => 'La mascota se creó exitosamente',
+                'stack' => ''
             ]);
         } catch (QueryException $e) {
-            return response()->json(['sucess' => false, 'msg' => 'Se produjo un error al crear la mascota', 'error_stack' => $e]);
+            return response()->json([
+                'success' => false,
+                'msg' => 'Se produjo un error al crear la mascota',
+                'stack' => $e]);
         }
     }
     public function editPet(Request $request, $idPet)
@@ -111,15 +117,34 @@ class PetsController extends Controller
             $pet = Pet::findOrFail($idPet);
             $pet->update($data);
             return response()->json([
-                'success' => true
+                'success' => true,
+                'msg' => 'La mascota se editó correctamente.',
+                'stack' => ''
             ]);
         }catch (QueryException $e){
             return response()->json([
                 'success' => false,
                 'msg' => 'Se produjo un error al editar la mascota',
-                'error_stack' => $e
+                'stack' => $e
             ]);
         }
 
+    }
+    public function removePet($idPet){
+        try{
+            $pet = Pet::findOrFail($idPet);
+            $pet->delete();
+            return response()->json([
+                'success'=> true,
+                'msg' => 'La mascota se eliminó correctamente',
+                'stack' => ''
+            ]);
+        }catch (QueryException $e){
+            return response()->json([
+                'success' => false,
+                'msg' => 'No se pudo eliminar la mascota',
+                'stack' => $e,
+            ]);
+        }
     }
 }

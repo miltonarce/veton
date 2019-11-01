@@ -31,7 +31,8 @@ Route::get('pets/{id}', 'Api\\PetsController@detail');
 Route::put('pets/{id}', 'Api\\PetsController@editPet');
 // Pets (Obtener las mascotas de un usuario)
 Route::get('pets/users/{id}', 'Api\\PetsController@findByUser');
-
+//Pets (Eliminar mascota)
+Route::delete('pets/{idPet}', 'Api\\PetsController@removePet');
 // Users (Obtener un usuario por dni)
 Route::get('/users/{dni}', 'Api\\UsersController@find');
 

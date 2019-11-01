@@ -33,10 +33,15 @@ class ConsultationsController extends Controller
         }
         Consultation::create($data);
         return response()->json([
-            'sucess' => true
+            'success' => true,
+            'msg' => 'La nueva consulta se creo exitosamente.',
+            'stack' => ''
         ]);
        } catch (QueryException $e) {
-            return response()->json(['sucess' => false, 'msg' => 'Se produjo un error al crear la consulta', 'error_stack' => $e]);
+            return response()->json([
+                'success' => false,
+                'msg' => 'Se produjo un error al crear la consulta',
+                'stack' => $e]);
         }
     }
 
@@ -61,22 +66,34 @@ class ConsultationsController extends Controller
             $consultation = Consultation::findOrFail($idConsultation);
             $consultation->update($data);
             return response()->json([
-                'success' => true
+                'success' => true,
+                'msg' => 'La consulta se editó correctamente.',
+                'stack'=>''
             ]);
         }catch (QueryException $e){
             return response()->json([
                 'success' => false,
                 'msg' => 'Se produjo un error al editar la consulta',
-                'error_stack' => $e
+                'stack' => $e
             ]);
         }
     }
     public function removeConsultation($id)
     {
-        $consultation = Consultation::findOrFail($id);
-        $consultation->delete();
-        return response()->json([
-            'success' => true,
-        ]);
+        try{
+            $consultation = Consultation::findOrFail($id);
+            $consultation->delete();
+            return response()->json([
+                'success' => true,
+                'msg' => 'La consulta se eliminó correctamente.',
+                'stack' => ''
+            ]);
+        }catch (QueryException $e){
+            return response()->json([
+                'success' => false,
+                'msg' =>'La consulta no pudo ser eliminada',
+                'stack' => $e
+            ]);
+        }
     }
 }

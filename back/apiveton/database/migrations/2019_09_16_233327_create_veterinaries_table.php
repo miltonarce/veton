@@ -23,8 +23,8 @@ class CreateVeterinariesTable extends Migration
             $table->integer('phone2')->unsigned()->nullable();
             $table->string('street', 100);
             $table->string('between_streets', 200)->nullable();
-
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
