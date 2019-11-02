@@ -39,6 +39,7 @@ class FormAddPet extends React.Component {
     const {
       form: {
         name,
+        last_name,
         birdthay,
         image,
         weight,

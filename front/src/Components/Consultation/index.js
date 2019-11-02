@@ -40,7 +40,7 @@ const Consultation = ({dataConsultation, user}) => {
   });
 
   React.useEffect(() => {
-    if (user.id_role == 3) {
+    if (user.id_role === 3) {
       setValues({
         hasDisabled: false,
         afflictions_procedures: dataConsultation.afflictions_procedures,

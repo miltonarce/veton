@@ -38,7 +38,7 @@ const History = ({dataHistory, user}) => {
   });
 
   React.useEffect(() => {
-    if (user.id_role == 3) {
+    if (user.id_role === 3) {
       setValues({hasDisabled: false});
     }
   }, []);

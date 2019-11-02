@@ -110,7 +110,7 @@ class FormRegisterVeterinary extends Component {
         fantasyRef.current.validate(event.target.value);
         break;
       default:
-        "";
+        return "";
     }
 
     this.form.isFormValid().then(isValid => {
