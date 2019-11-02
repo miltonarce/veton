@@ -37,6 +37,8 @@ Route::delete('pets/{idPet}', 'Api\\PetsController@removePet');
 // Users (Obtener un usuario por dni)
 Route::get('/users/{dni}', 'Api\\UsersController@find');
 
+Route::get('/users/search/{input}', 'Api\\UsersController@search');
+
 // ClinicalHistories (Obtener todas las historias clinicas)
 Route::get('clinicalhistories', 'Api\\ClinicalHistoriesController@all');
 // ClinicalHistories (Obtener las historias clinicas de una mascota)

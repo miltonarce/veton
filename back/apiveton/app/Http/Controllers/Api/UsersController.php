@@ -17,8 +17,19 @@ class UsersController extends Controller
         return response()->json($users);
     }
 
-    public function find($dni) {
+    public function find($dni) 
+    {
         $user = User::all()->where('dni', '=', $dni)->first();
         return response()->json($user);
+    }
+
+    public function search($input) 
+    {
+        if (is_numeric($input)) {
+            return $this->find($input);
+        } else {
+            $users = User::where('name', 'like', '%' . $input . "%")->get();
+            return response()->json($users);
+        }
     }
 }
