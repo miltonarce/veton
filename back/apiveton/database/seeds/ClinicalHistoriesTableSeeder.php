@@ -29,5 +29,68 @@ class ClinicalHistoriesTableSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
+        DB::table('clinicalhistories')->insert([
+            'id_history' => 3,
+            'id_pet' => 4,
+            'comments' => 'Gato esfinge, sin pelo, cachorro.',
+            'hide_comments' => 'Es un gato cachorro, tranquilo pero medio destructivo, no dejar desatendido. ',
+            'afflictions_procedures' => 'Aún no esta castrado, esta desparasitado y con las vacunas al día',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('clinicalhistories')->insert([
+            'id_history' => 4,
+            'id_pet' => 3,
+            'comments' => 'Perro mestizo muy tranquilo',
+            'hide_comments' => 'Perro dócil, fácil de atender',
+            'afflictions_procedures' => 'Fue castrado a los 3 años. Se realizó cirugía por GDV (dilatación gástrica vólvulo) en el mes 11-2019',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('clinicalhistories')->insert([
+            'id_history' => 5,
+            'id_pet' => 5,
+            'comments' => 'Perro pastor alemán de 9 años. Su cola esta cortada por una herida de cuando estuvo abandonado',
+            'hide_comments' => 'Perra adulta con problemas de caderas característicos de la raza por la edad. Muy dócil.',
+            'afflictions_procedures' => 'Fue castrada en el 2012. Sufre de Hernia de disco en la región lumbar.',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('clinicalhistories')->insert([
+            'id_history' => 6,
+            'id_pet' => 6,
+            'comments' => 'Perro mestizo pequeño.',
+            'hide_comments' => 'Es un perro temperamental, con el dueño es dócil, pero no fue fácil de tratar.',
+            'afflictions_procedures' => 'Castrado en 11-2017.',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('clinicalhistories')->insert([
+            'id_history' => 7,
+            'id_pet' => 7,
+            'comments' => 'Perro macho golden, mediano de 8 años.',
+            'hide_comments' => 'Perro muy dócil y amigable.',
+            'afflictions_procedures' => 'Castrado en 10-2013. Se le extriparon masas anormales del bazo',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('clinicalhistories')->insert([
+            'id_history' => 8,
+            'id_pet' => 5,
+            'comments' => 'Perro pastor alemán rescatado de la calle. Posee una herida en el rabo.',
+            'hide_comments' => 'Perra dósil.',
+            'afflictions_procedures' => 'Castrada en el 2012. Hernia de disco en la región lumbar.',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('clinicalhistories')->insert([
+            'id_history' => 9,
+            'id_pet' => 7,
+            'comments' => 'Perro muy obediente y carismático.',
+            'hide_comments' => 'Perro muy obediente y carismático.',
+            'afflictions_procedures' => 'Castrado en 2013',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
     }
 }
