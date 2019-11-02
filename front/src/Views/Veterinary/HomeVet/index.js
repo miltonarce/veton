@@ -1,40 +1,38 @@
 import React from "react";
+
 import ApiVet from "../../../Services/ApiVet";
 import Api from "../../../Services/Api";
 import ListPets from "../../../Components/ListPets";
 import SearchBox from "../../../Components/Forms/SearchBox";
 
 class HomeVet extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: false,
-      petsList: [],
-      clinicalHistories: []
-    };
-    this.handleOnSearch = this.handleOnSearch.bind(this);
-  }
+  state = {
+    isLoading: false,
+    petsList: [],
+    clinicalHistories: [],
+  };
 
-  async handleOnSearch(dni) {
+  handleOnSearch = async dni => {
     try {
-      this.setState({ ...this.state, isLoading: true });
+      const {state, setState} = this;
+      setState({...state, isLoading: true});
       const user = await ApiVet.users.fetch(dni);
       const petsList = await ApiVet.userPets.fetch(user.data.id_user);
       const clinicalHistories = await Api.clinicalhistories.all();
       this.setState({
-        ...this.state,
+        ...state,
         petsList: petsList.data,
         clinicalHistories: clinicalHistories.data,
-        isLoading: false
+        isLoading: false,
       });
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   render() {
-    const { petsList, clinicalHistories, isLoading } = this.state;
-    const { handleOnSearch } = this;
+    const {petsList, clinicalHistories, isLoading} = this.state;
+    const {handleOnSearch} = this;
     return (
       <div className="veton-container">
         <div className="veton-container__hero">
@@ -60,8 +58,8 @@ class HomeVet extends React.Component {
                   pets={petsList}
                 />
               ) : (
-                    <p>No tenes registrado ninguna mascota</p>
-                  )}
+                <p>No tenes registrado ninguna mascota</p>
+              )}
             </div>
           </div>
         </div>

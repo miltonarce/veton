@@ -1,7 +1,7 @@
 import React from "react";
-import { Route } from "react-router-dom";
-import { Grid, CssBaseline } from '@material-ui/core';
-import { styled } from '@material-ui/core/styles';
+import {Route} from "react-router-dom";
+import {CssBaseline} from "@material-ui/core";
+import {styled} from "@material-ui/core/styles";
 
 // Users Views
 import HomeUser from "./HomeUser";
@@ -12,25 +12,26 @@ import PetDetail from "./PetDetail";
 import AddPet from "./AddPet";
 import Header from "../../Components/Shared/Header";
 
-const ContentMain = styled('div')({
-  width: '100%',
-  top: '0',
-  bottom: '0',
-  position: 'absolute',
+const ContentMain = styled("div")({
+  width: "100%",
+  top: "0",
+  bottom: "0",
+  position: "absolute",
 });
 
 class User extends React.Component {
   render() {
+    const {match} = this.props;
     return (
       <ContentMain>
         <CssBaseline />
         <Header />
-        <Route exact path={this.props.match.path} component={HomeUser} />
-        <Route path={`${this.props.match.path}/option`} component={Option} />
-        <Route path={`${this.props.match.path}/pets`} component={Pets} />
-        <Route path={`${this.props.match.path}/pet/:id`} component={PetDetail} />
-        <Route path={`${this.props.match.path}/profile`} component={Profile} />
-        <Route path={`${this.props.match.path}/add-pet`} component={AddPet} />
+        <Route exact component={HomeUser} path={match.path} />
+        <Route component={Option} path={`${match.path}/option`} />
+        <Route component={Pets} path={`${match.path}/pets`} />
+        <Route component={PetDetail} path={`${match.path}/pet/:id`} />
+        <Route component={Profile} path={`${match.path}/profile`} />
+        <Route component={AddPet} path={`${match.path}/add-pet`} />
       </ContentMain>
     );
   }

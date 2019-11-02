@@ -1,96 +1,140 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
 import {
-  InputAdornment, FormControlLabel, Button, Grid, IconButton, Typography, ExpansionPanel,
-  ExpansionPanelSummary, ExpansionPanelDetails
-} from '@material-ui/core';
+  InputAdornment,
+  Grid,
+  IconButton,
+  Typography,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails,
+} from "@material-ui/core";
 import {
-  Email, Visibility, VisibilityOff, FeaturedPlayList, BusinessCenter, MyLocation, Apartment,
-  Phone, AspectRatio, ExpandMore
-} from '@material-ui/icons';
-import { styled } from '@material-ui/core/styles';
+  Email,
+  Visibility,
+  VisibilityOff,
+  FeaturedPlayList,
+  BusinessCenter,
+  MyLocation,
+  Apartment,
+  Phone,
+  AspectRatio,
+  ExpandMore,
+} from "@material-ui/icons";
+import {styled} from "@material-ui/core/styles";
 
 const Adorment = styled(InputAdornment)({
   marginRight: "8px",
 });
 
-
 class FormRegisterVeterinary extends Component {
   state = {
     formData: {
-      email: '',
-      password: '',
-      dni: '',
+      email: "",
+      password: "",
+      dni: "",
       id_role: this.props.idRole,
-      business_name: '',
-      cuit_cuil: '',
-      phone1: '',
-      street: '',
-      fantasy_name: ''
+      business_name: "",
+      cuit_cuil: "",
+      phone1: "",
+      street: "",
+      fantasy_name: "",
     },
     showPassword: false,
     expanded: false,
   };
 
-  emailRef = React.createRef();
-  passwordRef = React.createRef();
-  dniRef = React.createRef();
-  businessRef = React.createRef();
-  fantasyRef = React.createRef();
-  ccRef = React.createRef();
-  phone1Ref = React.createRef();
-  streetRef = React.createRef();
-
   componentDidMount() {
-    this.props.onSubmit({ data: this.state.formData, disabled: true });
+    const {state, props} = this;
+    props.onSubmit({data: state.formData, disabled: true});
   }
 
+  emailRef = React.createRef();
+
+  passwordRef = React.createRef();
+
+  dniRef = React.createRef();
+
+  businessRef = React.createRef();
+
+  fantasyRef = React.createRef();
+
+  ccRef = React.createRef();
+
+  phone1Ref = React.createRef();
+
+  streetRef = React.createRef();
+
   handleExpanded = panel => (event, isExpanded) => {
-    this.setState({ ...this.state, expanded: isExpanded ? panel : false });
+    const {state} = this;
+    this.setState({...state, expanded: isExpanded ? panel : false});
   };
 
   handleOnBlur = event => {
-    const { emailRef, passwordRef, dniRef, businessRef, fantasyRef, ccRef, phone1Ref, streetRef } = this;
+    const {
+      props,
+      state,
+      emailRef,
+      passwordRef,
+      dniRef,
+      businessRef,
+      fantasyRef,
+      ccRef,
+      phone1Ref,
+      streetRef,
+    } = this;
     switch (event.target.name) {
       case "email":
         emailRef.current.validate(event.target.value);
+        break;
       case "password":
         passwordRef.current.validate(event.target.value);
+        break;
       case "dni":
         dniRef.current.validate(event.target.value);
+        break;
       case "business_name":
         businessRef.current.validate(event.target.value);
+        break;
       case "cuit_cuil":
         ccRef.current.validate(event.target.value);
+        break;
       case "phone1":
         phone1Ref.current.validate(event.target.value);
+        break;
       case "street":
         streetRef.current.validate(event.target.value);
+        break;
       case "fantasy_name":
         fantasyRef.current.validate(event.target.value);
+        break;
+      default:
+        return "";
     }
 
-    this.form.isFormValid().then((isValid) => {
+    this.form.isFormValid().then(isValid => {
       if (isValid) {
-        this.props.onSubmit({ data: this.state.formData, disabled: false });
+        props.onSubmit({data: state.formData, disabled: false});
       }
     });
-  }
+  };
 
   handleOnSubmit = event => {
+    const {props, state} = this;
     event.preventDefault();
-    this.props.onSubmit(this.state.formData);
-  }
+    props.onSubmit(state.formData);
+  };
 
   handleOnChange = event => {
-    const { formData } = this.state;
+    const {formData} = this.state;
     formData[event.target.name] = event.target.value;
-    this.setState({ formData });
-  }
+    this.setState({formData});
+  };
 
   handleClickShowPassword = () => {
-    this.setState({ ...this.state, showPassword: !this.state.showPassword });
+    const {state} = this;
+    this.setState({...state, showPassword: !state.showPassword});
   };
 
   handleMouseDownPassword = event => {
@@ -98,34 +142,51 @@ class FormRegisterVeterinary extends Component {
   };
 
   render() {
-    const { formData, showPassword, expanded } = this.state;
-    const { handleOnSubmit, handleOnChange, handleOnBlur, handleClickShowPassword,
-      handleMouseDownPassword, handleExpanded, emailRef, passwordRef, dniRef, businessRef,
-      fantasyRef, ccRef, phone1Ref, streetRef } = this;
+    const {formData, showPassword, expanded} = this.state;
+    const {
+      handleOnSubmit,
+      handleOnChange,
+      handleOnBlur,
+      handleClickShowPassword,
+      handleMouseDownPassword,
+      handleExpanded,
+      emailRef,
+      passwordRef,
+      dniRef,
+      businessRef,
+      fantasyRef,
+      ccRef,
+      phone1Ref,
+      streetRef,
+    } = this;
     return (
-      <ValidatorForm onSubmit={handleOnSubmit} ref={(r) => { this.form = r; }} instantValidate>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleExpanded('panel1')}>
+      <ValidatorForm
+        ref={r => {
+          this.form = r;
+        }}
+        instantValidate
+        onSubmit={handleOnSubmit}
+      >
+        <ExpansionPanel
+          expanded={expanded === "panel1"}
+          onChange={handleExpanded("panel1")}
+        >
           <ExpansionPanelSummary
-            expandIcon={<ExpandMore />}
             aria-controls="panel1a-content"
+            expandIcon={<ExpandMore />}
             id="panel1a-header"
           >
-            <Typography variant="body2" gutterBottom>Datos personales</Typography>
+            <Typography gutterBottom variant="body2">
+              Datos personales
+            </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <Grid container>
               <Grid item xs={12}>
                 <TextValidator
-                  margin="normal"
-                  label="Email"
-                  name="email"
-                  value={formData.email}
                   ref={emailRef}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                  validators={['required', 'isEmail']}
-                  errorMessages={['Este campo es requerido.', 'No es un email valido.']}
                   fullWidth
+                  errorMessages={['Este campo es requerido.', 'No es un email valido.']}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="start">
@@ -133,20 +194,19 @@ class FormRegisterVeterinary extends Component {
                       </InputAdornment>
                     ),
                   }}
+                  label="Email"
+                  margin="normal"
+                  name="email"
+                  validators={['required', 'isEmail']}
+                  value={formData.email}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextValidator
-                  margin="normal"
-                  name="password"
-                  label="Contraseña"
-                  type={showPassword ? 'text' : 'password'}
-                  fullWidth
-                  value={formData.password}
                   ref={passwordRef}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                  validators={['required']}
+                  fullWidth
                   errorMessages={['Este campo es requerido.']}
                   InputProps={{
                     endAdornment: (
@@ -162,21 +222,21 @@ class FormRegisterVeterinary extends Component {
                       </Adorment>
                     ),
                   }}
+                  label="Contraseña"
+                  margin="normal"
+                  name="password"
+                  type={showPassword ? 'text' : 'password'}
+                  validators={['required']}
+                  value={formData.password}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextValidator
-                  margin="normal"
-                  label="DNI"
-                  type="number"
-                  name="dni"
-                  value={formData.dni}
                   ref={dniRef}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                  validators={['required', 'isNumber']}
-                  errorMessages={['Este campo es requerido.', 'El dni debe ser un número.']}
                   fullWidth
+                  errorMessages={['Este campo es requerido.', 'El dni debe ser un número.']}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="start">
@@ -184,35 +244,44 @@ class FormRegisterVeterinary extends Component {
                       </InputAdornment>
                     ),
                   }}
+                  label="DNI"
+                  margin="normal"
+                  name="dni"
+                  type="number"
+                  validators={['required', 'isNumber']}
+                  value={formData.dni}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
                 />
               </Grid>
             </Grid>
           </ExpansionPanelDetails>
         </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel2'} onChange={handleExpanded('panel2')}>
+        <ExpansionPanel
+          expanded={expanded === "panel2"}
+          onChange={handleExpanded("panel2")}
+        >
           <ExpansionPanelSummary
-            expandIcon={<ExpandMore />}
             aria-controls="panel1a-content"
+            expandIcon={<ExpandMore />}
             id="panel1a-header"
           >
-            <Typography variant="body2" gutterBottom>Datos de la veterinaria</Typography>
+            <Typography gutterBottom variant="body2">
+              Datos de la veterinaria
+            </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <Grid container direction="row"
+            <Grid
+              container
+              alignItems="center"
+              direction="row"
               justify="space-between"
-              alignItems="center">
+            >
               <Grid item xs={5}>
                 <TextValidator
-                  margin="normal"
-                  label="Nombre de la empresa"
-                  name="business_name"
-                  value={formData.business_name}
                   ref={businessRef}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                  validators={['required']}
-                  errorMessages={['Este campo es requerido.']}
                   fullWidth
+                  errorMessages={['Este campo es requerido.']}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="start">
@@ -220,20 +289,20 @@ class FormRegisterVeterinary extends Component {
                       </InputAdornment>
                     ),
                   }}
+                  label="Nombre de la empresa"
+                  margin="normal"
+                  name="business_name"
+                  validators={['required']}
+                  value={formData.business_name}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
                 />
               </Grid>
               <Grid item xs={5}>
                 <TextValidator
-                  margin="normal"
-                  label="Nombre de fantasía"
-                  name="fantasy_name"
-                  value={formData.fantasy_name}
                   ref={fantasyRef}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                  validators={['required']}
-                  errorMessages={['Este campo es requerido.']}
                   fullWidth
+                  errorMessages={['Este campo es requerido.']}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="start">
@@ -241,21 +310,20 @@ class FormRegisterVeterinary extends Component {
                       </InputAdornment>
                     ),
                   }}
+                  label="Nombre de fantasía"
+                  margin="normal"
+                  name="fantasy_name"
+                  validators={['required']}
+                  value={formData.fantasy_name}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
                 />
               </Grid>
               <Grid item xs={5}>
                 <TextValidator
-                  margin="normal"
-                  label="CUIT / CUIL"
-                  type="number"
-                  name="cuit_cuil"
-                  value={formData.cuit_cuil}
                   ref={ccRef}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                  validators={['required',]}
-                  errorMessages={['Este campo es requerido.']}
                   fullWidth
+                  errorMessages={['Este campo es requerido.']}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="start">
@@ -263,21 +331,21 @@ class FormRegisterVeterinary extends Component {
                       </InputAdornment>
                     ),
                   }}
+                  label="CUIT / CUIL"
+                  margin="normal"
+                  name="cuit_cuil"
+                  type="number"
+                  validators={['required',]}
+                  value={formData.cuit_cuil}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
                 />
               </Grid>
               <Grid item xs={5}>
                 <TextValidator
-                  margin="normal"
-                  label="Teléfono"
-                  type="number"
-                  name="phone1"
-                  value={formData.phone1}
                   ref={phone1Ref}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                  validators={['required']}
-                  errorMessages={['Este campo es requerido.']}
                   fullWidth
+                  errorMessages={['Este campo es requerido.']}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="start">
@@ -285,20 +353,21 @@ class FormRegisterVeterinary extends Component {
                       </InputAdornment>
                     ),
                   }}
+                  label="Teléfono"
+                  margin="normal"
+                  name="phone1"
+                  type="number"
+                  validators={['required']}
+                  value={formData.phone1}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
                 />
               </Grid>
               <Grid item xs={5}>
                 <TextValidator
-                  margin="normal"
-                  label="Domicilio"
-                  name="street"
-                  value={formData.street}
                   ref={streetRef}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                  validators={['required',]}
-                  errorMessages={['Este campo es requerido.']}
                   fullWidth
+                  errorMessages={['Este campo es requerido.']}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="start">
@@ -306,6 +375,13 @@ class FormRegisterVeterinary extends Component {
                       </InputAdornment>
                     ),
                   }}
+                  label="Domicilio"
+                  margin="normal"
+                  name="street"
+                  validators={['required',]}
+                  value={formData.street}
+                  onBlur={handleOnBlur}
+                  onChange={handleOnChange}
                 />
               </Grid>
             </Grid>
@@ -317,6 +393,6 @@ class FormRegisterVeterinary extends Component {
 }
 
 FormRegisterVeterinary.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
 };
 export default FormRegisterVeterinary;

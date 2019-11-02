@@ -2,43 +2,30 @@ import React from "react";
 import PropTypes from "prop-types";
 
 class FormClinicalHistory extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      form: {
-        comments: "",
-        hide_comments: "",
-        afflictions_procedures: ""
-      }
-    };
-    this.handleOnChange = this.handleOnChange.bind(this);
-    this.handleOnSubmit = this.handleOnSubmit.bind(this);
-  }
+  state = {
+    form: {
+      comments: "",
+      hide_comments: "",
+      afflictions_procedures: "",
+    },
+  };
 
-  /**
-   * Method to handle submit with all data from form
-   * @param {Event} event
-   * @returns {void}
-   */
-  handleOnSubmit(event) {
+  handleOnSubmit = event => {
+    const {props, state} = this;
     event.preventDefault();
-    this.props.onSubmit(this.state.form);
-  }
+    props.onSubmit(state.form);
+  };
 
-  /**
-   * Method to handle onChange for all inputs with name and value
-   * @param {Event} event
-   * @returns {void}
-   */
-  handleOnChange(event) {
-    const { name, value } = event.target;
-    this.setState({ form: { ...this.state.form, [name]: value } });
-  }
+  handleOnChange = event => {
+    const {state} = this;
+    const {name, value} = event.target;
+    this.setState({form: {...state.form, [name]: value}});
+  };
 
   render() {
-    const { title } = this.props;
-    const { comments, hide_comments, afflictions_procedures } = this.state.form;
-    const { handleOnSubmit, handleOnChange } = this;
+    const {title} = this.props;
+    const {comments, hide_comments, afflictions_procedures} = this.state.form;
+    const {handleOnSubmit, handleOnChange} = this;
     return (
       <div className="container py-2">
         <h2 className="text-center">{title}</h2>
@@ -46,34 +33,34 @@ class FormClinicalHistory extends React.Component {
           <div className="form-group">
             <span>Comentarios</span>
             <textarea
-              name="comments"
+              required
               className="form-control"
+              name="comments"
               value={comments}
               onChange={handleOnChange}
-              required
             />
           </div>
           <div className="form-group">
             <span>Comentarios Ocultos</span>
             <textarea
-              name="hide_comments"
+              required
               className="form-control"
               minLength="10"
+              name="hide_comments"
               value={hide_comments}
               onChange={handleOnChange}
-              required
             />
           </div>
           <div className="form-group">
             <span>Aflicciones</span>
             <textarea
-              name="afflictions_procedures"
               className="form-control"
+              name="afflictions_procedures"
               value={afflictions_procedures}
               onChange={handleOnChange}
             />
           </div>
-          <button type="submit" className="btn btn-primary btn-block">
+          <button className="btn btn-primary btn-block" type="submit">
             Aceptar
           </button>
         </form>
@@ -84,7 +71,7 @@ class FormClinicalHistory extends React.Component {
 
 FormClinicalHistory.propTypes = {
   title: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default FormClinicalHistory;

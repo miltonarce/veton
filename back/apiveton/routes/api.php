@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::options('/{any}', function() {return '';})->where('any', '.*');
 
 // Auth (Autenticarse con email y password)
 Route::post('auth/login', 'Api\\AuthController@login');

@@ -1,28 +1,52 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import React, {Component} from "react";
+import {withRouter} from "react-router-dom";
 import {
-  Grid, Paper, CssBaseline, CircularProgress, Snackbar, Button, SnackbarContent,
-  IconButton, Typography, Stepper, Step, StepConnector, StepLabel, List, ListItem, ListItemText,
-  ListItemAvatar, Avatar
-} from '@material-ui/core';
+  Grid,
+  Paper,
+  CssBaseline,
+  CircularProgress,
+  Snackbar,
+  Button,
+  SnackbarContent,
+  IconButton,
+  Typography,
+  Stepper,
+  Step,
+  StepConnector,
+  StepLabel,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Avatar,
+} from "@material-ui/core";
 import {
-  Check, CallSplit, Email, FeaturedPlayList, Lock, Error, Close,
-  BusinessCenter, MyLocation, Apartment, Phone, AspectRatio
-} from '@material-ui/icons';
-import { styled, makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
+  Check,
+  CallSplit,
+  Email,
+  FeaturedPlayList,
+  Lock,
+  Error,
+  Close,
+  BusinessCenter,
+  MyLocation,
+  Apartment,
+  Phone,
+  AspectRatio,
+} from "@material-ui/icons";
+import {styled, makeStyles} from "@material-ui/core/styles";
+import clsx from "clsx";
 
 import RolSelect from "../../../Components/Forms/RolSelect";
 import FormRegistarVeterinary from "../../../Components/Forms/FormRegisterVeterinary";
 import FormRegisterUser from "../../../Components/Forms/FormRegisterUser";
 import Auth from "../../../Services/Auth";
 
-const Content = styled('div')({
+const Content = styled("div")({
   height: "100vh",
-  display: 'flex',
+  display: "flex",
   backgroundImage: "url('assets/background_kitty.png')",
 });
-
 
 const PaperLogin = styled(Paper)({
   padding: "3rem",
@@ -62,11 +86,11 @@ const TextDataRegister = styled(Typography)({
 
 const SnackError = styled(SnackbarContent)({
   backgroundColor: "#D32F2F",
-})
+});
 
-const SpanError = styled('span')({
-  display: 'flex',
-  alignItems: 'center',
+const SpanError = styled("span")({
+  display: "flex",
+  alignItems: "center",
 });
 
 const ErrorIconSnack = styled(Error)({
@@ -76,21 +100,21 @@ const ErrorIconSnack = styled(Error)({
 const QontoConnector = styled(StepConnector)({
   alternativeLabel: {
     top: 10,
-    left: 'calc(-50% + 16px)',
-    right: 'calc(50% + 16px)',
+    left: "calc(-50% + 16px)",
+    right: "calc(50% + 16px)",
   },
   active: {
-    '& $line': {
-      borderColor: '#784af4',
+    "& $line": {
+      borderColor: "#784af4",
     },
   },
   completed: {
-    '& $line': {
-      borderColor: '#784af4',
+    "& $line": {
+      borderColor: "#784af4",
     },
   },
   line: {
-    borderColor: '#eaeaf0',
+    borderColor: "#eaeaf0",
     borderTopWidth: 3,
     borderRadius: 1,
   },
@@ -98,135 +122,154 @@ const QontoConnector = styled(StepConnector)({
 
 const useQontoStepIconStyles = makeStyles({
   root: {
-    color: '#eaeaf0',
-    display: 'flex',
+    color: "#eaeaf0",
+    display: "flex",
     height: 22,
-    alignItems: 'center',
+    alignItems: "center",
   },
   active: {
-    color: '#784af4',
+    color: "#784af4",
   },
   circle: {
     width: 8,
     height: 8,
-    borderRadius: '50%',
-    backgroundColor: 'currentColor',
+    borderRadius: "50%",
+    backgroundColor: "currentColor",
   },
   completed: {
-    color: '#784af4',
+    color: "#784af4",
     zIndex: 1,
     fontSize: 18,
   },
 });
 
-const StaticListData = props => <>
-  <List>
-    <Grid container>
-      <Grid item xs={6}>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <CallSplit />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Tipo de usuario" secondary={props.data.id_role === 4 ? "Usuario" : "Veterinaria"} />
-        </ListItem>
-      </Grid>
-      <Grid item xs={6}>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <Email />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Email" secondary={props.data.email} />
-        </ListItem>
-      </Grid>
-    </Grid>
-    <Grid container>
-      <Grid item xs={6}>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <Lock />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Contraseña" secondary="**********" />
-        </ListItem>
-      </Grid>
-      <Grid item xs={6}>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <FeaturedPlayList />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Dni" secondary={props.data.dni} />
-        </ListItem>
-      </Grid>
-    </Grid>
-    {props.data.id_role === 2 ?
-      <>
-        <Grid container>
-          <Grid item xs={6}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <BusinessCenter />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="Nombre de su empresa" secondary={props.data.business_name} />
-            </ListItem>
-          </Grid>
-          <Grid item xs={6}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <Apartment />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="Nombre de fantasía" secondary={props.data.fantasy_name} />
-            </ListItem>
-          </Grid>
+const StaticListData = ({props: {data}}) => (
+  <>
+    <List>
+      <Grid container>
+        <Grid item xs={6}>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <CallSplit />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary="Tipo de usuario"
+              secondary={data.id_role === 4 ? "Usuario" : "Veterinaria"}
+            />
+          </ListItem>
         </Grid>
-        <Grid container>
-          <Grid item xs={6}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <AspectRatio />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="CUIT / CUIL" secondary={props.data.cuit_cuil} />
-            </ListItem>
-          </Grid>
-          <Grid item xs={6}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <Phone />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="Número de teléfono" secondary={props.data.phone1} />
-            </ListItem>
-          </Grid>
+        <Grid item xs={6}>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <Email />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="Email" secondary={data.email} />
+          </ListItem>
         </Grid>
-        <Grid container>
-          <Grid item xs={6}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <MyLocation />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="Domicilio" secondary={props.data.street} />
-            </ListItem>
-          </Grid>
+      </Grid>
+      <Grid container>
+        <Grid item xs={6}>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <Lock />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="Contraseña" secondary="**********" />
+          </ListItem>
         </Grid>
-      </>
-      : ''}
-  </List>
-</>;
+        <Grid item xs={6}>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <FeaturedPlayList />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="Dni" secondary={data.dni} />
+          </ListItem>
+        </Grid>
+      </Grid>
+      {data.id_role === 2 ? (
+        <>
+          <Grid container>
+            <Grid item xs={6}>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <BusinessCenter />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary="Nombre de su empresa"
+                  secondary={data.business_name}
+                />
+              </ListItem>
+            </Grid>
+            <Grid item xs={6}>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <Apartment />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary="Nombre de fantasía"
+                  secondary={data.fantasy_name}
+                />
+              </ListItem>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={6}>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <AspectRatio />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary="CUIT / CUIL"
+                  secondary={data.cuit_cuil}
+                />
+              </ListItem>
+            </Grid>
+            <Grid item xs={6}>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <Phone />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary="Número de teléfono"
+                  secondary={data.phone1}
+                />
+              </ListItem>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={6}>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <MyLocation />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary="Domicilio" secondary={data.street} />
+              </ListItem>
+            </Grid>
+          </Grid>
+        </>
+      ) : (
+        ""
+      )}
+    </List>
+  </>
+);
 
 class Register extends Component {
   state = {
@@ -234,78 +277,127 @@ class Register extends Component {
     hasError: null,
     openError: false,
     id_role: 4,
-    steps: ['Seleccione el tipo de usuario.', 'Ingrese sus datos.', 'Confirmar datos.'],
+    steps: [
+      "Seleccione el tipo de usuario.",
+      "Ingrese sus datos.",
+      "Confirmar datos.",
+    ],
     activeStep: 0,
     dataRegister: {},
     disabled: true,
   };
 
   handleNext = () => {
-    this.setState({ ...this.state, activeStep: this.state.activeStep + 1 });
+    const {state} = this;
+    this.setState({...state, activeStep: state.activeStep + 1});
   };
 
   handleBack = () => {
-    this.setState({ ...this.state, activeStep: this.state.activeStep - 1 });
+    const {state} = this;
+    this.setState({...state, activeStep: state.activeStep - 1});
   };
 
   handleClose = () => {
-    this.setState({ ...this.state, openError: false })
-  }
+    const {state} = this;
+    this.setState({...state, openError: false});
+  };
 
   QontoStepIcon = props => {
     const classes = useQontoStepIconStyles();
-    const { active, completed } = props;
+    const {active, completed} = props;
     return (
       <div
         className={clsx(classes.root, {
           [classes.active]: active,
         })}
       >
-        {completed ? <Check className={classes.completed} /> : <div className={classes.circle} />}
+        {completed ? (
+          <Check className={classes.completed} />
+        ) : (
+          <div className={classes.circle} />
+        )}
       </div>
     );
-  }
+  };
+
   getStepContent = step => {
+    const {state} = this;
     switch (step) {
       case 0:
-        return <RolSelect initialValue={this.state.id_role} onRolSelected={this.handleOnRolSelected} onSetNext={val => { this.setState({ disabled: false }) }} />;
+        return (
+          <RolSelect
+            initialValue={state.id_role}
+            onRolSelected={this.handleOnRolSelected}
+            onSetNext={() => {
+              this.setState({disabled: false});
+            }}
+          />
+        );
       case 1:
-        return <>{this.state.id_role === 4 && (
-          <div><TextDataRegister variant="body2" gutterBottom>Datos personales</TextDataRegister><FormRegisterUser onSubmit={this.handleFinish} idRole={this.state.id_role} /></div>
-        )}
-          {this.state.id_role === 2 && (
-            <FormRegistarVeterinary onSubmit={this.handleFinish} idRole={this.state.id_role} />
-          )}</>;
+        return (
+          <>
+            {state.id_role === 4 && (
+              <div>
+                <TextDataRegister gutterBottom variant="body2">
+                  Datos personales
+                </TextDataRegister>
+                <FormRegisterUser
+                  idRole={state.id_role}
+                  onSubmit={this.handleFinish}
+                />
+              </div>
+            )}
+            {state.id_role === 2 && (
+              <FormRegistarVeterinary
+                idRole={state.id_role}
+                onSubmit={this.handleFinish}
+              />
+            )}
+          </>
+        );
       case 2:
-        return <StaticListData data={this.state.dataRegister} />;
+        return <StaticListData data={state.dataRegister} />;
       default:
-        return 'Unknown step';
+        return "Unknown step";
     }
-  }
+  };
 
   handleOnRolSelected = id_role => {
-    this.setState({ ...this.state, id_role });
-  }
+    const {state} = this;
+    this.setState({...state, id_role});
+  };
 
   handleFinish = data => {
-    this.setState({ ...this.state, dataRegister: data.data, disabled: data.disabled });
-  }
+    const {state} = this;
+    this.setState({
+      ...state,
+      dataRegister: data.data,
+      disabled: data.disabled,
+    });
+  };
 
   handleOnSubmitRegister = async () => {
+    const {state} = this;
+    const {history} = this.props;
+
     try {
-      this.setState({ ...this.state, isLoading: true });
-      console.log(this.state.dataRegister);
+      this.setState({...state, isLoading: true});
+      console.log(state.dataRegister);
       const {
-        data: { success, msg }
-      } = await Auth.register(this.state.dataRegister);
+        data: {success},
+      } = await Auth.register(state.dataRegister);
       if (success) {
-        this.setState({ ...this.state, isLoading: false, activeStep: this.state.activeStep + 1 });
+        this.setState({
+          ...state,
+          isLoading: false,
+          activeStep: state.activeStep + 1,
+        });
         setTimeout(() => {
-          this.props.history.push(`/`);
+          history.push(`/`);
         }, 3000);
       } else {
         this.setState({
-          ...this.state,
+          ...state,
           isLoading: false,
           hasError: "Se produjo un error al autenticarse",
           openError: true,
@@ -313,41 +405,59 @@ class Register extends Component {
       }
     } catch (err) {
       this.setState({
-        ...this.state,
+        ...state,
         isLoading: false,
         hasError: "Se produjo un error al registarse",
         openError: true,
       });
     }
-  }
+  };
 
   render() {
-    const { id_role, hasError, isLoading, steps, activeStep, disabled, dataRegister, openError } = this.state;
-    const { handleOnSubmitRegister, handleOnRolSelected, QontoStepIcon, getStepContent, handleNext, handleBack, handleClose } = this;
+    const {
+      hasError,
+      isLoading,
+      steps,
+      activeStep,
+      disabled,
+      openError,
+    } = this.state;
+    const {
+      handleOnSubmitRegister,
+      QontoStepIcon,
+      getStepContent,
+      handleNext,
+      handleBack,
+      handleClose,
+    } = this;
     return (
       <Content>
         <CssBaseline />
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-        >
-          <Grid item xs={10} md={6}>
+        <Grid container alignItems="center" direction="row" justify="center">
+          <Grid item md={6} xs={10}>
             <PaperLogin>
-              <Grid item xs={6} style={{ margin: '0px auto' }}>
-                <img src="assets/Logo.svg" alt="Logo vet On, veterinaria online" />
+              <Grid item style={{margin: "0px auto"}} xs={6}>
+                <img
+                  alt="Logo vet On, veterinaria online"
+                  src="assets/Logo.svg"
+                />
               </Grid>
               <Grid item xs={12}>
-                <TitleRegister variant="body2" color="secondary" gutterBottom>
+                <TitleRegister gutterBottom color="secondary" variant="body2">
                   Registro
-              </TitleRegister>
+                </TitleRegister>
               </Grid>
               <Grid item xs={12}>
-                <RegisterStepper alternativeLabel activeStep={activeStep} connector={<QontoConnector />}>
+                <RegisterStepper
+                  alternativeLabel
+                  activeStep={activeStep}
+                  connector={<QontoConnector />}
+                >
                   {steps.map(label => (
                     <Step key={label}>
-                      <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
+                      <StepLabel StepIconComponent={QontoStepIcon}>
+                        {label}
+                      </StepLabel>
                     </Step>
                   ))}
                 </RegisterStepper>
@@ -361,39 +471,90 @@ class Register extends Component {
                       </TextFinishRegister>
                     </div>
                   ) : (
-                      <Grid item xs={12}>
-                        <Grid container direction="row" justify="center" alignItems="center" >
-                          <GridFormC item xs={12}>{getStepContent(activeStep)}</GridFormC>
-                          <Grid item item xs={12}>
-                            <GridFormC container alignItems="center" justify="flex-end">
-                              {isLoading ? <CircularProgress color="secondary" /> :
-                                <><ButtonBack disabled={activeStep === 0} onClick={handleBack}>
+                    <Grid item xs={12}>
+                      <Grid
+                        container
+                        alignItems="center"
+                        direction="row"
+                        justify="center"
+                      >
+                        <GridFormC item xs={12}>
+                          {getStepContent(activeStep)}
+                        </GridFormC>
+                        <Grid item xs={12}>
+                          <GridFormC
+                            container
+                            alignItems="center"
+                            justify="flex-end"
+                          >
+                            {isLoading ? (
+                              <CircularProgress color="secondary" />
+                            ) : (
+                              <>
+                                <ButtonBack
+                                  disabled={activeStep === 0}
+                                  onClick={handleBack}
+                                >
                                   Atras
                                 </ButtonBack>
-                                  <Button
-                                    disabled={disabled}
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={activeStep === 2 ? handleOnSubmitRegister : handleNext}
-                                  >
-                                    {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
-                                  </Button></>
-                              }
-                              {openError ?
-                                <Snackbar open={openError} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'right', }} >
-                                  <SnackError message={<SpanError><ErrorIconSnack />{hasError}</SpanError>} action={<IconButton aria-label="close" color="inherit" onClick={handleClose}><Close /></IconButton>} />
-                                </Snackbar> : ''}
-                            </GridFormC>
-                          </Grid>
+                                <Button
+                                  color="primary"
+                                  disabled={disabled}
+                                  variant="contained"
+                                  onClick={
+                                    activeStep === 2
+                                      ? handleOnSubmitRegister
+                                      : handleNext
+                                  }
+                                >
+                                  {activeStep === steps.length - 1
+                                    ? "Finalizar"
+                                    : "Siguiente"}
+                                </Button>
+                              </>
+                            )}
+                            {openError ? (
+                              <Snackbar
+                                anchorOrigin={{
+                                  vertical: "bottom",
+                                  horizontal: "right",
+                                }}
+                                autoHideDuration={6000}
+                                open={openError}
+                                onClose={handleClose}
+                              >
+                                <SnackError
+                                  action={
+                                    <IconButton
+                                      aria-label="close"
+                                      color="inherit"
+                                      onClick={handleClose}
+                                    >
+                                      <Close />
+                                    </IconButton>
+                                  }
+                                  message={
+                                    <SpanError>
+                                      <ErrorIconSnack />
+                                      {hasError}
+                                    </SpanError>
+                                  }
+                                />
+                              </Snackbar>
+                            ) : (
+                              ""
+                            )}
+                          </GridFormC>
                         </Grid>
                       </Grid>
-                    )}
+                    </Grid>
+                  )}
                 </div>
               </Grid>
             </PaperLogin>
           </Grid>
         </Grid>
-      </Content >
+      </Content>
     );
   }
 }
