@@ -1,4 +1,4 @@
-import React, { Component, createContext } from "react";
+import React, {Component, createContext} from "react";
 
 export const AppContext = createContext();
 
@@ -6,30 +6,32 @@ class AppProvider extends Component {
   state = {
     auth: {
       logged: false,
-      user: {}
+      user: {},
     },
     login: val => {
-      this.setState({ ...this.state, auth: val });
-    }
-  }
+      const {state} = this;
+      this.setState({...state, auth: val});
+    },
+  };
 
   componentDidMount() {
-    if (localStorage.getItem('userData') !== null) {
+    const {state} = this;
+
+    if (localStorage.getItem("userData") !== null) {
       this.setState({
-        ...this.state,
+        ...state,
         auth: {
           logged: true,
-          user: JSON.parse(localStorage.getItem('userData'))
-        }
+          user: JSON.parse(localStorage.getItem("userData")),
+        },
       });
     }
   }
 
   render() {
+    const {children} = this.props;
     return (
-      <AppContext.Provider value={this.state}>
-        {this.props.children}
-      </AppContext.Provider>
+      <AppContext.Provider value={this.state}>{children}</AppContext.Provider>
     );
   }
 }

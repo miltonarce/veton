@@ -1,19 +1,15 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import SaveIcon from '@material-ui/icons/Save';
+import {makeStyles} from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import SaveIcon from "@material-ui/icons/Save";
 
-import ApiVet from "../../Services/ApiVet"
-import { AppContext } from "../../Store";
-
+import ApiVet from "../../Services/ApiVet";
 
 const useStyles = makeStyles(theme => ({
   container: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexWrap: "wrap",
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -27,10 +23,10 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     margin: theme.spacing(3),
-  }
+  },
 }));
 
-const History = ({ dataHistory, user }) => {
+const History = ({dataHistory, user}) => {
   const classes = useStyles();
   const [values, setValues] = React.useState({
     id_History: dataHistory.id_history,
@@ -38,23 +34,26 @@ const History = ({ dataHistory, user }) => {
     updated_at: dataHistory.updated_at,
     afflictions_procedures: dataHistory.afflictions_procedures,
     comments: dataHistory.comments,
-    hasDisabled: user.id_role === 3 ? false : true,
+    hasDisabled: user.id_role !== 3,
   });
 
   React.useEffect(() => {
     if (user.id_role == 3) {
-      setValues({ hasDisabled: false });
+      setValues({hasDisabled: false});
     }
   }, []);
 
   const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value });
+    setValues({...values, [name]: event.target.value});
   };
 
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      const data = await ApiVet.clinicalhistories.edit(dataHistory.id_history, values);
+      const data = await ApiVet.clinicalhistories.edit(
+        dataHistory.id_history,
+        values
+      );
       if (data.data.success) {
         alert("La historia clínica se edito correctamente");
       } else {
@@ -66,79 +65,84 @@ const History = ({ dataHistory, user }) => {
   };
 
   return (
-    <form className={classes.container} onSubmit={handleSubmit} noValidate autoComplete="off">
+    <form
+      noValidate
+      autoComplete="off"
+      className={classes.container}
+      onSubmit={handleSubmit}
+    >
       <TextField
         disabled
+        className={classes.textField}
         id="outlined-idHistory"
         label="#ID HISTORIA"
-        className={classes.textField}
-        value={values.id_History}
-        onChange={handleChange('id_History')}
         margin="normal"
+        value={values.id_History}
         variant="outlined"
+        onChange={handleChange("id_History")}
       />
       <TextField
         disabled
+        className={classes.textField}
         id="outlined-created_at"
         label="FECHA DE INICIO DE HISTORIA CLÍNICA"
-        className={classes.textField}
-        value={values.created_at}
-        onChange={handleChange('created_at')}
         margin="normal"
+        value={values.created_at}
         variant="outlined"
+        onChange={handleChange("created_at")}
       />
       <TextField
         disabled
+        className={classes.textField}
         id="outlined-updated_at"
         label="FECHA DE ÚLTIMA ACTUALIZACIÓN"
-        className={classes.textField}
-        value={values.updated_at}
-        onChange={handleChange('updated_at')}
         margin="normal"
+        value={values.updated_at}
         variant="outlined"
+        onChange={handleChange("updated_at")}
       />
       <TextField
+        multiline
+        className={classes.textField}
+        col="20"
         disabled={values.hasDisabled}
         id="outlined-afflictions_procedures"
         label="AFLICCIONES"
-        multiline
-        rows="6"
-        col="20"
-        value={values.afflictions_procedures}
-        onChange={handleChange('afflictions_procedures')}
-        className={classes.textField}
         margin="normal"
+        rows="6"
+        value={values.afflictions_procedures}
         variant="outlined"
+        onChange={handleChange("afflictions_procedures")}
       />
       <TextField
+        multiline
+        className={classes.textField}
+        col="20"
         disabled={values.hasDisabled}
         id="outlined-comments"
         label="OBSERVACIONES"
-        multiline
-        rows="6"
-        col="20"
-        value={values.comments}
-        onChange={handleChange('comments')}
-        className={classes.textField}
         margin="normal"
+        rows="6"
+        value={values.comments}
         variant="outlined"
+        onChange={handleChange("comments")}
       />
-      {
-        !values.hasDisabled ?
-          (
-            <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              className={classes.button}
-              startIcon={<SaveIcon />}
-              type="submit"
-            >
-              Guardar historia
-      </Button>) : ''
-      }
+      {!values.hasDisabled ? (
+        <Button
+          className={classes.button}
+          color="primary"
+          size="small"
+          startIcon={<SaveIcon />}
+          type="submit"
+          variant="contained"
+        >
+          Guardar historia
+        </Button>
+      ) : (
+        ""
+      )}
     </form>
-  )
+  );
 };
 
 export default History;

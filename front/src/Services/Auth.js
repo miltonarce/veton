@@ -8,5 +8,5 @@ const axiosInstance = axios.create({
 export default {
   login: request => axiosInstance.post("/login", request),
   register: request => axiosInstance.post("/register", request),
-  logout: () => axiosInstance.get("/logout")
+  logout: () => axiosInstance.get("/logout"),
 };

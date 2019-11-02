@@ -1,70 +1,74 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { InputAdornment, FormControlLabel, Checkbox, Button, Grid } from '@material-ui/core';
-import { AccountCircle, Lock } from '@material-ui/icons';
-import { styled } from '@material-ui/core/styles';
+import {Link} from "react-router-dom";
+import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
+import {
+  InputAdornment,
+  FormControlLabel,
+  Checkbox,
+  Button,
+  Grid,
+} from "@material-ui/core";
+import {AccountCircle, Lock} from "@material-ui/icons";
+import {styled} from "@material-ui/core/styles";
 
 const ButtonForm = styled(Button)({
-  marginTop: '1rem',
+  marginTop: "1rem",
 });
 
 const GridFormC = styled(Grid)({
-  marginTop: '1rem',
+  marginTop: "1rem",
 });
 
-
-
 class FormLogin extends Component {
-
   state = {
     formData: {
       email: "",
-      password: ""
-    }
+      password: "",
+    },
   };
 
   emailRef = React.createRef();
+
   passwordRef = React.createRef();
 
   handleOnBlur = event => {
-    const { emailRef, passwordRef } = this;
+    const {emailRef, passwordRef} = this;
     if (event.target.name === "email") {
       emailRef.current.validate(event.target.value);
     } else {
       passwordRef.current.validate(event.target.value);
     }
-  }
+  };
 
   handleOnChange = event => {
-    const { formData } = this.state;
+    const {formData} = this.state;
     formData[event.target.name] = event.target.value;
-    this.setState({ formData });
-  }
+    this.setState({formData});
+  };
 
   handleOnSubmit = event => {
+    const {props, state} = this;
     event.preventDefault();
-    this.props.onSubmit(this.state.formData);
-  }
+    props.onSubmit(state.formData);
+  };
 
   render() {
-    const { formData } = this.state;
-    const { handleOnSubmit, handleOnChange, handleOnBlur, emailRef, passwordRef } = this;
+    const {formData} = this.state;
+    const {
+      handleOnSubmit,
+      handleOnChange,
+      handleOnBlur,
+      emailRef,
+      passwordRef,
+    } = this;
     return (
-      <ValidatorForm onSubmit={handleOnSubmit} instantValidate={false}>
+      <ValidatorForm instantValidate={false} onSubmit={handleOnSubmit}>
         <Grid item xs={12}>
           <TextValidator
-            margin="normal"
-            label="Email"
-            name="email"
-            value={formData.email}
             ref={emailRef}
-            onBlur={handleOnBlur}
-            onChange={handleOnChange}
-            validators={['required', 'isEmail']}
-            errorMessages={['Este campo es requerido.', 'No es un email valido.']}
             fullWidth
+            errorMessages={['Este campo es requerido.', 'No es un email valido.']}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -72,20 +76,19 @@ class FormLogin extends Component {
                 </InputAdornment>
               ),
             }}
+            label="Email"
+            margin="normal"
+            name="email"
+            validators={['required', 'isEmail']}
+            value={formData.email}
+            onBlur={handleOnBlur}
+            onChange={handleOnChange}
           />
         </Grid>
         <Grid item xs={12}>
           <TextValidator
-            margin="normal"
-            name="password"
-            label="Contraseña"
-            type="password"
-            fullWidth
-            value={formData.password}
             ref={passwordRef}
-            onBlur={handleOnBlur}
-            onChange={handleOnChange}
-            validators={['required']}
+            fullWidth
             errorMessages={['Este campo es requerido.']}
             InputProps={{
               startAdornment: (
@@ -94,24 +97,36 @@ class FormLogin extends Component {
                 </InputAdornment>
               ),
             }}
+            label="Contraseña"
+            margin="normal"
+            name="password"
+            type="password"
+            validators={['required']}
+            value={formData.password}
+            onBlur={handleOnBlur}
+            onChange={handleOnChange}
           />
         </Grid>
         <Grid item xs={12}>
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
+            control={<Checkbox color="primary" value="remember" />}
             label="Recordarme"
           />
         </Grid>
         <Grid item xs={12}>
-          <ButtonForm type="submit" variant="contained" color="primary" margin="normal" fullWidth>
+          <ButtonForm
+            fullWidth
+            color="primary"
+            margin="normal"
+            type="submit"
+            variant="contained"
+          >
             INGRESAR
           </ButtonForm>
         </Grid>
         <GridFormC container alignItems="center" justify="flex-end">
-          <Grid item xs={10} md={6}>
-            <Link to="/register">
-              {"No tiene cuenta? Registrarse"}
-            </Link>
+          <Grid item md={6} xs={10}>
+            <Link to="/register">No tiene cuenta? Registrarse</Link>
           </Grid>
         </GridFormC>
       </ValidatorForm>
@@ -120,7 +135,7 @@ class FormLogin extends Component {
 }
 
 FormLogin.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default FormLogin;

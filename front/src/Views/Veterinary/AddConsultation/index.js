@@ -1,49 +1,53 @@
 import React from "react";
 import FormConsultation from "../../../Components/Forms/FormConsultation";
 import ApiVet from "../../../Services/ApiVet";
-import { AppContext } from "../../../Store";
+import {AppContext} from "../../../Store";
 
 class AddConsultation extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      statusConsultation: {}
-    };
-    this.handleOnSubmit = this.handleOnSubmit.bind(this);
-  }
+  state = {
+    statusConsultation: {},
+  };
 
-  async handleOnSubmit(request) {
-    const errorAlert = { msg: "Se produjo un error", type: "danger" };
+  handleOnSubmit = async request => {
+    const errorAlert = {msg: "Se produjo un error", type: "danger"};
     const successAlert = {
       msg: "Se dió de alta correctamente!",
-      type: "success"
+      type: "success",
     };
-    const { idHistory } = this.props.match.params;
+
+    const {
+      martch: {
+        params: {idHistory},
+      },
+    } = this.props;
+
+    const {state} = this;
+
     try {
-      const { data } = await ApiVet.consultations.create(idHistory, request);
+      const {data} = await ApiVet.consultations.create(idHistory, request);
       if (data.sucess) {
-        this.setState({ ...this.state, statusConsultation: successAlert });
+        this.setState({...state, statusConsultation: successAlert});
       } else {
-        this.setState({ ...this.state, statusConsultation: errorAlert });
+        this.setState({...state, statusConsultation: errorAlert});
       }
     } catch (err) {
-      this.setState({ ...this.state, statusConsultation: errorAlert });
+      this.setState({...state, statusConsultation: errorAlert});
     }
-  }
+  };
 
   render() {
-    const { statusConsultation } = this.state;
-    const { handleOnSubmit } = this;
-    const { auth: { user } } = this.context;
+    const {statusConsultation} = this.state;
+    const {handleOnSubmit} = this;
+    const {
+      auth: {user},
+    } = this.context;
     return (
       <React.Fragment>
-        {statusConsultation.msg && (
-          "Alert"
-        )}
+        {statusConsultation.msg && "Alert"}
         <FormConsultation
           title="Registrar Consulta"
-          onSubmit={handleOnSubmit}
           user={user}
+          onSubmit={handleOnSubmit}
         />
       </React.Fragment>
     );

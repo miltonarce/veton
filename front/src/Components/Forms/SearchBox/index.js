@@ -2,18 +2,24 @@ import React from "react";
 import PropTypes from "prop-types";
 
 class SearchBox extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      search: ""
-    };
-    this.handleOnSubmit = this.handleOnSubmit.bind(this);
-    this.handleOnChange = this.handleOnChange.bind(this);
-  }
+  state = {
+    search: "",
+  };
+
+  handleOnSubmit = event => {
+    event.preventDefault();
+    const {state, props} = this;
+    props.onSearch(state.search);
+  };
+
+  handleOnChange = event => {
+    const {state} = this;
+    this.setState({...state, search: event.target.value});
+  };
 
   render() {
-    const { handleOnChange, handleOnSubmit } = this;
-    const { placeholder } = this.props;
+    const {handleOnChange, handleOnSubmit} = this;
+    const {placeholder} = this.props;
     return (
       <div className="searchbox">
         <form className="searchbox__form" onSubmit={handleOnSubmit}>
@@ -21,8 +27,8 @@ class SearchBox extends React.Component {
             <i className="material-icons form-control-feedback">search</i>
             <input
               className="form-control searchbox__input"
-              type="search"
               placeholder={placeholder}
+              type="search"
               onChange={handleOnChange}
             />
           </div>
@@ -30,30 +36,11 @@ class SearchBox extends React.Component {
       </div>
     );
   }
-
-  /**
-   * Handle event submit send input by user
-   * @param {Event} event
-   * @returns {void}
-   */
-  handleOnSubmit(event) {
-    event.preventDefault();
-    this.props.onSearch(this.state.search);
-  }
-
-  /**
-   * Handle event change input searchbox
-   * @param {Event} event
-   * @returns {void}
-   */
-  handleOnChange(event) {
-    this.setState({ ...this.state, search: event.target.value });
-  }
 }
 
 SearchBox.propTypes = {
   placeholder: PropTypes.string,
-  onSearch: PropTypes.func
+  onSearch: PropTypes.func,
 };
 
 export default SearchBox;

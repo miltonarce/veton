@@ -1,46 +1,51 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { Grid, Paper, CssBaseline, CircularProgress, Snackbar, SnackbarContent, IconButton } from '@material-ui/core';
-import { Close, Error } from '@material-ui/icons';
-import { styled } from '@material-ui/core/styles';
+import React, {Component} from "react";
+import {withRouter} from "react-router-dom";
+import {
+  Grid,
+  Paper,
+  CssBaseline,
+  CircularProgress,
+  Snackbar,
+  SnackbarContent,
+  IconButton,
+} from "@material-ui/core";
+import {Close, Error} from "@material-ui/icons";
+import {styled} from "@material-ui/core/styles";
 
 import Api from "../../../Services/Api";
 import Auth from "../../../Services/Auth";
 import FormLogin from "../../../Components/Forms/FormLogin";
-import { AppContext } from "../../../Store";
-
+import {AppContext} from "../../../Store";
 
 // Roles by view
 const ROLES = Api.roles.all();
 
-const Content = styled('div')({
+const Content = styled("div")({
   height: "100vh",
-  display: 'flex',
+  display: "flex",
   backgroundImage: "url('assets/background_kitty.png')",
 });
-
 
 const PaperLogin = styled(Paper)({
   padding: "3rem",
 });
 
-const ContentLogin = styled('div')({
-  marginTop: "2rem"
-})
+const ContentLogin = styled("div")({
+  marginTop: "2rem",
+});
 
 const SnackError = styled(SnackbarContent)({
   backgroundColor: "#D32F2F",
-})
+});
 
-const SpanError = styled('span')({
-  display: 'flex',
-  alignItems: 'center',
+const SpanError = styled("span")({
+  display: "flex",
+  alignItems: "center",
 });
 
 const ErrorIconSnack = styled(Error)({
   marginRight: ".5rem",
 });
-
 
 class Login extends Component {
   state = {
@@ -50,22 +55,29 @@ class Login extends Component {
   };
 
   handleClose = () => {
-    this.setState({ ...this.state, openError: false })
-  }
+    const {state} = this;
+    this.setState({...state, openError: false});
+  };
 
   handleOnSubmit = async request => {
+    const {state} = this;
+    const {login} = this.context;
+    const {history} = this.props;
+
     try {
-      this.setState({ ...this.state, isLoading: true });
-      const { data: { success, additional_info, msg } } = await Auth.login(request);
+      this.setState({...state, isLoading: true});
+      const {
+        data: {success, additional_info},
+      } = await Auth.login(request);
       if (success) {
-        this.setState({ ...this.state, isLoading: false, hasError: null });
-        this.context.login({ logged: true, user: additional_info });
-        localStorage.setItem('userData', JSON.stringify(additional_info));
+        this.setState({...state, isLoading: false, hasError: null});
+        login({logged: true, user: additional_info});
+        localStorage.setItem("userData", JSON.stringify(additional_info));
         const defaultView = ROLES[additional_info.id_role];
-        this.props.history.push(`/${defaultView}`);
+        history.push(`/${defaultView}`);
       } else {
         this.setState({
-          ...this.state,
+          ...state,
           isLoading: false,
           hasError: "Se produjo un error al autenticarse",
           openError: true,
@@ -73,41 +85,64 @@ class Login extends Component {
       }
     } catch (err) {
       this.setState({
-        ...this.state,
+        ...state,
         isLoading: false,
         openError: true,
         hasError: err,
       });
     }
-  }
+  };
 
   render() {
-    const { isLoading, hasError, openError } = this.state;
-    const { handleOnSubmit, handleClose } = this;
+    const {isLoading, hasError, openError} = this.state;
+    const {handleOnSubmit, handleClose} = this;
     return (
       <Content>
         <CssBaseline />
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-        >
-          <Grid item xs={10} md={3}>
+        <Grid container alignItems="center" direction="row" justify="center">
+          <Grid item md={3} xs={10}>
             <PaperLogin>
               <Grid item xs={12}>
-                <img src="assets/Logo.svg" alt="Logo vet On, veterinaria online" />
+                <img
+                  alt="Logo vet On, veterinaria online"
+                  src="assets/Logo.svg"
+                />
               </Grid>
               <Grid item xs={12}>
                 <ContentLogin>
-                  {isLoading ?
-                    <CircularProgress color="secondary" /> :
+                  {isLoading ? (
+                    <CircularProgress color="secondary" />
+                  ) : (
                     <FormLogin onSubmit={handleOnSubmit} />
-                  }
-                  {openError ?
-                    <Snackbar open={openError} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'right', }} >
-                      <SnackError message={<SpanError><ErrorIconSnack />{hasError}</SpanError>} action={<IconButton aria-label="close" color="inherit" onClick={handleClose}><Close /></IconButton>} />
-                    </Snackbar> : ''}
+                  )}
+                  {openError ? (
+                    <Snackbar
+                      anchorOrigin={{vertical: "bottom", horizontal: "right"}}
+                      autoHideDuration={6000}
+                      open={openError}
+                      onClose={handleClose}
+                    >
+                      <SnackError
+                        action={
+                          <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            onClick={handleClose}
+                          >
+                            <Close />
+                          </IconButton>
+                        }
+                        message={
+                          <SpanError>
+                            <ErrorIconSnack />
+                            {hasError}
+                          </SpanError>
+                        }
+                      />
+                    </Snackbar>
+                  ) : (
+                    ""
+                  )}
                 </ContentLogin>
               </Grid>
             </PaperLogin>

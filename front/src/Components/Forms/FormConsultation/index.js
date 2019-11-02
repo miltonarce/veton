@@ -1,45 +1,38 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 class FormConsultation extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      form: {
-        comments: "",
-        id_user: null,
-        afflictions_procedures: ""
-      }
-    };
-    this.handleOnChange = this.handleOnChange.bind(this);
-    this.handleOnSubmit = this.handleOnSubmit.bind(this);
-  }
+  state = {
+    form: {
+      comments: "",
+      id_user: null,
+      afflictions_procedures: "",
+    },
+  };
+
   componentDidMount() {
-    this.setState({ form: { ...this.state.form, id_user: this.props.user.id_user } })
-  }
-  /**
-   * Method to handle submit with all data from form
-   * @param {Event} event
-   * @returns {void}
-   */
-  handleOnSubmit(event) {
-    event.preventDefault();
-    this.props.onSubmit(this.state.form);
+    const {props, state} = this;
+    this.setState({
+      form: {...state.form, id_user: props.user.id_user},
+    });
   }
 
-  /**
-   * Method to handle onChange for all inputs with name and value
-   * @param {Event} event
-   * @returns {void}
-   */
+  handleOnSubmit(event) {
+    const {props, state} = this;
+    event.preventDefault();
+    props.onSubmit(state.form);
+  }
+
   handleOnChange(event) {
-    const { name, value } = event.target;
-    this.setState({ form: { ...this.state.form, [name]: value } });
+    const {state} = this;
+    const {name, value} = event.target;
+    this.setState({form: {...state.form, [name]: value}});
   }
 
   render() {
-    const { title } = this.props;
-    const { comments, hide_comments, afflictions_procedures } = this.state.form;
-    const { handleOnSubmit, handleOnChange } = this;
+    const {title} = this.props;
+    const {comments, afflictions_procedures} = this.state.form;
+    const {handleOnSubmit, handleOnChange} = this;
     return (
       <div className="container py-2">
         <h2 className="text-center">{title}</h2>
@@ -47,23 +40,23 @@ class FormConsultation extends React.Component {
           <div className="form-group">
             <span>Comentarios</span>
             <textarea
-              name="comments"
+              required
               className="form-control"
+              name="comments"
               value={comments}
               onChange={handleOnChange}
-              required
             />
           </div>
           <div className="form-group">
             <span>Aflicciones</span>
             <textarea
-              name="afflictions_procedures"
               className="form-control"
+              name="afflictions_procedures"
               value={afflictions_procedures}
               onChange={handleOnChange}
             />
           </div>
-          <button type="submit" className="btn btn-primary btn-block">
+          <button className="btn btn-primary btn-block" type="submit">
             Aceptar
           </button>
         </form>
@@ -74,7 +67,7 @@ class FormConsultation extends React.Component {
 
 FormConsultation.propTypes = {
   title: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default FormConsultation;

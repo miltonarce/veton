@@ -2,66 +2,54 @@ import React from "react";
 import PropTypes from "prop-types";
 
 class FormAddPet extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      form: {
-        id_user: 2,
-        id_type: 1,
-        id_breed: 1,
-        name: "",
-        last_name: "",
-        birdthay: null,
-        image: "",
-        weight: null,
-        colors: null,
-        comments: "",
-        id_gender: 1
-      }
-    };
-    this.handleOnChange = this.handleOnChange.bind(this);
-    this.handleOnSubmit = this.handleOnSubmit.bind(this);
-  }
+  state = {
+    form: {
+      id_user: 2,
+      id_type: 1,
+      id_breed: 1,
+      name: "",
+      last_name: "",
+      birdthay: null,
+      image: "",
+      weight: null,
+      colors: null,
+      comments: "",
+      id_gender: 1,
+    },
+  };
 
-  /**
-   * Method to handle submit with all data from form
-   * @param {Event} event
-   * @returns {void}
-   */
-  handleOnSubmit(event) {
+  handleOnSubmit = event => {
+    const {state, props} = this;
     event.preventDefault();
-    this.props.onSubmit(this.state.form);
-  }
+    props.onSubmit(state.form);
+  };
 
-  /**
-   * Method to handle onChange for all inputs with name and value
-   * @param {Event} event
-   * @returns {void}
-   */
-  handleOnChange(event) {
-    const { name, value } = event.target;
+  handleOnChange = event => {
+    const {state} = this;
+    const {name, value} = event.target;
     if (name === "id_type" || name === "id_breed" || name === "id_gender") {
-      this.setState({ form: { ...this.state.form, [name]: Number(value) } });
+      this.setState({form: {...state.form, [name]: Number(value)}});
     } else {
-      this.setState({ form: { ...this.state.form, [name]: value } });
+      this.setState({form: {...state.form, [name]: value}});
     }
-  }
+  };
 
   render() {
-    const { types, breeds, title } = this.props;
+    const {types, breeds, title} = this.props;
     const {
-      name,
-      last_name,
-      birdthay,
-      image,
-      weight,
-      colors,
-      comments,
-      id_type,
-      id_breed
-    } = this.state.form;
+      form: {
+        name,
+        birdthay,
+        image,
+        weight,
+        colors,
+        comments,
+        id_type,
+        id_breed,
+      },
+    } = this.state;
     const breedsByType = breeds.filter(breed => breed.id_type === id_type);
-    const { handleOnChange, handleOnSubmit } = this;
+    const {handleOnChange, handleOnSubmit} = this;
 
     return (
       <div className="container py-2">
@@ -70,34 +58,34 @@ class FormAddPet extends React.Component {
           <div className="form-group">
             <label htmlFor="name">Nombre</label>
             <input
-              type="text"
+              required
               className="form-control"
               id="name"
               name="name"
+              type="text"
               value={name}
               onChange={handleOnChange}
-              required
             />
           </div>
           <div className="form-group">
             <label htmlFor="lastname">Apellido</label>
             <input
-              type="text"
+              required
               className="form-control"
               id="last_name"
               name="last_name"
+              type="text"
               value={last_name}
               onChange={handleOnChange}
-              required
             />
           </div>
           <div className="form-group">
             <label htmlFor="birdthay">Cumpleaños</label>
             <input
-              type="date"
               className="form-control"
               id="birdthay"
               name="birdthay"
+              type="date"
               value={birdthay}
               onChange={handleOnChange}
             />
@@ -106,25 +94,25 @@ class FormAddPet extends React.Component {
             <span>Imagen</span>
             <div className="custom-file">
               <input
-                type="file"
                 className="custom-file-input"
                 id="imagePet"
                 name="image"
+                type="file"
                 value={image}
                 onChange={handleOnChange}
               />
               <label className="custom-file-label" htmlFor="imagePet">
-                {image ? image : "No se cargó ninguna imagen"}
+                {image || "No se cargó ninguna imagen"}
               </label>
             </div>
           </div>
           <div className="form-group">
             <label htmlFor="weight">Peso</label>
             <input
-              type="number"
               className="form-control"
               id="weight"
               name="weight"
+              type="number"
               value={weight}
               onChange={handleOnChange}
             />
@@ -133,10 +121,10 @@ class FormAddPet extends React.Component {
           <div className="form-group">
             <label htmlFor="color">Color</label>
             <input
-              type="text"
               className="form-control"
               id="colors"
               name="colors"
+              type="text"
               value={colors}
               onChange={handleOnChange}
             />
@@ -144,8 +132,8 @@ class FormAddPet extends React.Component {
           <div className="form-group">
             <span>Comentarios</span>
             <textarea
-              name="comments"
               className="form-control"
+              name="comments"
               value={comments}
               onChange={handleOnChange}
             />
@@ -160,7 +148,7 @@ class FormAddPet extends React.Component {
               onChange={handleOnChange}
             >
               {types.map(type => (
-                <option value={type.id_type} key={type.id_type}>
+                <option key={type.id_type} value={type.id_type}>
                   {type.type}
                 </option>
               ))}
@@ -176,7 +164,7 @@ class FormAddPet extends React.Component {
               onChange={handleOnChange}
             >
               {breedsByType.map(breed => (
-                <option value={breed.id_breed} key={breed.id_breed}>
+                <option key={breed.id_breed} value={breed.id_breed}>
                   {breed.breed}
                 </option>
               ))}
@@ -186,9 +174,9 @@ class FormAddPet extends React.Component {
             <div className="form-check form-check-inline">
               <input
                 className="form-check-input"
-                type="radio"
-                name="id_gender"
                 id="gender_male"
+                name="id_gender"
+                type="radio"
                 value={2}
                 onChange={handleOnChange}
               />
@@ -199,9 +187,9 @@ class FormAddPet extends React.Component {
             <div className="form-check form-check-inline">
               <input
                 className="form-check-input"
-                type="radio"
-                name="id_gender"
                 id="gender_female"
+                name="id_gender"
+                type="radio"
                 value={1}
                 onChange={handleOnChange}
               />
@@ -210,7 +198,7 @@ class FormAddPet extends React.Component {
               </label>
             </div>
           </div>
-          <button type="submit" className="btn btn-primary btn-block">
+          <button className="btn btn-primary btn-block" type="submit">
             Aceptar
           </button>
         </form>
@@ -223,17 +211,17 @@ FormAddPet.propTypes = {
   breeds: PropTypes.arrayOf(
     PropTypes.shape({
       id_breed: PropTypes.number.isRequired,
-      breed: PropTypes.string.isRequired
+      breed: PropTypes.string.isRequired,
     }).isRequired
   ),
   types: PropTypes.arrayOf(
     PropTypes.shape({
       id_type: PropTypes.number.isRequired,
-      type: PropTypes.string.isRequired
+      type: PropTypes.string.isRequired,
     }).isRequired
   ),
   title: PropTypes.string,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default FormAddPet;

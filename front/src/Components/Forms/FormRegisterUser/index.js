@@ -1,9 +1,14 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { InputAdornment, FormControlLabel, Button, Grid, IconButton } from '@material-ui/core';
-import { Email, Visibility, VisibilityOff, FeaturedPlayList } from '@material-ui/icons';
-import { styled } from '@material-ui/core/styles';
+import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
+import {InputAdornment, Grid, IconButton} from "@material-ui/core";
+import {
+  Email,
+  Visibility,
+  VisibilityOff,
+  FeaturedPlayList,
+} from "@material-ui/icons";
+import {styled} from "@material-ui/core/styles";
 
 const Adorment = styled(InputAdornment)({
   marginRight: "8px",
@@ -12,24 +17,27 @@ const Adorment = styled(InputAdornment)({
 class FormRegisterUser extends Component {
   state = {
     formData: {
-      email: '',
-      password: '',
-      dni: '',
+      email: "",
+      password: "",
+      dni: "",
       id_role: this.props.idRole,
     },
     showPassword: false,
   };
 
-  emailRef = React.createRef();
-  passwordRef = React.createRef();
-  dniRef = React.createRef();
-
   componentDidMount() {
-    this.props.onSubmit({ data: this.state.formData, disabled: true });
+    const {props, state} = this;
+    props.onSubmit({data: state.formData, disabled: true});
   }
 
+  emailRef = React.createRef();
+
+  passwordRef = React.createRef();
+
+  dniRef = React.createRef();
+
   handleOnBlur = event => {
-    const { emailRef, passwordRef, dniRef } = this;
+    const {props, state, emailRef, passwordRef, dniRef} = this;
     if (event.target.name === "email") {
       emailRef.current.validate(event.target.value);
     } else if (event.target.name === "password") {
@@ -38,51 +46,59 @@ class FormRegisterUser extends Component {
       dniRef.current.validate(event.target.value);
     }
 
-    this.form.isFormValid().then((isValid) => {
+    this.form.isFormValid().then(isValid => {
       if (isValid) {
-        this.props.onSubmit({ data: this.state.formData, disabled: false });
+        props.onSubmit({data: state.formData, disabled: false});
       }
     });
-  }
+  };
 
   handleOnChange = event => {
-    const { formData } = this.state;
+    const {formData} = this.state;
     formData[event.target.name] = event.target.value;
-    this.setState({ formData });
-  }
+    this.setState({formData});
+  };
 
   handleOnSubmit = event => {
+    const {props, state} = this;
     event.preventDefault();
-    this.props.onSubmit(this.state.formData);
-  }
+    props.onSubmit(state.formData);
+  };
 
   handleClickShowPassword = () => {
-    this.setState({ ...this.state, showPassword: !this.state.showPassword });
+    const {state} = this;
+    this.setState({...state, showPassword: !state.showPassword});
   };
 
   handleMouseDownPassword = event => {
     event.preventDefault();
   };
 
-
-
   render() {
-    const { formData, showPassword } = this.state;
-    const { handleOnSubmit, handleOnChange, handleOnBlur, handleClickShowPassword, handleMouseDownPassword, emailRef, passwordRef, dniRef } = this;
+    const {formData, showPassword} = this.state;
+    const {
+      handleOnSubmit,
+      handleOnChange,
+      handleOnBlur,
+      handleClickShowPassword,
+      handleMouseDownPassword,
+      emailRef,
+      passwordRef,
+      dniRef,
+    } = this;
     return (
-      <ValidatorForm onSubmit={handleOnSubmit} ref={(r) => { this.form = r; }} instantValidate>
+      <ValidatorForm
+        ref={r => {
+          this.form = r;
+        }}
+        instantValidate
+        onSubmit={handleOnSubmit}
+      >
         <Grid item xs={12}>
           <TextValidator
-            margin="normal"
-            label="Ingrese su email"
-            name="email"
-            value={formData.email}
             ref={emailRef}
-            onBlur={handleOnBlur}
-            onChange={handleOnChange}
-            validators={['required', 'isEmail']}
-            errorMessages={['Este campo es requerido.', 'No es un email valido.']}
             fullWidth
+            errorMessages={['Este campo es requerido.', 'No es un email valido.']}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -90,20 +106,19 @@ class FormRegisterUser extends Component {
                 </InputAdornment>
               ),
             }}
+            label="Ingrese su email"
+            margin="normal"
+            name="email"
+            validators={['required', 'isEmail']}
+            value={formData.email}
+            onBlur={handleOnBlur}
+            onChange={handleOnChange}
           />
         </Grid>
         <Grid item xs={12}>
           <TextValidator
-            margin="normal"
-            name="password"
-            label="Ingrese su contraseña"
-            type={showPassword ? 'text' : 'password'}
-            fullWidth
-            value={formData.password}
             ref={passwordRef}
-            onBlur={handleOnBlur}
-            onChange={handleOnChange}
-            validators={['required']}
+            fullWidth
             errorMessages={['Este campo es requerido.']}
             InputProps={{
               endAdornment: (
@@ -119,21 +134,21 @@ class FormRegisterUser extends Component {
                 </Adorment>
               ),
             }}
+            label="Ingrese su contraseña"
+            margin="normal"
+            name="password"
+            type={showPassword ? 'text' : 'password'}
+            validators={['required']}
+            value={formData.password}
+            onBlur={handleOnBlur}
+            onChange={handleOnChange}
           />
         </Grid>
         <Grid item xs={12}>
           <TextValidator
-            margin="normal"
-            label="Ingrese su dni"
-            type="number"
-            name="dni"
-            value={formData.dni}
             ref={dniRef}
-            onBlur={handleOnBlur}
-            onChange={handleOnChange}
-            validators={['required', 'isNumber']}
-            errorMessages={['Este campo es requerido.', 'El dni debe ser un número.']}
             fullWidth
+            errorMessages={['Este campo es requerido.', 'El dni debe ser un número.']}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -141,6 +156,14 @@ class FormRegisterUser extends Component {
                 </InputAdornment>
               ),
             }}
+            label="Ingrese su dni"
+            margin="normal"
+            name="dni"
+            type="number"
+            validators={['required', 'isNumber']}
+            value={formData.dni}
+            onBlur={handleOnBlur}
+            onChange={handleOnChange}
           />
         </Grid>
       </ValidatorForm>
@@ -149,7 +172,7 @@ class FormRegisterUser extends Component {
 }
 
 FormRegisterUser.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default FormRegisterUser;

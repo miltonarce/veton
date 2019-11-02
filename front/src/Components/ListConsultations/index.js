@@ -1,33 +1,32 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import React, {useContext} from "react";
+import PropTypes from "prop-types";
+import SwipeableViews from "react-swipeable-views";
+import {makeStyles, useTheme} from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 
-import Consultation from "../../Components/Consultation";
-import { AppContext } from '../../Store';
-
+import Consultation from "../Consultation";
+import {AppContext} from "../../Store";
 
 const TabPanel = props => {
-  const { children, value, index, ...other } = props;
+  const {children, value, index, ...other} = props;
 
   return (
     <Typography
+      aria-labelledby={`full-width-tab-${index}`}
       component="div"
-      role="tabpanel"
       hidden={value !== index}
       id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
+      role="tabpanel"
       {...other}
     >
       <Box p={3}>{children}</Box>
     </Typography>
   );
-}
+};
 
 TabPanel.propTypes = {
   children: PropTypes.node,
@@ -35,21 +34,19 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-const a11yProps = index => {
-  return {
-    id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
-  };
-}
+const a11yProps = index => ({
+  id: `full-width-tab-${index}`,
+  "aria-controls": `full-width-tabpanel-${index}`,
+});
 
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    width: '100%',
+    width: "100%",
   },
 }));
 
-const ListConsultations = ({ consultations }) => {
+const ListConsultations = ({consultations}) => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -62,38 +59,42 @@ const ListConsultations = ({ consultations }) => {
     setValue(index);
   };
 
-  const { auth: { user } } = useContext(AppContext);
+  const {
+    auth: {user},
+  } = useContext(AppContext);
 
   return (
-
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar color="default" position="static">
         <Tabs
-          value={value}
-          onChange={handleChange}
+          aria-label="full width tabs example"
           indicatorColor="primary"
           textColor="primary"
+          value={value}
           variant="fullWidth"
-          aria-label="full width tabs example"
+          onChange={handleChange}
         >
-          {consultations.map((consultation, index) => (<Tab label={`#ID CONSULTA ${consultation.id_consultation}`} {...a11yProps(index)} />))}
-
+          {consultations.map((consultation, index) => (
+            <Tab
+              label={`#ID CONSULTA ${consultation.id_consultation}`}
+              {...a11yProps(index)}
+            />
+          ))}
         </Tabs>
       </AppBar>
       <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={value}
         onChangeIndex={handleChangeIndex}
       >
         {consultations.map((consultation, index) => (
-          <TabPanel value={value} index={index} dir={theme.direction}>
+          <TabPanel dir={theme.direction} index={index} value={value}>
             <Consultation dataConsultation={consultation} user={user} />
           </TabPanel>
         ))}
       </SwipeableViews>
     </div>
-  )
-}
-
+  );
+};
 
 export default ListConsultations;
