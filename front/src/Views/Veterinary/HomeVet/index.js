@@ -12,7 +12,6 @@ class HomeVet extends React.Component {
 
   async componentDidUpdate(prevProps) {
     if (prevProps.userSelected !== this.props.userSelected) {
-      console.log('cambio el valor', this.props.userSelected);
       await this.fetchPetsByUser(this.props.userSelected);
     }
   }
