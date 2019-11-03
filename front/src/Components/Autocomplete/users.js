@@ -9,9 +9,12 @@ import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles(() => ({
     root: {
-        width: "100%",
-        backgroundColor: "#f5f5f5",
+        backgroundColor: "#e8e8e8",
+        color: "#212121",
         padding: 0,
+        position: "absolute",
+        border: "0 20px 0 20px",
+        borderRadius: "0 20px",
     },
     inline: {
         display: "inline",

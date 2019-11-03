@@ -7,6 +7,15 @@ import {
 } from "@material-ui/core";
 import SearchOutlined from "@material-ui/icons/SearchOutlined";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import {styled} from "@material-ui/core/styles";
+
+const CircularProgressAbsolute = styled(CircularProgress)({
+    position: "absolute",
+    right: "280px",
+    height: "20px !important",
+    width: "20px !important",
+    bottom: "20px",
+});
 
 class Autocomplete extends React.Component {
 
@@ -47,7 +56,7 @@ class Autocomplete extends React.Component {
                         </InputAdornment>
                     ),
                 }} />
-                {loading && <CircularProgress />}
+                {loading && <CircularProgressAbsolute />}
                 <ListItemUsers users={users} onUserSelected={onUserSelected} />
             </React.Fragment>
         );
