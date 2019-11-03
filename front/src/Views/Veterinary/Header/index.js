@@ -3,6 +3,7 @@ import {Link, withRouter} from "react-router-dom";
 import {AppBar, Toolbar, Typography, Button} from "@material-ui/core";
 import {Home, AccountCircle} from "@material-ui/icons";
 import {styled} from "@material-ui/core/styles";
+import Autocomplete from "../../../Components/Autocomplete";
 
 const Logo = styled(Typography)({
   width: "121px",
@@ -23,6 +24,27 @@ const ContentIcon = styled("div")({
   marginRight: ".5rem",
 });
 
+const ContentAutocomplete = styled("div")({
+  backgroundColor: "#fff",
+  borderRadius: "23px",
+  padding: "0 10px",
+});
+
+// const handleOnSearch = async user => {
+//   try {
+//     const petsList = await ApiVet.userPets.fetch(user.id_user);
+//     const clinicalHistories = await Api.clinicalhistories.all();
+//     this.setState({
+//       ...state,
+//       petsList: petsList.data,
+//       clinicalHistories: clinicalHistories.data,
+//       isLoading: false,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
 const Header = () => (
   <AppBar position="static">
     <Toolbar>
@@ -31,6 +53,9 @@ const Header = () => (
           Vet On
         </Logo>
       </ContentLogo>
+      <ContentAutocomplete>
+        <Autocomplete placeholder="Buscar usuarios" onUserSelected={user => console.log('usuario??', user)} />
+      </ContentAutocomplete>
       <ContentLink to="/veterinary">
         <Button color="inherit">
           <ContentIcon>

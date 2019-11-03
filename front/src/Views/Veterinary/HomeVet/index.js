@@ -1,9 +1,5 @@
 import React from "react";
-
-import ApiVet from "../../../Services/ApiVet";
-import Api from "../../../Services/Api";
 import ListPets from "../../../Components/ListPets";
-import SearchBox from "../../../Components/Forms/SearchBox";
 
 class HomeVet extends React.Component {
   state = {
@@ -12,23 +8,23 @@ class HomeVet extends React.Component {
     clinicalHistories: [],
   };
 
-  handleOnSearch = async dni => {
-    try {
-      const {state, setState} = this;
-      setState({...state, isLoading: true});
-      const user = await ApiVet.users.fetch(dni);
-      const petsList = await ApiVet.userPets.fetch(user.data.id_user);
-      const clinicalHistories = await Api.clinicalhistories.all();
-      this.setState({
-        ...state,
-        petsList: petsList.data,
-        clinicalHistories: clinicalHistories.data,
-        isLoading: false,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // handleOnSearch = async dni => {
+  //   try {
+  //     const {state, setState} = this;
+  //     setState({...state, isLoading: true});
+  //     const user = await ApiVet.users.fetch(dni);
+  //     const petsList = await ApiVet.userPets.fetch(user.data.id_user);
+  //     const clinicalHistories = await Api.clinicalhistories.all();
+  //     this.setState({
+  //       ...state,
+  //       petsList: petsList.data,
+  //       clinicalHistories: clinicalHistories.data,
+  //       isLoading: false,
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   render() {
     const {petsList, clinicalHistories, isLoading} = this.state;
@@ -39,15 +35,6 @@ class HomeVet extends React.Component {
           <h2>Mis Mascotas</h2>
         </div>
         <div className="veton-container__list">
-          <div className="veton-container__list__container-search">
-            <div>
-              <SearchBox
-                className="search-box-border"
-                placeholder="Ingrese dni del paciente"
-                onSearch={handleOnSearch}
-              />
-            </div>
-          </div>
           <div className="veton-container__list__container-list">
             <div className="veton-container__list__container-list__row">
               {isLoading ? (
