@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {styled} from "@material-ui/core/styles";
 import {
@@ -7,6 +8,7 @@ import {
   CardMedia,
   CardContent,
   Typography,
+  Button,
 } from "@material-ui/core";
 
 const CardPet = styled(Card)({
@@ -18,9 +20,21 @@ const CardPetMedia = styled(CardMedia)({
   paddingTop: "56.25%",
 });
 
+const CardPetHeader = styled(CardHeader)({
+  padding: "1rem 0",
+});
+
+const PetLink = styled(Link)({
+  textDecoration: "none",
+  margin: "1rem",
+});
+
+const ButtonDetailsPet = styled(Button)({
+  marginBottom: "1rem",
+});
+
 const Pet = ({name, last_name, image, birthday, weight}) => (
   <CardPet>
-    <CardHeader title={`${name} ${last_name}`} />
     <CardPetMedia
       image={
         image
@@ -30,6 +44,7 @@ const Pet = ({name, last_name, image, birthday, weight}) => (
       title="Mascota Imagen"
     />
     <CardContent>
+      <CardPetHeader title={`${name} ${last_name}`} />
       <Typography color="textSecondary" component="p" variant="body2">
         Cumpleaños: {birthday || "Sin cumpleaños."}
       </Typography>
@@ -39,6 +54,11 @@ const Pet = ({name, last_name, image, birthday, weight}) => (
         Peso: {weight || "0"} Kg.
       </Typography>
     </CardContent>
+    <PetLink to="">
+      <ButtonDetailsPet color="primary" variant="contained">
+        Ver Detalles
+      </ButtonDetailsPet>
+    </PetLink>
   </CardPet>
 );
 
