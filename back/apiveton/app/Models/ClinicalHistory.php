@@ -15,7 +15,7 @@ class ClinicalHistory extends Model
     protected $dates = ['deleted_at'];
 
     /** @var array La lista de campos que se pueden cargar masivamente. */
-    protected $fillable = ['id_pet','comments', 'hide_comments', 'afflictions_procedures'];
+    protected $fillable = ['id_pet', 'id_user', 'id_veterinary', 'comments', 'hide_comments', 'afflictions_procedures', 'image_1', 'image_2', 'image_3'];
     
     /** @var array las reglas de validación. */
     public static $rules = [
@@ -43,5 +43,15 @@ class ClinicalHistory extends Model
     public function consultations()
     {
         return $this->hasMany(Consultation::class, 'id_history', 'id_history');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo( User::class, 'id_user','id_user');
+    }
+
+    public function veterinary()
+    {
+        return $this->belongsTo( Veterinary::class, 'id_veterinary','id_veterinary');
     }
 }

@@ -17,7 +17,9 @@ class CreateConsultationsTable extends Migration
             $table->increments('id_consultation');
             $table->text('comments');
             $table->text('afflictions_procedures');
-            $table->string('image', 255)->nullable();
+            $table->string('image_1', 255)->nullable();
+            $table->string('image_2', 255)->nullable();
+            $table->string('image_3', 255)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

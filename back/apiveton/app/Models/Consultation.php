@@ -14,7 +14,7 @@ class Consultation extends Model
     protected $dates = ['deleted_at'];
 
     /** @var array La lista de campos que se pueden cargar masivamente. */
-    protected $fillable = ['id_user', 'id_history', 'comments', 'afflictions_procedures', 'image' ];
+    protected $fillable = ['id_user', 'id_history', 'comments', 'afflictions_procedures', 'image_1', 'image_2', 'image_3' ];
 
     /** @var array las reglas de validación. */
     public static $rules = [
