@@ -23,7 +23,8 @@ const ROLES = Api.roles.all();
 const Content = styled("div")({
   height: "100vh",
   display: "flex",
-  backgroundImage: "url('assets/background_kitty.png')",
+  backgroundImage: "url('assets/pattern-veton.png')",
+  backgroundSize: "cover",
 });
 
 const PaperLogin = styled(Paper)({
