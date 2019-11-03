@@ -21,6 +21,7 @@ export default {
   },
   users: {
     fetch: id => axiosInstance.get(`/users/${id}`),
+    autocomplete: input => axiosInstance.get(`/users/search/${input}`),
   },
   userPets: {
     fetch: id => axiosInstance.get(`/pets/users/${id}`),
