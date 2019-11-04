@@ -61,6 +61,7 @@ class Autocomplete extends React.Component {
                             <SearchOutlined />
                         </InputAdornment>
                     ),
+                    disableUnderline: true
                 }} />
                 {loading && <CircularProgressAbsolute />}
                 <ListItemUsers users={users} onUserSelected={handleUserSelected} />

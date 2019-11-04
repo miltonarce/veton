@@ -41,6 +41,8 @@ Route::get('/users/search/{input}', 'Api\\UsersController@search');
 
 // ClinicalHistories (Obtener todas las historias clinicas)
 Route::get('clinicalhistories', 'Api\\ClinicalHistoriesController@all');
+// ClinicalHistories por veterinaria
+Route::get('clinicalhistories/veterinaries/{idVet}', 'Api\\ClinicalHistoriesController@findByVeterinaries');
 // ClinicalHistories (Obtener las historias clinicas de una mascota)
 Route::get('clinicalhistories/{id}', 'Api\\ClinicalHistoriesController@findById');
 // ClinicalHistories (Crear una historia clinica de una mascota)
