@@ -1,13 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
 import {styled} from "@material-ui/core/styles";
 import {Grid} from "@material-ui/core";
 
 import Pet from "../Pet";
 
-const PetLink = styled(Link)({
-  textDecoration: "none",
+const GridList = styled(Grid)({
+  marginBottom: "2rem",
 });
 
 class ListPets extends React.Component {
@@ -31,11 +30,9 @@ class ListPets extends React.Component {
         spacing={2}
       >
         {pets.map((pet, i) => (
-          <Grid key={i} item xs={3}>
-            <PetLink to={`/user/pet/${pet.id_pet}`}>
-              <Pet {...pet} />
-            </PetLink>
-          </Grid>
+          <GridList key={i} item xs={4}>
+            <Pet {...pet} />
+          </GridList>
         ))}
       </Grid>
     );
