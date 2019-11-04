@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
@@ -8,42 +8,47 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles(() => ({
-    root: {
-        backgroundColor: "#e8e8e8",
-        color: "#212121",
-        padding: 0,
-        position: "absolute",
-        border: "0 20px 0 20px",
-        borderRadius: "0 20px",
-    },
-    inline: {
-        display: "inline",
-    },
+  root: {
+    backgroundColor: "#e8e8e8",
+    color: "#212121",
+    padding: 0,
+    position: "absolute",
+    border: "0 20px 0 20px",
+    borderRadius: "0 20px",
+  },
+  inline: {
+    display: "inline",
+  },
 }));
 
-const ItemUser = ({ name, last_name, email, image, onUserSelected }) => {
-    return (
-        <ListItem
-            alignItems="flex-start"
-            button
-            onClick={onUserSelected}>
-            <ListItemAvatar>
-                <Avatar alt={name} src={image ? `http://api.veton/imgs/${image}` : "https://via.placeholder.com/300x200"} />
-            </ListItemAvatar>
-            <ListItemText
-                primary={`${last_name}, ${name}`}
-                secondary={email}
-            />
-            <Divider variant="inset" component="li" />
-        </ListItem>
-    )
-};
+const ItemUser = ({name, last_name, email, image, onUserSelected}) => (
+  <ListItem alignItems="flex-start" button onClick={onUserSelected}>
+    <ListItemAvatar>
+      <Avatar
+        alt={name}
+        src={
+          image
+            ? `http://api.veton/imgs/${image}`
+            : "https://via.placeholder.com/300x200"
+        }
+      />
+    </ListItemAvatar>
+    <ListItemText primary={`${last_name}, ${name}`} secondary={email} />
+    <Divider component="li" variant="inset" />
+  </ListItem>
+);
 
-export default function ListItemUsers({ users, onUserSelected }) {
-    const classes = useStyles();
-    return (
-        <List component="nav" className={classes.root}>
-            {users.map((user, index) => <ItemUser {...user} key={index} onUserSelected={() => onUserSelected(user)} />)}
-        </List>
-    );
+export default function ListItemUsers({users, onUserSelected}) {
+  const classes = useStyles();
+  return (
+    <List className={classes.root} component="nav">
+      {users.map((user, index) => (
+        <ItemUser
+          {...user}
+          key={index}
+          onUserSelected={() => onUserSelected(user)}
+        />
+      ))}
+    </List>
+  );
 }

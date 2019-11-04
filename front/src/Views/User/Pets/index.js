@@ -16,10 +16,15 @@ const PetLink = styled(Link)({
 const ContainerMain = styled("div")({
   margin: "2rem",
 });
-const ContainerTypo = styled(Typography)({
-  margin: "2rem",
+const TitlePage = styled(Typography)({
+  marginTop: "2rem",
+  marginBottom: "0",
   fontSize: "2rem",
-  color: "#5c2299",
+  color: "#4E4E4E",
+});
+
+const SubTitlePage = styled(Typography)({
+  marginBottom: "2rem",
 });
 
 class Pets extends React.Component {
@@ -60,9 +65,13 @@ class Pets extends React.Component {
       <>
         <CssBaseline />
         <Container fixed>
-          <ContainerTypo component="h2" variant="h2">
+          <TitlePage component="h2" variant="h2">
             Mis mascotas
-          </ContainerTypo>
+          </TitlePage>
+          <SubTitlePage component="p">
+            Aquí podrás encontrar información rápida de tus mascotas y cargar
+            nuevas.
+          </SubTitlePage>
           <PetLink to="/user/add-pet">
             <Button color="secondary" endIcon={<Add />} variant="contained">
               Agregar mascota
