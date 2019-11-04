@@ -30,22 +30,7 @@ const ContentAutocomplete = styled("div")({
   padding: "0 10px",
 });
 
-// const handleOnSearch = async user => {
-//   try {
-//     const petsList = await ApiVet.userPets.fetch(user.id_user);
-//     const clinicalHistories = await Api.clinicalhistories.all();
-//     this.setState({
-//       ...state,
-//       petsList: petsList.data,
-//       clinicalHistories: clinicalHistories.data,
-//       isLoading: false,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-const Header = () => (
+const Header = ({onUserSelected}) => (
   <AppBar position="static">
     <Toolbar>
       <ContentLogo>
@@ -54,7 +39,7 @@ const Header = () => (
         </Logo>
       </ContentLogo>
       <ContentAutocomplete>
-        <Autocomplete placeholder="Buscar usuarios" onUserSelected={user => console.log('usuario??', user)} />
+        <Autocomplete placeholder="Buscar usuarios" onUserSelected={onUserSelected} />
       </ContentAutocomplete>
       <ContentLink to="/veterinary">
         <Button color="inherit">

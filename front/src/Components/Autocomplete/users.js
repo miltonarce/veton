@@ -28,7 +28,7 @@ const ItemUser = ({ name, last_name, email, image, onUserSelected }) => {
             button
             onClick={onUserSelected}>
             <ListItemAvatar>
-                <Avatar alt="Remy Sharp" src={image ? image : "https://via.placeholder.com/300x200"} />
+                <Avatar alt={name} src={image ? `http://api.veton/imgs/${image}` : "https://via.placeholder.com/300x200"} />
             </ListItemAvatar>
             <ListItemText
                 primary={`${last_name}, ${name}`}

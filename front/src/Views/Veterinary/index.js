@@ -1,7 +1,7 @@
 import React from "react";
-import {Route} from "react-router-dom";
-import {CssBaseline} from "@material-ui/core";
-import {styled} from "@material-ui/core/styles";
+import { Route } from "react-router-dom";
+import { CssBaseline } from "@material-ui/core";
+import { styled } from "@material-ui/core/styles";
 
 // Veterinary Views
 import HomeVet from "./HomeVet";
@@ -17,13 +17,20 @@ const ContentMain = styled("div")({
 });
 
 class Veterinary extends React.Component {
+
+  state = {
+    userSelected: null,
+  }
+
+  handleOnUserSelected = userSelected => this.setState({ ...this.state, userSelected });
+
   render() {
-    const {match} = this.props;
+    const { props: { match }, handleOnUserSelected, state: { userSelected } } = this;
     return (
       <ContentMain>
         <CssBaseline />
-        <Header />
-        <Route exact component={HomeVet} path={match.path} />
+        <Header onUserSelected={handleOnUserSelected} />
+        <Route exact render={() => <HomeVet userSelected={userSelected} />} path={match.path} />
         <Route
           component={AddClinicalHistory}
           path={`${match.path}/add-clinical-history/:idPet`}

@@ -1,52 +1,49 @@
 import React from "react";
 import ListPets from "../../../Components/ListPets";
+import Api from "../../../Services/Api";
+import {CircularProgress} from "@material-ui/core";
 
 class HomeVet extends React.Component {
   state = {
     isLoading: false,
-    petsList: [],
-    clinicalHistories: [],
+    petsByUser: [],
+    userSelected: null,
   };
 
-  // handleOnSearch = async dni => {
-  //   try {
-  //     const {state, setState} = this;
-  //     setState({...state, isLoading: true});
-  //     const user = await ApiVet.users.fetch(dni);
-  //     const petsList = await ApiVet.userPets.fetch(user.data.id_user);
-  //     const clinicalHistories = await Api.clinicalhistories.all();
-  //     this.setState({
-  //       ...state,
-  //       petsList: petsList.data,
-  //       clinicalHistories: clinicalHistories.data,
-  //       isLoading: false,
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  async componentDidUpdate(prevProps) {
+    if (prevProps.userSelected !== this.props.userSelected) {
+      await this.fetchPetsByUser(this.props.userSelected);
+    }
+  }
+
+  fetchPetsByUser = async user => {
+    try {
+      this.setState({ ...this.state, isLoading: true, userSelected: user });
+      const { data } = await Api.pets.fetch(user.id_user);
+      this.setState({ ...this.state, petsByUser: data, isLoading: false });
+    } catch (err) {
+      this.setState({ ...this.state, petsByUser: [], isLoading: false });
+    }
+  }
 
   render() {
-    const {petsList, clinicalHistories, isLoading} = this.state;
-    const {handleOnSearch} = this;
+    const { petsByUser, isLoading, userSelected } = this.state;
     return (
       <div className="veton-container">
         <div className="veton-container__hero">
-          <h2>Mis Mascotas</h2>
+          <h2>Bienvenido</h2>
         </div>
         <div className="veton-container__list">
           <div className="veton-container__list__container-list">
             <div className="veton-container__list__container-list__row">
-              {isLoading ? (
-                "SPinner"
-              ) : petsList.length > 0 ? (
-                <ListPets
-                  clinicalHistories={clinicalHistories}
-                  pets={petsList}
-                />
-              ) : (
-                <p>No tenes registrado ninguna mascota</p>
-              )}
+              {userSelected &&
+                <div>
+                  <h2>Mascotas del usuario {userSelected.name}</h2>
+                  {isLoading && <CircularProgress />}
+                  {!isLoading && petsByUser.length > 0 && <ListPets pets={petsByUser} />}
+                  {!isLoading && petsByUser.length === 0 && <p>No existen mascotas registradas</p>}
+                </div>
+              }
             </div>
           </div>
         </div>

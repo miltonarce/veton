@@ -27,6 +27,7 @@ class Autocomplete extends React.Component {
             loading: false,
         };
         this.handleOnChange = this.handleOnChange.bind(this);
+        this.handleUserSelected = this.handleUserSelected.bind(this);
     }
 
     async handleOnChange(event) {
@@ -45,8 +46,13 @@ class Autocomplete extends React.Component {
         }
     }
 
+    handleUserSelected(user) {
+        this.props.onUserSelected(user);
+        this.setState({ ...this.state, users: [] });
+    }
+
     render() {
-        const { state: { users, loading }, handleOnChange, handleFocus, props: { onUserSelected, placeholder } } = this;
+        const { state: { users, loading }, handleOnChange, handleFocus, handleUserSelected, props: { placeholder } } = this;
         return (
             <React.Fragment>
                 <TextField placeholder={placeholder} fullWidth required onChange={handleOnChange} onBlur={handleFocus} onFocus={handleFocus} InputProps={{
@@ -57,7 +63,7 @@ class Autocomplete extends React.Component {
                     ),
                 }} />
                 {loading && <CircularProgressAbsolute />}
-                <ListItemUsers users={users} onUserSelected={onUserSelected} />
+                <ListItemUsers users={users} onUserSelected={handleUserSelected} />
             </React.Fragment>
         );
     }
