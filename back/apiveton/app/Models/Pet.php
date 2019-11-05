@@ -67,4 +67,12 @@ class Pet extends Model
     {
         return $this->hasMany(ClinicalHistory::class, 'id_pet', 'id_pet');
     }
+    public function vaccines()
+    {
+        return $this->belongsToMany(Vaccine::class, 'vaccine_pet', 'id_pet', 'id_vaccine', 'id_pet', 'id_vaccine')->withTimestamps();
+    }
+    public function dewormers()
+    {
+        return $this->belongsToMany(Vaccine::class, 'dewormer_pet', 'id_pet', 'id_dewormer', 'id_pet', 'id_dewormer')->withTimestamps();
+    }
 }
