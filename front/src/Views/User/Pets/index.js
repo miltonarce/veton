@@ -1,12 +1,13 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {CssBaseline, Container, Typography, Button} from "@material-ui/core";
+import {CssBaseline, Container, Button, CircularProgress} from "@material-ui/core";
 import {Add} from "@material-ui/icons";
 import {styled} from "@material-ui/core/styles";
 
 import Api from "../../../Services/Api";
 import ListPets from "../../../Components/ListPets";
 import {AppContext} from "../../../Store";
+import TitlePages from "../../../Components/TitlePages";
 
 const PetLink = styled(Link)({
   textDecoration: "none",
@@ -15,16 +16,6 @@ const PetLink = styled(Link)({
 
 const ContainerMain = styled("div")({
   margin: "2rem",
-});
-const TitlePage = styled(Typography)({
-  marginTop: "2rem",
-  marginBottom: "0",
-  fontSize: "2rem",
-  color: "#4E4E4E",
-});
-
-const SubTitlePage = styled(Typography)({
-  marginBottom: "2rem",
 });
 
 class Pets extends React.Component {
@@ -57,21 +48,22 @@ class Pets extends React.Component {
     const {petsList, isLoading} = this.state;
     if (isLoading)
       return (
-        <div className="veton-container-spinner">
-          <div>Spinner</div>
-        </div>
+        <>
+        <CssBaseline />
+        <Container fixed>
+            <CircularProgress color="secondary" />
+            </Container>
+        </>
       );
     return (
       <>
         <CssBaseline />
         <Container fixed>
-          <TitlePage component="h2" variant="h2">
-            Mis mascotas
-          </TitlePage>
-          <SubTitlePage component="p">
-            Aquí podrás encontrar información rápida de tus mascotas y cargar
-            nuevas.
-          </SubTitlePage>
+        <TitlePages
+            subtitle=" Aquí podrás encontrar información rápida de tus mascotas y cargar
+            nuevas."
+            title=" Mis mascotas"
+          />
           <PetLink to="/user/add-pet">
             <Button color="secondary" endIcon={<Add />} variant="contained">
               Agregar mascota

@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import {MuiThemeProvider, createMuiTheme} from "@material-ui/core/styles";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import "./assets/fontstyles.css";
 
 const theme = createMuiTheme({
   palette: {
@@ -15,6 +16,7 @@ const theme = createMuiTheme({
   },
   typography: {
     fontFamily: [
+      "Poppins",
       "-apple-system",
       "BlinkMacSystemFont",
       '"Segoe UI"',
@@ -26,6 +28,13 @@ const theme = createMuiTheme({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(","),
+    fontSize: 14,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    h2: {
+      fontSize: "2rem",
+    },
   },
   overrides: {
     MuiButton: {

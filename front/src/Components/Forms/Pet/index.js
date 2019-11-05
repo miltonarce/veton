@@ -1,18 +1,57 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {
+  Grid,
+  Paper,
+  Typography,
+  TextField,
+  Radio,
+  RadioGroup,
+  FormLabel,
+  FormControl,
+  FormControlLabel,
+  Select,
+  InputLabel,
+  MenuItem,
+  Button,
+} from "@material-ui/core";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import MomentUtils from "@date-io/moment";
+import * as moment from "moment";
+
+import {withStyles} from "@material-ui/core/styles";
+import {FlipRounded} from "@material-ui/icons";
+
+const styles = {
+  Paper: {
+    padding: "2rem",
+    borderRadius: "23px",
+  },
+  TitleForm: {
+    fontWeight: 500,
+    marginBottom: "1rem",
+    textAlign: "center",
+  },
+  GridButton: {
+    width: "100%",
+  },
+};
 
 class FormAddPet extends React.Component {
   state = {
     form: {
       id_user: 2,
-      id_type: 1,
-      id_breed: 1,
+      id_type: 0,
+      id_breed: 0,
       name: "",
       last_name: "",
-      birdthay: null,
+      birdthay: undefined,
       image: "",
-      weight: null,
-      colors: null,
+      weight: "",
+      colors: "",
       comments: "",
       id_gender: 1,
     },
@@ -22,6 +61,12 @@ class FormAddPet extends React.Component {
     const {state, props} = this;
     event.preventDefault();
     props.onSubmit(state.form);
+  };
+
+  handleOnChangeDate = event => {
+    const {state} = this;
+    const date = moment(event._d).format("YYYY-MM-DD");
+    this.setState({form: {...state.form, birdthay: date}});
   };
 
   handleOnChange = event => {
@@ -35,7 +80,7 @@ class FormAddPet extends React.Component {
   };
 
   render() {
-    const {types, breeds, title} = this.props;
+    const {types, breeds, title, classes} = this.props;
     const {
       form: {
         name,
@@ -47,163 +92,257 @@ class FormAddPet extends React.Component {
         comments,
         id_type,
         id_breed,
+        id_gender,
       },
     } = this.state;
     const breedsByType = breeds.filter(breed => breed.id_type === id_type);
-    const {handleOnChange, handleOnSubmit} = this;
+    const {handleOnChange, handleOnSubmit, handleOnChangeDate} = this;
 
     return (
-      <div className="container py-2">
-        <h2 className="text-center">{title}</h2>
-        <form className="form_pet" onSubmit={handleOnSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Nombre</label>
-            <input
-              required
-              className="form-control"
-              id="name"
-              name="name"
-              type="text"
-              value={name}
-              onChange={handleOnChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="lastname">Apellido</label>
-            <input
-              required
-              className="form-control"
-              id="last_name"
-              name="last_name"
-              type="text"
-              value={last_name}
-              onChange={handleOnChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="birdthay">Cumpleaños</label>
-            <input
-              className="form-control"
-              id="birdthay"
-              name="birdthay"
-              type="date"
-              value={birdthay}
-              onChange={handleOnChange}
-            />
-          </div>
-          <div className="form-group">
-            <span>Imagen</span>
-            <div className="custom-file">
-              <input
-                className="custom-file-input"
-                id="imagePet"
-                name="image"
-                type="file"
-                value={image}
-                onChange={handleOnChange}
-              />
-              <label className="custom-file-label" htmlFor="imagePet">
-                {image || "No se cargó ninguna imagen"}
-              </label>
-            </div>
-          </div>
-          <div className="form-group">
-            <label htmlFor="weight">Peso</label>
-            <input
-              className="form-control"
-              id="weight"
-              name="weight"
-              type="number"
-              value={weight}
-              onChange={handleOnChange}
-            />
-            <span className="text-secondary">Medidas en Kg</span>
-          </div>
-          <div className="form-group">
-            <label htmlFor="color">Color</label>
-            <input
-              className="form-control"
-              id="colors"
-              name="colors"
-              type="text"
-              value={colors}
-              onChange={handleOnChange}
-            />
-          </div>
-          <div className="form-group">
-            <span>Comentarios</span>
-            <textarea
-              className="form-control"
-              name="comments"
-              value={comments}
-              onChange={handleOnChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="type">Tipo</label>
-            <select
-              className="form-control"
-              id="id_type"
-              name="id_type"
-              value={id_type}
-              onChange={handleOnChange}
+      <>
+        <Paper className={classes.Paper}>
+          <Typography
+            className={classes.TitleForm}
+            color="secondary"
+            component="h3"
+          >
+            {title}
+          </Typography>
+          <form onSubmit={handleOnSubmit}>
+            <Grid
+              container
+              alignItems="center"
+              direction="column"
+              justify="center"
+              spacing={3}
             >
-              {types.map(type => (
-                <option key={type.id_type} value={type.id_type}>
-                  {type.type}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="breeds">Raza</label>
-            <select
-              className="form-control"
-              id="id_breed"
-              name="id_breed"
-              value={id_breed}
-              onChange={handleOnChange}
-            >
-              {breedsByType.map(breed => (
-                <option key={breed.id_breed} value={breed.id_breed}>
-                  {breed.breed}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="form-group">
-            <div className="form-check form-check-inline">
-              <input
-                className="form-check-input"
-                id="gender_male"
-                name="id_gender"
-                type="radio"
-                value={2}
-                onChange={handleOnChange}
-              />
-              <label className="form-check-label" htmlFor="gender_male">
-                Macho
-              </label>
-            </div>
-            <div className="form-check form-check-inline">
-              <input
-                className="form-check-input"
-                id="gender_female"
-                name="id_gender"
-                type="radio"
-                value={1}
-                onChange={handleOnChange}
-              />
-              <label className="form-check-label" htmlFor="gender_female">
-                Hembra
-              </label>
-            </div>
-          </div>
-          <button className="btn btn-primary btn-block" type="submit">
-            Aceptar
-          </button>
-        </form>
-      </div>
+              <Grid item xs={12}>
+                <Grid
+                  container
+                  alignItems="center"
+                  direction="row"
+                  justify="space-around"
+                  spacing={3}
+                >
+                  <Grid item xs={6}>
+                    <TextField
+                      required
+                      id="name"
+                      label="Nombre"
+                      margin="normal"
+                      name="name"
+                      type="text"
+                      value={name}
+                      onChange={handleOnChange}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      required
+                      id="last_name"
+                      label="Apellido"
+                      margin="normal"
+                      name="last_name"
+                      type="text"
+                      value={last_name}
+                      onChange={handleOnChange}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={12}>
+                <Grid
+                  container
+                  alignItems="center"
+                  direction="row"
+                  justify="space-around"
+                  spacing={3}
+                >
+                  <Grid item xs={6}>
+                    <MuiPickersUtilsProvider utils={MomentUtils}>
+                      <KeyboardDatePicker
+                        disableToolbar
+                        id="birdthay"
+                        KeyboardButtonProps={{
+                          'aria-label': 'change date',
+                        }}
+                        label="Cumpleaños"
+                        margin="normal"
+                        value={birdthay}
+                        variant="inline"
+                        onChange={handleOnChangeDate}
+                      />
+                    </MuiPickersUtilsProvider>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      required
+                      id="weight"
+                      label="Peso en Kg."
+                      margin="normal"
+                      name="weight"
+                      type="number"
+                      value={weight}
+                      onChange={handleOnChange}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={12}>
+                <Grid
+                  container
+                  alignItems="center"
+                  direction="row"
+                  justify="space-around"
+                  spacing={3}
+                >
+                  <Grid item xs={5}>
+                    <TextField
+                      id="colors"
+                      label="Colores"
+                      margin="normal"
+                      name="colors"
+                      type="text"
+                      value={colors}
+                      onChange={handleOnChange}
+                    />
+                  </Grid>
+                  <Grid item xs={7}>
+                    <FormControl component="fieldset">
+                      <FormLabel component="legend">Género</FormLabel>
+                      <RadioGroup
+                        aria-label="gender"
+                        name="id_gender"
+                        value={id_gender}
+                        onChange={handleOnChange}
+                      >
+                        <Grid
+                          container
+                          alignItems="center"
+                          direction="row"
+                          justify="center"
+                        >
+                          <Grid item xs={6}>
+                            <FormControlLabel
+                              control={<Radio />}
+                              label="Femeníno"
+                              value={1}
+                            />
+                          </Grid>
+                          <Grid item xs={6}>
+                            <FormControlLabel
+                              control={<Radio />}
+                              label="Masculíno"
+                              value={2}
+                            />
+                          </Grid>
+                        </Grid>
+                      </RadioGroup>
+                    </FormControl>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={12}>
+                <Grid
+                  container
+                  alignItems="center"
+                  direction="row"
+                  justify="space-around"
+                  spacing={3}
+                >
+                  <Grid item xs={6}>
+                    <FormControl>
+                      <InputLabel htmlFor="id_type">Tipo</InputLabel>
+                      <Select
+                        id="id_type"
+                        name="id_type"
+                        value={id_type}
+                        onChange={handleOnChange}
+                      >
+                        <MenuItem key={0} value={0}>
+                          Seleccione un tipo
+                        </MenuItem>
+                        {types.map(type => (
+                          <MenuItem key={type.id_type} value={type.id_type}>
+                            {type.type}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <FormControl>
+                      <InputLabel htmlFor="id_breed">Tipo</InputLabel>
+                      <Select
+                        id="id_breed"
+                        name="id_breed"
+                        value={id_breed}
+                        onChange={handleOnChange}
+                      >
+                        <MenuItem key={0} value={0}>
+                          Seleccione una raza
+                        </MenuItem>
+                        {breedsByType.map(breed => (
+                          <MenuItem key={breed.id_breed} value={breed.id_breed}>
+                            {breed.breed}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={12}>
+                <Grid
+                  container
+                  alignItems="center"
+                  direction="row"
+                  justify="space-around"
+                  spacing={3}
+                >
+                  <Grid item xs={6}>
+                    <TextField
+                      required
+                      col="20"
+                      id="comments"
+                      label="Comentarios"
+                      margin="normal"
+                      name="comments"
+                      row="6"
+                      type="text"
+                      value={comments}
+                      onChange={handleOnChange}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <input
+                      id="imagePet"
+                      name="image"
+                      type="file"
+                      value={image}
+                      onChange={handleOnChange}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item className={classes.GridButton} xs={12}>
+                <Grid
+                  container
+                  alignItems="center"
+                  direction="row"
+                  justify="flex-end"
+                >
+                  <Grid item xs={3}>
+                    <Button color="primary" type="submit" variant="contained">
+                      AGREGAR
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </form>
+        </Paper>
+      </>
     );
   }
 }
@@ -225,4 +364,4 @@ FormAddPet.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default FormAddPet;
+export default withStyles(styles)(FormAddPet);

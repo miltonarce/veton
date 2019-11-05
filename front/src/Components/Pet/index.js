@@ -119,7 +119,7 @@ const Pet = ({id_pet, name, last_name, image, birthday, weight, comments}) => (
                 <PinkTypo color="secondary">Cumpleaños</PinkTypo>
               </Grid>
               <Grid item xs={12}>
-                <TextTypo>{birthday || "Sin cumpleaños."}</TextTypo>
+                <TextTypo>{birthday || "Sin registro."}</TextTypo>
               </Grid>
             </Grid>
           </CardPaper>

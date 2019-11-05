@@ -4,33 +4,61 @@ import {
   Container,
   Grid,
   Typography,
-  CardContent,
-  Card,
-  CardMedia,
-  CardHeader,
+  CircularProgress,
+  Paper,
 } from "@material-ui/core";
-import {styled} from "@material-ui/core/styles";
+import {withStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
 
 import Api from "../../../Services/Api";
 import calculateAge from "../../../Utils/globals";
 import ListHistories from "../../../Components/ListHistories";
 import {AppContext} from "../../../Store";
+import TitlePages from "../../../Components/TitlePages";
 
-const CardPet = styled(Card)({
-  maxWidth: 345,
-});
-
-const CardPetMedia = styled(CardMedia)({
-  height: 0,
-  paddingTop: "56.25%",
-});
-
-const ContainerTypo = styled(Typography)({
-  margin: "2rem",
-  fontSize: "2rem",
-  color: "#5c2299",
-});
+const styles = {
+  CardPet: {
+    maxWidth: 345,
+  },
+  CardPetMedia: {
+    width: "16.75rem",
+    height: "14rem",
+    paddingTop: "56.25%",
+  },
+  ContainerTypo: {
+    marginTop: "1rem",
+    marginBottom: "1rem",
+    fontSize: "2rem",
+    color: "#5c2299",
+    fontWeight: 600,
+  },
+  Paper: {
+    height: "11.56rem",
+    borderRadius: "23px",
+  },
+  PaperMedic: {
+    height: "11.56rem",
+    background: "#5c2299",
+    borderRadius: "23px",
+  },
+  contenImage: {
+    position: "relative",
+    height: "11.56rem",
+  },
+  ImagePet: {
+    height: "14rem",
+    width: "16.75rem",
+    borderRadius: "23px",
+    position: "absolute",
+    top: "-1.20rem",
+    boxShadow: "0px 3px 11px 5px rgba(0, 0, 0, 0.16)",
+  },
+  petName: {
+    color: "#4E4E4E",
+    fontSize: "1.87rem",
+    fontWeight: 600,
+  },
+};
 
 class PetDetail extends React.Component {
   state = {
@@ -56,6 +84,7 @@ class PetDetail extends React.Component {
   }
 
   render() {
+    const {classes} = this.props;
     const {dataPet, isLoading, error} = this.state;
     const {
       auth: {user},
@@ -63,7 +92,7 @@ class PetDetail extends React.Component {
     if (isLoading) {
       return (
         <div className="veton-container-spinner">
-          <div>Spinner</div>
+          <CircularProgress color="secondary" />
         </div>
       );
     }
@@ -75,9 +104,10 @@ class PetDetail extends React.Component {
       <>
         <CssBaseline />
         <Container fixed>
-          <ContainerTypo component="h2" variant="h2">
-            Mi mascota
-          </ContainerTypo>
+          <TitlePages
+            subtitle="Aquí ver y editar los detalles de tu mascota incluyendo su historia clínica."
+            title="Detalle de mascota"
+          />
           <Grid
             container
             alignItems="flex-start"
@@ -85,81 +115,161 @@ class PetDetail extends React.Component {
             justify="center"
             spacing={3}
           >
-            <Grid item xs={3}>
-              <CardPet>
-                <CardHeader title={`${dataPet.name} ${dataPet.last_name}`} />
-                <CardPetMedia
-                  image={
-                    dataPet.image
-                      ? `http://api.veton/imgs/${dataPet.image}`
-                      : "https://via.placeholder.com/300x200"
-                  }
-                  title={dataPet.name}
-                />
-                <CardContent>
-                  <Typography
-                    color="textSecondary"
-                    component="p"
-                    variant="body2"
-                  >
-                    Cumpleaños: {dataPet.birthday || "Sin cumpleaños."}
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    component="p"
-                    variant="body2"
-                  >
-                    Peso: {dataPet.weight || "0"} Kg.
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    component="p"
-                    variant="body2"
-                  >
-                    Raza: {dataPet.breed.breed}
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    component="p"
-                    variant="body2"
-                  >
-                    Colores: {dataPet.colors}
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    component="p"
-                    variant="body2"
-                  >
-                    Cumpleaños: {dataPet.birthday}
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    component="p"
-                    variant="body2"
-                  >
-                    Edad: {calculateAge(dataPet.birthday)}
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    component="p"
-                    variant="body2"
-                  >
-                    Genero: {calculateAge(dataPet.birthday)}
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    component="p"
-                    variant="body2"
-                  >
-                    Comentarios: {dataPet.comments}
-                  </Typography>
-                </CardContent>
-              </CardPet>
+            <Grid item xs={12}>
+              <Grid
+                container
+                alignItems="center"
+                direction="row"
+                justify="space-between"
+                spacing={3}
+              >
+                <Grid item xs={8}>
+                  <Paper className={classes.Paper}>
+                    <Grid
+                      container
+                      alignItems="center"
+                      className={classes.Paper}
+                      direction="row"
+                      justify="space-between"
+                      spacing={3}
+                    >
+                      <Grid item className={classes.contenImage} xs={4}>
+                        <img
+                          alt={dataPet.name}
+                          className={classes.ImagePet}
+                          src={
+                            dataPet.image
+                              ? `http://api.veton/imgs/${dataPet.image}`
+                              : "https://via.placeholder.com/300x200"
+                          }
+                        />
+                        asdasd
+                      </Grid>
+                      <Grid item className={classes.Paper} xs={8}>
+                        <Grid
+                          container
+                          alignItems="center"
+                          direction="row"
+                          justify="flex-start"
+                          spacing={3}
+                        >
+                          <Grid item xs={8}>
+                            <Grid item xs={12}>
+                              <Typography
+                                className={classes.petName}
+                                component="h3"
+                                variant="h3"
+                              >{`${dataPet.name} ${dataPet.last_name}`}</Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Grid
+                                container
+                                alignItems="center"
+                                direction="row"
+                                justify="flex-start"
+                                spacing={3}
+                              >
+                                <Grid item xs={4}>
+                                  <Grid item xs={12}>
+                                    <Typography color="secondary" component="p">
+                                      CUMPLEAÑOS
+                                    </Typography>
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                    {dataPet.birthday || "Sin registro."}
+                                  </Grid>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <Grid item xs={12}>
+                                    <Typography color="secondary" component="p">
+                                      PESO
+                                    </Typography>
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                    {dataPet.weight || "0"} Kg.
+                                  </Grid>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <Grid item xs={12}>
+                                    <Typography color="secondary" component="p">
+                                      RAZA
+                                    </Typography>
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                    {dataPet.breed.breed}
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Grid
+                                container
+                                alignItems="center"
+                                direction="row"
+                                justify="flex-start"
+                                spacing={3}
+                              >
+                                <Grid item xs={4}>
+                                  <Grid item xs={12}>
+                                    <Typography color="secondary" component="p">
+                                      COLORES
+                                    </Typography>
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                    {dataPet.colors}
+                                  </Grid>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <Grid item xs={12}>
+                                    <Typography color="secondary" component="p">
+                                      EDAD
+                                    </Typography>
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                    {calculateAge(dataPet.birthday)} años.
+                                  </Grid>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <Grid item xs={12}>
+                                    <Typography color="secondary" component="p">
+                                      GÉNERO
+                                    </Typography>
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                    {dataPet.gender.gender}
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={3}>
+                            <Grid item xs={12}>
+                              <Typography color="secondary" component="p">
+                                COMENTARIOS
+                              </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                              {dataPet.comments}
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </Grid>
+                <Grid item xs={4}>
+                  <Paper className={classes.PaperMedic}>Informacion</Paper>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs={9}>
-              <ContainerTypo component="h3" variant="h3">
+            <Grid item xs={12}>
+              <Typography
+                className={classes.ContainerTypo}
+                component="h3"
+                variant="h3"
+              >
                 Historia Clínica
-              </ContainerTypo>
+              </Typography>
               {dataPet.clinical_history.length > 0 ? (
                 <ListHistories histories={dataPet.clinical_history} />
               ) : (
@@ -186,4 +296,4 @@ class PetDetail extends React.Component {
 
 PetDetail.contextType = AppContext;
 
-export default PetDetail;
+export default withStyles(styles)(PetDetail);
