@@ -1,7 +1,9 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {Button, TextField, Grid} from "@material-ui/core/";
-import SaveIcon from "@material-ui/icons/Save";
+import {EditOutlined} from "@material-ui/icons";
+
+import {useSnackbar} from "notistack";
 import ApiVet from "../../Services/ApiVet";
 
 const useStyles = makeStyles(theme => ({
@@ -23,11 +25,14 @@ const useStyles = makeStyles(theme => ({
     width: 200,
   },
   button: {
-    margin: theme.spacing(1),
+    marginRight: "4rem",
+    height: "40px",
+    width: "160px",
   },
 }));
 
 const Consultation = ({dataConsultation, user}) => {
+  const {enqueueSnackbar} = useSnackbar();
   const classes = useStyles();
   const [values, setValues] = React.useState({
     id_consultation: dataConsultation.id_consultation,
@@ -58,7 +63,7 @@ const Consultation = ({dataConsultation, user}) => {
   const handleOnSubmit = async event => {
     event.preventDefault();
     try {
-      const data = await ApiVet.consultations.edit(
+      const {data} = await ApiVet.consultations.edit(
         dataConsultation.id_consultation,
         {
           ...values,
@@ -66,12 +71,10 @@ const Consultation = ({dataConsultation, user}) => {
           id_history: dataConsultation.id_history,
         }
       );
-      if (data.data.success) {
-        alert("La consulta se edito correctamente");
-        console.log(data);
+      if (data.success) {
+        enqueueSnackbar(data.msg, {variant: "success"});
       } else {
-        console.log(data);
-        alert("Hubo un error al editar la consulta");
+        enqueueSnackbar(data.msg, {variant: "error"});
       }
     } catch (err) {
       console.log(err);
@@ -85,6 +88,22 @@ const Consultation = ({dataConsultation, user}) => {
       className={classes.container}
       onSubmit={handleOnSubmit}
     >
+      <Grid container alignItems="center" direction="row" justify="flex-end">
+        {!values.hasDisabled ? (
+          <Button
+            className={classes.button}
+            color="primary"
+            size="small"
+            startIcon={<EditOutlined />}
+            type="submit"
+            variant="contained"
+          >
+            Editar consulta
+          </Button>
+        ) : (
+          ""
+        )}
+      </Grid>
       <Grid
         container
         alignItems="flex-start"
@@ -171,22 +190,6 @@ const Consultation = ({dataConsultation, user}) => {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid xs={4}>
-        {!values.hasDisabled ? (
-          <Button
-            className={classes.button}
-            color="primary"
-            size="small"
-            startIcon={<SaveIcon />}
-            type="submit"
-            variant="contained"
-          >
-            Guardar consulta
-          </Button>
-        ) : (
-          ""
-        )}
       </Grid>
     </form>
   );

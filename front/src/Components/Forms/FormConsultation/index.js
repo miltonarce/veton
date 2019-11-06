@@ -11,9 +11,10 @@ class FormConsultation extends React.Component {
   };
 
   componentDidMount() {
-    const {props, state} = this;
+    const {props} = this;
+    const {form} = this.state;
     this.setState({
-      form: {...state.form, id_user: props.user.id_user},
+      form: {...form, id_user: props.user.id_user},
     });
   }
 
@@ -24,14 +25,16 @@ class FormConsultation extends React.Component {
   }
 
   handleOnChange(event) {
-    const {state} = this;
+    const {form} = this.state;
     const {name, value} = event.target;
-    this.setState({form: {...state.form, [name]: value}});
+    this.setState({form: {...form, [name]: value}});
   }
 
   render() {
     const {title} = this.props;
-    const {comments, afflictions_procedures} = this.state.form;
+    const {
+      form: {comments, afflictions_procedures},
+    } = this.state;
     const {handleOnSubmit, handleOnChange} = this;
     return (
       <div className="container py-2">

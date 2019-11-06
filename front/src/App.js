@@ -1,6 +1,6 @@
 import React from "react";
 import {BrowserRouter as Router} from "react-router-dom";
-
+import {SnackbarProvider} from "notistack";
 // Template Header, Main, Footer
 import Main from "./Components/Shared/Main";
 import AppProvider from "./Store";
@@ -9,7 +9,15 @@ function App() {
   return (
     <AppProvider>
       <Router>
-        <Main />
+        <SnackbarProvider
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          maxSnack={3}
+        >
+          <Main />
+        </SnackbarProvider>
       </Router>
     </AppProvider>
   );

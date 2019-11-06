@@ -38,6 +38,7 @@ class Pets extends React.Component {
     try {
       this.setState({...state, isLoading: true});
       const pets = await Api.pets.fetch(user.id_user);
+      console.log(pets);
       this.setState({...state, isLoading: false, petsList: pets.data});
     } catch (err) {
       this.setState({isLoading: false});

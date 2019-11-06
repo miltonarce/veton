@@ -1,8 +1,9 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {Button, TextField, Grid} from "@material-ui/core/";
-import SaveIcon from "@material-ui/icons/Save";
+import {EditOutlined} from "@material-ui/icons";
 
+import {useSnackbar} from "notistack";
 import ApiVet from "../../Services/ApiVet";
 
 const useStyles = makeStyles(theme => ({
@@ -24,11 +25,17 @@ const useStyles = makeStyles(theme => ({
     width: 200,
   },
   button: {
-    margin: theme.spacing(3),
+    marginRight: "4rem",
+    height: "40px",
+    width: "160px",
+  },
+  title: {
+    color: "#5C2299",
   },
 }));
 
 const History = ({dataHistory, user}) => {
+  const {enqueueSnackbar} = useSnackbar();
   const classes = useStyles();
   const [values, setValues] = React.useState({
     id_History: dataHistory.id_history,
@@ -52,14 +59,14 @@ const History = ({dataHistory, user}) => {
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      const data = await ApiVet.clinicalhistories.edit(
+      const {data} = await ApiVet.clinicalhistories.edit(
         dataHistory.id_history,
         values
       );
-      if (data.data.success) {
-        alert("La historia clínica se edito correctamente");
+      if (data.success) {
+        enqueueSnackbar(data.msg, {variant: "success"});
       } else {
-        alert("Hubo un error al editar la historia clínica");
+        enqueueSnackbar(data.msg, {variant: "error"});
       }
     } catch (err) {
       console.log(err);
@@ -73,7 +80,29 @@ const History = ({dataHistory, user}) => {
       className={classes.container}
       onSubmit={handleSubmit}
     >
-      <h3>Historia Clínica</h3>
+      <Grid
+        container
+        alignItems="center"
+        direction="row"
+        justify="space-between"
+      >
+        <h3 className={classes.title}>Historia Clínica</h3>
+        {!values.hasDisabled ? (
+          <Button
+            className={classes.button}
+            color="primary"
+            size="small"
+            startIcon={<EditOutlined />}
+            type="submit"
+            variant="contained"
+          >
+            EDITAR HISTORIA
+          </Button>
+        ) : (
+          ""
+        )}
+      </Grid>
+
       <Grid
         container
         alignItems="flex-start"
@@ -160,22 +189,6 @@ const History = ({dataHistory, user}) => {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid xs={4}>
-        {!values.hasDisabled ? (
-          <Button
-            className={classes.button}
-            color="primary"
-            size="small"
-            startIcon={<SaveIcon />}
-            type="submit"
-            variant="contained"
-          >
-            Guardar historia
-          </Button>
-        ) : (
-          ""
-        )}
       </Grid>
     </form>
   );

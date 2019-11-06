@@ -1,7 +1,15 @@
 import React, {useContext} from "react";
 import PropTypes from "prop-types";
 import {makeStyles} from "@material-ui/core/styles";
-import {Card, Tab, Tabs, Typography, Box, Grid} from "@material-ui/core";
+import {
+  Card,
+  Tab,
+  Tabs,
+  Typography,
+  Box,
+  Grid,
+  Button,
+} from "@material-ui/core";
 import {Link} from "react-router-dom";
 
 import History from "../History";
@@ -43,6 +51,12 @@ const useStyles = makeStyles(theme => ({
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
+  },
+  title: {
+    color: "#5C2299",
+  },
+  ContentLink: {
+    textDecoration: "none",
   },
 }));
 
@@ -86,14 +100,34 @@ const ListHistories = ({histories}) => {
               <History dataHistory={history} user={user} />
             </Grid>
             <Grid item xs={6}>
-              <h3>Consultas</h3>
-              {user.id_role === 3 ? (
-                <Link to={`/veterinary/add-consultation/${history.id_history}`}>
-                  Agregar Consulta
-                </Link>
-              ) : (
-                ""
-              )}
+              <Grid
+                container
+                alignItems="center"
+                direction="row"
+                justify="space-between"
+              >
+                <h3 className={classes.title}>Consultas</h3>
+                {user.id_role === 3 ? (
+                  <div>
+                    <Link
+                      className={classes.ContentLink}
+                      to={`/veterinary/add-consultation/${history.id_history}`}
+                    >
+                      <Button
+                        className={classes.button}
+                        color="secondary"
+                        size="small"
+                        type="submit"
+                        variant="contained"
+                      >
+                        Agregar Consulta
+                      </Button>
+                    </Link>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </Grid>
               {history.consultations.length > 0 ? (
                 <div>
                   <ListConsultations consultations={history.consultations} />
