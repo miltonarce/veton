@@ -79,15 +79,7 @@ class PetsController extends Controller
     {
         try {
             $request->validate(Pet::$rules, Pet::$errorMessages);
-            $data = $request->all();
-            if($request->hasFile('image')) {
-                    $file = $request->image;
-                    $nameImage = time() . "." . $file->extension();
-                    $file->move(public_path('/imgs'), $nameImage);
-                    $data['image'] = 'imgs/' . $nameImage;
-                }else {
-                    $data['image'] = '';
-                }
+            $data = $this->saveImageIfExists($request, $request->all());
             Pet::create($data);
             return response()->json([
                 'success' => true,
@@ -106,15 +98,8 @@ class PetsController extends Controller
         try{
             $request->validate(Pet::$rules, Pet::$errorMessages);
             $data = $request->all();
-//            if($request->hasFile('image')){
-//                $file = $request->image;
-//                $imageName= time(). "." . $file->extension();
-//                $file->move(public_path('/imgs'), $imageName);
-//                $data['image'] = 'imgs/' . $imageName;
-//            }else {
-//                $data['image'] = '';
-//            }
             $pet = Pet::findOrFail($idPet);
+            $data = $this->saveImageIfExists($request, $data);
             $pet->update($data);
             return response()->json([
                 'success' => true,
@@ -146,5 +131,18 @@ class PetsController extends Controller
                 'stack' => $e,
             ]);
         }
+    }
+
+    private function saveImageIfExists($request, $data) 
+    {
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $nameImageWithExtension = time() . "." . $image->extension();
+            $image->move(public_path('./imgs'), $nameImageWithExtension);
+            $data['image'] = $nameImageWithExtension;
+        } else {
+            $data['image'] = '';
+        }
+        return $data;
     }
 }
