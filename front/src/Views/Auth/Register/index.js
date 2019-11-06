@@ -143,7 +143,7 @@ const useQontoStepIconStyles = makeStyles({
   },
 });
 
-const StaticListData = ({props: {data}}) => (
+const StaticListData = ({data}) => (
   <>
     <List>
       <Grid container>
@@ -322,6 +322,7 @@ class Register extends Component {
 
   getStepContent = step => {
     const {state} = this;
+    console.log(state);
     switch (step) {
       case 0:
         return (
@@ -383,10 +384,8 @@ class Register extends Component {
     try {
       this.setState({...state, isLoading: true});
       console.log(state.dataRegister);
-      const {
-        data: {success},
-      } = await Auth.register(state.dataRegister);
-      if (success) {
+      const {data} = await Auth.register(state.dataRegister);
+      if (data.success) {
         this.setState({
           ...state,
           isLoading: false,
@@ -399,7 +398,7 @@ class Register extends Component {
         this.setState({
           ...state,
           isLoading: false,
-          hasError: "Se produjo un error al autenticarse",
+          hasError: data.msg,
           openError: true,
         });
       }

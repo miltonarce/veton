@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import PropTypes from "prop-types";
 import {makeStyles} from "@material-ui/core/styles";
-import {Card, Tab, Tabs, Typography, Box} from "@material-ui/core";
+import {Card, Tab, Tabs, Typography, Box, Grid} from "@material-ui/core";
 import {Link} from "react-router-dom";
 
 import History from "../History";
@@ -76,22 +76,33 @@ const ListHistories = ({histories}) => {
       </Tabs>
       {histories.map((history, index) => (
         <TabPanel index={index} value={value}>
-          <History dataHistory={history} user={user} />
-          <h3>Consultas</h3>
-          {user.id_role === 3 ? (
-            <Link to={`/veterinary/add-consultation/${history.id_history}`}>
-              Agregar Consulta
-            </Link>
-          ) : (
-            ""
-          )}
-          {history.consultations.length > 0 ? (
-            <div>
-              <ListConsultations consultations={history.consultations} />
-            </div>
-          ) : (
-            <p>No hay consultas registradas.</p>
-          )}
+          <Grid
+            container
+            alignItems="flex-start"
+            direction="row"
+            justify="center"
+          >
+            <Grid item xs={6}>
+              <History dataHistory={history} user={user} />
+            </Grid>
+            <Grid item xs={6}>
+              <h3>Consultas</h3>
+              {user.id_role === 3 ? (
+                <Link to={`/veterinary/add-consultation/${history.id_history}`}>
+                  Agregar Consulta
+                </Link>
+              ) : (
+                ""
+              )}
+              {history.consultations.length > 0 ? (
+                <div>
+                  <ListConsultations consultations={history.consultations} />
+                </div>
+              ) : (
+                <p>No hay consultas registradas.</p>
+              )}
+            </Grid>
+          </Grid>
         </TabPanel>
       ))}
     </Card>

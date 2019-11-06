@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {styled} from "@material-ui/core/styles";
@@ -14,6 +14,7 @@ import {
   Fab,
 } from "@material-ui/core";
 import {ThumbUp} from "@material-ui/icons";
+import {AppContext} from "../../Store";
 
 const CardPet = styled(Card)({
   maxWidth: 306,
@@ -86,81 +87,90 @@ const NotiIcon = styled(ThumbUp)({
   color: "#999999",
 });
 
-const Pet = ({id_pet, name, last_name, image, birthday, weight, comments}) => (
-  <CardPet>
-    <ContentMedia>
-      <CardPetMedia
-        image={
-          image
-            ? `http://api.veton/imgs/${image}`
-            : "https://via.placeholder.com/300x200"
-        }
-        title="Mascota Imagen"
-      />
-    </ContentMedia>
-    <CardPetHeader subheader={comments} title={`${name} ${last_name}`} />
-    <CardContent>
-      <Grid
-        container
-        alignItems="center"
-        direction="row"
-        justify="flex-start"
-        spacing={3}
-      >
-        <Grid item xs={6}>
-          <CardPaper>
-            <Grid
-              container
-              alignItems="center"
-              direction="column"
-              justify="center"
-            >
-              <Grid item xs={12}>
-                <PinkTypo color="secondary">Cumpleaños</PinkTypo>
+const Pet = ({id_pet, name, last_name, image, birthday, weight, comments}) => {
+  const {
+    auth: {user},
+  } = useContext(AppContext);
+  return (
+    <CardPet>
+      <ContentMedia>
+        <CardPetMedia
+          image={
+            image
+              ? `http://api.veton/imgs/${image}`
+              : "https://via.placeholder.com/300x200"
+          }
+          title="Mascota Imagen"
+        />
+      </ContentMedia>
+      <CardPetHeader subheader={comments} title={`${name} ${last_name}`} />
+      <CardContent>
+        <Grid
+          container
+          alignItems="center"
+          direction="row"
+          justify="flex-start"
+          spacing={3}
+        >
+          <Grid item xs={6}>
+            <CardPaper>
+              <Grid
+                container
+                alignItems="center"
+                direction="column"
+                justify="center"
+              >
+                <Grid item xs={12}>
+                  <PinkTypo color="secondary">Cumpleaños</PinkTypo>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextTypo>{birthday || "Sin registro."}</TextTypo>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextTypo>{birthday || "Sin registro."}</TextTypo>
+            </CardPaper>
+          </Grid>
+          <Grid item xs={6}>
+            <CardPaper>
+              <Grid
+                container
+                alignItems="center"
+                direction="column"
+                justify="center"
+              >
+                <Grid item xs={12}>
+                  <PinkTypo color="secondary">Peso</PinkTypo>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextTypo>{weight || "0"} Kg.</TextTypo>
+                </Grid>
               </Grid>
-            </Grid>
-          </CardPaper>
+            </CardPaper>
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <CardPaper>
-            <Grid
-              container
-              alignItems="center"
-              direction="column"
-              justify="center"
-            >
-              <Grid item xs={12}>
-                <PinkTypo color="secondary">Peso</PinkTypo>
-              </Grid>
-              <Grid item xs={12}>
-                <TextTypo>{weight || "0"} Kg.</TextTypo>
-              </Grid>
-            </Grid>
-          </CardPaper>
-        </Grid>
-      </Grid>
-    </CardContent>
-    <CardContent>
-      <Grid container alignItems="center" direction="row" justify="center">
-        <Grid item xs={3}>
-          <ButtonDetailsPet aria-label="notification" size="small">
-            <NotiIcon />
-          </ButtonDetailsPet>
-        </Grid>
-        <Grid item xs={9}>
-          <PetLink to={`/user/pet/${id_pet}`}>
-            <ButtonDetailsPet color="primary" variant="contained">
-              VER DETALLES
+      </CardContent>
+      <CardContent>
+        <Grid container alignItems="center" direction="row" justify="center">
+          <Grid item xs={3}>
+            <ButtonDetailsPet aria-label="notification" size="small">
+              <NotiIcon />
             </ButtonDetailsPet>
-          </PetLink>
+          </Grid>
+          <Grid item xs={9}>
+            <PetLink
+              to={`/${
+                user.id_role === 3 ? "veterinary" : "user"
+              }/pet/${id_pet}`}
+            >
+              <ButtonDetailsPet color="primary" variant="contained">
+                VER DETALLES
+              </ButtonDetailsPet>
+            </PetLink>
+          </Grid>
         </Grid>
-      </Grid>
-    </CardContent>
-  </CardPet>
-);
+      </CardContent>
+    </CardPet>
+  );
+};
 
 Pet.propTypes = {
   name: PropTypes.string,
