@@ -21,9 +21,8 @@ import {
 } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import * as moment from "moment";
-
-import {withStyles} from "@material-ui/core/styles";
-import {FlipRounded} from "@material-ui/icons";
+import Avatar from '@material-ui/core/Avatar';
+import { withStyles } from "@material-ui/core/styles";
 
 const styles = {
   Paper: {
@@ -38,6 +37,9 @@ const styles = {
   GridButton: {
     width: "100%",
   },
+  avatar: {
+    margin: 10,
+  }
 };
 
 class FormAddPet extends React.Component {
@@ -55,38 +57,56 @@ class FormAddPet extends React.Component {
       comments: "",
       id_gender: 1,
     },
+    previewImage: null,
+    imageSrc: null,
   };
 
   handleOnSubmit = event => {
-    const {state, props} = this;
+    const { state, props } = this;
     event.preventDefault();
-    props.onSubmit(state.form);
+    const request = {...state.form};
+    if (state.imageSrc) {
+      request.image = state.imageSrc;
+    }
+    props.onSubmit(request);
   };
 
   handleOnChangeDate = event => {
-    const {state} = this;
+    const { state } = this;
     const date = moment(event._d).format("YYYY-MM-DD");
-    this.setState({form: {...state.form, birdthay: date}});
+    this.setState({ form: { ...state.form, birdthay: date } });
   };
 
   handleOnChange = event => {
-    const {state} = this;
-    const {name, value} = event.target;
+    const { state } = this;
+    const { name, value } = event.target;
     if (name === "id_type" || name === "id_breed" || name === "id_gender") {
-      this.setState({form: {...state.form, [name]: Number(value)}});
+      this.setState({ form: { ...state.form, [name]: Number(value) } });
     } else {
-      this.setState({form: {...state.form, [name]: value}});
+      if (name !== "image") {
+        this.setState({ form: { ...state.form, [name]: value } });
+      }
     }
   };
 
+  handleInputFile = event => {
+    if (event.target.files.length > 0) {
+      const [imagePath] = event.target.files;
+      const reader = new FileReader();
+      reader.readAsDataURL(imagePath);
+      reader.onloadend = () => this.setState({ ...this.state, previewImage: reader.result, imageSrc: imagePath });
+    } else {
+      this.setState({ ...this.state, previewImage: null, imageSrc: null });
+    }
+  }
+
   render() {
-    const {types, breeds, title, classes} = this.props;
+    const { types, breeds, title, classes } = this.props;
     const {
       form: {
         name,
         last_name,
         birdthay,
-        image,
         weight,
         colors,
         comments,
@@ -94,9 +114,10 @@ class FormAddPet extends React.Component {
         id_breed,
         id_gender,
       },
+      previewImage,
     } = this.state;
     const breedsByType = breeds.filter(breed => breed.id_type === id_type);
-    const {handleOnChange, handleOnSubmit, handleOnChangeDate} = this;
+    const { handleOnChange, handleOnSubmit, handleOnChangeDate, handleInputFile } = this;
 
     return (
       <>
@@ -108,7 +129,7 @@ class FormAddPet extends React.Component {
           >
             {title}
           </Typography>
-          <form onSubmit={handleOnSubmit}>
+          <form onSubmit={handleOnSubmit} encType="multipart/form-data">
             <Grid
               container
               alignItems="center"
@@ -319,9 +340,12 @@ class FormAddPet extends React.Component {
                       id="imagePet"
                       name="image"
                       type="file"
-                      value={image}
-                      onChange={handleOnChange}
+                      accept=".jpg,.jpeg,.png"
+                      onChange={handleInputFile}
                     />
+                    {previewImage && <Grid container>
+                      <Avatar alt="Preview image" src={previewImage} className={classes.avatar} />
+                    </Grid>}
                   </Grid>
                 </Grid>
               </Grid>

@@ -8,7 +8,14 @@ const axiosInstance = axios.create({
 export default {
   pets: {
     fetch: idUser => axiosInstance.get(`/pets/users/${idUser}`),
-    createPet: data => axiosInstance.post("/pets", data),
+    createPet: data => {
+      //Formdata to send image input...
+      const form_data = new FormData();
+      for (const key in data) {
+        form_data.append(key, data[key]);
+      }
+      return axiosInstance.post("/pets", form_data);
+    },
   },
   clinicalhistories: {
     create: (idPet, request) =>
