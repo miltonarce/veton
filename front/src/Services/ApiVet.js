@@ -6,9 +6,6 @@ const axiosInstance = axios.create({
 });
 
 export default {
-  pets: {
-    fetch: () => axiosInstance.get("/pets"),
-  },
   clinicalhistories: {
     edit: (idHistory, request) =>
       axiosInstance.put(`/clinicalhistories/${idHistory}`, request),
