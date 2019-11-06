@@ -1,9 +1,10 @@
 import React from "react";
 import {Link, withRouter} from "react-router-dom";
-
 import {AppBar, Toolbar, Typography, Button} from "@material-ui/core";
-import {Home, Pets, AccountCircle} from "@material-ui/icons";
+import {Home, AccountCircle} from "@material-ui/icons";
 import {withStyles} from "@material-ui/core/styles";
+
+import Autocomplete from "../../../Autocomplete";
 
 const styles = {
   Appbar: {
@@ -22,9 +23,14 @@ const styles = {
     color: "#999999",
   },
   ContentIcon: {marginRight: ".5rem"},
+  ContentAutocomplete: {
+    backgroundColor: "#fff",
+    borderRadius: "23px",
+    padding: "0 10px",
+  },
 };
 
-const Header = ({classes}) => (
+const Header = ({onUserSelected, classes}) => (
   <AppBar position="static">
     <Toolbar className={classes.Appbar}>
       <div className={classes.ContentLogo}>
@@ -32,27 +38,25 @@ const Header = ({classes}) => (
           Vet On
         </Typography>
       </div>
-      <Link className={classes.ContentLink} to="/user">
+      <div className={classes.ContentAutocomplete}>
+        <Autocomplete
+          placeholder="Buscar usuarios"
+          onUserSelected={onUserSelected}
+        />
+      </div>
+      <Link className={classes.ContentLink} to="/veterinary">
         <Button color="inherit">
           <div className={classes.ContentIcon}>
             <Home />
-          </div>{" "}
+          </div>
           Inicio
         </Button>
       </Link>
-      <Link className={classes.ContentLink} to="/user/pets">
-        <Button color="inherit">
-          <div className={classes.ContentIcon}>
-            <Pets />
-          </div>{" "}
-          Mascotas
-        </Button>
-      </Link>
-      <Link className={classes.ContentLink} to="/user/profile">
+      <Link className={classes.ContentLink} to="/veterinary/profile">
         <Button color="inherit">
           <div className={classes.ContentIcon}>
             <AccountCircle />
-          </div>{" "}
+          </div>
           Perfil
         </Button>
       </Link>

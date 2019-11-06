@@ -10,7 +10,7 @@ const styles = {
     fontWeight: 600,
   },
   subTitle: {
-    marginBottom: "3rem",
+    marginBottom: "1rem",
     color: "#999999",
     fontWeight: 300,
   },

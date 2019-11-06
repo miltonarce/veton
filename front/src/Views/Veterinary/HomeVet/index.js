@@ -1,7 +1,16 @@
 import React from "react";
+import {CircularProgress, CssBaseline, Container} from "@material-ui/core";
+import {withStyles} from "@material-ui/core/styles";
 import ListPets from "../../../Components/ListPets";
 import Api from "../../../Services/Api";
-import {CircularProgress} from "@material-ui/core";
+
+const styles = {
+  title: {
+    color: "#5C2299",
+    paddingTop: "1rem",
+    paddingBottom: "1rem",
+  },
+};
 
 class HomeVet extends React.Component {
   state = {
@@ -18,38 +27,39 @@ class HomeVet extends React.Component {
 
   fetchPetsByUser = async user => {
     try {
-      this.setState({ ...this.state, isLoading: true, userSelected: user });
-      const { data } = await Api.pets.fetch(user.id_user);
-      this.setState({ ...this.state, petsByUser: data, isLoading: false });
+      this.setState({...this.state, isLoading: true, userSelected: user});
+      const {data} = await Api.pets.fetch(user.id_user);
+      this.setState({...this.state, petsByUser: data, isLoading: false});
     } catch (err) {
-      this.setState({ ...this.state, petsByUser: [], isLoading: false });
+      this.setState({...this.state, petsByUser: [], isLoading: false});
     }
-  }
+  };
 
   render() {
-    const { petsByUser, isLoading, userSelected } = this.state;
+    const {petsByUser, isLoading, userSelected} = this.state;
+    const {classes} = this.props;
     return (
-      <div className="veton-container">
-        <div className="veton-container__hero">
-          <h2>Bienvenido</h2>
-        </div>
-        <div className="veton-container__list">
-          <div className="veton-container__list__container-list">
-            <div className="veton-container__list__container-list__row">
-              {userSelected &&
-                <div>
-                  <h2>Mascotas del usuario {userSelected.name}</h2>
-                  {isLoading && <CircularProgress />}
-                  {!isLoading && petsByUser.length > 0 && <ListPets pets={petsByUser} />}
-                  {!isLoading && petsByUser.length === 0 && <p>No existen mascotas registradas</p>}
-                </div>
-              }
+      <>
+        <CssBaseline />
+        <Container fixed>
+          {userSelected && (
+            <div>
+              <h2 className={classes.title}>
+                Mascotas del usuario {userSelected.name}
+              </h2>
+              {isLoading && <CircularProgress />}
+              {!isLoading && petsByUser.length > 0 && (
+                <ListPets pets={petsByUser} />
+              )}
+              {!isLoading && petsByUser.length === 0 && (
+                <p>No existen mascotas registradas</p>
+              )}
             </div>
-          </div>
-        </div>
-      </div>
+          )}
+        </Container>
+      </>
     );
   }
 }
 
-export default HomeVet;
+export default withStyles(styles)(HomeVet);

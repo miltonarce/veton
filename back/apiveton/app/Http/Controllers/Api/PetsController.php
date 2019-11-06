@@ -45,6 +45,16 @@ class PetsController extends Controller
         return response()->json($pets);
     }
 
+    public function findLastByVeterinary($idVeterinary){
+       /*
+        select top 100 pets.*, consultations.updated_at from pets 
+        inner join clinicalhistories ON ( clinicalhistories.id_pet = pets.id_pet )
+        inner join consultations     ON ( consultations.id_history = clinicalhistories.id_history )
+        where consultations.id_veterinary = 1 
+        order by consultations.updated_at asc
+       */
+    }
+
     /**
     * @OA\Post(
     *     path="/api/pets",
@@ -115,6 +125,7 @@ class PetsController extends Controller
         }
 
     }
+
     public function removePet($idPet){
         try{
             $pet = Pet::findOrFail($idPet);

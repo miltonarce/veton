@@ -6,7 +6,6 @@ import {styled} from "@material-ui/core/styles";
 // Users Views
 import HomeUser from "./HomeUser";
 import Profile from "./Profile";
-import Option from "./Option";
 import Pets from "./Pets";
 import PetDetail from "./PetDetail";
 import AddPet from "./AddPet";
@@ -17,6 +16,7 @@ const ContentMain = styled("div")({
   top: "0",
   bottom: "0",
   position: "absolute",
+  backgroundImage: "url('assets/pattern-veton.jpg')",
 });
 
 class User extends React.Component {
@@ -27,7 +27,6 @@ class User extends React.Component {
         <CssBaseline />
         <Header />
         <Route exact component={HomeUser} path={match.path} />
-        <Route component={Option} path={`${match.path}/option`} />
         <Route component={Pets} path={`${match.path}/pets`} />
         <Route component={PetDetail} path={`${match.path}/pet/:id`} />
         <Route component={Profile} path={`${match.path}/profile`} />
