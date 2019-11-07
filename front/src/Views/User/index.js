@@ -9,6 +9,7 @@ import Profile from "./Profile";
 import Pets from "./Pets";
 import PetDetail from "./PetDetail";
 import AddPet from "./AddPet";
+import EditPet from "./EditPet";
 import Header from "../../Components/Shared/Header";
 
 const ContentMain = styled("div")({
@@ -31,6 +32,7 @@ class User extends React.Component {
         <Route component={PetDetail} path={`${match.path}/pet/:id`} />
         <Route component={Profile} path={`${match.path}/profile`} />
         <Route component={AddPet} path={`${match.path}/add-pet`} />
+        <Route component={EditPet} path={`${match.path}/edit-pet`} />
       </ContentMain>
     );
   }

@@ -6,14 +6,17 @@ import {
   Typography,
   CircularProgress,
   Paper,
+  Button,
 } from "@material-ui/core";
-import {withStyles} from "@material-ui/core/styles";
-import {Link} from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import Api from "../../../Services/Api";
 import calculateAge from "../../../Utils/globals";
 import ListHistories from "../../../Components/ListHistories";
-import {AppContext} from "../../../Store";
+import { AppContext } from "../../../Store";
 import TitlePages from "../../../Components/TitlePages";
+import { EditOutlined } from "@material-ui/icons";
+import { withRouter } from "react-router-dom";
 
 //All classes by component
 const styles = {
@@ -62,6 +65,10 @@ const styles = {
     fontSize: "1.87rem",
     fontWeight: 600,
   },
+  button: {
+    height: "40px",
+    width: "160px",
+  },
 };
 
 class PetDetail extends React.Component {
@@ -73,26 +80,47 @@ class PetDetail extends React.Component {
 
   //Get detail pet by query param id
   async componentDidMount() {
-    const {match} = this.props;
-    const {state} = this;
+    const { match } = this.props;
+    const { state } = this;
     try {
-      const {data} = await Api.pet.fetch(match.params.id);
+      const { data } = await Api.pet.fetch(match.params.id);
       this.setState({
         ...state,
         dataPet: data,
         isLoading: false,
       });
     } catch (error) {
-      this.setState({...state, isLoading: false, error: true});
+      this.setState({ ...state, isLoading: false, error: true });
     }
   }
 
+  /**
+   * Method to handle edit pet, send pet info to other view to edit content
+   * @returns {void}
+   */
+  handleClickEdit = () => {
+    const { dataPet: {
+      breed,
+      clinical_history,
+      created_at,
+      deleted_at,
+      gender,
+      type,
+      updated_at,
+      user,
+      ...requestEdit
+    } } = this.state;
+    console.log('valores', requestEdit)
+    this.props.history.push(`/user/edit-pet`, requestEdit);
+  }
+
   render() {
-    const {classes} = this.props;
-    const {dataPet, isLoading, error} = this.state;
+    const { classes } = this.props;
+    const { dataPet, isLoading, error } = this.state;
     const {
-      auth: {user},
+      auth: { user },
     } = this.context;
+    const { handleClickEdit } = this;
     if (isLoading) {
       return (
         <div className="veton-container-spinner">
@@ -162,6 +190,17 @@ class PetDetail extends React.Component {
                                 component="h3"
                                 variant="h3"
                               >{`${dataPet.name} ${dataPet.last_name}`}</Typography>
+                              <Button
+                                className={classes.button}
+                                color="primary"
+                                size="small"
+                                startIcon={<EditOutlined />}
+                                type="button"
+                                variant="contained"
+                                onClick={handleClickEdit}
+                              >
+                                Editar
+                              </Button>
                             </Grid>
                             <Grid item xs={12}>
                               <Grid
@@ -268,19 +307,19 @@ class PetDetail extends React.Component {
               {dataPet.clinical_history.length > 0 ? (
                 <ListHistories histories={dataPet.clinical_history} />
               ) : (
-                <>
-                  <p>No hay historias clínicas registradas.</p>
-                  {user.id_role === 3 ? (
-                    <Link
-                      to={`/veterinary/add-clinical-history/${dataPet.id_pet}`}
-                    >
-                      Agregar Historia
+                  <>
+                    <p>No hay historias clínicas registradas.</p>
+                    {user.id_role === 3 ? (
+                      <Link
+                        to={`/veterinary/add-clinical-history/${dataPet.id_pet}`}
+                      >
+                        Agregar Historia
                     </Link>
-                  ) : (
-                    ""
-                  )}
-                </>
-              )}
+                    ) : (
+                        ""
+                      )}
+                  </>
+                )}
             </Grid>
           </Grid>
         </Container>
@@ -292,4 +331,6 @@ class PetDetail extends React.Component {
 //Add context to get all data from provider...
 PetDetail.contextType = AppContext;
 
-export default withStyles(styles)(PetDetail);
+const PetDetailWithStyles = withStyles(styles)(PetDetail);
+
+export default withRouter(props => <PetDetailWithStyles {...props} />);
