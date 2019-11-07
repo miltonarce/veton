@@ -45,22 +45,42 @@ const styles = {
 };
 
 class FormAddPet extends React.Component {
-  state = {
-    form: {
-      id_user: this.context.auth.user.id_user,
-      id_type: 0,
-      id_breed: 0,
-      name: "",
-      last_name: "",
-      birdthay: undefined,
-      image: "",
-      weight: "",
-      colors: "",
-      comments: "",
-      id_gender: 1,
-    },
-    previewImage: null,
-    imageSrc: null,
+
+  constructor(props, context) {
+    super(props);
+    const { defaultValues = {} } = props;
+    const { form, previewImage, imageSrc } = this.getDefaultState(context);
+    const formWithValues = { ...form, ...defaultValues };
+    this.state = {
+      form: formWithValues,
+      previewImage,
+      imageSrc,
+    };
+  }
+
+  /**
+   * Method to create the default state for form and preview images...
+   * @param {object} context
+   * @returns {object}
+   */
+  getDefaultState = context => {
+    return {
+      form: {
+        id_user: context.auth.user.id_user,
+        id_type: 0,
+        id_breed: 0,
+        name: "",
+        last_name: "",
+        birthday: undefined,
+        image: "",
+        weight: "",
+        colors: "",
+        comments: "",
+        id_gender: 1,
+      },
+      previewImage: null,
+      imageSrc: null,
+    };
   };
 
   handleOnSubmit = event => {
@@ -76,7 +96,7 @@ class FormAddPet extends React.Component {
   handleOnChangeDate = event => {
     const {state} = this;
     const date = moment(event._d).format("YYYY-MM-DD");
-    this.setState({form: {...state.form, birdthay: date}});
+    this.setState({form: {...state.form, birthday: date}});
   };
 
   handleOnChange = event => {
@@ -106,14 +126,15 @@ class FormAddPet extends React.Component {
   };
 
   render() {
-    const {types, breeds, title, classes} = this.props;
+    const {types, breeds, title, classes,nameButton ="AGREGAR"} = this.props;
     const {
       form: {
         name,
         last_name,
-        birdthay,
+        birthday,
         weight,
         colors,
+        image,
         comments,
         id_type,
         id_breed,
@@ -193,13 +214,13 @@ class FormAddPet extends React.Component {
                     <MuiPickersUtilsProvider utils={MomentUtils}>
                       <KeyboardDatePicker
                         disableToolbar
-                        id="birdthay"
+                        id="birthday"
                         KeyboardButtonProps={{
                           'aria-label': 'change date',
                         }}
                         label="Cumpleaños"
                         margin="normal"
-                        value={birdthay}
+                        value={birthday}
                         variant="inline"
                         onChange={handleOnChangeDate}
                       />
@@ -347,18 +368,19 @@ class FormAddPet extends React.Component {
                   </Grid>
                   <Grid item xs={6}>
                     <input
+                      style={{color: 'transparent'}}
                       accept=".jpg,.jpeg,.png"
                       id="imagePet"
                       name="image"
                       type="file"
                       onChange={handleInputFile}
                     />
-                    {previewImage && (
+                    {(previewImage || image) && (
                       <Grid container>
                         <Avatar
                           alt="Preview image"
                           className={classes.avatar}
-                          src={previewImage}
+                          src={image ? `http://api.veton/imgs/${image}` : previewImage}
                         />
                       </Grid>
                     )}
@@ -374,7 +396,7 @@ class FormAddPet extends React.Component {
                 >
                   <Grid item xs={3}>
                     <Button color="primary" type="submit" variant="contained">
-                      AGREGAR
+                      {nameButton}
                     </Button>
                   </Grid>
                 </Grid>
@@ -404,6 +426,7 @@ FormAddPet.propTypes = {
   ),
   title: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
+  nameButton: PropTypes.string
 };
 
 export default withStyles(styles)(FormAddPet);

@@ -83,7 +83,7 @@ class AddPet extends React.Component {
         )}
         <Container fixed>
           <TitlePages
-            subtitle=" Aquí podrás agrgar una nueva mascota, recordá completar los datos solicitados."
+            subtitle=" Aquí podrás agregar una nueva mascota, recordá completar los datos solicitados."
             title="Agregar nueva mascota"
           />
           {!isLoading && (
@@ -96,7 +96,7 @@ class AddPet extends React.Component {
               <Grid item xs={7}>
                 <FormAddPet
                   breeds={breeds}
-                  title="Ingrese los datos de la mascota Mascota"
+                  title="Ingrese los datos de la mascota"
                   types={types}
                   onSubmit={handleOnSubmit}
                 />
