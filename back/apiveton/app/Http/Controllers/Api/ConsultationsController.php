@@ -8,7 +8,6 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-
 class ConsultationsController extends Controller
 {
     public function all()
@@ -23,12 +22,12 @@ class ConsultationsController extends Controller
         $request['id_history'] = $idHistory;
         $request->validate(Consultation::$rules, Consultation::$errorMessages);
         $data = $request->all();
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $file = $request->image;
             $nameImage = time() . "." . $file->extension();
             $file->move(public_path('/imgs'), $nameImage);
             $data['image'] = 'imgs/' . $nameImage;
-        }else {
+        } else {
             $data['image'] = '';
         }
         Consultation::create($data);
@@ -50,9 +49,10 @@ class ConsultationsController extends Controller
         $consultations = Consultation::all()->where('id_history', '=', $id);
         return response()->json($consultations);
     }
+
     public function editConsultation (Request $request, $idConsultation)
     {
-        try{
+        try {
             $request->validate(Consultation::$rules, Consultation::$errorMessages);
             $data = $request->all();
 //            if($request->hasFile('image')){
@@ -70,7 +70,7 @@ class ConsultationsController extends Controller
                 'msg' => 'La consulta se editó correctamente.',
                 'stack'=>''
             ]);
-        }catch (QueryException $e){
+        } catch (QueryException $e) {
             return response()->json([
                 'success' => false,
                 'msg' => 'Se produjo un error al editar la consulta',
@@ -78,9 +78,10 @@ class ConsultationsController extends Controller
             ]);
         }
     }
+
     public function removeConsultation($id)
     {
-        try{
+        try {
             $consultation = Consultation::findOrFail($id);
             $consultation->delete();
             return response()->json([
@@ -88,7 +89,7 @@ class ConsultationsController extends Controller
                 'msg' => 'La consulta se eliminó correctamente.',
                 'stack' => ''
             ]);
-        }catch (QueryException $e){
+        } catch (QueryException $e) {
             return response()->json([
                 'success' => false,
                 'msg' =>'La consulta no pudo ser eliminada',

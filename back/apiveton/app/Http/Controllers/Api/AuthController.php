@@ -15,34 +15,49 @@ use Validator;
 class AuthController extends Controller
 {
 
+    /**
+     * Login User, first check if email exists and validate email and password
+     * set cookie if is correcct
+     * @param Request $request
+     * @return Response
+     */
     public function login(Request $request) 
     {
-        
-            if ($this->existsMail($request['email'])) {
-                $credentials = [
-                    'email' => $request['email'],
-                    'password' => $request['password']
-                ];
-                if (! $token = auth()->attempt($credentials)) {
-                    return response()->json(['success' => false, 'msg' => 'Datos incorrectos, vuelva a intentar.']);
-                }
-                $user = auth()->user();
-                return response()->json([
-                    'success' => true,
-                    'msg' => 'Login exitoso',
-                    'additional_info' => $this->getAditionalInfo($user),
-                ])->withCookie('token', $token, auth()->factory()->getTTL() * 60, '/', null, false, true);
-            }else{
-                return response()->json(['success' => false, 'msg' => 'El email ingresado no es valido.']);
+        if ($this->existsMail($request['email'])) {
+            $credentials = [
+                'email' => $request['email'],
+                'password' => $request['password']
+            ];
+            if (! $token = auth()->attempt($credentials)) {
+                return response()->json(['success' => false, 'msg' => 'Datos incorrectos, vuelva a intentar.']);
             }
+            $user = auth()->user();
+            return response()->json([
+                'success' => true,
+                'msg' => 'Login exitoso',
+                'additional_info' => $this->getAditionalInfo($user),
+            ])->withCookie('token', $token, auth()->factory()->getTTL() * 60, '/', null, false, true);
+        } else {
+            return response()->json(['success' => false, 'msg' => 'El email ingresado no es valido.']);
+        }
     }
 
+    /**
+     * Logout user , destroy session
+     * @param Request $request
+     * @return Response
+     */
     public function logout(Request $request) 
     {
         Auth::logout();
         return response()->json(['success' => true, 'msg' => 'Se deslogueo correctamente!']);
     }
 
+    /**
+     * Register new user, handle transaction to better aproach to handle errors
+     * @param Request $request
+     * @return Response
+     */
     public function register(Request $request)
     {
         if($request['id_role'] == '2' ){
@@ -61,11 +76,11 @@ class AuthController extends Controller
                 return response()->json([
                     'success' => true
                 ]);
-            }catch(QueryException $e){
+            } catch(QueryException $e){
                  DB::rollback();
                 return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear su usuario', 'stack' => $e]);
             }
-        }else{
+        } else {
             try {
                 $request->validate(User::$rules);
                 $user = $request->all();
@@ -84,9 +99,13 @@ class AuthController extends Controller
                     'stack' => $e]);
             }
         }
-       
     }
 
+    /**
+     * Private method to retrieve info to user
+     * @param Array
+     * @return Array
+     */
     private function getAditionalInfo($data) 
     {
         return [
@@ -101,6 +120,11 @@ class AuthController extends Controller
         ];
     }
 
+    /**
+     * Validate if exists email
+     * @param String $email
+     * @return bool
+     */
     private function existsMail($email) 
     {
         $email = User::all()->where('email', '=', $email)->first();

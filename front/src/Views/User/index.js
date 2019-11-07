@@ -3,7 +3,7 @@ import {Route} from "react-router-dom";
 import {CssBaseline} from "@material-ui/core";
 import {styled} from "@material-ui/core/styles";
 
-// Users Views
+// User all Views
 import HomeUser from "./HomeUser";
 import Profile from "./Profile";
 import Pets from "./Pets";

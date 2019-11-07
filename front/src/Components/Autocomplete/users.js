@@ -21,6 +21,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+//Component item to show info user in autocomplete
 const ItemUser = ({name, last_name, email, image, onUserSelected}) => (
   <ListItem alignItems="flex-start" button onClick={onUserSelected}>
     <ListItemAvatar>
@@ -38,6 +39,7 @@ const ItemUser = ({name, last_name, email, image, onUserSelected}) => (
   </ListItem>
 );
 
+//Component to retrieve in list all users by autocomplete...
 export default function ListItemUsers({users, onUserSelected}) {
   const classes = useStyles();
   return (
@@ -51,4 +53,4 @@ export default function ListItemUsers({users, onUserSelected}) {
       ))}
     </List>
   );
-}
+};

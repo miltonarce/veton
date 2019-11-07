@@ -6,7 +6,6 @@ use App\Models\ClinicalHistory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-
 class ClinicalHistoriesController extends Controller
 {
     /**
@@ -74,28 +73,29 @@ class ClinicalHistoriesController extends Controller
         }
     }
 
-    public function editHistory (Request $request, $idHistory){
-            try{
-                
-                $request->validate(ClinicalHistory::$rules, ClinicalHistory::$errorMessages);
-                $data = $request->all();
-                $history = ClinicalHistory::findOrFail($idHistory);
-                $history->update($data);
-                return response()->json([
-                    'success' => true,
-                    'msg' => 'La historia clinica ha sido guardada',
-                    'stack' => ''
-                ]);
-            }catch (QueryException $e){
-                return response()->json([
-                    'success' => false,
-                    'msg' => 'Se produjo un error al editar la historia clínica',
-                    'stack' => $e]);
-            }
+    public function editHistory(Request $request, $idHistory) 
+    {
+        try {
+            $request->validate(ClinicalHistory::$rules, ClinicalHistory::$errorMessages);
+            $data = $request->all();
+            $history = ClinicalHistory::findOrFail($idHistory);
+            $history->update($data);
+            return response()->json([
+                'success' => true,
+                'msg' => 'La historia clinica ha sido guardada',
+                'stack' => ''
+            ]);
+        } catch (QueryException $e) {
+            return response()->json([
+                'success' => false,
+                'msg' => 'Se produjo un error al editar la historia clínica',
+                'stack' => $e]);
+        }
     }
 
-    public function removeHistory($idHistory){
-        try{
+    public function removeHistory($idHistory) 
+    {
+        try {
             $history = ClinicalHistory::findOrFail($idHistory);
             $history->delete();
             return response()->json([
@@ -103,7 +103,7 @@ class ClinicalHistoriesController extends Controller
                 'msg' => 'La historia clinica se eliminó correctamente',
                 'stack' => ''
             ]);
-        }catch(QueryException $e){
+        } catch(QueryException $e) {
             return response()->json([
                 'success' => false,
                 'msg' => 'Se produjo un error al borrar la historia clínica',
@@ -111,7 +111,8 @@ class ClinicalHistoriesController extends Controller
         }
     }
 
-    public function findById($id) {
+    public function findById($id) 
+    {
         $clinicalHistories = ClinicalHistory::all()->where('id_pet', '=', $id);
         return response()->json($clinicalHistories);
     }

@@ -6,7 +6,6 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-
 /**
 * @OA\Info(title="API Pets", version="1.0")
 *
@@ -40,7 +39,8 @@ class PetsController extends Controller
         return response()->json($pets);
     }
 
-    public function findByUser($idUser) {
+    public function findByUser($idUser) 
+    {
         $pets = Pet::where('id_user', '=', $idUser)->get();
         return response()->json($pets);
     }
@@ -103,9 +103,10 @@ class PetsController extends Controller
                 'stack' => $e]);
         }
     }
+
     public function editPet(Request $request, $idPet)
     {
-        try{
+        try {
             $request->validate(Pet::$rules, Pet::$errorMessages);
             $data = $request->all();
             $pet = Pet::findOrFail($idPet);
@@ -116,18 +117,17 @@ class PetsController extends Controller
                 'msg' => 'La mascota se editó correctamente.',
                 'stack' => ''
             ]);
-        }catch (QueryException $e){
+        } catch (QueryException $e) {
             return response()->json([
                 'success' => false,
                 'msg' => 'Se produjo un error al editar la mascota',
                 'stack' => $e
             ]);
         }
-
     }
 
-    public function removePet($idPet){
-        try{
+    public function removePet($idPet) {
+        try {
             $pet = Pet::findOrFail($idPet);
             $pet->delete();
             return response()->json([
@@ -135,7 +135,7 @@ class PetsController extends Controller
                 'msg' => 'La mascota se eliminó correctamente',
                 'stack' => ''
             ]);
-        }catch (QueryException $e){
+        } catch (QueryException $e) {
             return response()->json([
                 'success' => false,
                 'msg' => 'No se pudo eliminar la mascota',

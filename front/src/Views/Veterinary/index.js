@@ -3,7 +3,7 @@ import {Route} from "react-router-dom";
 import {CssBaseline} from "@material-ui/core";
 import {styled} from "@material-ui/core/styles";
 
-// Veterinary Views
+// Veterinary all Views
 import HomeVet from "./HomeVet";
 import AddClinicalHistory from "./AddClinicalHistory";
 import AddConsultation from "./AddConsultation";
@@ -23,6 +23,11 @@ class Veterinary extends React.Component {
     userSelected: null,
   };
 
+  /**
+   * Method to handle when user select any user from autocomplete component
+   * @param {object} userSelected
+   * @returns {void}
+   */
   handleOnUserSelected = userSelected =>
     this.setState({...this.state, userSelected});
 

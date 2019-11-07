@@ -29,6 +29,11 @@ class Autocomplete extends React.Component {
     this.handleUserSelected = this.handleUserSelected.bind(this);
   }
 
+  /**
+   * Method to handle when change value to fetch new users by input
+   * @param {Event} event
+   * @returns {void}
+   */
   async handleOnChange(event) {
     const {value} = event.target;
     if (value.length > 2) {
@@ -38,13 +43,17 @@ class Autocomplete extends React.Component {
         this.setState({...this.state, users: data, loading: false});
       } catch (err) {
         this.setState({...this.state, users: [], loading: false});
-        console.error("Error to trying to search users", err);
       }
     } else {
       this.setState({...this.state, users: []});
     }
   }
 
+  /**
+   * Method to handle when user click any item in list, call callback to parent...
+   * @param {object} user
+   * @returns {void}
+   */
   handleUserSelected(user) {
     this.props.onUserSelected(user);
     this.setState({...this.state, users: []});
@@ -59,7 +68,7 @@ class Autocomplete extends React.Component {
       props: {placeholder},
     } = this;
     return (
-      <React.Fragment>
+      <>
         <TextField
           placeholder={placeholder}
           fullWidth
@@ -78,7 +87,7 @@ class Autocomplete extends React.Component {
         />
         {loading && <CircularProgressAbsolute />}
         <ListItemUsers users={users} onUserSelected={handleUserSelected} />
-      </React.Fragment>
+      </>
     );
   }
 }

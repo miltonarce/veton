@@ -36,12 +36,12 @@ import {
 } from "@material-ui/icons";
 import {styled, makeStyles} from "@material-ui/core/styles";
 import clsx from "clsx";
-
 import RolSelect from "../../../Components/Forms/RolSelect";
 import FormRegistarVeterinary from "../../../Components/Forms/FormRegisterVeterinary";
 import FormRegisterUser from "../../../Components/Forms/FormRegisterUser";
 import Auth from "../../../Services/Auth";
 
+//Styled components wrappers...
 const Content = styled("div")({
   height: "100vh",
   display: "flex",
@@ -287,16 +287,28 @@ class Register extends Component {
     disabled: true,
   };
 
+  /**
+   * Method to handle when user click next in form
+   * @returns {void}
+   */
   handleNext = () => {
     const {state} = this;
     this.setState({...state, activeStep: state.activeStep + 1});
   };
 
+  /**
+   * Method to handle when user click back in form
+   * @returns {void}
+   */
   handleBack = () => {
     const {state} = this;
     this.setState({...state, activeStep: state.activeStep - 1});
   };
 
+  /**
+   * Method to handle user close...
+   * @returns {void}
+   */
   handleClose = () => {
     const {state} = this;
     this.setState({...state, openError: false});
@@ -363,11 +375,21 @@ class Register extends Component {
     }
   };
 
+  /**
+   * Method to handle when user selected rol
+   * @param {number} id_role
+   * @returns {void}
+   */
   handleOnRolSelected = id_role => {
     const {state} = this;
     this.setState({...state, id_role});
   };
 
+  /**
+   * Method to finish form set
+   * @param {object} data
+   * @returns {void}
+   */
   handleFinish = data => {
     const {state} = this;
     this.setState({
@@ -377,6 +399,10 @@ class Register extends Component {
     });
   };
 
+  /**
+   * Method to handle registrer submit form with request to API
+   * @returns {void}
+   */
   handleOnSubmitRegister = async () => {
     const {state} = this;
     const {history} = this.props;
@@ -558,4 +584,5 @@ class Register extends Component {
   }
 }
 
+//Add router to handle history push go to other page...
 export default withRouter(props => <Register {...props} />);

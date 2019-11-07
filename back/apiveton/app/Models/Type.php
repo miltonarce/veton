@@ -8,8 +8,6 @@ class Type extends Model
     protected $table = 'types';
     protected $primaryKey = 'id_type';
 
-
-
     public function pets()
     {
         return $this->hasMany(Pet::class, 'id_pet', 'id_pet');

@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import {Close, Error} from "@material-ui/icons";
 import {styled} from "@material-ui/core/styles";
-
 import Api from "../../../Services/Api";
 import Auth from "../../../Services/Auth";
 import FormLogin from "../../../Components/Forms/FormLogin";
@@ -20,6 +19,7 @@ import {AppContext} from "../../../Store";
 // Roles by view
 const ROLES = Api.roles.all();
 
+//Wrapper new styled components...
 const Content = styled("div")({
   height: "100vh",
   display: "flex",
@@ -55,11 +55,20 @@ class Login extends Component {
     openError: false,
   };
 
+  /**
+   * Method to handle when user close 
+   * @returns {void}
+   */
   handleClose = () => {
     const {state} = this;
     this.setState({...state, openError: false});
   };
 
+  /**
+   * Method to handle submit form login
+   * @param {object} request
+   * @returns {void}
+   */
   handleOnSubmit = async request => {
     const {state} = this;
     const {login} = this.context;
@@ -154,6 +163,8 @@ class Login extends Component {
   }
 }
 
+//Add context to get all data from provider...
 Login.contextType = AppContext;
 
+//Add router to handle history push go to other page...
 export default withRouter(props => <Login {...props} />);

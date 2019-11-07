@@ -1,7 +1,9 @@
 import React, {Component, createContext} from "react";
 
+//Create context for VetonApp
 export const AppContext = createContext();
 
+//Provider Class for handle context...
 class AppProvider extends Component {
   state = {
     auth: {

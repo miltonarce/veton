@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-
 use App\Models\Veterinary;
 use App\Models\VeterinaryPendingApproval;
 use Illuminate\Http\Request;
