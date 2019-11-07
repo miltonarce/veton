@@ -76,6 +76,7 @@ const ListConsultations = ({consultations}) => {
         >
           {consultations.map((consultation, index) => (
             <Tab
+              key={index}
               label={`#ID CONSULTA ${consultation.id_consultation}`}
               {...a11yProps(index)}
             />
@@ -88,7 +89,7 @@ const ListConsultations = ({consultations}) => {
         onChangeIndex={handleChangeIndex}
       >
         {consultations.map((consultation, index) => (
-          <TabPanel dir={theme.direction} index={index} value={value}>
+          <TabPanel dir={theme.direction} index={index} value={value} key={index}>
             <Consultation dataConsultation={consultation} user={user} />
           </TabPanel>
         ))}
