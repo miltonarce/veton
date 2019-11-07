@@ -54,7 +54,8 @@ const Consultation = ({dataConsultation, user}) => {
         comments: dataConsultation.comments,
       });
     }
-  }, []);
+  // eslint-disable-next-line
+  }, []);           
 
   /***
    * Method to handle change status
