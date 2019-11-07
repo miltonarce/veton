@@ -1,65 +1,86 @@
-import React from "react";
+import React, {useState, useContext} from "react";
+import {
+  Container,
+  Grid,
+  CssBaseline,
+  CircularProgress,
+} from "@material-ui/core";
+import {useSnackbar} from "notistack";
+
 import FormConsultation from "../../../Components/Forms/FormConsultation";
 import ApiVet from "../../../Services/ApiVet";
+import TitlePages from "../../../Components/TitlePages";
 import {AppContext} from "../../../Store";
 
-class AddConsultation extends React.Component {
-  state = {
-    statusConsultation: {},
-  };
+const AddConsultation = props => {
+  const [values, setValues] = useState({
+    isLoading: false,
+  });
+  /**
+   * Hook para context
+   */
+  const {
+    auth: {user},
+  } = useContext(AppContext);
 
+  /**
+   * Hook para notificaciones
+   */
+  const {enqueueSnackbar} = useSnackbar();
   /**
    * Method to handle submit from form, create new consultation
    * @param {object} request
    * @returns {void}
    */
-  handleOnSubmit = async request => {
-    const errorAlert = {msg: "Se produjo un error", type: "danger"};
-    const successAlert = {
-      msg: "Se dió de alta correctamente!",
-      type: "success",
-    };
-
-    const {
-      martch: {
-        params: {idHistory},
-      },
-    } = this.props;
-
-    const {state} = this;
+  const handleOnSubmit = async request => {
+    console.log(props);
 
     try {
-      const {data} = await ApiVet.consultations.create(idHistory, request);
-      if (data.sucess) {
-        this.setState({...state, statusConsultation: successAlert});
+      setValues({isLoading: true});
+      const {data} = await ApiVet.consultations.create(
+        props.match.params.idHistory,
+        request
+      );
+      if (data.success) {
+        enqueueSnackbar(data.msg, {variant: "success"});
+        setValues({isLoading: true});
+        setTimeout(() => {
+          props.history.goBack();
+        }, 3000);
       } else {
-        this.setState({...state, statusConsultation: errorAlert});
+        alert("no entramos");
+        enqueueSnackbar(data.msg, {variant: "error"});
+        setValues({isLoading: false});
       }
     } catch (err) {
-      this.setState({...state, statusConsultation: errorAlert});
+      console.log(err);
     }
   };
 
-  render() {
-    const {statusConsultation} = this.state;
-    const {handleOnSubmit} = this;
-    const {
-      auth: {user},
-    } = this.context;
-    return (
-      <>
-        {statusConsultation.msg && "Alert"}
-        <FormConsultation
-          title="Registrar Consulta"
-          user={user}
-          onSubmit={handleOnSubmit}
+  return (
+    <>
+      <CssBaseline />
+      <Container fixed>
+        <TitlePages
+          subtitle=" Aquí podrás agregar una nueva consulta a la mascota."
+          title="Agregar nueva consulta"
         />
-      </>
-    );
-  }
-}
-
-//Add context to get all data from provider...
-AddConsultation.contextType = AppContext;
+        <Grid container alignItems="center" direction="row" justify="center">
+          <Grid item xs={7}>
+            {values.isLoading ? (
+              <CircularProgress color="secondary" />
+            ) : (
+              <FormConsultation
+                title="Registrar Consulta"
+                user={user}
+                onSubmit={handleOnSubmit}
+              />
+            )}
+          </Grid>
+        </Grid>
+      </Container>
+    </>
+  );
+};
 
 export default AddConsultation;

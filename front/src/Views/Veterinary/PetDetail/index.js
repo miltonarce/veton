@@ -6,6 +6,7 @@ import {
   Typography,
   CircularProgress,
   Paper,
+  Hidden,
 } from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
@@ -15,7 +16,7 @@ import ListHistories from "../../../Components/ListHistories";
 import {AppContext} from "../../../Store";
 import TitlePages from "../../../Components/TitlePages";
 
-//All classes by component
+// All classes by component
 const styles = {
   CardPet: {
     maxWidth: 345,
@@ -61,6 +62,15 @@ const styles = {
     color: "#4E4E4E",
     fontSize: "1.87rem",
     fontWeight: 600,
+    marginBottom: "1rem",
+    marginTop: "1rem",
+  },
+  ContentCardText: {
+    "& p, h3, div": {
+      overflow: "hidden",
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+    },
   },
 };
 
@@ -71,7 +81,7 @@ class PetDetail extends React.Component {
     error: null,
   };
 
-  //Retrieve detail pet by id
+  // Retrieve detail pet by id
   async componentDidMount() {
     const {match} = this.props;
     const {state} = this;
@@ -155,7 +165,11 @@ class PetDetail extends React.Component {
                           justify="flex-start"
                           spacing={3}
                         >
-                          <Grid item xs={8}>
+                          <Grid
+                            item
+                            className={classes.ContentCardText}
+                            xs={11}
+                          >
                             <Grid item xs={12}>
                               <Typography
                                 className={classes.petName}
@@ -244,16 +258,21 @@ class PetDetail extends React.Component {
                               </Grid>
                             </Grid>
                           </Grid>
-                          <Grid item xs={3}>
+                          {/* <Grid item xs={3}>
                             <Grid item xs={12}>
                               <Typography color="secondary" component="p">
                                 COMENTARIOS
                               </Typography>
                             </Grid>
                             <Grid item xs={12}>
-                              {dataPet.comments}
+                              <Typography
+                                className={classes.comments}
+                                component="p"
+                              >
+                                {dataPet.comments}
+                              </Typography>
                             </Grid>
-                          </Grid>
+                          </Grid> */}
                         </Grid>
                       </Grid>
                     </Grid>
@@ -289,7 +308,7 @@ class PetDetail extends React.Component {
   }
 }
 
-//Add context to get all data from provider...
+// Add context to get all data from provider...
 PetDetail.contextType = AppContext;
 
 export default withStyles(styles)(PetDetail);
