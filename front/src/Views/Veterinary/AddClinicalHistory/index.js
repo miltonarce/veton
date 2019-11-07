@@ -1,5 +1,4 @@
 import React from "react";
-
 import FormClinicalHistory from "../../../Components/Forms/FormClinicalHistory";
 import Api from "../../../Services/Api";
 
@@ -12,6 +11,11 @@ class AddClinicalHistory extends React.Component {
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
+  /**
+   * Method to handle submit from form create new clinical history
+   * @param {object} request
+   * @returns {void}
+   */
   async handleOnSubmit(request) {
     const errorAlert = {msg: "Se produjo un error", type: "danger"};
     const successAlert = {
@@ -41,13 +45,13 @@ class AddClinicalHistory extends React.Component {
     const {statusClinicalHistory} = this.state;
     const {handleOnSubmit} = this;
     return (
-      <React.Fragment>
+      <>
         {statusClinicalHistory.msg && "ALert"}
         <FormClinicalHistory
           title="Registrar Historia Clínica"
           onSubmit={handleOnSubmit}
         />
-      </React.Fragment>
+      </>
     );
   }
 }

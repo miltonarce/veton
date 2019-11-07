@@ -5,6 +5,9 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "./assets/fontstyles.css";
 
+/**
+ * Theme default for Vet On with our styles
+ */
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -45,6 +48,7 @@ const theme = createMuiTheme({
   },
 });
 
+// All aplication is wrapped with my custom MuiTheme
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
     <App />

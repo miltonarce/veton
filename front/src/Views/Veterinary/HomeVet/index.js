@@ -4,6 +4,7 @@ import {withStyles} from "@material-ui/core/styles";
 import ListPets from "../../../Components/ListPets";
 import Api from "../../../Services/Api";
 
+//All classes by component
 const styles = {
   title: {
     color: "#5C2299",
@@ -19,12 +20,18 @@ class HomeVet extends React.Component {
     userSelected: null,
   };
 
+  //If change prop userSelected, fetch again pets by the new user...
   async componentDidUpdate(prevProps) {
     if (prevProps.userSelected !== this.props.userSelected) {
       await this.fetchPetsByUser(this.props.userSelected);
     }
   }
 
+  /**
+   * Method to fetch pets by user_id
+   * @param {object} user
+   * @returns {void}
+   */
   fetchPetsByUser = async user => {
     try {
       this.setState({...this.state, isLoading: true, userSelected: user});

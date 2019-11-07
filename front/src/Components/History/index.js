@@ -50,6 +50,7 @@ const History = ({dataHistory, user}) => {
     if (user.id_role === 3) {
       setValues({hasDisabled: false});
     }
+  // eslint-disable-next-line
   }, []);
 
   const handleChange = name => event => {

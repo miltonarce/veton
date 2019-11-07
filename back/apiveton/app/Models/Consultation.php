@@ -34,7 +34,6 @@ class Consultation extends Model
         'afflictions_procedures.min' => 'Las aflicciones deben tener al menos :min caracteres'
     ];
 
-
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user', 'id_user');

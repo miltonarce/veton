@@ -11,7 +11,6 @@ import {
   Paper,
   Button,
   Grid,
-  Fab,
 } from "@material-ui/core";
 import {ThumbUp} from "@material-ui/icons";
 import {AppContext} from "../../Store";

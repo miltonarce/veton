@@ -6,7 +6,6 @@ import {
   CircularProgress,
   Grid,
 } from "@material-ui/core";
-
 import FormAddPet from "../../../Components/Forms/Pet";
 import Api from "../../../Services/Api";
 import TitlePages from "../../../Components/TitlePages";
@@ -20,6 +19,8 @@ class AddPet extends React.Component {
     statusPet: {},
   };
 
+  //Get breeds and type to populate form
+  //Promise all to better solution
   async componentDidMount() {
     const {state} = this;
     try {
@@ -39,6 +40,11 @@ class AddPet extends React.Component {
     }
   }
 
+  /**
+   * Method to handle submit pet
+   * @param {object} pet
+   * @returns {void}
+   */
   handleOnSubmit = async pet => {
     const {state} = this;
     const {history} = this.props;
@@ -62,7 +68,6 @@ class AddPet extends React.Component {
         });
       }
     } catch (err) {
-      console.log(err);
       this.setState({...state, isLoading: false, statusPet: err});
     }
   };
@@ -71,7 +76,7 @@ class AddPet extends React.Component {
     const {breeds, types, isLoading, statusPet} = this.state;
     const {handleOnSubmit} = this;
     return (
-      <React.Fragment>
+      <>
         <CssBaseline />
         {statusPet.msg && (
           <AlertMsg hasSuccess={statusPet.type} msg={statusPet.msg} />
@@ -100,9 +105,10 @@ class AddPet extends React.Component {
           )}
           {isLoading && <CircularProgress color="secondary" />}
         </Container>
-      </React.Fragment>
+      </>
     );
   }
 }
 
+//Add router to handle history push go to other page...
 export default withRouter(props => <AddPet {...props} />);

@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//Default instace for axios with API path and timeout
 const axiosInstance = axios.create({
   baseURL: "http://api.veton/api",
   timeout: 2000,

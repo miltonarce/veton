@@ -15,14 +15,11 @@ class Dewormer extends Model
     protected $fillable = ['name', 'next_dosis', 'description', 'expired' ];
 
     /** @var array las reglas de validación. */
-    public static $rules = [
-        //
-    ];
+    public static $rules = [];
 
     /** @var array Los mensajes de error de las $rules */
-    public static  $errorMessages= [
-        //
-    ];
+    public static  $errorMessages= [];
+
     public function pets()
     {
         return $this->belongsToMany(Pet::class, 'dewormer_pet', 'id_dewormer', 'id_pet', 'id_dewormer', 'id_pet')->withTimestamps();

@@ -36,6 +36,7 @@ Route::put('pets/{id}', 'Api\\PetsController@editPet');
 Route::get('pets/users/{id}', 'Api\\PetsController@findByUser');
 //Pets (Eliminar mascota)
 Route::delete('pets/{idPet}', 'Api\\PetsController@removePet');
+
 // Users (Obtener un usuario por dni)
 Route::get('/users/{dni}', 'Api\\UsersController@find');
 // Users Obtener usuarios por dni like o nombre)
@@ -49,11 +50,10 @@ Route::get('clinicalhistories/veterinaries/{idVet}', 'Api\\ClinicalHistoriesCont
 Route::get('clinicalhistories/{id}', 'Api\\ClinicalHistoriesController@findById');
 // ClinicalHistories (Crear una historia clinica de una mascota)
 Route::post('clinicalhistories/{idPet}', 'Api\\ClinicalHistoriesController@store');
-// editar una historia clinica 
+// ClinicalHistories (Editar una historia clinica)
 Route::put('clinicalhistories/{idHistory}', 'Api\\ClinicalHistoriesController@editHistory');
-// borrar una historia clinica
+// ClinicalHistories (Borrar una historia clinica)
 Route::delete('clinicalhistories/{idHistory}', 'Api\\ClinicalHistoriesController@removeHistory');
-
 
 // Consultations (Obtener todas las consultas)
 Route::get('consultations', 'Api\\ConsultationsController@all');

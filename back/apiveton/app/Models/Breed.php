@@ -8,8 +8,6 @@ class Breed extends Model
     protected $table = 'breeds';
     protected $primaryKey = 'id_breed';
 
-
-
     public function pets()
     {
         return $this->hasMany(Pet::class, 'id_breed', 'id_breed');

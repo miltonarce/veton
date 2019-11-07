@@ -3,17 +3,16 @@ import {Link} from "react-router-dom";
 import {CssBaseline, Container, Button, CircularProgress} from "@material-ui/core";
 import {Add} from "@material-ui/icons";
 import {styled} from "@material-ui/core/styles";
-
 import Api from "../../../Services/Api";
 import ListPets from "../../../Components/ListPets";
 import {AppContext} from "../../../Store";
 import TitlePages from "../../../Components/TitlePages";
 
+//New custom components by styled hook...
 const PetLink = styled(Link)({
   textDecoration: "none",
   margin: "1rem",
 });
-
 const ContainerMain = styled("div")({
   margin: "2rem",
 });
@@ -28,6 +27,7 @@ class Pets extends React.Component {
     };
   }
 
+  //Get all pets by user
   async componentDidMount() {
     const {
       auth: {user},
@@ -38,7 +38,6 @@ class Pets extends React.Component {
     try {
       this.setState({...state, isLoading: true});
       const pets = await Api.pets.fetch(user.id_user);
-      console.log(pets);
       this.setState({...state, isLoading: false, petsList: pets.data});
     } catch (err) {
       this.setState({isLoading: false});
@@ -86,6 +85,7 @@ class Pets extends React.Component {
   }
 }
 
+//Add context to get all data from provider...
 Pets.contextType = AppContext;
 
 export default Pets;

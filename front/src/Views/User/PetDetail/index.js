@@ -9,13 +9,13 @@ import {
 } from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
-
 import Api from "../../../Services/Api";
 import calculateAge from "../../../Utils/globals";
 import ListHistories from "../../../Components/ListHistories";
 import {AppContext} from "../../../Store";
 import TitlePages from "../../../Components/TitlePages";
 
+//All classes by component
 const styles = {
   CardPet: {
     maxWidth: 345,
@@ -71,6 +71,7 @@ class PetDetail extends React.Component {
     error: null,
   };
 
+  //Get detail pet by query param id
   async componentDidMount() {
     const {match} = this.props;
     const {state} = this;
@@ -82,7 +83,6 @@ class PetDetail extends React.Component {
         isLoading: false,
       });
     } catch (error) {
-      console.log("error", error);
       this.setState({...state, isLoading: false, error: true});
     }
   }
@@ -103,7 +103,6 @@ class PetDetail extends React.Component {
     if (error) {
       return <p>Se produjo un error</p>;
     }
-
     return (
       <>
         <CssBaseline />
@@ -290,6 +289,7 @@ class PetDetail extends React.Component {
   }
 }
 
+//Add context to get all data from provider...
 PetDetail.contextType = AppContext;
 
 export default withStyles(styles)(PetDetail);

@@ -82,14 +82,14 @@ const ListHistories = ({histories}) => {
         onChange={handleChange}
       >
         {histories.map((history, index) => (
-          <Tab
+          <Tab key={index}
             label={`#ID HISTORIA ${history.id_history}`}
             {...a11yProps(index)}
           />
         ))}
       </Tabs>
       {histories.map((history, index) => (
-        <TabPanel index={index} value={value}>
+        <TabPanel key={index} index={index} value={value}>
           <Grid
             container
             alignItems="flex-start"

@@ -8,6 +8,11 @@ class AddConsultation extends React.Component {
     statusConsultation: {},
   };
 
+  /**
+   * Method to handle submit from form, create new consultation
+   * @param {object} request
+   * @returns {void}
+   */
   handleOnSubmit = async request => {
     const errorAlert = {msg: "Se produjo un error", type: "danger"};
     const successAlert = {
@@ -42,18 +47,19 @@ class AddConsultation extends React.Component {
       auth: {user},
     } = this.context;
     return (
-      <React.Fragment>
+      <>
         {statusConsultation.msg && "Alert"}
         <FormConsultation
           title="Registrar Consulta"
           user={user}
           onSubmit={handleOnSubmit}
         />
-      </React.Fragment>
+      </>
     );
   }
 }
 
+//Add context to get all data from provider...
 AddConsultation.contextType = AppContext;
 
 export default AddConsultation;

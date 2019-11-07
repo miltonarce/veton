@@ -5,7 +5,6 @@ use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-
 /**
 * @OA\Info(title="API Pets", version="1.0")
 *

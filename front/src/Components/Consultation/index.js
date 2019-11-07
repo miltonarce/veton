@@ -2,10 +2,10 @@ import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {Button, TextField, Grid} from "@material-ui/core/";
 import {EditOutlined} from "@material-ui/icons";
-
 import {useSnackbar} from "notistack";
 import ApiVet from "../../Services/ApiVet";
 
+//Default styles for components...
 const useStyles = makeStyles(theme => ({
   container: {
     display: "flex",
@@ -54,8 +54,12 @@ const Consultation = ({dataConsultation, user}) => {
         comments: dataConsultation.comments,
       });
     }
-  }, []);
+  // eslint-disable-next-line
+  }, []);           
 
+  /***
+   * Method to handle change status
+   */
   const handleChange = name => event => {
     setValues({...values, [name]: event.target.value});
   };
