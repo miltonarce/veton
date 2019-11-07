@@ -1,59 +1,74 @@
-import React from "react";
+import React, {useState} from "react";
+import {
+  Container,
+  Grid,
+  CssBaseline,
+  CircularProgress,
+} from "@material-ui/core";
+import {useSnackbar} from "notistack";
 import FormClinicalHistory from "../../../Components/Forms/FormClinicalHistory";
 import Api from "../../../Services/Api";
+import TitlePages from "../../../Components/TitlePages";
 
-class AddClinicalHistory extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      statusClinicalHistory: {},
-    };
-    this.handleOnSubmit = this.handleOnSubmit.bind(this);
-  }
-
+const AddClinicalHistory = props => {
+  const [values, setValues] = useState({
+    isLoading: false,
+  });
+  /**
+   * Hook para notificaciones
+   */
+  const {enqueueSnackbar} = useSnackbar();
   /**
    * Method to handle submit from form create new clinical history
    * @param {object} request
    * @returns {void}
    */
-  async handleOnSubmit(request) {
-    const errorAlert = {msg: "Se produjo un error", type: "danger"};
-    const successAlert = {
-      msg: "Se dió de alta correctamente!",
-      type: "success",
-    };
 
-    const {
-      match: {
-        params: {idPet},
-      },
-    } = this.props;
-    const {state} = this;
+  const handleOnSubmit = async request => {
     try {
-      const {data} = await Api.clinicalhistories.create(idPet, request);
+      setValues({isLoading: true});
+      const {data} = await Api.clinicalhistories.create(
+        props.match.params.idPet,
+        request
+      );
       if (data.success) {
-        this.setState({...state, statusClinicalHistory: successAlert});
+        enqueueSnackbar(data.msg, {variant: "success"});
+        setValues({isLoading: true});
+        setTimeout(() => {
+          props.history.push(`/veterinary/pet/${props.match.params.idPet}`);
+        }, 3000);
       } else {
-        this.setState({...state, statusClinicalHistory: errorAlert});
+        enqueueSnackbar(data.msg, {variant: "error"});
+        setValues({isLoading: false});
       }
     } catch (err) {
-      this.setState({...state, statusClinicalHistory: errorAlert});
+      console.log(err);
+      setValues({isLoading: false});
     }
-  }
-
-  render() {
-    const {statusClinicalHistory} = this.state;
-    const {handleOnSubmit} = this;
-    return (
-      <>
-        {statusClinicalHistory.msg && "ALert"}
-        <FormClinicalHistory
-          title="Registrar Historia Clínica"
-          onSubmit={handleOnSubmit}
+  };
+  return (
+    <>
+      <CssBaseline />
+      <Container fixed>
+        <TitlePages
+          subtitle=" Aquí podrás agregar una nueva y única historia clínica."
+          title="Agregar nueva historia clínica"
         />
-      </>
-    );
-  }
-}
+        <Grid container alignItems="center" direction="row" justify="center">
+          <Grid item xs={7}>
+            {values.isLoading ? (
+              <CircularProgress color="secondary" />
+            ) : (
+              <FormClinicalHistory
+                title="Registrar Historia Clínica"
+                onSubmit={handleOnSubmit}
+              />
+            )}
+          </Grid>
+        </Grid>
+      </Container>
+    </>
+  );
+};
 
 export default AddClinicalHistory;

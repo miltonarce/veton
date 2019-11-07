@@ -42,7 +42,7 @@ const a11yProps = index => ({
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    width: "100%",
+    width: 500,
   },
 }));
 
@@ -71,7 +71,7 @@ const ListConsultations = ({consultations}) => {
           indicatorColor="primary"
           textColor="primary"
           value={value}
-          variant="fullWidth"
+          variant="scrollable"
           onChange={handleChange}
         >
           {consultations.map((consultation, index) => (
@@ -89,7 +89,12 @@ const ListConsultations = ({consultations}) => {
         onChangeIndex={handleChangeIndex}
       >
         {consultations.map((consultation, index) => (
-          <TabPanel dir={theme.direction} index={index} value={value} key={index}>
+          <TabPanel
+            key={index}
+            dir={theme.direction}
+            index={index}
+            value={value}
+          >
             <Consultation dataConsultation={consultation} user={user} />
           </TabPanel>
         ))}
