@@ -19,7 +19,7 @@ import {AppContext} from "../../../Store";
 // Roles by view
 const ROLES = Api.roles.all();
 
-//Wrapper new styled components...
+// Wrapper new styled components...
 const Content = styled("div")({
   height: "100vh",
   display: "flex",
@@ -56,7 +56,7 @@ class Login extends Component {
   };
 
   /**
-   * Method to handle when user close 
+   * Method to handle when user close
    * @returns {void}
    */
   handleClose = () => {
@@ -163,8 +163,8 @@ class Login extends Component {
   }
 }
 
-//Add context to get all data from provider...
+// Add context to get all data from provider...
 Login.contextType = AppContext;
 
-//Add router to handle history push go to other page...
+// Add router to handle history push go to other page...
 export default withRouter(props => <Login {...props} />);

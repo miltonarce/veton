@@ -26,8 +26,8 @@ class User extends React.Component {
       <ContentMain>
         <CssBaseline />
         <Header />
-        <Route exact component={HomeUser} path={match.path} />
-        <Route component={Pets} path={`${match.path}/pets`} />
+        {/* <Route exact component={HomeUser} path={match.path} /> */}
+        <Route component={Pets} path={match.path} />
         <Route component={PetDetail} path={`${match.path}/pet/:id`} />
         <Route component={Profile} path={`${match.path}/profile`} />
         <Route component={AddPet} path={`${match.path}/add-pet`} />

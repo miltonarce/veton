@@ -68,14 +68,14 @@ const Header = ({classes}) => {
               Vet On
             </Typography>
           </div>
-          <Link className={classes.ContentLink} to="/user">
+          {/* <Link className={classes.ContentLink} to="/user">
             <Button color="inherit">
               <div className={classes.ContentIcon}>
                 <Home />
               </div>{" "}
               Inicio
             </Button>
-          </Link>
+          </Link> */}
           <Link className={classes.ContentLink} to="/user/pets">
             <Button color="inherit">
               <div className={classes.ContentIcon}>
@@ -100,9 +100,9 @@ const Header = ({classes}) => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <Link className={classes.ContentLink} to="/user/profile">
+              {/* <Link className={classes.ContentLink} to="/user/profile">
                 <MenuItem onClick={handleClose}>Perfil</MenuItem>
-              </Link>
+              </Link> */}
               <Link className={classes.ContentLink} to="/">
                 <MenuItem onClick={handleClose}>Logout</MenuItem>
               </Link>
