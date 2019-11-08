@@ -27,8 +27,8 @@ Route::post('auth/register', 'Api\\AuthController@register');
 
 // Pets (Obtener todas las mascotas)
 Route::get('pets', 'Api\\PetsController@all');
-// Pets (Obtener todas las mascotas de la ultima semana antendidas por veterinarias)
-Route::get('pets/{idVeterinary}/user/{idUser}', 'Api\\PetsController@findLastByVeterinary');
+// Pets (Obtener las ultimas 10 mascotas atendidas por una veterinaria)
+Route::get('pets/last/veterinary/{idUser}', 'Api\\PetsController@findLastByVeterinary');
 // Pets (Obtener el detalle de una mascota)
 Route::get('pets/{id}', 'Api\\PetsController@detail');
 Route::put('pets/{id}', 'Api\\PetsController@editPet');
