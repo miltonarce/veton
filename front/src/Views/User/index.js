@@ -16,7 +16,6 @@ const ContentMain = styled("div")({
   top: "0",
   bottom: "0",
   position: "absolute",
-  backgroundImage: "url('assets/pattern-veton.jpg')",
 });
 
 class User extends React.Component {
