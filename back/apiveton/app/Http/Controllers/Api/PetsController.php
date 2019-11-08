@@ -2,9 +2,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Pet;
+use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
+use Illuminate\Support\Facades\DB;
 
 /**
 * @OA\Info(title="API Pets", version="1.0")
@@ -45,14 +48,29 @@ class PetsController extends Controller
         return response()->json($pets);
     }
 
-    public function findLastByVeterinary($idVeterinary){
-       /*
-        select top 100 pets.*, consultations.updated_at from pets 
-        inner join clinicalhistories ON ( clinicalhistories.id_pet = pets.id_pet )
-        inner join consultations     ON ( consultations.id_history = clinicalhistories.id_history )
-        where consultations.id_veterinary = 1 
-        order by consultations.updated_at asc
-       */
+    public function findLastByVeterinary()
+    {
+       try {
+            //busco el user logueado del jwt
+            $user = auth()->user();
+            //busco a que veterinaria pertenece
+            $userVeterinaryInfo = DB::table('user_veterinary')->where('id_user', '=', 8)->first();
+            //levanto el id de la vet
+            $idVet = $userVeterinaryInfo->id_veterinary;
+            //query para tener las 10 mascotas antendidas
+            $pets = Pet::join('clinicalhistories', 'pets.id_pet', '=', 'clinicalhistories.id_pet')
+                        ->join('consultations', 'consultations.id_history', '=', 'clinicalhistories.id_history')
+                        ->where('consultations.id_veterinary', '=', $idVet)->orderBy('consultations.updated_at', 'asc')->limit(10)->get();
+            return response()->json([
+                'success' => true,
+                'pets' => $pets
+            ]);
+       } catch (QueryException $e) {
+        return response()->json([
+            'success' => false,
+            'msg' => 'Se produjo un error al obtener las últimas mascotas atendidas',
+            'stack' => $e]);
+       }
     }
 
     /**
