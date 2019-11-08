@@ -48,13 +48,11 @@ class PetsController extends Controller
         return response()->json($pets);
     }
 
-    public function findLastByVeterinary()
+    public function findLastByVeterinary($idUser)
     {
        try {
-            //busco el user logueado del jwt
-            $user = auth()->user();
             //busco a que veterinaria pertenece
-            $userVeterinaryInfo = DB::table('user_veterinary')->where('id_user', '=', 8)->first();
+            $userVeterinaryInfo = DB::table('user_veterinary')->where('id_user', '=', $idUser)->first();
             //levanto el id de la vet
             $idVet = $userVeterinaryInfo->id_veterinary;
             //query para tener las 10 mascotas antendidas

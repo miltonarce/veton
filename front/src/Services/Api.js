@@ -18,7 +18,7 @@ export default {
       }
       return axiosInstance.post("/pets", form_data);
     },
-    lastPetsByVet: () => axiosInstance.get(`pets/last/veterinary`),
+    lastPetsByVet: idUser => axiosInstance.get(`pets/last/veterinary/${idUser}`),
   },
   clinicalhistories: {
     create: (idPet, request) =>

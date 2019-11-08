@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ListPets from "../../../Components/ListPets";
 import LastPetsByVet from "../../../Components/LastPetsByVet";
 import Api from "../../../Services/Api";
+import {AppContext} from "../../../Store";
 
 //All classes by component
 const styles = {
@@ -33,8 +34,11 @@ class HomeVet extends React.Component {
   //Retrieve the last pets atendend by veterinary...
   async componentDidMount() {
     try {
+      const {
+        auth: {user},
+      } = this.context;
       this.setState({ ...this.state, isLoadingLastPets: true });
-      const { data: { success, pets } } = await Api.pets.lastPetsByVet();
+      const { data: { success, pets } } = await Api.pets.lastPetsByVet(user.id_user);
       if (success) {
         this.setState({ ...this.state, isLoadingLastPets: false, lastPetsAttended: pets });
       } else {
@@ -108,5 +112,8 @@ class HomeVet extends React.Component {
     );
   }
 }
+
+//Add context to get all data from provider...
+HomeVet.contextType = AppContext;
 
 export default withStyles(styles)(HomeVet);
