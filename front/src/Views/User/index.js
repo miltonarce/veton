@@ -4,11 +4,11 @@ import {CssBaseline} from "@material-ui/core";
 import {styled} from "@material-ui/core/styles";
 
 // User all Views
-import HomeUser from "./HomeUser";
 import Profile from "./Profile";
 import Pets from "./Pets";
 import PetDetail from "./PetDetail";
 import AddPet from "./AddPet";
+import Appointment from "./Appointment";
 import Header from "../../Components/Shared/Header";
 
 const ContentMain = styled("div")({
@@ -30,6 +30,7 @@ class User extends React.Component {
         <Route component={PetDetail} path={`${match.path}/pet/:id`} />
         <Route component={Profile} path={`${match.path}/profile`} />
         <Route component={AddPet} path={`${match.path}/add-pet`} />
+        <Route component={Appointment} path={`${match.path}/register-appointment`} />
       </ContentMain>
     );
   }

@@ -10,7 +10,7 @@ import {
   Menu,
   MenuItem,
 } from "@material-ui/core";
-import {Home, Pets, AccountCircle} from "@material-ui/icons";
+import {Home, Pets, AccountCircle, StoreOutlined} from "@material-ui/icons";
 import {withStyles} from "@material-ui/core/styles";
 import Auth from "../../../Services/Auth";
 
@@ -76,6 +76,14 @@ const Header = ({classes}) => {
               Inicio
             </Button>
           </Link> */}
+          <Link className={classes.ContentLink} to="/user/register-appointment">
+            <Button color="inherit">
+              <div className={classes.ContentIcon}>
+                <StoreOutlined />
+              </div>{" "}
+              Reservar Turno
+            </Button>
+          </Link>
           <Link className={classes.ContentLink} to="/user/pets">
             <Button color="inherit">
               <div className={classes.ContentIcon}>
