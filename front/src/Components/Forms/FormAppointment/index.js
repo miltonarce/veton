@@ -42,9 +42,10 @@ class FormAppointment extends React.Component {
         veterinarySelected: null,
         request: {
             date: null,
-            hour: null,
+            time: null,
             reason: '',
             type: 'Sin especificar',
+            id_veterinary: null,
         }
     }
 
@@ -83,12 +84,12 @@ class FormAppointment extends React.Component {
      * @param {string} hour
      * @returns {void}
      */
-    handleOnHourChange = hour => {
+    handleOnHourChange = time => {
         this.setState({
             ...this.state,
             request: {
                 ...this.state.request,
-                hour
+                time
             }
         });
     }
@@ -101,6 +102,10 @@ class FormAppointment extends React.Component {
     handleOnChangeAutocomplete = (event, veterinarySelected) => {
         this.setState({
             ...this.state,
+            request: {
+                ...this.state.request,
+                id_veterinary: veterinarySelected.id_veterinary,
+            },
             veterinarySelected,
         });
     }
@@ -134,15 +139,14 @@ class FormAppointment extends React.Component {
         const { props: { classes }, handleOnDateChange, handleOnHourChange, handleOnSubmit, handleOnChange, handleOnChangeAutocomplete, state: { hours, request, veterinaries, veterinarySelected } } = this;
         return (
             <Grid container direction="row" justify="space-around" spacing={2}>
-                <Grid item xs={6}>
-                    <p>aca ponemos algo...</p>
-                </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                     <form noValidate autoComplete="off" onSubmit={handleOnSubmit}>
                         <Autocomplete
+                            disableClearable
                             className={classes.Autocomplete}
                             options={veterinaries}
                             value={veterinarySelected}
+                            getOptionLabel={option => option.business_name}
                             onChange={handleOnChangeAutocomplete}
                             renderOption={option => (
                                 <>
@@ -166,11 +170,9 @@ class FormAppointment extends React.Component {
                                 <TextField
                                     {...params}
                                     label="Buscar veterinaria"
-                                    variant="outlined"
                                     fullWidth
                                 />
                             )}
-
                         />
                         <Grid container
                             direction="row"
@@ -183,23 +185,9 @@ class FormAppointment extends React.Component {
                                 <AppointmentHourPicker hours={hours} onHourChange={handleOnHourChange} label="Seleccioná un horario" />
                             </Grid>
                         </Grid>
-                        <TextField
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            fullWidth
-                            required
-                            variant="outlined"
-                            label="Motivo del turno"
-                            margin="normal"
-                            name="reason"
-                            type="text"
-                            value={request.reason}
-                            onChange={handleOnChange}
-                        />
                         <FormControl fullWidth>
                             <InputLabel id="type">Tipo</InputLabel>
-                            <Select id="type" value={request.type} onChange={handleOnChange} value={request.type} name="type" displayEmpty variant="outlined">
+                            <Select id="type" value={request.type} onChange={handleOnChange} value={request.type} name="type" displayEmpty>
                                 <MenuItem value="Sin especificar"><em>Sin especificar</em></MenuItem>
                                 <MenuItem value="Consulta rápida">Consulta rápida</MenuItem>
                                 <MenuItem value="Consulta vacunación">Consulta vacunación</MenuItem>
@@ -207,6 +195,19 @@ class FormAppointment extends React.Component {
                             </Select>
                             <FormHelperText>Para ayudarnos mejor elige un tipo de turno</FormHelperText>
                         </FormControl>
+                        <TextField
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            fullWidth
+                            required
+                            label="Motivo del turno"
+                            margin="normal"
+                            name="reason"
+                            type="text"
+                            value={request.reason}
+                            onChange={handleOnChange}
+                        />
                         <Button
                             className={classes.ButtonConfirm}
                             color="primary"
