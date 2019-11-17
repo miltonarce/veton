@@ -10,7 +10,7 @@ import {
 import {withStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
 import Api from "../../../Services/Api";
-import calculateAge from "../../../Utils/globals";
+import {calculateAge} from "../../../Utils/globals";
 import ListHistories from "../../../Components/ListHistories";
 import {AppContext} from "../../../Store";
 import TitlePages from "../../../Components/TitlePages";
