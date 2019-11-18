@@ -1,18 +1,27 @@
 import React, {Component} from "react";
-import PropTypes from "prop-types";
+import {withRouter, Link} from "react-router-dom";
 import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
-import {InputAdornment, Grid, IconButton} from "@material-ui/core";
+import {InputAdornment, Grid, IconButton, Button} from "@material-ui/core";
 import {
   Email,
   Visibility,
   VisibilityOff,
   FeaturedPlayList,
 } from "@material-ui/icons";
-import {styled} from "@material-ui/core/styles";
+import {withStyles} from "@material-ui/core/styles";
 
-const Adorment = styled(InputAdornment)({
-  marginRight: "8px",
-});
+import Auth from "../../../Services/Auth";
+import ModalMsg from "../../Messages/ModalMsg";
+import Spinner from "../../Spinner";
+
+const styles = {
+  Adorment: {
+    marginRight: "8px",
+  },
+  SentButton: {
+    marginTop: "2rem",
+  },
+};
 
 class FormRegisterUser extends Component {
   state = {
@@ -23,34 +32,10 @@ class FormRegisterUser extends Component {
       id_role: this.props.idRole,
     },
     showPassword: false,
-  };
-
-  componentDidMount() {
-    const {props, state} = this;
-    props.onSubmit({data: state.formData, disabled: true});
-  }
-
-  emailRef = React.createRef();
-
-  passwordRef = React.createRef();
-
-  dniRef = React.createRef();
-
-  handleOnBlur = event => {
-    const {props, state, emailRef, passwordRef, dniRef} = this;
-    if (event.target.name === "email") {
-      emailRef.current.validate(event.target.value);
-    } else if (event.target.name === "password") {
-      passwordRef.current.validate(event.target.value);
-    } else {
-      dniRef.current.validate(event.target.value);
-    }
-
-    this.form.isFormValid().then(isValid => {
-      if (isValid) {
-        props.onSubmit({data: state.formData, disabled: false});
-      }
-    });
+    isLoading: false,
+    hasMsg: null,
+    openMsg: false,
+    success: false,
   };
 
   handleOnChange = event => {
@@ -59,10 +44,58 @@ class FormRegisterUser extends Component {
     this.setState({formData});
   };
 
-  handleOnSubmit = event => {
-    const {props, state} = this;
-    event.preventDefault();
-    props.onSubmit(state.formData);
+  handleSubmit = async () => {
+    const {state} = this;
+    const {history} = this.props;
+
+    try {
+      this.setState({...state, isLoading: true});
+      const {data} = await Auth.register(state.formData);
+      if (data.success) {
+        setTimeout(() => {
+          this.setState({
+            ...state,
+            isLoading: false,
+            openMsg: true,
+            hasMsg: data.msg,
+            success: data.success,
+          });
+        }, 3000);
+        setTimeout(() => {
+          history.push(`/`);
+        }, 6000);
+      } else {
+        setTimeout(() => {
+          this.setState({
+            ...state,
+            isLoading: false,
+            hasMsg: data.msg,
+            openMsg: true,
+            success: data.success,
+          });
+        }, 3000);
+        setTimeout(() => {
+          this.setState({
+            ...state,
+            openMsg: false,
+          });
+        }, 6000);
+      }
+    } catch (err) {
+      this.setState({
+        ...state,
+        isLoading: false,
+        hasMsg:
+          "Se produjo un error al registarse, por favor verifique sus datos.",
+        openMsg: true,
+      });
+      setTimeout(() => {
+        this.setState({
+          ...state,
+          openMsg: false,
+        });
+      }, 6000);
+    }
   };
 
   handleClickShowPassword = () => {
@@ -75,28 +108,25 @@ class FormRegisterUser extends Component {
   };
 
   render() {
-    const {formData, showPassword} = this.state;
+    const {classes} = this.props;
     const {
-      handleOnSubmit,
+      formData,
+      showPassword,
+      openMsg,
+      hasMsg,
+      isLoading,
+      success,
+    } = this.state;
+    const {
+      handleSubmit,
       handleOnChange,
-      handleOnBlur,
       handleClickShowPassword,
       handleMouseDownPassword,
-      emailRef,
-      passwordRef,
-      dniRef,
     } = this;
     return (
-      <ValidatorForm
-        ref={r => {
-          this.form = r;
-        }}
-        instantValidate
-        onSubmit={handleOnSubmit}
-      >
+      <ValidatorForm ref="form" onSubmit={handleSubmit}>
         <Grid item xs={12}>
           <TextValidator
-            ref={emailRef}
             fullWidth
             errorMessages={['Este campo es requerido.', 'No es un email valido.']}
             InputProps={{
@@ -111,18 +141,16 @@ class FormRegisterUser extends Component {
             name="email"
             validators={['required', 'isEmail']}
             value={formData.email}
-            onBlur={handleOnBlur}
             onChange={handleOnChange}
           />
         </Grid>
         <Grid item xs={12}>
           <TextValidator
-            ref={passwordRef}
             fullWidth
-            errorMessages={['Este campo es requerido.']}
+            errorMessages={['La contraseña es requerida', 'La contraseña debe tener un mínimo de 4 caracteres', 'La contraseñá puede tener un máximo de 100 caracteres', 'Solo se aceptan letras y numeros para la contraseñá, sin espacios.']}
             InputProps={{
               endAdornment: (
-                <Adorment position="end">
+                <InputAdornment className={classes.Adorment} position="end">
                   <IconButton
                     edge="end"
                     aria-label="toggle password visibility"
@@ -131,24 +159,22 @@ class FormRegisterUser extends Component {
                   >
                     {showPassword ? <VisibilityOff color="secondary" /> : <Visibility color="secondary" />}
                   </IconButton>
-                </Adorment>
+                </InputAdornment>
               ),
             }}
             label="Ingrese su contraseña"
             margin="normal"
             name="password"
             type={showPassword ? 'text' : 'password'}
-            validators={['required']}
+            validators={['required', 'minStringLength:4', 'maxStringLength:100', 'matchRegexp:^[A-Za-z0-9]+$']}
             value={formData.password}
-            onBlur={handleOnBlur}
             onChange={handleOnChange}
           />
         </Grid>
         <Grid item xs={12}>
           <TextValidator
-            ref={dniRef}
             fullWidth
-            errorMessages={['Este campo es requerido.', 'El dni debe ser un número.']}
+            errorMessages={['Este campo es requerido.', 'El dni debe ser un número.', 'Debe tener un minimo de 4 numeros', 'Debe tener un máximo de 12 números.']}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -156,23 +182,40 @@ class FormRegisterUser extends Component {
                 </InputAdornment>
               ),
             }}
-            label="Ingrese su dni"
+            label="DNI (Solo números)"
             margin="normal"
             name="dni"
             type="number"
-            validators={['required', 'isNumber']}
+            validators={['required', 'isNumber', 'minStringLength:4', 'maxStringLength:12',]}
             value={formData.dni}
-            onBlur={handleOnBlur}
             onChange={handleOnChange}
           />
         </Grid>
+        <Grid
+          container
+          alignItems="center"
+          direction="row"
+          justify="space-between"
+        >
+          <Link className={classes.SentButton} to="/">
+            Ya tengo una cuenta, Ingresar.
+          </Link>
+          <Button
+            className={classes.SentButton}
+            color="primary"
+            type="submit"
+            variant="contained"
+          >
+            Enviar
+          </Button>
+        </Grid>
+        {isLoading ? <Spinner /> : ""}
+        {openMsg ? <ModalMsg msg={hasMsg} success={success} /> : ""}
       </ValidatorForm>
     );
   }
 }
 
-FormRegisterUser.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
-
-export default FormRegisterUser;
+export default withStyles(styles)(
+  withRouter(props => <FormRegisterUser {...props} />)
+);
