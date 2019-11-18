@@ -16,10 +16,6 @@ const ButtonForm = styled(Button)({
   marginTop: "1rem",
 });
 
-const GridFormC = styled(Grid)({
-  marginTop: "1rem",
-});
-
 class FormLogin extends Component {
   state = {
     formData: {
@@ -124,11 +120,6 @@ class FormLogin extends Component {
             INGRESAR
           </ButtonForm>
         </Grid>
-        <GridFormC container alignItems="center" justify="flex-end">
-          <Grid item md={6} xs={10}>
-            <Link to="/register">No tiene cuenta? Registrarse</Link>
-          </Grid>
-        </GridFormC>
       </ValidatorForm>
     );
   }

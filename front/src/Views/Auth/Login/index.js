@@ -1,52 +1,42 @@
 import React, {Component} from "react";
-import {withRouter} from "react-router-dom";
-import {
-  Grid,
-  Paper,
-  CssBaseline,
-  CircularProgress,
-  Snackbar,
-  SnackbarContent,
-  IconButton,
-} from "@material-ui/core";
-import {Close, Error} from "@material-ui/icons";
-import {styled} from "@material-ui/core/styles";
+import {withRouter, Link} from "react-router-dom";
+import clsx from "clsx";
+import {Grid, Paper, CssBaseline} from "@material-ui/core";
+import {withStyles} from "@material-ui/core/styles";
+
 import Api from "../../../Services/Api";
 import Auth from "../../../Services/Auth";
 import FormLogin from "../../../Components/Forms/FormLogin";
 import {AppContext} from "../../../Store";
+import Spinner from "../../../Components/Spinner";
+import ModalMsg from "../../../Components/Messages/ModalMsg";
 
 // Roles by view
 const ROLES = Api.roles.all();
 
-// Wrapper new styled components...
-const Content = styled("div")({
-  height: "100vh",
-  display: "flex",
-  backgroundImage: "url('assets/pattern-veton.png')",
-  backgroundSize: "cover",
-});
-
-const PaperLogin = styled(Paper)({
-  padding: "3rem",
-});
-
-const ContentLogin = styled("div")({
-  marginTop: "2rem",
-});
-
-const SnackError = styled(SnackbarContent)({
-  backgroundColor: "#D32F2F",
-});
-
-const SpanError = styled("span")({
-  display: "flex",
-  alignItems: "center",
-});
-
-const ErrorIconSnack = styled(Error)({
-  marginRight: ".5rem",
-});
+const styles = {
+  Content: {
+    height: "100vh",
+    overflowY: "auto",
+    display: "flex",
+    backgroundImage: "url('assets/pattern-veton.jpg')",
+    backgroundSize: "cover",
+  },
+  PaperLogin: {
+    padding: "2rem",
+    borderRadius: "23px",
+  },
+  ContentLogin: {
+    marginTop: "2rem",
+  },
+  SpanError: {
+    display: "flex",
+    alignItems: "center",
+  },
+  Register: {
+    marginTop: "1rem",
+  },
+};
 
 class Login extends Component {
   state = {
@@ -77,7 +67,7 @@ class Login extends Component {
     try {
       this.setState({...state, isLoading: true});
       const {
-        data: {success, additional_info},
+        data: {success, additional_info, msg},
       } = await Auth.login(request);
       if (success) {
         this.setState({...state, isLoading: false, hasError: null});
@@ -89,9 +79,15 @@ class Login extends Component {
         this.setState({
           ...state,
           isLoading: false,
-          hasError: "Se produjo un error al autenticarse",
+          hasError: msg,
           openError: true,
         });
+        setTimeout(() => {
+          this.setState({
+            ...state,
+            openMsg: false,
+          });
+        }, 3000);
       }
     } catch (err) {
       this.setState({
@@ -100,18 +96,25 @@ class Login extends Component {
         openError: true,
         hasError: err,
       });
+      setTimeout(() => {
+        this.setState({
+          ...state,
+          openMsg: false,
+        });
+      }, 3000);
     }
   };
 
   render() {
-    const {isLoading, hasError, openError} = this.state;
+    const {isLoading, openError, hasError} = this.state;
     const {handleOnSubmit, handleClose} = this;
+    const {classes} = this.props;
     return (
-      <Content>
+      <div className={classes.Content}>
         <CssBaseline />
         <Grid container alignItems="center" direction="row" justify="center">
-          <Grid item md={3} xs={10}>
-            <PaperLogin>
+          <Grid item lg={6} md={6} xl={3} xs={10}>
+            <Paper className={classes.PaperLogin}>
               <Grid item xs={12}>
                 <img
                   alt="Logo vet On, veterinaria online"
@@ -119,46 +122,33 @@ class Login extends Component {
                 />
               </Grid>
               <Grid item xs={12}>
-                <ContentLogin>
+                <div className={classes.ContentLogin}>
                   {isLoading ? (
-                    <CircularProgress color="secondary" />
+                    <Spinner />
                   ) : (
                     <FormLogin onSubmit={handleOnSubmit} />
                   )}
                   {openError ? (
-                    <Snackbar
-                      anchorOrigin={{vertical: "bottom", horizontal: "right"}}
-                      autoHideDuration={6000}
-                      open={openError}
-                      onClose={handleClose}
-                    >
-                      <SnackError
-                        action={
-                          <IconButton
-                            aria-label="close"
-                            color="inherit"
-                            onClick={handleClose}
-                          >
-                            <Close />
-                          </IconButton>
-                        }
-                        message={
-                          <SpanError>
-                            <ErrorIconSnack />
-                            {hasError}
-                          </SpanError>
-                        }
-                      />
-                    </Snackbar>
+                    <ModalMsg hasSucces={false} msg={hasError} />
                   ) : (
                     ""
                   )}
-                </ContentLogin>
+                </div>
               </Grid>
-            </PaperLogin>
+              <Grid
+                container
+                alignItems="center"
+                className={classes.Register}
+                justify="center"
+              >
+                <Grid item md={12} xs={12}>
+                  <Link to="/register">No tiene cuenta? Registrarse</Link>
+                </Grid>
+              </Grid>
+            </Paper>
           </Grid>
         </Grid>
-      </Content>
+      </div>
     );
   }
 }
@@ -167,4 +157,4 @@ class Login extends Component {
 Login.contextType = AppContext;
 
 // Add router to handle history push go to other page...
-export default withRouter(props => <Login {...props} />);
+export default withStyles(styles)(withRouter(props => <Login {...props} />));
