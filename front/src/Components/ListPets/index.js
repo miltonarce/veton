@@ -30,8 +30,15 @@ class ListPets extends React.Component {
         spacing={2}
       >
         {pets.map((pet, i) => (
-          <GridList key={i} item xs={4}>
-            <Pet {...pet} />
+          <GridList key={i} item lg={4} md={6} xl={4} xs={12}>
+            <Grid
+              container
+              alignItems="center"
+              direction="row"
+              justify="center"
+            >
+              <Pet {...pet} />
+            </Grid>
           </GridList>
         ))}
       </Grid>

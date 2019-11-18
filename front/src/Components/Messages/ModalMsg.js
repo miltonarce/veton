@@ -69,7 +69,7 @@ const ModalMsg = props => {
                 strokeWidth="6"
               />
             </svg>
-            <p className="success">{props.msg}...</p>
+            <p className="modal-msg-p success">{props.msg}...</p>
           </Paper>
         </div>
       </>
@@ -121,7 +121,7 @@ const ModalMsg = props => {
               y2="92.2"
             />
           </svg>
-          <p className="error">{props.msg}...</p>
+          <p className="modal-msg-p error">{props.msg}...</p>
         </Paper>
       </div>
     </>
