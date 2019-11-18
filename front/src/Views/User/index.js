@@ -19,6 +19,7 @@ const ContentMain = styled("div")({
   position: "absolute",
   height: "100vh",
   overflowY: "auto",
+  overflowX: "hidden",
   backgroundImage: "url('assets/pattern-veton2.png')",
   backgroundSize: "cover",
 });
