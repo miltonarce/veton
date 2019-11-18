@@ -94,10 +94,10 @@ const Pet = ({id_pet, name, last_name, image, birthday, weight, comments}) => {
     <CardPet>
       <ContentMedia>
         <CardPetMedia
-          image={
-            image
-              ? `http://api.veton/imgs/${image}`
-              : "https://via.placeholder.com/300x200"
+          alt={`Foto de ${name}`}
+          component="img"
+          src={
+            image ? `http://api.veton/imgs/${image}` : "/assets/no-image.png"
           }
           title="Mascota Imagen"
         />
