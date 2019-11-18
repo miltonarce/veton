@@ -270,7 +270,7 @@ class FormRegisterVeterinary extends Component {
                   </InputAdornment>
                 ),
               }}
-              label="CUIT / CUIL (Solo números)"
+              label="CUIT/CUIL (Solo números)"
               margin="normal"
               name="cuit_cuil"
               type="number"

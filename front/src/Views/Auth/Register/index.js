@@ -56,7 +56,7 @@ const Register = () => {
             marginTop: "100px",
             marginBottom: "200px",
           }}
-          xl={6}
+          xl={5}
           xs={10}
         >
           <Paper className={classes.PaperLogin}>
@@ -66,7 +66,7 @@ const Register = () => {
               direction="row"
               justify="center"
             >
-              <Grid item xs={12}>
+              <Grid item xs={10}>
                 <img
                   alt="Logo vet On, veterinaria online"
                   src="assets/Logo.svg"
