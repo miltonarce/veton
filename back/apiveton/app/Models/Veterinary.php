@@ -51,4 +51,12 @@ class Veterinary extends Model
     {
         return $this->belongsToMany(User::class, 'user_veterinary', 'id_veterinary', 'id_user', 'id_veterinary', 'id_user')->withTimestamps();
     }
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'id_veterinary', 'id_veterinary');
+    }
+    public function friends()
+    {
+        return $this->morphToMany(Friends::class, 'user_veterinary_friendship');
+    }
 }

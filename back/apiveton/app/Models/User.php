@@ -61,6 +61,14 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Veterinary::class, 'user_veterinary', 'id_user', 'id_veterinary', 'id_user', 'id_veterinary')->withTimestamps();
     }
 
+    public function friends()
+    {
+        return $this->morphToMany(Friends::class , 'user_veterinary_friendship');
+    }
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'id_user', 'id_user');
+    }
     public function getJWTIdentifier()
     {
         return $this->getKey();

@@ -25,5 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DewormersTableSeeder::class);
         $this->call(Vaccine_PetTableSeeder::class);
         $this->call(Dewormer_PetTableSeeder::class);
+        $this->call(User_Veterinary_FriendshipSeeder::class);
+        $this->call(AppointmentsTableSeeder::class);
     }
 }
