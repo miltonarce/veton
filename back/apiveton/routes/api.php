@@ -67,9 +67,9 @@ Route::delete('consultations/{idConsultation}', 'Api\\ConsultationsController@re
 // Appointments (Registrar un turno)
 Route::post('appointments', 'Api\\AppointmentsController@save');
 // Appointments (Obtener los turnos que realizó una persona)
-Route::get('appointments/user', 'Api\\AppointmentsController@findByUser');
+Route::get('appointments/{user}', 'Api\\AppointmentsController@findByUser');
 // Appointments (Cancelar un turno de una persona...)
-Route::delete('appointments/user', 'Api\\AppointmentsController@delete');
+Route::delete('appointments/{user}/{idAppointment}', 'Api\\AppointmentsController@delete');
 // Appointments (Obtener los turnos registrados de una veterinaria dado una fecha)
 Route::get('appointments/veterinary/{idVet}/{date}', 'Api\\AppointmentsController@findByVet');
 
