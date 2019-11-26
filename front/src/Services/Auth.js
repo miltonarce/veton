@@ -1,9 +1,10 @@
 import axios from "axios";
+import {URL_BASE} from "../Utils/globals";
 
 // Default instace for axios with API path and timeout
 // Add credentials, and headers for cookie and jwt support...
 const axiosInstance = axios.create({
-  baseURL: "http://api.veton/api/auth",
+  baseURL: `${URL_BASE}auth`,
   timeout: 2000,
   credentials: "include",
   headers: {

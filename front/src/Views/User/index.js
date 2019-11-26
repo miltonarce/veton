@@ -18,10 +18,14 @@ const ContentMain = styled("div")({
   bottom: "0",
   position: "absolute",
   height: "100vh",
-  overflowY: "auto",
   overflowX: "hidden",
   backgroundImage: "url('assets/pattern-veton2.png')",
   backgroundSize: "cover",
+});
+
+const ContainerMain = styled("main")({
+  height: "auto",
+  minHeight: "-webkit-fill-available",
 });
 
 class User extends React.Component {
@@ -31,15 +35,17 @@ class User extends React.Component {
       <ContentMain>
         <CssBaseline />
         <Header />
-        <Route exact component={Pets} path={match.path} />
-        <Route component={Pets} path={`${match.path}/pets`} />
-        <Route component={PetDetail} path={`${match.path}/pet/:id`} />
-        <Route component={Profile} path={`${match.path}/profile`} />
-        <Route component={AddPet} path={`${match.path}/add-pet`} />
-        <Route
-          component={Appointment}
-          path={`${match.path}/register-appointment`}
-        />
+        <ContainerMain>
+          <Route exact component={Pets} path={match.path} />
+          <Route component={Pets} path={`${match.path}/pets`} />
+          <Route component={PetDetail} path={`${match.path}/pet/:id`} />
+          <Route component={Profile} path={`${match.path}/profile`} />
+          <Route component={AddPet} path={`${match.path}/add-pet`} />
+          <Route
+            component={Appointment}
+            path={`${match.path}/register-appointment`}
+          />
+        </ContainerMain>
         <Footer />
       </ContentMain>
     );
