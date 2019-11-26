@@ -37,7 +37,6 @@ const AppointmentDatePicker = ({ onDateChange, isDisabled = false }) => {
                 okLabel="Aceptar"
                 todayLabel="Hoy"
                 invalidDateMessage="Fecha Inválida"
-                inputVariant="outlined"
                 minDateMessage="La fecha no debe ser anterior a la fecha mínima"
                 maxDateMessage="La fecha no debe ser posterior a la fecha máxima"
                 format="DD/MM/YYYY"
