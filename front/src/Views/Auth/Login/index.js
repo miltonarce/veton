@@ -113,7 +113,7 @@ class Login extends Component {
       <div className={classes.Content}>
         <CssBaseline />
         <Grid container alignItems="center" direction="row" justify="center">
-          <Grid item lg={6} md={6} xl={3} xs={10}>
+          <Grid item lg={3} md={6} xl={2} xs={10}>
             <Paper className={classes.PaperLogin}>
               <Grid item xs={12}>
                 <img

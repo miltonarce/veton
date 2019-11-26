@@ -6,7 +6,7 @@ import {
   CircularProgress,
   Grid,
 } from "@material-ui/core";
-import FormAddPet from "../../../Components/Forms/Pet";
+import FormAddPet from "../../../Components/Forms/FormAddPet";
 import Api from "../../../Services/Api";
 import TitlePages from "../../../Components/TitlePages";
 import AlertMsg from "../../../Components/Messages/AlertMsg";
@@ -19,8 +19,8 @@ class AddPet extends React.Component {
     statusPet: {},
   };
 
-  //Get breeds and type to populate form
-  //Promise all to better solution
+  // Get breeds and type to populate form
+  // Promise all to better solution
   async componentDidMount() {
     const {state} = this;
     try {
@@ -110,5 +110,5 @@ class AddPet extends React.Component {
   }
 }
 
-//Add router to handle history push go to other page...
+// Add router to handle history push go to other page...
 export default withRouter(props => <AddPet {...props} />);
