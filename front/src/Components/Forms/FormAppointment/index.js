@@ -1,6 +1,6 @@
 import React from "react";
+import AppointmentHourPicker from "../../AppointmentHourPicker";
 import AppointmentDatePicker from "../../AppointmentDatePicker";
-import AppointmentHourPicker from "../..//AppointmentHourPicker"
 import {
     Grid,
     TextField,
@@ -16,9 +16,9 @@ import {
     InputLabel,
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import ApiVet from '../../../Services/ApiVet';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+import ApiVet from "../../../Services/ApiVet";
 
 const styles = {
     TitleView: {
@@ -27,27 +27,26 @@ const styles = {
         textAlign: "center",
     },
     ButtonConfirm: {
-        marginTop: '10px'
+        marginTop: "10px",
     },
     Autocomplete: {
-        marginBottom: "1rem"
-    }
+        marginBottom: "1rem",
+    },
 };
 
 class FormAppointment extends React.Component {
-
     state = {
         hours: [],
         veterinaries: [],
         veterinarySelected: null,
         request: {
             date: null,
-            time: null,
-            reason: '',
-            type: 'Sin especificar',
+            hour: null,
+            reason: "",
+            type: "Sin especificar",
             id_veterinary: null,
-        }
-    }
+        },
+    };
 
     async componentDidMount() {
         try {
@@ -57,6 +56,7 @@ class FormAppointment extends React.Component {
             console.error('err al obtener todas las veterinarias');
         }
     }
+
 
     /**
      * Method to handle when user change date, and fetch the hours avalaibles for that date
@@ -68,16 +68,19 @@ class FormAppointment extends React.Component {
             ...this.state,
             request: {
                 ...this.state.request,
-                date
-            }
+                date,
+            },
         });
         try {
-            const hours = await ApiVet.appointments.fetch(date, this.state.veterinarySelected.id_veterinary);
+            const hours = await ApiVet.appointments.fetch(
+                date,
+                this.state.veterinarySelected.id_veterinary
+            );
             this.setState({ ...this.state, hours });
         } catch (err) {
-            console.error('err', err);
+            console.error("err", err);
         }
-    }
+    };
 
     /**
      * Method to handle when user change hour form
@@ -118,12 +121,13 @@ class FormAppointment extends React.Component {
     handleOnChange = event => {
         const { name, value } = event.target;
         this.setState({
-            ...this.state, request: {
+            ...this.state,
+            request: {
                 ...this.state.request,
-                [name]: value
-            }
+                [name]: value,
+            },
         });
-    }
+    };
 
     /**
      * Method to handle submit event validate form and call props to parent

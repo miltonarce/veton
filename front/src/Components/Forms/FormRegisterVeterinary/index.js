@@ -1,14 +1,12 @@
 import React, {Component} from "react";
-import PropTypes from "prop-types";
 import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
+import {withRouter, Link} from "react-router-dom";
 import {
   InputAdornment,
   Grid,
   IconButton,
   Typography,
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
+  Button,
 } from "@material-ui/core";
 import {
   Email,
@@ -20,13 +18,21 @@ import {
   Apartment,
   Phone,
   AspectRatio,
-  ExpandMore,
 } from "@material-ui/icons";
-import {styled} from "@material-ui/core/styles";
+import {withStyles} from "@material-ui/core/styles";
 
-const Adorment = styled(InputAdornment)({
-  marginRight: "8px",
-});
+import Spinner from "../../Spinner";
+import ModalMsg from "../../Messages/ModalMsg";
+import Auth from "../../../Services/Auth";
+
+const styles = {
+  Adorment: {
+    marginRight: "8px",
+  },
+  SentButton: {
+    marginTop: "2rem",
+  },
+};
 
 class FormRegisterVeterinary extends Component {
   state = {
@@ -42,88 +48,10 @@ class FormRegisterVeterinary extends Component {
       fantasy_name: "",
     },
     showPassword: false,
-    expanded: false,
-  };
-
-  componentDidMount() {
-    const {state, props} = this;
-    props.onSubmit({data: state.formData, disabled: true});
-  }
-
-  emailRef = React.createRef();
-
-  passwordRef = React.createRef();
-
-  dniRef = React.createRef();
-
-  businessRef = React.createRef();
-
-  fantasyRef = React.createRef();
-
-  ccRef = React.createRef();
-
-  phone1Ref = React.createRef();
-
-  streetRef = React.createRef();
-
-  handleExpanded = panel => (event, isExpanded) => {
-    const {state} = this;
-    this.setState({...state, expanded: isExpanded ? panel : false});
-  };
-
-  handleOnBlur = event => {
-    const {
-      props,
-      state,
-      emailRef,
-      passwordRef,
-      dniRef,
-      businessRef,
-      fantasyRef,
-      ccRef,
-      phone1Ref,
-      streetRef,
-    } = this;
-    switch (event.target.name) {
-      case "email":
-        emailRef.current.validate(event.target.value);
-        break;
-      case "password":
-        passwordRef.current.validate(event.target.value);
-        break;
-      case "dni":
-        dniRef.current.validate(event.target.value);
-        break;
-      case "business_name":
-        businessRef.current.validate(event.target.value);
-        break;
-      case "cuit_cuil":
-        ccRef.current.validate(event.target.value);
-        break;
-      case "phone1":
-        phone1Ref.current.validate(event.target.value);
-        break;
-      case "street":
-        streetRef.current.validate(event.target.value);
-        break;
-      case "fantasy_name":
-        fantasyRef.current.validate(event.target.value);
-        break;
-      default:
-        return "";
-    }
-
-    this.form.isFormValid().then(isValid => {
-      if (isValid) {
-        props.onSubmit({data: state.formData, disabled: false});
-      }
-    });
-  };
-
-  handleOnSubmit = event => {
-    const {props, state} = this;
-    event.preventDefault();
-    props.onSubmit(state.formData);
+    isLoading: false,
+    openMgs: false,
+    hasMsg: null,
+    succes: false,
   };
 
   handleOnChange = event => {
@@ -141,258 +69,282 @@ class FormRegisterVeterinary extends Component {
     event.preventDefault();
   };
 
+  handleSubmit = async () => {
+    const {state} = this;
+    const {history} = this.props;
+
+    try {
+      this.setState({...state, isLoading: true});
+      const {data} = await Auth.register(state.formData);
+      if (data.success) {
+        setTimeout(() => {
+          this.setState({
+            ...state,
+            isLoading: false,
+            openMsg: true,
+            hasMsg: data.msg,
+            success: data.success,
+          });
+        }, 3000);
+        setTimeout(() => {
+          history.push(`/`);
+        }, 6000);
+      } else {
+        setTimeout(() => {
+          this.setState({
+            ...state,
+            isLoading: false,
+            hasMsg: data.msg,
+            openMsg: true,
+            success: data.success,
+          });
+        }, 3000);
+        setTimeout(() => {
+          this.setState({
+            ...state,
+            openMsg: false,
+          });
+        }, 6000);
+      }
+    } catch (err) {
+      this.setState({
+        ...state,
+        isLoading: false,
+        hasMsg:
+          "Se produjo un error al registarse, por favor verifique sus datos.",
+        openMsg: true,
+      });
+      setTimeout(() => {
+        this.setState({
+          ...state,
+          openMsg: false,
+        });
+      }, 6000);
+    }
+  };
+
   render() {
-    const {formData, showPassword, expanded} = this.state;
+    const {classes} = this.props;
     const {
-      handleOnSubmit,
+      formData,
+      showPassword,
+      isLoading,
+      openMsg,
+      hasMsg,
+      success,
+    } = this.state;
+    const {
+      handleSubmit,
       handleOnChange,
-      handleOnBlur,
       handleClickShowPassword,
       handleMouseDownPassword,
-      handleExpanded,
-      emailRef,
-      passwordRef,
-      dniRef,
-      businessRef,
-      fantasyRef,
-      ccRef,
-      phone1Ref,
-      streetRef,
     } = this;
     return (
-      <ValidatorForm
-        ref={r => {
-          this.form = r;
-        }}
-        instantValidate
-        onSubmit={handleOnSubmit}
-      >
-        <ExpansionPanel
-          expanded={expanded === "panel1"}
-          onChange={handleExpanded("panel1")}
+      <ValidatorForm ref="form" onSubmit={handleSubmit}>
+        <Typography gutterBottom variant="body2">
+          Datos personales
+        </Typography>
+        <Grid container>
+          <Grid item xs={12}>
+            <TextValidator
+              fullWidth
+              errorMessages={['Este campo es requerido.', 'No es un email valido.']}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <Email color="secondary" />
+                  </InputAdornment>
+                ),
+              }}
+              label="Email"
+              margin="normal"
+              name="email"
+              validators={['required', 'isEmail']}
+              value={formData.email}
+              onChange={handleOnChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextValidator
+              fullWidth
+              errorMessages={['La contraseña es requerida', 'La contraseña debe tener un mínimo de 4 caracteres', 'La contraseñá puede tener un máximo de 100 caracteres', 'Solo se aceptan letras y numeros para la contraseñá, sin espacios.']}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment className={classes.Adorment} position="end">
+                    <IconButton
+                      edge="end"
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword ? <VisibilityOff color="secondary" /> : <Visibility color="secondary" />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              label="Contraseña"
+              margin="normal"
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              validators={['required', 'minStringLength:4', 'maxStringLength:100', 'matchRegexp:^[A-Za-z0-9]+$']}
+              value={formData.password}
+              onChange={handleOnChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextValidator
+              fullWidth
+              errorMessages={['Este campo es requerido.', 'El dni debe ser un número.', 'Debe tener un minimo de 4 numeros', 'Debe tener un máximo de 12 números.']}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <FeaturedPlayList color="secondary" />
+                  </InputAdornment>
+                ),
+              }}
+              label="DNI (Solo números)"
+              margin="normal"
+              name="dni"
+              type="number"
+              validators={['required', 'isNumber', 'minStringLength:4', 'maxStringLength:12',]}
+              value={formData.dni}
+              onChange={handleOnChange}
+            />
+          </Grid>
+        </Grid>
+        <Typography gutterBottom variant="body2">
+          Datos de la veterinaria
+        </Typography>
+        <Grid
+          container
+          alignItems="center"
+          direction="row"
+          justify="space-between"
         >
-          <ExpansionPanelSummary
-            aria-controls="panel1a-content"
-            expandIcon={<ExpandMore />}
-            id="panel1a-header"
-          >
-            <Typography gutterBottom variant="body2">
-              Datos personales
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Grid container>
-              <Grid item xs={12}>
-                <TextValidator
-                  ref={emailRef}
-                  fullWidth
-                  errorMessages={['Este campo es requerido.', 'No es un email valido.']}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="start">
-                        <Email color="secondary" />
-                      </InputAdornment>
-                    ),
-                  }}
-                  label="Email"
-                  margin="normal"
-                  name="email"
-                  validators={['required', 'isEmail']}
-                  value={formData.email}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextValidator
-                  ref={passwordRef}
-                  fullWidth
-                  errorMessages={['Este campo es requerido.']}
-                  InputProps={{
-                    endAdornment: (
-                      <Adorment position="end">
-                        <IconButton
-                          edge="end"
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                        >
-                          {showPassword ? <VisibilityOff color="secondary" /> : <Visibility color="secondary" />}
-                        </IconButton>
-                      </Adorment>
-                    ),
-                  }}
-                  label="Contraseña"
-                  margin="normal"
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
-                  validators={['required']}
-                  value={formData.password}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextValidator
-                  ref={dniRef}
-                  fullWidth
-                  errorMessages={['Este campo es requerido.', 'El dni debe ser un número.']}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="start">
-                        <FeaturedPlayList color="secondary" />
-                      </InputAdornment>
-                    ),
-                  }}
-                  label="DNI"
-                  margin="normal"
-                  name="dni"
-                  type="number"
-                  validators={['required', 'isNumber']}
-                  value={formData.dni}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                />
-              </Grid>
-            </Grid>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel
-          expanded={expanded === "panel2"}
-          onChange={handleExpanded("panel2")}
+          <Grid item lg={5} xs={12}>
+            <TextValidator
+              fullWidth
+              errorMessages={['Este campo es requerido.', 'El nombre debe tener al menos 2 caracteres']}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <BusinessCenter color="secondary" />
+                  </InputAdornment>
+                ),
+              }}
+              label="Nombre de la empresa"
+              margin="normal"
+              name="business_name"
+              validators={['required', 'minStringLength:2']}
+              value={formData.business_name}
+              onChange={handleOnChange}
+            />
+          </Grid>
+          <Grid item lg={5} xs={12}>
+            <TextValidator
+              fullWidth
+              errorMessages={['Este campo es requerido.', 'El nombre de fantasia debe tener al menos 2 caracteres']}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <Apartment color="secondary" />
+                  </InputAdornment>
+                ),
+              }}
+              label="Nombre de fantasía"
+              margin="normal"
+              name="fantasy_name"
+              validators={['required', 'minStringLength:2']}
+              value={formData.fantasy_name}
+              onChange={handleOnChange}
+            />
+          </Grid>
+          <Grid item lg={5} xs={12}>
+            <TextValidator
+              fullWidth
+              errorMessages={['Este campo es requerido.', 'El cuit debe ser un número', 'Debe tener un minimo de 4 numeros', 'Debe tener un máximo de 20 números.']}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <AspectRatio color="secondary" />
+                  </InputAdornment>
+                ),
+              }}
+              label="CUIT/CUIL (Solo números)"
+              margin="normal"
+              name="cuit_cuil"
+              type="number"
+              validators={['required', 'isNumber', 'minStringLength:4', 'maxStringLength:20']}
+              value={formData.cuit_cuil}
+              onChange={handleOnChange}
+            />
+          </Grid>
+          <Grid item lg={5} xs={12}>
+            <TextValidator
+              fullWidth
+              errorMessages={['Este campo es requerido.', 'El  teléfono debe ser un numero']}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <Phone color="secondary" />
+                  </InputAdornment>
+                ),
+              }}
+              label="Teléfono (Solo números)"
+              margin="normal"
+              name="phone1"
+              placeholder="Ej: 01115333333"
+              type="number"
+              validators={['required', 'isNumber']}
+              value={formData.phone1}
+              onChange={handleOnChange}
+            />
+          </Grid>
+          <Grid item lg={5} xs={12}>
+            <TextValidator
+              fullWidth
+              errorMessages={['Este campo es requerido.']}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <MyLocation color="secondary" />
+                  </InputAdornment>
+                ),
+              }}
+              label="Domicilio"
+              margin="normal"
+              name="street"
+              validators={['required',]}
+              value={formData.street}
+              onChange={handleOnChange}
+            />
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          alignItems="center"
+          direction="row"
+          justify="space-between"
         >
-          <ExpansionPanelSummary
-            aria-controls="panel1a-content"
-            expandIcon={<ExpandMore />}
-            id="panel1a-header"
+          <Link className={classes.SentButton} to="/">
+            Ya tengo una cuenta, Ingresar.
+          </Link>
+          <Button
+            className={classes.SentButton}
+            color="primary"
+            type="submit"
+            variant="contained"
           >
-            <Typography gutterBottom variant="body2">
-              Datos de la veterinaria
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Grid
-              container
-              alignItems="center"
-              direction="row"
-              justify="space-between"
-            >
-              <Grid item xs={5}>
-                <TextValidator
-                  ref={businessRef}
-                  fullWidth
-                  errorMessages={['Este campo es requerido.']}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="start">
-                        <BusinessCenter color="secondary" />
-                      </InputAdornment>
-                    ),
-                  }}
-                  label="Nombre de la empresa"
-                  margin="normal"
-                  name="business_name"
-                  validators={['required']}
-                  value={formData.business_name}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                />
-              </Grid>
-              <Grid item xs={5}>
-                <TextValidator
-                  ref={fantasyRef}
-                  fullWidth
-                  errorMessages={['Este campo es requerido.']}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="start">
-                        <Apartment color="secondary" />
-                      </InputAdornment>
-                    ),
-                  }}
-                  label="Nombre de fantasía"
-                  margin="normal"
-                  name="fantasy_name"
-                  validators={['required']}
-                  value={formData.fantasy_name}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                />
-              </Grid>
-              <Grid item xs={5}>
-                <TextValidator
-                  ref={ccRef}
-                  fullWidth
-                  errorMessages={['Este campo es requerido.']}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="start">
-                        <AspectRatio color="secondary" />
-                      </InputAdornment>
-                    ),
-                  }}
-                  label="CUIT / CUIL"
-                  margin="normal"
-                  name="cuit_cuil"
-                  type="number"
-                  validators={['required',]}
-                  value={formData.cuit_cuil}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                />
-              </Grid>
-              <Grid item xs={5}>
-                <TextValidator
-                  ref={phone1Ref}
-                  fullWidth
-                  errorMessages={['Este campo es requerido.']}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="start">
-                        <Phone color="secondary" />
-                      </InputAdornment>
-                    ),
-                  }}
-                  label="Teléfono"
-                  margin="normal"
-                  name="phone1"
-                  type="number"
-                  validators={['required']}
-                  value={formData.phone1}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                />
-              </Grid>
-              <Grid item xs={5}>
-                <TextValidator
-                  ref={streetRef}
-                  fullWidth
-                  errorMessages={['Este campo es requerido.']}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="start">
-                        <MyLocation color="secondary" />
-                      </InputAdornment>
-                    ),
-                  }}
-                  label="Domicilio"
-                  margin="normal"
-                  name="street"
-                  validators={['required',]}
-                  value={formData.street}
-                  onBlur={handleOnBlur}
-                  onChange={handleOnChange}
-                />
-              </Grid>
-            </Grid>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+            Enviar
+          </Button>
+        </Grid>
+        {isLoading ? <Spinner /> : ""}
+        {openMsg ? <ModalMsg msg={hasMsg} success={success} /> : ""}
       </ValidatorForm>
     );
   }
 }
 
-FormRegisterVeterinary.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
-export default FormRegisterVeterinary;
+export default withStyles(styles)(
+  withRouter(props => <FormRegisterVeterinary {...props} />)
+);

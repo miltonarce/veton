@@ -74,11 +74,12 @@ class AuthController extends Controller
                 VeterinaryPendingApproval::create($data);
                 DB::commit();
                 return response()->json([
-                    'success' => true
+                    'success' => true,
+                    'msg' => 'El usuario y la veterinaria fueron creados con exito!',
                 ]);
             } catch(QueryException $e){
                  DB::rollback();
-                return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear su usuario', 'stack' => $e]);
+                return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear su usuario, por favor ingrese datos distintos.', 'stack' => $e]);
             }
         } else {
             try {
@@ -88,14 +89,14 @@ class AuthController extends Controller
                 $user = User::create($user);
                 return response()->json([
                     'success' => true,
-                    'msg' => 'Se creo su usuario!',
+                    'msg' => 'El usuario fue creado con exito!',
                     'id' => $user->id_user,
                     'stack' => ''
                 ]);
             } catch (QueryException $e) {
                 return response()->json([
                     'success' => false,
-                    'msg' => 'Se produjo un error al crear su usuario',
+                    'msg' => 'Se produjo un error al crear su usuario, por favor ingrese datos distintos.',
                     'stack' => $e]);
             }
         }

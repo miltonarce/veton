@@ -10,12 +10,18 @@ import PetDetail from "./PetDetail";
 import AddPet from "./AddPet";
 import Appointment from "./Appointment";
 import Header from "../../Components/Shared/Header";
+import Footer from "../../Components/Shared/Footer";
 
 const ContentMain = styled("div")({
   width: "100%",
   top: "0",
   bottom: "0",
   position: "absolute",
+  height: "100vh",
+  overflowY: "auto",
+  overflowX: "hidden",
+  backgroundImage: "url('assets/pattern-veton2.png')",
+  backgroundSize: "cover",
 });
 
 class User extends React.Component {
@@ -30,7 +36,11 @@ class User extends React.Component {
         <Route component={PetDetail} path={`${match.path}/pet/:id`} />
         <Route component={Profile} path={`${match.path}/profile`} />
         <Route component={AddPet} path={`${match.path}/add-pet`} />
-        <Route component={Appointment} path={`${match.path}/register-appointment`} />
+        <Route
+          component={Appointment}
+          path={`${match.path}/register-appointment`}
+        />
+        <Footer />
       </ContentMain>
     );
   }
