@@ -15,7 +15,6 @@ const PetLink = styled(Link)({
 });
 const ContainerMain = styled("div")({
   marginTop: "2rem",
-  marginBottom: "3.3rem",
 });
 
 class Pets extends React.Component {
@@ -47,9 +46,6 @@ class Pets extends React.Component {
 
   render() {
     const {petsList, isLoading} = this.state;
-    if (isLoading) {
-      return <Spinner />;
-    }
     return (
       <>
         <CssBaseline />
