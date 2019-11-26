@@ -15,6 +15,7 @@ const PetLink = styled(Link)({
 });
 const ContainerMain = styled("div")({
   marginTop: "2rem",
+  marginBottom: "3.3rem",
 });
 
 class Pets extends React.Component {

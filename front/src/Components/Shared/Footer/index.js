@@ -10,6 +10,8 @@ const styles = makeStyles({
     marginTop: "1rem",
     paddingBottom: "20px",
     paddingTop: "20px",
+    left: 0,
+    bottom: 0,
   },
   Logo: {
     width: "140px",

@@ -7,16 +7,14 @@ import {
   SnackbarContent,
   IconButton,
 } from "@material-ui/core";
-import {
-  Error,
-  Close
-} from "@material-ui/icons";
-import { withStyles } from "@material-ui/core/styles";
+import {Error, Close} from "@material-ui/icons";
+import {withStyles, styled} from "@material-ui/core/styles";
+
 import AlertMsg from "../../../Components/Messages/AlertMsg";
 import FormAppointment from "../../../Components/Forms/FormAppointment";
-import { AppContext } from "../../../Store";
+import {AppContext} from "../../../Store";
 import ApiVet from "../../../Services/ApiVet";
-import { styled } from "@material-ui/core/styles";
+import TitlePages from "../../../Components/TitlePages";
 
 const styles = {
   TitleAppointment: {
@@ -40,74 +38,98 @@ const ErrorIconSnack = styled(Error)({
 });
 
 class Appointment extends React.Component {
-
   state = {
     isLoading: false,
     statusAppointment: {},
-  }
+  };
 
   handleOnSubmit = async request => {
-    const { auth: { user: { id_user } } } = this.context;
-    const requestAppointment = { ...request, id_user };
+    const {
+      auth: {
+        user: {id_user},
+      },
+    } = this.context;
+    const requestAppointment = {...request, id_user};
     try {
-      this.setState({ ...this.state, isLoading: true });
-      const { data: { msg, success } } = await ApiVet.appointments.register(requestAppointment);
-      this.setState({ ...this.state, isLoading: false, statusAppointment: { msg, success } });
+      this.setState({...this.state, isLoading: true});
+      const {
+        data: {msg, success},
+      } = await ApiVet.appointments.register(requestAppointment);
+      this.setState({
+        ...this.state,
+        isLoading: false,
+        statusAppointment: {msg, success},
+      });
     } catch (err) {
-      this.setState({ ...this.state, isLoading: false, statusAppointment: { msg: "Se produjo un error al reservar el turno", success: false } });
+      this.setState({
+        ...this.state,
+        isLoading: false,
+        statusAppointment: {
+          msg: "Se produjo un error al reservar el turno",
+          success: false,
+        },
+      });
     }
-  }
+  };
 
   /**
    * Method to handle user close...
    * @returns {void}
    */
   handleClose = () => {
-    const { state } = this;
-    this.setState({ ...state, openError: false });
+    const {state} = this;
+    this.setState({...state, openError: false});
   };
 
-
   render() {
-    const { props: { classes }, handleOnSubmit, handleClose, state: { isLoading, statusAppointment } } = this;
+    const {
+      props: {classes},
+      handleOnSubmit,
+      handleClose,
+      state: {isLoading, statusAppointment},
+    } = this;
     return (
       <Container fixed>
-        <Typography
-          className={classes.TitleAppointment}
-          color="primary"
-          component="h1"
-        >
-          Reservá tu turno, es muy fácil
-        </Typography>
+        <TitlePages
+          subtitle="Aquí podrás reservar un turno en cualquier veterinaria."
+          title="Reserva de turnos"
+        />
         <FormAppointment onSubmit={handleOnSubmit} />
-        {!isLoading && statusAppointment.success && <AlertMsg hasSuccess={statusAppointment.success} msg={statusAppointment.msg} />}
-        {!isLoading && <Snackbar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          autoHideDuration={6000}
-          open={statusAppointment.success === false}
-          onClose={handleClose}
-        >
-          <SnackError
-            action={
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                onClick={handleClose}
-              >
-                <Close />
-              </IconButton>
-            }
-            message={
-              <SpanError>
-                <ErrorIconSnack />
-                {statusAppointment.msg}
-              </SpanError>
-            }
+        {!isLoading && statusAppointment.success && (
+          <AlertMsg
+            hasSuccess={statusAppointment.success}
+            msg={statusAppointment.msg}
           />
-        </Snackbar>}
+        )}
+        {!isLoading && (
+          <Snackbar
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            autoHideDuration={6000}
+            open={statusAppointment.success === false}
+            onClose={handleClose}
+          >
+            <SnackError
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  onClick={handleClose}
+                >
+                  <Close />
+                </IconButton>
+              }
+              message={
+                <SpanError>
+                  <ErrorIconSnack />
+                  {statusAppointment.msg}
+                </SpanError>
+              }
+            />
+          </Snackbar>
+        )}
         {isLoading && <CircularProgress color="secondary" />}
       </Container>
     );
