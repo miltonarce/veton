@@ -14,12 +14,14 @@ import {
   InputLabel,
   Paper,
 } from "@material-ui/core";
-import {withStyles} from "@material-ui/core/styles";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { withStyles } from "@material-ui/core/styles";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import AppointmentDatePicker from "../../AppointmentDatePicker";
 import AppointmentHourPicker from "../../AppointmentHourPicker";
 import ApiVet from "../../../Services/ApiVet";
+import moment from "moment";
 
 const styles = {
   TitleView: {
@@ -39,6 +41,9 @@ const styles = {
     marginTop: "2rem",
     marginBottom: "7.7rem",
   },
+  Error: {
+    marginBottom: "10px",
+  }
 };
 
 class FormAppointment extends React.Component {
@@ -47,20 +52,30 @@ class FormAppointment extends React.Component {
     veterinaries: [],
     veterinarySelected: null,
     request: {
-      date: null,
-      hour: null,
+      date: moment(new Date()).format("YYYY-MM-DD"),
+      time: null,
       reason: "",
-      type: "Sin especificar",
+      type: 0,
       id_veterinary: null,
     },
+    errorAutocomplete: false,
+    errorHour: false,
   };
+
+  reasonRef = React.createRef();
 
   async componentDidMount() {
     try {
-      const {data} = await ApiVet.veterinaries.fetch();
-      this.setState({...this.state, veterinaries: data});
+      const { data } = await ApiVet.veterinaries.fetch();
+      this.setState({ ...this.state, veterinaries: data });
     } catch (err) {
       console.error("err al obtener todas las veterinarias");
+    }
+  }
+
+  async componentDidUpdate(_, prevState) {
+    if (prevState.request.id_veterinary !== this.state.request.id_veterinary) {
+      this.handleOnDateChange(this.state.request.date);
     }
   }
 
@@ -96,6 +111,7 @@ class FormAppointment extends React.Component {
   handleOnHourChange = time => {
     this.setState({
       ...this.state,
+      errorHour: false,
       request: {
         ...this.state.request,
         time,
@@ -111,6 +127,7 @@ class FormAppointment extends React.Component {
   handleOnChangeAutocomplete = (event, veterinarySelected) => {
     this.setState({
       ...this.state,
+      errorAutocomplete: false,
       request: {
         ...this.state.request,
         id_veterinary: veterinarySelected.id_veterinary,
@@ -135,14 +152,24 @@ class FormAppointment extends React.Component {
     });
   };
 
+  handleOnBlur = event => {
+    const { reasonRef } = this;
+    reasonRef.current.validate(event.target.value);
+  };
+
   /**
    * Method to handle submit event validate form and call props to parent
    * @param {Event} event
    * @returns {void}
    */
   handleOnSubmit = event => {
+    const { id_veterinary, time, reason } = this.state.request;
     event.preventDefault();
-    this.props.onSubmit(this.state.request);
+    this.reasonRef.current.validate(reason);
+    this.setState({ ...this.state, errorAutocomplete: id_veterinary === null, errorHour: time === null});
+    if (id_veterinary !== null && time !== null) {
+      this.props.onSubmit(this.state.request);
+    }
   };
 
   render() {
@@ -152,8 +179,9 @@ class FormAppointment extends React.Component {
       handleOnHourChange,
       handleOnSubmit,
       handleOnChange,
+      handleOnBlur,
       handleOnChangeAutocomplete,
-      state: {hours, request, veterinaries, veterinarySelected},
+      state: {hours, request, veterinaries, veterinarySelected, errorAutocomplete, errorHour},
     } = this;
     return (
       <Grid
@@ -165,7 +193,7 @@ class FormAppointment extends React.Component {
       >
         <Grid item lg={8} xs={12}>
           <Paper className={classes.Paper}>
-            <form noValidate autoComplete="off" onSubmit={handleOnSubmit}>
+            <ValidatorForm autoComplete="off" instantValidate={false} onSubmit={handleOnSubmit}>
               <Autocomplete
                 disableClearable
                 className={classes.Autocomplete}
@@ -198,6 +226,7 @@ class FormAppointment extends React.Component {
                 value={veterinarySelected}
                 onChange={handleOnChangeAutocomplete}
               />
+              {errorAutocomplete && <FormHelperText className={classes.Error} error={errorAutocomplete}>Debes seleccionar una veterinaria</FormHelperText>}
               <Grid
                 container
                 direction="row"
@@ -206,6 +235,7 @@ class FormAppointment extends React.Component {
               >
                 <Grid item xs={6}>
                   <AppointmentDatePicker
+                    defaultValue={new Date()}
                     isDisabled={veterinarySelected === null}
                     onDateChange={handleOnDateChange}
                   />
@@ -216,6 +246,7 @@ class FormAppointment extends React.Component {
                     label="Seleccioná un horario"
                     onHourChange={handleOnHourChange}
                   />
+                  {errorHour && <FormHelperText className={classes.Error} error={errorHour}>Debes seleccionar un horario</FormHelperText>}
                 </Grid>
               </Grid>
               <FormControl fullWidth>
@@ -225,33 +256,35 @@ class FormAppointment extends React.Component {
                   id="type"
                   name="type"
                   value={request.type}
-                  value={request.type}
                   onChange={handleOnChange}
                 >
-                  <MenuItem value="Sin especificar">
+                  <MenuItem value={0}>
                     <em>Sin especificar</em>
                   </MenuItem>
-                  <MenuItem value="Consulta rápida">Consulta rápida</MenuItem>
-                  <MenuItem value="Consulta vacunación">
+                  <MenuItem value={1}>Consulta rápida</MenuItem>
+                  <MenuItem value={2}>
                     Consulta vacunación
                   </MenuItem>
-                  <MenuItem value="Otras">Otras</MenuItem>
+                  <MenuItem value={3}>Otras</MenuItem>
                 </Select>
                 <FormHelperText>
                   Para ayudarnos mejor elige un tipo de turno
                 </FormHelperText>
               </FormControl>
-              <TextField
-                fullWidth
-                required
+              <TextValidator
                 InputLabelProps={{
                   shrink: true,
                 }}
+                ref={this.reasonRef}
+                fullWidth
+                errorMessages={['El motivo del turno es requerido.']}
                 label="Motivo del turno"
                 margin="normal"
                 name="reason"
                 type="text"
+                validators={['required']}
                 value={request.reason}
+                onBlur={handleOnBlur}
                 onChange={handleOnChange}
               />
               <Grid
@@ -269,7 +302,7 @@ class FormAppointment extends React.Component {
                   Confirmar
                 </Button>
               </Grid>
-            </form>
+            </ValidatorForm>
           </Paper>
         </Grid>
       </Grid>

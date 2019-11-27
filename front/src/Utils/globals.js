@@ -25,20 +25,12 @@ const calculateAge = FechaNacimiento => {
  * @returns {object}
  */
 const findFreeHours = appointments => {
-  const APPOINTMENTS_HOURS = [
-    "9-10",
-    "10-11",
-    "11-12",
-    "13-14",
-    "15-16",
-    "16-17",
-    "17-18",
-    "19-20",
-  ];
-  const hoursSelectedByDate = appointments.map(appointment => appointment.hour);
-  return APPOINTMENTS_HOURS.filter(hour => !hoursSelectedByDate.includes(hour));
-};
+  const APPOINTMENTS_HOURS = ['9-10', '10-11', '11-12', '13-14', '15-16', '16-17', '17-18', '19-20'];
+  const hoursSelectedByDate = appointments.map(appointment => appointment.time);
+  return APPOINTMENTS_HOURS.filter(time => !hoursSelectedByDate.includes(time));
+}
 
 export {calculateAge, findFreeHours};
+
 
 export const URL_BASE = "http://api.veton/api/";

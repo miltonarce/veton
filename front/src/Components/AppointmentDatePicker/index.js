@@ -11,9 +11,8 @@ moment.locale("es");
  * Disabled sunday datepicker (day 0)
  * Current day today to...
  */
-const AppointmentDatePicker = ({ onDateChange, isDisabled = false }) => {
-    const today = new Date();
-    const [selectedDate, setSelectedDate] = useState(today);
+const AppointmentDatePicker = ({ defaultValue, onDateChange, isDisabled = false }) => {
+    const [selectedDate, setSelectedDate] = useState(defaultValue);
 
     const handleChange = event => {
         setSelectedDate(event);
