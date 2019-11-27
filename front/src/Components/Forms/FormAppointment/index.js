@@ -174,14 +174,14 @@ class FormAppointment extends React.Component {
 
   render() {
     const {
-      props: { classes },
+      props: {classes},
       handleOnDateChange,
       handleOnHourChange,
       handleOnSubmit,
       handleOnChange,
       handleOnBlur,
       handleOnChangeAutocomplete,
-      state: { hours, request, veterinaries, veterinarySelected, errorAutocomplete, errorHour },
+      state: {hours, request, veterinaries, veterinarySelected, errorAutocomplete, errorHour},
     } = this;
     return (
       <Grid
