@@ -1,8 +1,8 @@
 import axios from "axios";
-
-//Default instace for axios with API path and timeout
+import {URL_BASE} from "../Utils/globals";
+// Default instace for axios with API path and timeout
 const axiosInstance = axios.create({
-  baseURL: "http://api.veton/api",
+  baseURL: URL_BASE,
   timeout: 2000,
 });
 
@@ -12,13 +12,14 @@ export default {
     createPet: data => {
       // Formdata to send image input... form-url-encoded...
       const form_data = new FormData();
-      /*eslint no-unused-vars: 0*/
+      /* eslint no-unused-vars: 0 */
       for (const key in data) {
         form_data.append(key, data[key]);
       }
       return axiosInstance.post("/pets", form_data);
     },
-    lastPetsByVet: idUser => axiosInstance.get(`pets/last/veterinary/${idUser}`),
+    lastPetsByVet: idUser =>
+      axiosInstance.get(`pets/last/veterinary/${idUser}`),
   },
   clinicalhistories: {
     create: (idPet, request) =>

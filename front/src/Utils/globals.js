@@ -30,7 +30,7 @@ const findFreeHours = appointments => {
   return APPOINTMENTS_HOURS.filter(time => !hoursSelectedByDate.includes(time));
 }
 
-export {
-  calculateAge,
-  findFreeHours
-}
+export {calculateAge, findFreeHours};
+
+
+export const URL_BASE = "http://api.veton/api/";
