@@ -67,7 +67,7 @@ const ListConsultations = ({consultations}) => {
     <div className={classes.root}>
       <AppBar color="default" position="static">
         <Tabs
-          aria-label="full width tabs example"
+          aria-label="full width tabs"
           indicatorColor="primary"
           textColor="primary"
           value={value}

@@ -1,7 +1,7 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
-import {styled} from "@material-ui/core/styles";
+import {styled, makeStyles} from "@material-ui/core/styles";
 import {
   Card,
   CardHeader,
@@ -11,8 +11,12 @@ import {
   Paper,
   Button,
   Grid,
+  Modal,
+  Backdrop,
+  Fade,
 } from "@material-ui/core";
-import {ThumbUp} from "@material-ui/icons";
+import {GpsFixed} from "@material-ui/icons";
+import GoogleMapReact from "google-map-react";
 import {AppContext} from "../../Store";
 
 const CardPet = styled(Card)({
@@ -82,14 +86,36 @@ const ButtonDetailsPet = styled(Button)({
   marginBottom: "1rem",
 });
 
-const NotiIcon = styled(ThumbUp)({
+const NotiIcon = styled(GpsFixed)({
   color: "#999999",
 });
 
+const useStyles = makeStyles(theme => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    outline: 0,
+  },
+  paper: {
+    borderRadius: "23px",
+    padding: theme.spacing(2, 4, 3),
+    outline: 0,
+  },
+}));
+
 const Pet = ({id_pet, name, last_name, image, birthday, weight, comments}) => {
+  const classes = useStyles();
+  const AnyReactComponent = ({text}) => <div>{text}</div>;
   const {
     auth: {user},
   } = useContext(AppContext);
+  const [values, setValues] = useState({
+    openModal: false,
+  });
+  const handleModal = () => {
+    setValues({openModal: !values.openModal});
+  };
   return (
     <CardPet>
       <ContentMedia>
@@ -102,7 +128,10 @@ const Pet = ({id_pet, name, last_name, image, birthday, weight, comments}) => {
           title="Mascota Imagen"
         />
       </ContentMedia>
-      <CardPetHeader subheader={comments} title={`${name} ${last_name}`} />
+      <CardPetHeader
+        subheader={comments || "Sin comentarios."}
+        title={`${name} ${last_name}`}
+      />
       <CardContent>
         <Grid
           container
@@ -150,9 +179,13 @@ const Pet = ({id_pet, name, last_name, image, birthday, weight, comments}) => {
       <CardContent>
         <Grid container alignItems="center" direction="row" justify="center">
           <Grid item xs={3}>
-            <ButtonDetailsPet aria-label="notification" size="small">
+            {/* <ButtonDetailsPet
+              aria-label="notification"
+              size="small"
+              onClick={handleModal}
+            >
               <NotiIcon />
-            </ButtonDetailsPet>
+            </ButtonDetailsPet> */}
           </Grid>
           <Grid item xs={9}>
             <PetLink
@@ -167,6 +200,40 @@ const Pet = ({id_pet, name, last_name, image, birthday, weight, comments}) => {
           </Grid>
         </Grid>
       </CardContent>
+      {/* <Modal
+        closeAfterTransition
+        aria-describedby="transition-modal-description"
+        aria-labelledby="transition-modal-title"
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+        className={classes.modal}
+        open={values.openModal}
+        onClose={handleModal}
+      >
+        <Fade in={values.openModal}>
+          <Paper className={classes.paper}>
+            <h2>Ubicación actual de tu mascota</h2>
+            <div style={{height: "50vh", width: "100%"}}>
+              <GoogleMapReact
+                bootstrapURLKeys={{
+                  key: "AIzaSyCblp_aQbymjrLmPI8pS6PyHHW9SzBc63Y",
+                }}
+                defaultCenter={{lat: "-34.60143", lng: "-58.382667"}}
+                defaultZoom={9}
+              >
+                ,
+                <AnyReactComponent
+                  lat={59.955413}
+                  lng={30.337844}
+                  text="My Marker"
+                />
+              </GoogleMapReact>
+            </div>
+          </Paper>
+        </Fade>
+      </Modal> */}
     </CardPet>
   );
 };

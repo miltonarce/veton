@@ -5,7 +5,7 @@ import {URL_BASE} from "../Utils/globals";
 // Add credentials, and headers for cookie and jwt support...
 const axiosInstance = axios.create({
   baseURL: `${URL_BASE}auth`,
-  timeout: 2000,
+  timeout: 10000,
   credentials: "include",
   headers: {
     "X-Requested-With": "XMLHttpRequest",
