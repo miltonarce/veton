@@ -76,12 +76,12 @@ const Header = ({classes}) => {
               Inicio
             </Button>
           </Link> */}
-          <Link className={classes.ContentLink} to="/user/register-appointment">
+          <Link className={classes.ContentLink} to="/user/appointments">
             <Button color="inherit">
               <div className={classes.ContentIcon}>
                 <StoreOutlined />
               </div>{" "}
-              Reservar Turno
+              Turnos
             </Button>
           </Link>
           <Link className={classes.ContentLink} to="/user/pets">
