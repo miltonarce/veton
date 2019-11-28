@@ -47,7 +47,7 @@ class AppointmentsController extends Controller
     {
         try{
             $appointments = Appointment::where('id_user', '=', $idUser)
-                ->orderBy('appointments.date', 'asc')
+                ->orderBy('appointments.date', 'desc')
                 ->get();
             return response()->json([
                 'success' => true,
