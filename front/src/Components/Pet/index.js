@@ -16,7 +16,6 @@ import {
   Fade,
 } from "@material-ui/core";
 import {GpsFixed} from "@material-ui/icons";
-import GoogleMapReact from "google-map-react";
 import {AppContext} from "../../Store";
 
 const CardPet = styled(Card)({
