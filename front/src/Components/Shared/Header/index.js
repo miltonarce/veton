@@ -95,7 +95,7 @@ const Header = ({classes}) => {
           <div className={classes.ContentLink}>
             <div>
               <AccountCircle
-                aria-controls="simple-menu"
+                aria-controls="simple-menus"
                 aria-haspopup="true"
                 className={classes.ContentIcon}
                 onClick={handleClick}
