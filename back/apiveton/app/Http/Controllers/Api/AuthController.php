@@ -36,6 +36,7 @@ class AuthController extends Controller
                 'success' => true,
                 'msg' => 'Login exitoso',
                 'additional_info' => $this->getAditionalInfo($user),
+                'exp' => time() + auth()->factory()->getTTL() * 60
             ])->withCookie('token', $token, auth()->factory()->getTTL() * 60, '/', null, false, true);
         } else {
             return response()->json(['success' => false, 'msg' => 'El email ingresado no es valido.']);

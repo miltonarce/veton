@@ -67,12 +67,24 @@ class Login extends Component {
     try {
       this.setState({...state, isLoading: true});
       const {
-        data: {success, additional_info, msg},
+        data: {success, additional_info, msg, exp},
       } = await Auth.login(request);
       if (success) {
         this.setState({...state, isLoading: false, hasError: null});
         login({logged: true, user: additional_info});
         localStorage.setItem("userData", JSON.stringify(additional_info));
+        // Logout automágico
+        // Primero, calculamos el tiempo necesario.
+        const fechaActual = Date.now() / 1000;
+        const duracionToken = exp - fechaActual;
+        // Acá limpieamos el timeout.
+        // clearTimeout(to);
+        // Tenemos que guardar el return del setTimeout en alguna variable que perdure (ej: state, el servicio, etc).
+        // to = setTimeout(() => {
+        // Después, cada vez que se logueen de nuevo, limpian ese timeout, y crean uno nuevo.
+        setTimeout(() => {
+            Auth.logout();
+        }, duracionToken * 1000);
         const defaultView = ROLES[additional_info.id_role];
         history.push(`/${defaultView}`);
       } else {
