@@ -38,6 +38,7 @@ const styles = {
   },
   GridButton: {
     width: "100%",
+    marginTop: "2rem",
   },
   avatar: {
     margin: 10,
@@ -52,7 +53,7 @@ class FormAddPet extends React.Component {
       id_breed: 0,
       name: "",
       last_name: "",
-      birdthay: undefined,
+      birthday: undefined,
       image: "",
       weight: "",
       colors: "",
@@ -76,7 +77,8 @@ class FormAddPet extends React.Component {
   handleOnChangeDate = event => {
     const {state} = this;
     const date = moment(event._d).format("YYYY-MM-DD");
-    this.setState({form: {...state.form, birdthay: date}});
+    console.log(date);
+    this.setState({form: {...state.form, birthday: date}});
   };
 
   handleOnChange = event => {
@@ -111,7 +113,7 @@ class FormAddPet extends React.Component {
       form: {
         name,
         last_name,
-        birdthay,
+        birthday,
         weight,
         colors,
         comments,
@@ -140,243 +142,242 @@ class FormAddPet extends React.Component {
             {title}
           </Typography>
           <form encType="multipart/form-data" onSubmit={handleOnSubmit}>
-            <Grid
-              container
-              alignItems="center"
-              direction="column"
-              justify="center"
-              spacing={3}
-            >
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  alignItems="center"
-                  direction="row"
-                  justify="space-around"
-                  spacing={3}
-                >
-                  <Grid item xs={6}>
-                    <TextField
-                      required
-                      id="name"
-                      label="Nombre"
-                      margin="normal"
-                      name="name"
-                      type="text"
-                      value={name}
-                      onChange={handleOnChange}
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      required
-                      id="last_name"
-                      label="Apellido"
-                      margin="normal"
-                      name="last_name"
-                      type="text"
-                      value={last_name}
-                      onChange={handleOnChange}
-                    />
-                  </Grid>
+            <Grid item xs={12}>
+              <Grid
+                container
+                alignItems="center"
+                direction="row"
+                justify="space-around"
+                spacing={3}
+              >
+                <Grid item xs={6}>
+                  <TextField
+                    fullWidth
+                    required
+                    id="name"
+                    label="Nombre"
+                    margin="normal"
+                    name="name"
+                    type="text"
+                    value={name}
+                    onChange={handleOnChange}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    fullWidth
+                    id="last_name"
+                    label="Apellido"
+                    margin="normal"
+                    name="last_name"
+                    type="text"
+                    value={last_name}
+                    onChange={handleOnChange}
+                  />
                 </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  alignItems="center"
-                  direction="row"
-                  justify="space-around"
-                  spacing={3}
-                >
-                  <Grid item xs={6}>
-                    <MuiPickersUtilsProvider utils={MomentUtils}>
-                      <KeyboardDatePicker
-                        disableToolbar
-                        id="birdthay"
-                        KeyboardButtonProps={{
-                          'aria-label': 'change date',
-                        }}
-                        label="Cumpleaños"
-                        margin="normal"
-                        value={birdthay}
-                        variant="inline"
-                        onChange={handleOnChangeDate}
-                      />
-                    </MuiPickersUtilsProvider>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      required
-                      id="weight"
-                      label="Peso en Kg."
+            </Grid>
+            <Grid item xs={12}>
+              <Grid
+                container
+                alignItems="center"
+                direction="row"
+                justify="space-around"
+                spacing={3}
+              >
+                <Grid item xs={6}>
+                  <MuiPickersUtilsProvider utils={MomentUtils}>
+                    <KeyboardDatePicker
+                      disableToolbar
+                      fullWidth
+                      id="birdthay"
+                      KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                      }}
+                      label="Cumpleaños"
                       margin="normal"
-                      name="weight"
-                      type="number"
-                      value={weight}
-                      onChange={handleOnChange}
+                      value={birthday}
+                      variant="inline"
+                      onChange={handleOnChangeDate}
                     />
-                  </Grid>
+                  </MuiPickersUtilsProvider>
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    fullWidth
+                    required
+                    id="weight"
+                    label="Peso en Kg."
+                    margin="normal"
+                    name="weight"
+                    type="number"
+                    value={weight}
+                    onChange={handleOnChange}
+                  />
                 </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  alignItems="center"
-                  direction="row"
-                  justify="space-around"
-                  spacing={3}
-                >
-                  <Grid item xs={5}>
-                    <TextField
-                      id="colors"
-                      label="Colores"
-                      margin="normal"
-                      name="colors"
-                      type="text"
-                      value={colors}
+            </Grid>
+            <Grid item xs={12}>
+              <Grid
+                container
+                alignItems="center"
+                direction="row"
+                justify="space-around"
+                spacing={3}
+              >
+                <Grid item xs={6}>
+                  <TextField
+                    fullWidth
+                    id="colors"
+                    label="Colores"
+                    margin="normal"
+                    name="colors"
+                    type="text"
+                    value={colors}
+                    onChange={handleOnChange}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <FormControl component="fieldset">
+                    <FormLabel component="legend">Género</FormLabel>
+                    <RadioGroup
+                      aria-label="gender"
+                      name="id_gender"
+                      value={id_gender}
                       onChange={handleOnChange}
-                    />
-                  </Grid>
-                  <Grid item xs={7}>
-                    <FormControl component="fieldset">
-                      <FormLabel component="legend">Género</FormLabel>
-                      <RadioGroup
-                        aria-label="gender"
-                        name="id_gender"
-                        value={id_gender}
-                        onChange={handleOnChange}
+                    >
+                      <Grid
+                        container
+                        alignItems="center"
+                        direction="row"
+                        justify="center"
                       >
-                        <Grid
-                          container
-                          alignItems="center"
-                          direction="row"
-                          justify="center"
-                        >
-                          <Grid item xs={6}>
-                            <FormControlLabel
-                              control={<Radio />}
-                              label="Femeníno"
-                              value={1}
-                            />
-                          </Grid>
-                          <Grid item xs={6}>
-                            <FormControlLabel
-                              control={<Radio />}
-                              label="Masculíno"
-                              value={2}
-                            />
-                          </Grid>
+                        <Grid item xs={6}>
+                          <FormControlLabel
+                            control={<Radio />}
+                            label="Femenino"
+                            value={1}
+                          />
                         </Grid>
-                      </RadioGroup>
-                    </FormControl>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  alignItems="center"
-                  direction="row"
-                  justify="space-around"
-                  spacing={3}
-                >
-                  <Grid item xs={6}>
-                    <FormControl>
-                      <InputLabel htmlFor="id_type">Tipo</InputLabel>
-                      <Select
-                        id="id_type"
-                        name="id_type"
-                        value={id_type}
-                        onChange={handleOnChange}
-                      >
-                        <MenuItem key={0} value={0}>
-                          Seleccione un tipo
-                        </MenuItem>
-                        {types.map(type => (
-                          <MenuItem key={type.id_type} value={type.id_type}>
-                            {type.type}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <FormControl>
-                      <InputLabel htmlFor="id_breed">Tipo</InputLabel>
-                      <Select
-                        id="id_breed"
-                        name="id_breed"
-                        value={id_breed}
-                        onChange={handleOnChange}
-                      >
-                        <MenuItem key={0} value={0}>
-                          Seleccione una raza
-                        </MenuItem>
-                        {breedsByType.map(breed => (
-                          <MenuItem key={breed.id_breed} value={breed.id_breed}>
-                            {breed.breed}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  alignItems="center"
-                  direction="row"
-                  justify="space-around"
-                  spacing={3}
-                >
-                  <Grid item xs={6}>
-                    <TextField
-                      required
-                      col="20"
-                      id="comments"
-                      label="Comentarios"
-                      margin="normal"
-                      name="comments"
-                      row="6"
-                      type="text"
-                      value={comments}
-                      onChange={handleOnChange}
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <input
-                      accept=".jpg,.jpeg,.png"
-                      id="imagePet"
-                      name="image"
-                      type="file"
-                      onChange={handleInputFile}
-                    />
-                    {previewImage && (
-                      <Grid container>
-                        <Avatar
-                          alt="Preview image"
-                          className={classes.avatar}
-                          src={previewImage}
-                        />
+                        <Grid item xs={6}>
+                          <FormControlLabel
+                            control={<Radio />}
+                            label="Masculino"
+                            value={2}
+                          />
+                        </Grid>
                       </Grid>
-                    )}
-                  </Grid>
+                    </RadioGroup>
+                  </FormControl>
                 </Grid>
               </Grid>
-              <Grid item className={classes.GridButton} xs={12}>
-                <Grid
-                  container
-                  alignItems="center"
-                  direction="row"
-                  justify="flex-end"
-                >
-                  <Grid item xs={3}>
-                    <Button color="primary" type="submit" variant="contained">
-                      AGREGAR
-                    </Button>
-                  </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <Grid
+                container
+                alignItems="center"
+                direction="row"
+                justify="space-around"
+                spacing={3}
+              >
+                <Grid item xs={6}>
+                  <FormControl fullWidth required>
+                    <InputLabel htmlFor="id_type">Tipo</InputLabel>
+                    <Select
+                      id="id_type"
+                      name="id_type"
+                      value={id_type}
+                      onChange={handleOnChange}
+                    >
+                      <MenuItem key={0} value={0}>
+                        Seleccione un tipo
+                      </MenuItem>
+                      {types.map(type => (
+                        <MenuItem key={type.id_type} value={type.id_type}>
+                          {type.type}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={6}>
+                  <FormControl fullWidth required>
+                    <InputLabel htmlFor="id_breed">Raza</InputLabel>
+                    <Select
+                      id="id_breed"
+                      name="id_breed"
+                      value={id_breed}
+                      onChange={handleOnChange}
+                    >
+                      <MenuItem key={0} value={0}>
+                        Seleccione una raza
+                      </MenuItem>
+                      {breedsByType.map(breed => (
+                        <MenuItem key={breed.id_breed} value={breed.id_breed}>
+                          {breed.breed}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <Grid
+                container
+                alignItems="center"
+                direction="row"
+                justify="space-around"
+                spacing={3}
+              >
+                <Grid item xs={6}>
+                  <TextField
+                    fullWidth
+                    col="20"
+                    id="comments"
+                    label="Comentarios"
+                    margin="normal"
+                    name="comments"
+                    row="6"
+                    type="text"
+                    value={comments}
+                    onChange={handleOnChange}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <input
+                    accept=".jpg,.jpeg,.png"
+                    id="imagePet"
+                    name="image"
+                    type="file"
+                    onChange={handleInputFile}
+                  />
+                  {previewImage && (
+                    <Grid container>
+                      <Avatar
+                        alt="Preview image"
+                        className={classes.avatar}
+                        src={previewImage}
+                      />
+                    </Grid>
+                  )}
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item className={classes.GridButton} xs={12}>
+              <Grid
+                container
+                alignItems="center"
+                direction="row"
+                justify="space-between"
+              >
+                <Grid item xs={3}>
+                  <span>(*) Datos obligatorios.</span>
+                </Grid>
+                <Grid item xs={3}>
+                  <Button color="primary" type="submit" variant="contained">
+                    AGREGAR
+                  </Button>
                 </Grid>
               </Grid>
             </Grid>

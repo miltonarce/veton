@@ -67,53 +67,55 @@ const Header = ({onUserSelected, classes}) => {
 
   return (
     <AppBar position="static">
-      <Toolbar className={classes.Appbar}>
-        <Container fixed className={classes.ContainerFlex}>
-          <div className={classes.ContentLogo}>
-            <Typography noWrap className={classes.Logo} variant="h1">
-              Vet On
-            </Typography>
-          </div>
-          <div className={classes.ContentAutocomplete}>
-            <Autocomplete
-              placeholder="Buscar usuarios"
-              onUserSelected={onUserSelected}
-            />
-          </div>
-          <Link className={classes.ContentLink} to="/veterinary">
-            <Button color="inherit">
-              <div className={classes.ContentIcon}>
-                <Home />
-              </div>
-              Inicio
-            </Button>
-          </Link>
-          <div className={classes.ContentLink}>
-            <div>
-              <AccountCircle
-                aria-controls="simple-menu"
-                aria-haspopup="true"
-                className={classes.ContentIcon}
-                onClick={handleClick}
+      <nav>
+        <Toolbar className={classes.Appbar}>
+          <Container fixed className={classes.ContainerFlex}>
+            <div className={classes.ContentLogo}>
+              <Typography noWrap className={classes.Logo} variant="h1">
+                Vet On
+              </Typography>
+            </div>
+            <div className={classes.ContentAutocomplete}>
+              <Autocomplete
+                placeholder="Buscar usuarios"
+                onUserSelected={onUserSelected}
               />
             </div>
-            <Menu
-              keepMounted
-              anchorEl={anchorEl}
-              id="simple-menu"
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              {/* <Link className={classes.ContentLink} to="/veterinary/profile">
+            <Link className={classes.ContentLink} to="/veterinary">
+              <Button color="inherit">
+                <div className={classes.ContentIcon}>
+                  <Home />
+                </div>
+                Inicio
+              </Button>
+            </Link>
+            <div className={classes.ContentLink}>
+              <div>
+                <AccountCircle
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
+                  className={classes.ContentIcon}
+                  onClick={handleClick}
+                />
+              </div>
+              <Menu
+                keepMounted
+                anchorEl={anchorEl}
+                id="simple-menu"
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                {/* <Link className={classes.ContentLink} to="/veterinary/profile">
                 <MenuItem onClick={handleClose}>Perfil</MenuItem>
               </Link> */}
-              <Link className={classes.ContentLink} to="/">
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
-              </Link>
-            </Menu>
-          </div>
-        </Container>
-      </Toolbar>
+                <Link className={classes.ContentLink} to="/">
+                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                </Link>
+              </Menu>
+            </div>
+          </Container>
+        </Toolbar>
+      </nav>
     </AppBar>
   );
 };

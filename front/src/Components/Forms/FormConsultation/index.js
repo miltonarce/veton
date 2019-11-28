@@ -15,6 +15,7 @@ const styles = {
   },
   GridButton: {
     width: "100%",
+    marginTop: "2rem",
   },
 };
 
@@ -64,45 +65,43 @@ class FormConsultation extends React.Component {
             {title}
           </Typography>
           <form onSubmit={handleOnSubmit}>
-            <Grid
-              container
-              alignItems="center"
-              direction="column"
-              justify="center"
-              spacing={3}
-            >
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  id="comments"
-                  label="Comentarios"
-                  margin="normal"
-                  name="comments"
-                  type="text"
-                  value={comments}
-                  onChange={handleOnChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  id="afflictions_procedures"
-                  label="Aflicciones"
-                  margin="normal"
-                  name="afflictions_procedures"
-                  type="text"
-                  value={afflictions_procedures}
-                  onChange={handleOnChange}
-                />
-              </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                required
+                id="comments"
+                label="Comentarios"
+                margin="normal"
+                name="comments"
+                type="text"
+                value={comments}
+                onChange={handleOnChange}
+              />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                required
+                id="afflictions_procedures"
+                label="Aflicciones"
+                margin="normal"
+                name="afflictions_procedures"
+                type="text"
+                value={afflictions_procedures}
+                onChange={handleOnChange}
+              />
+            </Grid>
+
             <Grid item className={classes.GridButton} xs={12}>
               <Grid
                 container
                 alignItems="center"
                 direction="row"
-                justify="flex-end"
+                justify="space-between"
               >
+                <Grid item xs={5}>
+                  <span>(*) Datos obligatorios.</span>
+                </Grid>
                 <Grid item xs={3}>
                   <Button color="primary" type="submit" variant="contained">
                     AGREGAR

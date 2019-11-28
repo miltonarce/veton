@@ -20,8 +20,8 @@ class Consultation extends Model
     public static $rules = [
         'id_history' => 'required|integer|exists:clinicalhistories',
         'id_user' => 'required|integer|exists:users',
-        'comments' => 'min:10',
-        'afflictions_procedures' => 'min:10'
+        'comments' => 'min:1',
+        'afflictions_procedures' => 'min:1'
     ];
 
     /** @var array Los mensajes de error de las $rules */

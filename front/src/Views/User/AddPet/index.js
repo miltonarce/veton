@@ -93,7 +93,7 @@ class AddPet extends React.Component {
               direction="row"
               justify="center"
             >
-              <Grid item xs={7}>
+              <Grid item lg={7} xs={12}>
                 <FormAddPet
                   breeds={breeds}
                   title="Ingrese los datos de la mascota Mascota"

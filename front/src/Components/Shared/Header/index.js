@@ -61,14 +61,15 @@ const Header = ({classes}) => {
 
   return (
     <AppBar position="static">
-      <Toolbar className={classes.Appbar}>
-        <Container fixed className={classes.ContainerFlex}>
-          <div className={classes.ContentLogo}>
-            <Typography noWrap className={classes.Logo} variant="h1">
-              Vet On
-            </Typography>
-          </div>
-          {/* <Link className={classes.ContentLink} to="/user">
+      <nav>
+        <Toolbar className={classes.Appbar}>
+          <Container fixed className={classes.ContainerFlex}>
+            <div className={classes.ContentLogo}>
+              <Typography noWrap className={classes.Logo} variant="h1">
+                Vet On
+              </Typography>
+            </div>
+            {/* <Link className={classes.ContentLink} to="/user">
             <Button color="inherit">
               <div className={classes.ContentIcon}>
                 <Home />
@@ -76,48 +77,52 @@ const Header = ({classes}) => {
               Inicio
             </Button>
           </Link> */}
-          <Link className={classes.ContentLink} to="/user/register-appointment">
-            <Button color="inherit">
-              <div className={classes.ContentIcon}>
-                <StoreOutlined />
-              </div>{" "}
-              Reservar Turno
-            </Button>
-          </Link>
-          <Link className={classes.ContentLink} to="/user/pets">
-            <Button color="inherit">
-              <div className={classes.ContentIcon}>
-                <Pets />
-              </div>{" "}
-              Mascotas
-            </Button>
-          </Link>
-          <div className={classes.ContentLink}>
-            <div>
-              <AccountCircle
-                aria-controls="simple-menu"
-                aria-haspopup="true"
-                className={classes.ContentIcon}
-                onClick={handleClick}
-              />
-            </div>
-            <Menu
-              keepMounted
-              anchorEl={anchorEl}
-              id="simple-menu"
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
+            <Link
+              className={classes.ContentLink}
+              to="/user/register-appointment"
             >
-              {/* <Link className={classes.ContentLink} to="/user/profile">
+              <Button color="inherit">
+                <div className={classes.ContentIcon}>
+                  <StoreOutlined />
+                </div>{" "}
+                Reservar Turno
+              </Button>
+            </Link>
+            <Link className={classes.ContentLink} to="/user/pets">
+              <Button color="inherit">
+                <div className={classes.ContentIcon}>
+                  <Pets />
+                </div>{" "}
+                Mascotas
+              </Button>
+            </Link>
+            <div className={classes.ContentLink}>
+              <div>
+                <AccountCircle
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
+                  className={classes.ContentIcon}
+                  onClick={handleClick}
+                />
+              </div>
+              <Menu
+                keepMounted
+                anchorEl={anchorEl}
+                id="simple-menu"
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                {/* <Link className={classes.ContentLink} to="/user/profile">
                 <MenuItem onClick={handleClose}>Perfil</MenuItem>
               </Link> */}
-              <Link className={classes.ContentLink} to="/">
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
-              </Link>
-            </Menu>
-          </div>
-        </Container>
-      </Toolbar>
+                <Link className={classes.ContentLink} to="/">
+                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                </Link>
+              </Menu>
+            </div>
+          </Container>
+        </Toolbar>
+      </nav>
     </AppBar>
   );
 };

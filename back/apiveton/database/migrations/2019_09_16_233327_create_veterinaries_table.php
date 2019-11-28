@@ -17,7 +17,7 @@ class CreateVeterinariesTable extends Migration
             $table->increments('id_veterinary');
             $table->string('business_name', 150);
             $table->string('fantasy_name', 150);
-            $table->integer('cuit_cuil')->unsigned();
+            $table->bigInteger('cuit_cuil')->unsigned();
             $table->string('image', 255)->nullable();
             $table->integer('phone1')->unsigned();
             $table->integer('phone2')->unsigned()->nullable();

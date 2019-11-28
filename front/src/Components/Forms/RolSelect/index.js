@@ -25,7 +25,7 @@ class RolSelect extends React.Component {
     const {handleOnChange} = this;
     return (
       <FormControl fullWidth>
-        <InputLabel htmlFor="age-simple">Usuario</InputLabel>
+        <InputLabel htmlFor="user-type">Usuario</InputLabel>
         <Select
           inputProps={{
             name: "tipo",
