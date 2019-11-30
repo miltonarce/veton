@@ -5,11 +5,12 @@ import {
   Container,
   Grid,
 } from "@material-ui/core";
-import {withStyles} from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import ListPets from "../../../Components/ListPets";
 import LastPetsByVet from "../../../Components/LastPetsByVet";
+import AppointmentListWithDate from "../../../Components/AppointmentListWithDate";
 import Api from "../../../Services/Api";
-import {AppContext} from "../../../Store";
+import { AppContext } from "../../../Store";
 
 // All classes by component
 const styles = {
@@ -40,11 +41,11 @@ class HomeVet extends React.Component {
   async componentDidMount() {
     try {
       const {
-        auth: {user},
+        auth: { user },
       } = this.context;
-      this.setState({...this.state, isLoadingLastPets: true});
+      this.setState({ ...this.state, isLoadingLastPets: true });
       const {
-        data: {success, pets},
+        data: { success, pets },
       } = await Api.pets.lastPetsByVet(user.id_user);
       if (success) {
         this.setState({
@@ -76,11 +77,11 @@ class HomeVet extends React.Component {
    */
   fetchPetsByUser = async user => {
     try {
-      this.setState({...this.state, isLoading: true, userSelected: user});
-      const {data} = await Api.pets.fetch(user.id_user);
-      this.setState({...this.state, petsByUser: data, isLoading: false});
+      this.setState({ ...this.state, isLoading: true, userSelected: user });
+      const { data } = await Api.pets.fetch(user.id_user);
+      this.setState({ ...this.state, petsByUser: data, isLoading: false });
     } catch (err) {
-      this.setState({...this.state, petsByUser: [], isLoading: false});
+      this.setState({ ...this.state, petsByUser: [], isLoading: false });
     }
   };
 
@@ -92,13 +93,16 @@ class HomeVet extends React.Component {
       isLoadingLastPets,
       lastPetsAttended,
     } = this.state;
-    const {classes} = this.props;
+    const { classes } = this.props;
     return (
       <>
         <CssBaseline />
         <Container fixed>
           <Grid container direction="row" justify="center" spacing={2}>
-            <Grid item xs={12}>
+            <Grid item xs={12} md={4} xl={3}>
+              <AppointmentListWithDate idVet={2} />
+            </Grid>
+            <Grid item xs={12} md={8} xl={9}>
               <h2 className={classes.title}>Últimas consultas realizadas</h2>
               {isLoadingLastPets && <CircularProgress />}
               {!isLoadingLastPets && lastPetsAttended.length > 0 && (
@@ -108,7 +112,9 @@ class HomeVet extends React.Component {
                 <p>No existen consultas registradas esta semana</p>
               )}
             </Grid>
-            <Grid item justify="center" xs={12}>
+          </Grid>
+          <Grid container direction="row" justify="center" spacing={2}>
+            <Grid item xs={12}>
               {userSelected && (
                 <div>
                   <h2 className={classes.title}>

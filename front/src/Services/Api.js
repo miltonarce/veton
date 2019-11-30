@@ -49,6 +49,7 @@ export default {
         }),
     register: request => axiosInstance.post("appointments", request),
     fetchByUser: idUser => axiosInstance.get(`/appointments/${idUser}`),
+    fetchByVet: (idVet, date) => axiosInstance.get(`/appointments/veterinary/${idVet}/${date}`),
   },
   roles: {
     all: () => ({

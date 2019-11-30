@@ -7,7 +7,7 @@ import moment from "moment";
 
 const useStyles = makeStyles(theme => ({
     ctn: {
-        margin: '20px 0',
+        margin: '8px 0',
     },
     paperTimeDescription: {
         padding: theme.spacing(3, 2),
@@ -31,11 +31,12 @@ const useStyles = makeStyles(theme => ({
     fontHour: {
         fontWeight: 800,
         userSelect: 'none',
+        fontSize: '16px',
     }
 }));
 
 
-const AppointmentItem = ({ date, time, reason }) => {
+const AppointmentItem = ({ date, time, reason, showDate }) => {
     const classes = useStyles();
     return (
         <Grid
@@ -55,7 +56,7 @@ const AppointmentItem = ({ date, time, reason }) => {
             <Grid item xs={8} md={8} xl={9}>
                 <Paper className={classes.paperTimeDescription}>
                     <Typography variant="h5" component="h3">
-                        {moment(date).format("DD/MM/YYYY")}
+                        {showDate && moment(date).format("DD/MM/YYYY")}
                     </Typography>
                     <Typography component="p">
                         {reason}
@@ -66,6 +67,6 @@ const AppointmentItem = ({ date, time, reason }) => {
     );
 }
 
-export default function AppointmentList({ appointments }) {
-    return appointments.map((app, index) => <AppointmentItem key={index} date={app.date} time={app.time} reason={app.reason} />);
+export default function AppointmentList({ appointments, showDate = true }) {
+    return appointments.map((app, index) => <AppointmentItem key={index} date={app.date} time={app.time} reason={app.reason} showDate={showDate} />);
 }
