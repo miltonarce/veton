@@ -22,8 +22,8 @@ const Profile = () => {
       <CssBaseline />
       <Container fixed>
         <TitlePages
-          subtitle="Aquí podra editar su perfil."
-          title="Perfil del usuario Jorge"
+          subtitle="Aquí podra editar su veterinaria."
+          title="Perfil del veterinaria Pepito"
         />
         <Grid
           container

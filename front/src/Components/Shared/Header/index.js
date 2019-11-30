@@ -109,9 +109,9 @@ const Header = ({classes}) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                {/* <Link className={classes.ContentLink} to="/user/profile">
-                <MenuItem onClick={handleClose}>Perfil</MenuItem>
-              </Link> */}
+                <Link className={classes.ContentLink} to="/user/profile">
+                  <MenuItem onClick={handleClose}>Perfil</MenuItem>
+                </Link>
                 <Link className={classes.ContentLink} to="/">
                   <MenuItem onClick={handleClose}>Logout</MenuItem>
                 </Link>
