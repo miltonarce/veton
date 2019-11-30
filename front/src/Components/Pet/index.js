@@ -1,7 +1,7 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
-import {styled, makeStyles} from "@material-ui/core/styles";
+import {styled} from "@material-ui/core/styles";
 import {
   Card,
   CardHeader,
@@ -11,11 +11,7 @@ import {
   Paper,
   Button,
   Grid,
-  Modal,
-  Backdrop,
-  Fade,
 } from "@material-ui/core";
-import {GpsFixed} from "@material-ui/icons";
 import {AppContext} from "../../Store";
 
 const CardPet = styled(Card)({
@@ -85,36 +81,11 @@ const ButtonDetailsPet = styled(Button)({
   marginBottom: "1rem",
 });
 
-const NotiIcon = styled(GpsFixed)({
-  color: "#999999",
-});
-
-const useStyles = makeStyles(theme => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    outline: 0,
-  },
-  paper: {
-    borderRadius: "23px",
-    padding: theme.spacing(2, 4, 3),
-    outline: 0,
-  },
-}));
-
 const Pet = ({id_pet, name, last_name, image, birthday, weight, comments}) => {
-  const classes = useStyles();
-  const AnyReactComponent = ({text}) => <div>{text}</div>;
   const {
     auth: {user},
   } = useContext(AppContext);
-  const [values, setValues] = useState({
-    openModal: false,
-  });
-  const handleModal = () => {
-    setValues({openModal: !values.openModal});
-  };
+  
   return (
     <CardPet>
       <ContentMedia>

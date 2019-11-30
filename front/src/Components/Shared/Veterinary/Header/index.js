@@ -13,7 +13,6 @@ import {Home, AccountCircle} from "@material-ui/icons";
 import {withStyles} from "@material-ui/core/styles";
 
 import Autocomplete from "../../../Autocomplete";
-import Auth from "../../../../Services/Auth";
 
 const styles = {
   Appbar: {
@@ -56,13 +55,6 @@ const Header = ({onUserSelected, classes}) => {
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleLogout = async () => {
-    setAnchorEl(null);
-    const {data} = await Auth.logout();
-
-    console.log(data);
   };
 
   return (

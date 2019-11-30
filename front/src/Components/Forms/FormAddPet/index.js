@@ -54,7 +54,7 @@ class FormAddPet extends React.Component {
       id_breed: 0,
       name: "",
       last_name: "",
-      birthday: undefined,
+      birthday: moment(new Date()).format("YYYY-MM-DD"),
       image: "",
       weight: "",
       colors: "",
@@ -191,6 +191,7 @@ class FormAddPet extends React.Component {
                     <KeyboardDatePicker
                       disableToolbar
                       fullWidth
+                      autoOk
                       id="birdthay"
                       KeyboardButtonProps={{
                         'aria-label': 'change date',
@@ -199,6 +200,7 @@ class FormAddPet extends React.Component {
                       margin="normal"
                       value={birthday}
                       variant="inline"
+                      format="DD/MM/YYYY"
                       onChange={handleOnChangeDate}
                     />
                   </MuiPickersUtilsProvider>

@@ -7,7 +7,6 @@ import Api from "../../../Services/Api";
 import ListPets from "../../../Components/ListPets";
 import {AppContext} from "../../../Store";
 import TitlePages from "../../../Components/TitlePages";
-import Spinner from "../../../Components/Spinner";
 
 //New custom components by styled hook...
 const PetLink = styled(Link)({
@@ -22,7 +21,6 @@ class Pets extends React.Component {
     super();
     this.state = {
       petsList: [],
-      isLoading: false,
       error: null,
     };
   }
@@ -45,7 +43,7 @@ class Pets extends React.Component {
   }
 
   render() {
-    const {petsList, isLoading} = this.state;
+    const {petsList} = this.state;
     return (
       <>
         <CssBaseline />

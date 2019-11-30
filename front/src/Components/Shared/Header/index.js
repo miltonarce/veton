@@ -1,18 +1,15 @@
 import React, {useState} from "react";
 import {Link, withRouter} from "react-router-dom";
-
 import {
   AppBar,
   Toolbar,
   Typography,
-  Button,
   Container,
   Menu,
   MenuItem,
 } from "@material-ui/core";
-import {Home, Pets, AccountCircle, StoreOutlined} from "@material-ui/icons";
+import {Pets, AccountCircle, StoreOutlined} from "@material-ui/icons";
 import {withStyles} from "@material-ui/core/styles";
-import Auth from "../../../Services/Auth";
 
 const styles = {
   Appbar: {
@@ -60,13 +57,6 @@ const Header = ({classes}) => {
     setAnchorEl(null);
   };
 
-  const handleLogout = async () => {
-    setAnchorEl(null);
-    const {data} = await Auth.logout();
-
-    console.log(data);
-  };
-
   return (
     <AppBar position="static">
       <nav>
@@ -85,9 +75,9 @@ const Header = ({classes}) => {
               Inicio
             </Button>
   */}
-            <Link className={classes.ContentLink} to="/user/add-appointment">
+            <Link className={classes.ContentLink} to="/user/appointments">
               <StoreOutlined className={classes.Icons} />
-              Reservar Turno
+              Turnos
             </Link>
             <Link className={classes.ContentLink} to="/user/pets">
               <Pets className={classes.Icons} />
