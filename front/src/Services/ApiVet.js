@@ -4,7 +4,7 @@ import {URL_BASE} from "../Utils/globals";
 // Default instace for axios with API path and timeout
 const axiosInstance = axios.create({
   baseURL: URL_BASE,
-  timeout: 2000,
+  timeout: 10000,
 });
 
 export default {

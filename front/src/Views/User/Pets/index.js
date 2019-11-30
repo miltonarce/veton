@@ -90,7 +90,7 @@ class Pets extends React.Component {
             </ContainerMain>
           ) : (
             <ContainerMain>
-              <p>No tenes registrado ninguna mascota</p>
+              <p>No tenés registrada ninguna mascota</p>
             </ContainerMain>
           )}
         </Container>

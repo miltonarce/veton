@@ -74,7 +74,7 @@ const ListHistories = ({histories}) => {
   return (
     <Card className={classes.root}>
       <Tabs
-        aria-label="Vertical tabs example"
+        aria-label="Vertical tabs"
         className={classes.tabs}
         orientation="vertical"
         value={value}
@@ -82,7 +82,8 @@ const ListHistories = ({histories}) => {
         onChange={handleChange}
       >
         {histories.map((history, index) => (
-          <Tab key={index}
+          <Tab
+            key={index}
             label={`#ID HISTORIA ${history.id_history}`}
             {...a11yProps(index)}
           />

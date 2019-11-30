@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Link, withRouter} from "react-router-dom";
+import React, { useState } from "react";
+import { Link, withRouter } from "react-router-dom";
 
 import {
   AppBar,
@@ -10,8 +10,8 @@ import {
   Menu,
   MenuItem,
 } from "@material-ui/core";
-import {Home, Pets, AccountCircle, StoreOutlined} from "@material-ui/icons";
-import {withStyles} from "@material-ui/core/styles";
+import { Home, Pets, AccountCircle, StoreOutlined } from "@material-ui/icons";
+import { withStyles } from "@material-ui/core/styles";
 import Auth from "../../../Services/Auth";
 
 const styles = {
@@ -24,7 +24,7 @@ const styles = {
     backgroundImage: "url('assets/Logo.png')",
     fontSize: 0,
   },
-  ContentLogo: {flexGrow: 1},
+  ContentLogo: { flexGrow: 1 },
   ButtonLogout: {
     color: "#999999",
   },
@@ -33,7 +33,7 @@ const styles = {
     textDecoration: "none",
     color: "#999999",
   },
-  ContentIcon: {marginRight: ".5rem"},
+  ContentIcon: { marginRight: ".5rem" },
   ContainerFlex: {
     display: "flex",
     position: "relative",
@@ -41,7 +41,7 @@ const styles = {
   },
 };
 
-const Header = ({classes}) => {
+const Header = ({ classes }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = event => {
@@ -54,21 +54,22 @@ const Header = ({classes}) => {
 
   const handleLogout = async () => {
     setAnchorEl(null);
-    const {data} = await Auth.logout();
+    const { data } = await Auth.logout();
 
     console.log(data);
   };
 
   return (
     <AppBar position="static">
-      <Toolbar className={classes.Appbar}>
-        <Container fixed className={classes.ContainerFlex}>
-          <div className={classes.ContentLogo}>
-            <Typography noWrap className={classes.Logo} variant="h1">
-              Vet On
-            </Typography>
-          </div>
-          {/* <Link className={classes.ContentLink} to="/user">
+      <nav>
+        <Toolbar className={classes.Appbar}>
+          <Container fixed className={classes.ContainerFlex}>
+            <div className={classes.ContentLogo}>
+              <Typography noWrap className={classes.Logo} variant="h1">
+                Vet On
+              </Typography>
+            </div>
+            {/* <Link className={classes.ContentLink} to="/user">
             <Button color="inherit">
               <div className={classes.ContentIcon}>
                 <Home />
@@ -76,48 +77,49 @@ const Header = ({classes}) => {
               Inicio
             </Button>
           </Link> */}
-          <Link className={classes.ContentLink} to="/user/appointments">
-            <Button color="inherit">
-              <div className={classes.ContentIcon}>
-                <StoreOutlined />
-              </div>{" "}
-              Turnos
-            </Button>
-          </Link>
-          <Link className={classes.ContentLink} to="/user/pets">
-            <Button color="inherit">
-              <div className={classes.ContentIcon}>
-                <Pets />
-              </div>{" "}
-              Mascotas
-            </Button>
-          </Link>
-          <div className={classes.ContentLink}>
-            <div>
-              <AccountCircle
-                aria-controls="simple-menus"
-                aria-haspopup="true"
-                className={classes.ContentIcon}
-                onClick={handleClick}
-              />
-            </div>
-            <Menu
-              keepMounted
-              anchorEl={anchorEl}
-              id="simple-menu"
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              {/* <Link className={classes.ContentLink} to="/user/profile">
+            <Link className={classes.ContentLink} to="/user/appointments">
+              <Button color="inherit">
+                <div className={classes.ContentIcon}>
+                  <StoreOutlined />
+                </div>{" "}
+                Turnos
+              </Button>
+            </Link>
+            <Link className={classes.ContentLink} to="/user/pets">
+              <Button color="inherit">
+                <div className={classes.ContentIcon}>
+                  <Pets />
+                </div>{" "}
+                Mascotas
+              </Button>
+            </Link>
+            <div className={classes.ContentLink}>
+              <div>
+                <AccountCircle
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
+                  className={classes.ContentIcon}
+                  onClick={handleClick}
+                />
+              </div>
+              <Menu
+                keepMounted
+                anchorEl={anchorEl}
+                id="simple-menu"
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                {/* <Link className={classes.ContentLink} to="/user/profile">
                 <MenuItem onClick={handleClose}>Perfil</MenuItem>
               </Link> */}
-              <Link className={classes.ContentLink} to="/">
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
-              </Link>
-            </Menu>
-          </div>
-        </Container>
-      </Toolbar>
+                <Link className={classes.ContentLink} to="/">
+                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                </Link>
+              </Menu>
+            </div>
+          </Container>
+        </Toolbar>
+      </nav>
     </AppBar>
   );
 };
