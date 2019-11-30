@@ -22,14 +22,29 @@ class AppointmentsController extends Controller
        try{
            $request->validate(Appointment::$rules, Appointment::$errorMessages);
            $data = $request->all();
-           $appointment = Appointment::create($data);
+           $appointmentTaken = Appointment::all()
+                                ->where('date', '=', $data['date'])
+                                ->where('time', '=', $data['time'])
+                                ->first();
 
-           return response()->json([
-               'success' => true,
-               'msg'     => 'El turno fue agendado exitosamente.',
-               'data'    => $appointment,
-               'stack' => ''
-           ]);
+           if($appointmentTaken){
+               return response()->json([
+                  'success' => false,
+                  'msg'     => 'Este horario no se encuentras disponible.',
+                  'data'    => $appointmentTaken,
+                   'stack'  => ''
+
+               ]);
+           }else{
+               $appointment = Appointment::create($data);
+
+               return response()->json([
+                   'success' => true,
+                   'msg'     => 'El turno fue agendado exitosamente.',
+                   'data'    => $appointment,
+                   'stack' => ''
+               ]);
+           }
        }catch (QueryException $e){
             return response()->json([
                 'success' => false,
