@@ -20,6 +20,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import AppointmentDatePicker from "../../AppointmentDatePicker";
 import AppointmentHourPicker from "../../AppointmentHourPicker";
+import Api from "../../../Services/Api";
 import ApiVet from "../../../Services/ApiVet";
 import moment from "moment";
 
@@ -93,7 +94,7 @@ class FormAppointment extends React.Component {
       },
     });
     try {
-      const hours = await ApiVet.appointments.fetch(
+      const hours = await Api.appointments.fetch(
         date,
         this.state.veterinarySelected.id_veterinary
       );

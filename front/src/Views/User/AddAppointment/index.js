@@ -9,6 +9,7 @@ import {AppContext} from "../../../Store";
 import Api from "../../../Services/Api";
 import TitlePages from "../../../Components/TitlePages";
 import ModalMsg from "../../../Components/Messages/ModalMsg";
+import {withRouter} from "react-router-dom";
 
 const styles = {
   TitleAppointment: {
@@ -51,6 +52,7 @@ class AddAppointment extends React.Component {
             ...this.state,
             openModal: false,
           });
+          this.props.history.push(`/user/appointments`);
         }, 3000);
       } else {
         this.setState({
@@ -105,4 +107,4 @@ class AddAppointment extends React.Component {
 
 AddAppointment.contextType = AppContext;
 
-export default withStyles(styles)(AddAppointment);
+export default withStyles(styles)(withRouter(props => <AddAppointment {...props} />));

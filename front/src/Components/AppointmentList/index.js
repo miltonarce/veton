@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Grid } from "@material-ui/core";
+import moment from "moment";
 
 const useStyles = makeStyles(theme => ({
     ctn: {
@@ -54,7 +55,7 @@ const AppointmentItem = ({ date, time, reason }) => {
             <Grid item xs={8} md={8} xl={9}>
                 <Paper className={classes.paperTimeDescription}>
                     <Typography variant="h5" component="h3">
-                        {date}
+                        {moment(date).format("DD/MM/YYYY")}
                     </Typography>
                     <Typography component="p">
                         {reason}
