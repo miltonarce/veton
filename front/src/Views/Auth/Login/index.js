@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {withRouter, Link} from "react-router-dom";
 import clsx from "clsx";
-import {Grid, Paper, CssBaseline} from "@material-ui/core";
+import {Grid, Paper, CssBaseline, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 
 import Api from "../../../Services/Api";
@@ -35,6 +35,21 @@ const styles = {
   },
   Register: {
     marginTop: "1rem",
+  },
+  LinkReg: {
+    marginTop: "2rem",
+  },
+  TitleForm: {
+    fontWeight: 500,
+    marginBottom: "1rem",
+    textAlign: "center",
+    fontSize: "2rem",
+  },
+  Cimg1: {
+    maxHeight: "155px",
+  },
+  Cimg2: {
+    maxHeight: "270px",
   },
 };
 
@@ -113,36 +128,49 @@ class Login extends Component {
       <div className={classes.Content}>
         <CssBaseline />
         <Grid container alignItems="center" direction="row" justify="center">
-          <Grid item lg={3} md={6} xl={2} xs={10}>
+          <Grid item lg={6} md={10} xs={10}>
             <Paper className={classes.PaperLogin}>
-              <Grid item xs={12}>
-                <img
-                  alt="Logo vet On, veterinaria online"
-                  src="assets/Logo.svg"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <div className={classes.ContentLogin}>
-                  {isLoading ? (
-                    <Spinner />
-                  ) : (
-                    <FormLogin onSubmit={handleOnSubmit} />
-                  )}
-                  {openError ? (
-                    <ModalMsg hasSucces={false} msg={hasError} />
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </Grid>
               <Grid
                 container
                 alignItems="center"
-                className={classes.Register}
-                justify="center"
+                direction="row"
+                justify="space-around"
               >
-                <Grid item md={12} xs={12}>
-                  <Link to="/register">No tiene cuenta? Registrarse</Link>
+                <Grid item lg={5} md={8} xs={12}>
+                  <img
+                    alt="Logo vet On, veterinaria online"
+                    className={classes.Cimg1}
+                    src="assets/Logo.svg"
+                  />
+                  <img
+                    alt="Personas con mascotas y la marca Veton"
+                    className={classes.Cimg2}
+                    src="assets/login-resource1.svg"
+                  />
+                </Grid>
+                <Grid item lg={5} md={8} xs={12}>
+                  <Typography
+                    className={classes.TitleForm}
+                    color="secondary"
+                    component="p"
+                  >
+                    Iniciar sesión
+                  </Typography>
+                  <div className={classes.ContentLogin}>
+                    {isLoading ? (
+                      <Spinner />
+                    ) : (
+                      <FormLogin onSubmit={handleOnSubmit} />
+                    )}
+                    {openError ? (
+                      <ModalMsg hasSucces={false} msg={hasError} />
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <Grid item className={classes.LinkReg} md={12} xs={12}>
+                    <Link to="/register">No tiene cuenta? Registrarse</Link>
+                  </Grid>
                 </Grid>
               </Grid>
             </Paper>

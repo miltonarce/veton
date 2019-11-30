@@ -1,19 +1,18 @@
 import React from "react";
 import {withRouter} from "react-router-dom";
-import {
-  Container,
-  CssBaseline,
-  CircularProgress,
-  Grid,
-} from "@material-ui/core";
+import {Container, CssBaseline, Grid} from "@material-ui/core";
 import FormAddPet from "../../../Components/Forms/FormAddPet";
 import Api from "../../../Services/Api";
 import TitlePages from "../../../Components/TitlePages";
-import AlertMsg from "../../../Components/Messages/AlertMsg";
+import ModalMsg from "../../../Components/Messages/ModalMsg";
+import Spinner from "../../../Components/Spinner/index";
 
 class AddPet extends React.Component {
   state = {
-    isLoading: true,
+    hasMsg: null,
+    openMsg: false,
+    success: false,
+    isLoading: false,
     breeds: [],
     types: [],
     statusPet: {},
@@ -24,7 +23,6 @@ class AddPet extends React.Component {
   async componentDidMount() {
     const {state} = this;
     try {
-      this.setState({...state, isLoading: true});
       const [breeds, types] = await Promise.all([
         Api.breeds.fetch(),
         Api.types.fetch(),
@@ -33,7 +31,6 @@ class AddPet extends React.Component {
         ...state,
         breeds: breeds.data,
         types: types.data,
-        isLoading: false,
       });
     } catch (err) {
       this.setState({...state, isLoading: false});
@@ -50,60 +47,78 @@ class AddPet extends React.Component {
     const {history} = this.props;
     this.setState({...state, isLoading: true});
     try {
+      this.setState({...state, isLoading: true});
       const {data} = await Api.pets.createPet(pet);
       if (data.success) {
-        this.setState({
-          ...state,
-          isLoading: true,
-          statusPet: {msg: data.msg, type: data.success},
-        });
+        setTimeout(() => {
+          this.setState({
+            ...state,
+            isLoading: false,
+            openMsg: true,
+            hasMsg: data.msg,
+            success: data.success,
+          });
+        }, 3000);
         setTimeout(() => {
           history.push(`/user/pets`);
-        }, 3000);
+        }, 6000);
       } else {
-        this.setState({
-          ...state,
-          isLoading: false,
-          statusPet: {msg: data.msg, type: data.success},
-        });
+        setTimeout(() => {
+          this.setState({
+            ...state,
+            hasMsg: data.msg,
+            isLoading: false,
+            openMsg: true,
+            success: data.success,
+          });
+        }, 3000);
+        setTimeout(() => {
+          this.setState({
+            ...state,
+            openMsg: false,
+          });
+        }, 6000);
       }
     } catch (err) {
-      this.setState({...state, isLoading: false, statusPet: err});
+      this.setState({
+        ...state,
+        isLoading: false,
+        hasMsg:
+          "Se produjo un error al registarse, por favor verifique sus datos.",
+        openMsg: true,
+      });
+      setTimeout(() => {
+        this.setState({
+          ...state,
+          openMsg: false,
+        });
+      }, 6000);
     }
   };
 
   render() {
-    const {breeds, types, isLoading, statusPet} = this.state;
+    const {breeds, types, openMsg, hasMsg, isLoading, success} = this.state;
     const {handleOnSubmit} = this;
     return (
       <>
         <CssBaseline />
-        {statusPet.msg && (
-          <AlertMsg hasSuccess={statusPet.type} msg={statusPet.msg} />
-        )}
         <Container fixed>
           <TitlePages
             subtitle=" Aquí podrás agrgar una nueva mascota, recordá completar los datos solicitados."
             title="Agregar nueva mascota"
           />
-          {!isLoading && (
-            <Grid
-              container
-              alignItems="center"
-              direction="row"
-              justify="center"
-            >
-              <Grid item lg={7} xs={12}>
-                <FormAddPet
-                  breeds={breeds}
-                  title="Ingrese los datos de la mascota Mascota"
-                  types={types}
-                  onSubmit={handleOnSubmit}
-                />
-              </Grid>
+          <Grid container alignItems="center" direction="row" justify="center">
+            <Grid item lg={7} xs={12}>
+              <FormAddPet
+                breeds={breeds}
+                title="Ingrese los datos de la mascota Mascota"
+                types={types}
+                onSubmit={handleOnSubmit}
+              />
             </Grid>
-          )}
-          {isLoading && <CircularProgress color="secondary" />}
+          </Grid>
+          {isLoading ? <Spinner /> : ""}
+          {openMsg ? <ModalMsg msg={hasMsg} success={success} /> : ""}
         </Container>
       </>
     );

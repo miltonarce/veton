@@ -54,12 +54,12 @@ const Spinner = props => {
           <img
             alt="Logo veton"
             className={classes.Logo}
-            src="assets/Logo.svg"
+            src="/assets/Logo.svg"
           />
           <img
             alt="spinner"
             className={classes.Spinner}
-            src="assets/spinner.svg"
+            src="/assets/spinner.svg"
           />
         </Paper>
       </div>
