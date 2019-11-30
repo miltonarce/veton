@@ -117,7 +117,7 @@ const AppointmentListWithDate = ({ idVet }) => {
                 {!loading && appointments.length > 0 && <AppointmentList showDate={false} appointments={appointments} />}
                 {loading && <CircularProgress />}
                 {!loading && error && <p>{error}</p>}
-                {!loading && appointments.length === 0 && <p>Sin turnos</p>}
+                {!loading && !error && appointments.length === 0 && <p>Sin turnos</p>}
             </div>
         </div>
     );
