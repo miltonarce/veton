@@ -21,9 +21,6 @@ const styles = {
 const AppointmentLink = styled(Link)({
     textDecoration: "none",
 });
-const ContainerMain = styled("div")({
-    marginTop: "2rem",
-});
 
 class Appointments extends React.Component {
 
@@ -92,7 +89,7 @@ class Appointments extends React.Component {
                         {isLoading && <Spinner />}
                         {!isLoading && error && <p>{error}</p>}
                         {appointments.length > 0 && <AppointmentList appointments={appointments} />}
-                        {appointments.length === 0 && !isLoading && <p>No se has realizado ningun turno</p>}
+                        {appointments.length === 0 && !isLoading && <p>No se has realizado ningún turno</p>}
                     </Grid>
                 </Container>
             </>

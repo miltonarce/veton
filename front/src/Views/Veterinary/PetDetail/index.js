@@ -6,7 +6,6 @@ import {
   Typography,
   CircularProgress,
   Paper,
-  Hidden,
 } from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";

@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {withRouter, Link} from "react-router-dom";
-import clsx from "clsx";
 import {Grid, Paper, CssBaseline, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 
@@ -61,15 +60,6 @@ class Login extends Component {
   };
 
   /**
-   * Method to handle when user close
-   * @returns {void}
-   */
-  handleClose = () => {
-    const {state} = this;
-    this.setState({...state, openError: false});
-  };
-
-  /**
    * Method to handle submit form login
    * @param {object} request
    * @returns {void}
@@ -122,7 +112,7 @@ class Login extends Component {
 
   render() {
     const {isLoading, openError, hasError} = this.state;
-    const {handleOnSubmit, handleClose} = this;
+    const {handleOnSubmit} = this;
     const {classes} = this.props;
     return (
       <div className={classes.Content}>

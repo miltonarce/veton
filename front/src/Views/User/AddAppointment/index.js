@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Container,
-  CircularProgress,
 } from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import FormAppointment from "../../../Components/Forms/FormAppointment";
@@ -99,7 +98,6 @@ class AddAppointment extends React.Component {
         />
         <FormAppointment onSubmit={handleOnSubmit} />
         {!isLoading && openModal && <ModalMsg success={hasError === null} msg={msg} />}
-        {isLoading && <CircularProgress color="secondary" />}
       </Container>
     );
   }
