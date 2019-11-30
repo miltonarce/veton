@@ -9,6 +9,7 @@ import AddClinicalHistory from "./AddClinicalHistory";
 import AddConsultation from "./AddConsultation";
 import Header from "../../Components/Shared/Veterinary/Header";
 import PetDetail from "./PetDetail";
+import Profile from "./Profile";
 
 const ContentMain = styled("div")({
   width: "100%",
@@ -54,6 +55,7 @@ class Veterinary extends React.Component {
           component={AddConsultation}
           path={`${match.path}/add-consultation/:idHistory`}
         />
+        <Route component={Profile} path={`${match.path}/profile`} />
       </ContentMain>
     );
   }
