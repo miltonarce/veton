@@ -8,7 +8,8 @@ import Profile from "./Profile";
 import Pets from "./Pets";
 import PetDetail from "./PetDetail";
 import AddPet from "./AddPet";
-import Appointment from "./Appointment";
+import Appointments from "./Appointments";
+import AddAppointment from "./AddAppointment";
 import Header from "../../Components/Shared/Header";
 import Footer from "../../Components/Shared/Footer";
 
@@ -41,10 +42,8 @@ class User extends React.Component {
           <Route component={PetDetail} path={`${match.path}/pet/:id`} />
           <Route component={Profile} path={`${match.path}/profile`} />
           <Route component={AddPet} path={`${match.path}/add-pet`} />
-          <Route
-            component={Appointment}
-            path={`${match.path}/register-appointment`}
-          />
+          <Route component={Appointments} path={`${match.path}/appointments`} />
+          <Route component={AddAppointment} path={`${match.path}/add-appointment`} />
         </ContainerMain>
         <Footer />
       </ContentMain>

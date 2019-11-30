@@ -21,6 +21,7 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 import moment from "moment";
 import AppointmentDatePicker from "../../AppointmentDatePicker";
 import AppointmentHourPicker from "../../AppointmentHourPicker";
+import Api from "../../../Services/Api";
 import ApiVet from "../../../Services/ApiVet";
 
 const styles = {
@@ -93,7 +94,7 @@ class FormAppointment extends React.Component {
       },
     });
     try {
-      const hours = await ApiVet.appointments.fetch(
+      const hours = await Api.appointments.fetch(
         date,
         this.state.veterinarySelected.id_veterinary
       );

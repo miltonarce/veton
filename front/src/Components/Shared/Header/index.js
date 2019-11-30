@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Link, withRouter} from "react-router-dom";
+import React, { useState } from "react";
+import { Link, withRouter } from "react-router-dom";
 
 import {
   AppBar,
@@ -10,8 +10,8 @@ import {
   Menu,
   MenuItem,
 } from "@material-ui/core";
-import {Home, Pets, AccountCircle, StoreOutlined} from "@material-ui/icons";
-import {withStyles} from "@material-ui/core/styles";
+import { Home, Pets, AccountCircle, StoreOutlined } from "@material-ui/icons";
+import { withStyles } from "@material-ui/core/styles";
 import Auth from "../../../Services/Auth";
 
 const styles = {
@@ -24,7 +24,7 @@ const styles = {
     backgroundImage: "url('assets/Logo.png')",
     fontSize: 0,
   },
-  ContentLogo: {flexGrow: 1},
+  ContentLogo: { flexGrow: 1 },
   ButtonLogout: {
     color: "#999999",
   },
@@ -49,7 +49,7 @@ const styles = {
   },
 };
 
-const Header = ({classes}) => {
+const Header = ({ classes }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = event => {
@@ -62,7 +62,7 @@ const Header = ({classes}) => {
 
   const handleLogout = async () => {
     setAnchorEl(null);
-    const {data} = await Auth.logout();
+    const { data } = await Auth.logout();
 
     console.log(data);
   };
@@ -84,7 +84,6 @@ const Header = ({classes}) => {
               </div>{" "}
               Inicio
             </Button>
-          </Link> */}
             <Link
               className={classes.ContentLink}
               to="/user/register-appointment"
