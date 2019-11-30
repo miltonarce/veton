@@ -30,6 +30,7 @@ const styles = {
   Paper: {
     padding: "2rem",
     borderRadius: "23px",
+    marginTop: "2rem",
   },
   TitleForm: {
     fontWeight: 500,

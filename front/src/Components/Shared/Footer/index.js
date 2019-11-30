@@ -1,6 +1,6 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import {Container, Grid} from "@material-ui/core";
+import {Container, Grid, Link} from "@material-ui/core";
 
 const styles = makeStyles({
   Footer: {
@@ -23,17 +23,31 @@ const styles = makeStyles({
   Rs: {
     color: "#CBCBCB",
     listStyle: "none",
+    paddingLeft: 0,
     "& li": {
       display: "inline-block",
       marginLeft: "30px",
       marginTop: "10px",
       "& img": {
         verticalAlign: "middle",
+        display: "block",
+        margin: "7px auto",
       },
       "& span": {
         verticalAlign: "sub",
         marginLeft: "10px",
       },
+    },
+  },
+  Link: {
+    width: "40px",
+    height: "40px",
+    borderRadius: "80px",
+    background: "#6b6565",
+    display: "inline-block",
+    "&:hover": {
+      background: "#7a7171",
+      cursor: "pointer",
     },
   },
 });
@@ -50,7 +64,7 @@ const Footer = () => {
           direction="row"
           justify="space-between"
         >
-          <Grid item md={4} xs={12}>
+          <Grid item md={3} xs={12}>
             <Grid
               container
               alignItems="center"
@@ -64,22 +78,31 @@ const Footer = () => {
               />
             </Grid>
           </Grid>
-          <Grid item md={5} xs={12}>
-            <p className={classes.TitleRs}>Encontranos en:</p>
-            <ul className={classes.Rs}>
-              <li>
-                <img alt="Red social FB" src="/assets/facebook.png" />
-                <span>/vetOnline</span>
-              </li>
-              <li>
-                <img alt="Red social TW" src="/assets/twitter.png" />
-                <span>/vetOn</span>
-              </li>
-              <li>
-                <img alt="Red social IG" src="/assets/instagram.png" />
-                <span>/vetOnline24</span>
-              </li>
-            </ul>
+          <Grid item md={3} xs={12}>
+            <Grid
+              container
+              alignItems="center"
+              direction="row"
+              justify="center"
+            >
+              <ul className={classes.Rs}>
+                <li>
+                  <Link className={classes.Link} to="www.facebook.com/veton">
+                    <img alt="Red social FB" src="/assets/facebook.png" />
+                  </Link>
+                </li>
+                <li>
+                  <Link className={classes.Link} to="www.twitter.com/veton">
+                    <img alt="Red social TW" src="/assets/twitter.png" />
+                  </Link>
+                </li>
+                <li>
+                  <Link className={classes.Link} to="www.instagram.com/veton">
+                    <img alt="Red social IG" src="/assets/instagram.png" />
+                  </Link>
+                </li>
+              </ul>
+            </Grid>
           </Grid>
         </Grid>
       </Container>

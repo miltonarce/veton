@@ -32,12 +32,20 @@ const styles = {
     marginRight: "2rem",
     textDecoration: "none",
     color: "#999999",
+    "&:hover": {
+      color: "#5c2299",
+      transition: ".5s",
+    },
   },
-  ContentIcon: { marginRight: ".5rem" },
+  ContentIcon: {marginRight: ".5rem", cursor: "pointer"},
   ContainerFlex: {
     display: "flex",
     position: "relative",
     alignItems: "center",
+  },
+  Icons: {
+    verticalAlign: "text-bottom",
+    marginRight: "10px",
   },
 };
 
@@ -76,22 +84,16 @@ const Header = ({ classes }) => {
               </div>{" "}
               Inicio
             </Button>
-          </Link> */}
-            <Link className={classes.ContentLink} to="/user/appointments">
-              <Button color="inherit">
-                <div className={classes.ContentIcon}>
-                  <StoreOutlined />
-                </div>{" "}
-                Turnos
-              </Button>
+            <Link
+              className={classes.ContentLink}
+              to="/user/register-appointment"
+            >
+              <StoreOutlined className={classes.Icons} />
+              Reservar Turno
             </Link>
             <Link className={classes.ContentLink} to="/user/pets">
-              <Button color="inherit">
-                <div className={classes.ContentIcon}>
-                  <Pets />
-                </div>{" "}
-                Mascotas
-              </Button>
+              <Pets className={classes.Icons} />
+              Mascotas
             </Link>
             <div className={classes.ContentLink}>
               <div>
