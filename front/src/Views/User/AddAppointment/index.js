@@ -3,12 +3,13 @@ import {
   Container,
   CircularProgress,
 } from "@material-ui/core";
-import {withStyles, styled} from "@material-ui/core/styles";
+import {withStyles} from "@material-ui/core/styles";
 import FormAppointment from "../../../Components/Forms/FormAppointment";
 import {AppContext} from "../../../Store";
-import ApiVet from "../../../Services/ApiVet";
+import Api from "../../../Services/Api";
 import TitlePages from "../../../Components/TitlePages";
 import ModalMsg from "../../../Components/Messages/ModalMsg";
+import {withRouter} from "react-router-dom";
 
 const styles = {
   TitleAppointment: {
@@ -18,7 +19,7 @@ const styles = {
   },
 };
 
-class Appointment extends React.Component {
+class AddAppointment extends React.Component {
   state = {
     isLoading: false,
     hasError: null,
@@ -37,7 +38,7 @@ class Appointment extends React.Component {
       this.setState({...this.state, isLoading: true});
       const {
         data: {msg, success},
-      } = await ApiVet.appointments.register(requestAppointment);
+      } = await Api.appointments.register(requestAppointment);
       if (success) {
         this.setState({
           ...this.state,
@@ -51,6 +52,7 @@ class Appointment extends React.Component {
             ...this.state,
             openModal: false,
           });
+          this.props.history.push(`/user/appointments`);
         }, 3000);
       } else {
         this.setState({
@@ -103,6 +105,6 @@ class Appointment extends React.Component {
   }
 }
 
-Appointment.contextType = AppContext;
+AddAppointment.contextType = AppContext;
 
-export default withStyles(styles)(Appointment);
+export default withStyles(styles)(withRouter(props => <AddAppointment {...props} />));
