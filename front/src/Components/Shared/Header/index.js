@@ -85,10 +85,7 @@ const Header = ({classes}) => {
               Inicio
             </Button>
   */}
-            <Link
-              className={classes.ContentLink}
-              to="/user/register-appointment"
-            >
+            <Link className={classes.ContentLink} to="/user/add-appointment">
               <StoreOutlined className={classes.Icons} />
               Reservar Turno
             </Link>

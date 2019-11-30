@@ -43,7 +43,10 @@ class User extends React.Component {
           <Route component={Profile} path={`${match.path}/profile`} />
           <Route component={AddPet} path={`${match.path}/add-pet`} />
           <Route component={Appointments} path={`${match.path}/appointments`} />
-          <Route component={AddAppointment} path={`${match.path}/add-appointment`} />
+          <Route
+            component={AddAppointment}
+            path={`${match.path}/add-appointment`}
+          />
         </ContainerMain>
         <Footer />
       </ContentMain>
