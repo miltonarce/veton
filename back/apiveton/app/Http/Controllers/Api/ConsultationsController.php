@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\ClinicalHistory;
 use App\Models\Consultation;
+use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -29,6 +30,12 @@ class ConsultationsController extends Controller
             $data['image'] = 'imgs/' . $nameImage;
         } else {
             $data['image'] = '';
+        }
+        if ($request->has('id_vaccine')){
+            $data['next_dosis_vaccine']= Carbon::now()->addyear();
+        }
+        if ($request->has('id_dewormer')){
+            $data['next_dosis_dewormer']= Carbon::now()->addmonth();
         }
         Consultation::create($data);
         return response()->json([

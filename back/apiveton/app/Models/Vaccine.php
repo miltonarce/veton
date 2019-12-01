@@ -24,4 +24,9 @@ class Vaccine extends Model
     {
         return $this->belongsToMany(Pet::class, 'vaccine_pet', 'id_vaccine', 'id_pet', 'id_vaccine', 'id_pet')->withTimestamps();
     }
+
+    public function consultations()
+    {
+        return $this->hasMany(Consultation::class, 'id_vaccine', 'id_vaccine');
+    }
 }

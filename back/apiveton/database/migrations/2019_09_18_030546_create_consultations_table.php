@@ -20,6 +20,8 @@ class CreateConsultationsTable extends Migration
             $table->string('image_1', 255)->nullable();
             $table->string('image_2', 255)->nullable();
             $table->string('image_3', 255)->nullable();
+            $table->date('next_dosis_vaccine')->nullable();
+            $table->date('next_dosis_dewormer')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

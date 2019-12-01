@@ -14,7 +14,7 @@ class Consultation extends Model
     protected $dates = ['deleted_at'];
 
     /** @var array La lista de campos que se pueden cargar masivamente. */
-    protected $fillable = ['id_user', 'id_history', 'comments', 'afflictions_procedures', 'image_1', 'image_2', 'image_3' ];
+    protected $fillable = ['id_user', 'id_veterinary','id_history', 'comments', 'afflictions_procedures', 'image_1', 'image_2', 'image_3', 'id_vaccine', 'id_dewormer','next_dosis_vaccine','next_dosis_dewormer' ];
 
     /** @var array las reglas de validación. */
     public static $rules = [
@@ -42,5 +42,15 @@ class Consultation extends Model
     public function clinicalHistory()
     {
         return $this->belongsTo(ClinicalHistory::class, 'id_history', 'id_history');
+    }
+
+    public function vaccine()
+    {
+        return $this->belongsTo(Vaccine::class, 'id_vaccine', 'id_vaccine');
+    }
+
+    public function dewormer()
+    {
+        return $this->belongsTo(Dewormer::class, 'id_dewormer', 'id_dewormer');
     }
 }

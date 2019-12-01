@@ -24,4 +24,9 @@ class Dewormer extends Model
     {
         return $this->belongsToMany(Pet::class, 'dewormer_pet', 'id_dewormer', 'id_pet', 'id_dewormer', 'id_pet')->withTimestamps();
     }
+
+    public function consultations()
+    {
+        return $this->hasMany(Consultation::class, 'id_dewormer', 'id_dewormer');
+    }
 }
