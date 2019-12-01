@@ -94,13 +94,14 @@ class HomeVet extends React.Component {
       lastPetsAttended,
     } = this.state;
     const { classes } = this.props;
+    const {  auth: { user: { id_veterinary } } } = this.context;
     return (
       <>
         <CssBaseline />
         <Container fixed>
           <Grid container direction="row" justify="center" spacing={2}>
             <Grid item xs={12} md={4} xl={3}>
-              <AppointmentListWithDate idVet={2} />
+              <AppointmentListWithDate idVet={id_veterinary} />
             </Grid>
             <Grid item xs={12} md={8} xl={9}>
               <h2 className={classes.title}>Últimas consultas realizadas</h2>
