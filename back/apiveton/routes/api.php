@@ -36,6 +36,8 @@ Route::put('pets/{id}', 'Api\\PetsController@editPet');
 Route::get('pets/users/{id}', 'Api\\PetsController@findByUser');
 //Pets (Eliminar mascota)
 Route::delete('pets/{idPet}', 'Api\\PetsController@removePet');
+//Statistics (Estadisticas usuario)
+Route::get('/pets/users/{id}/statistics', 'Api\\PetsController@statistics');
 
 // Users (Obtener un usuario por dni)
 Route::get('/users/{dni}', 'Api\\UsersController@find');
@@ -68,6 +70,9 @@ Route::delete('consultations/{idConsultation}', 'Api\\ConsultationsController@re
 Route::post('appointments', 'Api\\AppointmentsController@save');
 // Appointments (Obtener los turnos que realizó una persona)
 Route::get('appointments/{user}', 'Api\\AppointmentsController@findByUser');
+// Appointments (Obtener los turnos que va a tener una persona)
+Route::get('appointments/{user}/future', 'Api\\AppointmentsController@findByUserFuture');
+
 // Appointments (Cancelar un turno de una persona...)
 Route::delete('appointments/{user}/{idAppointment}', 'Api\\AppointmentsController@delete');
 // Appointments (Obtener los turnos registrados de una veterinaria dado una fecha)
