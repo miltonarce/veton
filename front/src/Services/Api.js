@@ -53,6 +53,7 @@ export default {
   },
   statistics: {
     fetch: idUser  => axiosInstance.get(`/pets/users/${idUser}/statistics`),
+    fetchByVet: (idVet, date) => axiosInstance.get(`/appointments/veterinary/${idVet}/${date}`),
   },
   roles: {
     all: () => ({

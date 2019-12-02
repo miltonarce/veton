@@ -32,6 +32,11 @@ class AuthController extends Controller
                 return response()->json(['success' => false, 'msg' => 'Datos incorrectos, vuelva a intentar.']);
             }
             $user = auth()->user();
+
+            if ($this->isUserVet($user['id_role'])) {
+                $user['id_veterinary'] = $this->getIdVeterinary($user['id_user']);
+            }
+
             return response()->json([
                 'success' => true,
                 'msg' => 'Login exitoso',
@@ -117,7 +122,8 @@ class AuthController extends Controller
             'email' => $data['email'],
             'birthday' => date('d-m-Y', strtotime($data['birthday'])),
             'image' => $data['image'],
-            'id_role' => $data['id_role']
+            'id_role' => $data['id_role'],
+            'id_veterinary' => $data['id_veterinary']
         ];
     }
 
@@ -130,6 +136,24 @@ class AuthController extends Controller
     {
         $email = User::all()->where('email', '=', $email)->first();
         return $email ? true : false;
+    }
+
+    /**
+     * Get the id of the vet to which it belongs
+     * @return number
+     */
+    private function getIdVeterinary($idUser) {
+        $userVeterinaryInfo = DB::table('user_veterinary')->where('id_user', '=', $idUser)->first();
+        return $userVeterinaryInfo->id_veterinary;
+    }
+
+    /**
+     * Verify if the user logged is a veterinary
+     * @param number
+     * @return bool
+     */
+    private function isUserVet($idRole) {
+        return $idRole === 3;
     }
 
 }

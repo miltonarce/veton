@@ -34,7 +34,7 @@ export default function LastPetsByVet({ pets }) {
         <div className={classes.root}>
             {pets.map((pet, index) => {
                 return (
-                    <ExpansionPanel expanded={expanded === index} onChange={handleChange(index)}>
+                    <ExpansionPanel key={index} expanded={expanded === index} onChange={handleChange(index)}>
                         <ExpansionPanelSummary
                             expandIcon={<ExpandMoreIcon />}
                         >
