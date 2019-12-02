@@ -54,7 +54,7 @@ class HomeUser extends React.Component {
       <>
         <Container fixed style={{ padingTop: '20px !important' }}>
           <TitlePages
-            subtitle="Aquí podrás encontrar información releante sobre todas tus mascotas"
+            subtitle="Aquí podrás encontrar información relevante sobre todas tus mascotas"
             title="Home"
           />
           <Grid container direction="row" justify="center" spacing={2} className={classes.paddingTop}>
