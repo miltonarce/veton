@@ -13,6 +13,9 @@
     U+2215, U+FEFF, U+FFFD;
 }
 
+.highcharts-credits{
+  display: none !important;
+}
 
 /*Scrollbar styles */
 .veton-app::-webkit-scrollbar-track

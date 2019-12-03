@@ -46,7 +46,7 @@ const ListConsultations = ({consultations}) => {
     <>
       <CssBaseline />
       <Grid container alignItems="center" direction="row" justify="flex-start">
-        <Grid item xs={10}>
+        <Grid item xs={user.id_role === 3 ? 10 : 12}>
           <div className={classes.headerConsult}>
             <Grid
               container

@@ -8,7 +8,12 @@ import {
   Menu,
   MenuItem,
 } from "@material-ui/core";
-import {Pets, AccountCircle, StoreOutlined} from "@material-ui/icons";
+import {
+  Pets,
+  AccountCircle,
+  StoreOutlined,
+  HomeOutlined,
+} from "@material-ui/icons";
 import {withStyles} from "@material-ui/core/styles";
 
 const styles = {
@@ -75,6 +80,10 @@ const Header = ({classes}) => {
               Inicio
             </Button>
   */}
+            <Link className={classes.ContentLink} to="/user">
+              <HomeOutlined className={classes.Icons} />
+              Inicio
+            </Link>
             <Link className={classes.ContentLink} to="/user/appointments">
               <StoreOutlined className={classes.Icons} />
               Turnos

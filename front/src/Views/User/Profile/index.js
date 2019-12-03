@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
   Container,
   CssBaseline,
@@ -9,6 +9,7 @@ import {
 import {makeStyles} from "@material-ui/core/styles";
 
 import TitlePages from "../../../Components/TitlePages";
+import {AppContext} from "../../../Store";
 
 const useStyles = makeStyles(() => ({
   Main: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     boxShadow: "0px 3px 11px 5px rgba(0, 0, 0, 0.16)",
     borderRadius: "123px",
-    left: "2rem", 
+    left: "2rem",
   },
   UserName: {
     color: "#4E4E4E",
@@ -48,14 +49,17 @@ const useStyles = makeStyles(() => ({
 
 const Profile = () => {
   const classes = useStyles();
+  const {
+    auth: {user},
+  } = useContext(AppContext);
 
   return (
     <>
       <CssBaseline />
       <Container fixed>
         <TitlePages
-          subtitle="Aquí podra editar su perfil."
-          title="Perfil del usuario Jorge"
+          subtitle="Aquí podra editar su perfil de usuario."
+          title="Perfil de usuario"
         />
         <Grid
           container
@@ -87,7 +91,11 @@ const Profile = () => {
                       <img
                         alt=""
                         className={classes.ImageUser}
-                        src="http://api.veton/imgs/simondiaz.jpg"
+                        src={
+                          user.image
+                            ? `http://api.veton/imgs/${user.image}`
+                            : "/assets/no-image.png"
+                        }
                       />
                     </Grid>
                     <Grid item className={classes.Paper} xs={9}>
@@ -106,7 +114,7 @@ const Profile = () => {
                               component="h3"
                               variant="h3"
                             >
-                              Nombre y Apellido
+                              {user.name} {user.last_name}
                             </Typography>
                           </Grid>
                           <Grid item xs={12}>
@@ -124,7 +132,7 @@ const Profile = () => {
                                   </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
-                                  38.536.333
+                                  {user.dni}
                                 </Grid>
                               </Grid>
                               <Grid item xs={4}>
@@ -134,7 +142,7 @@ const Profile = () => {
                                   </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
-                                  testemail@gmail.com
+                                  {user.email}
                                 </Grid>
                               </Grid>
                               <Grid item xs={4}>
@@ -144,7 +152,7 @@ const Profile = () => {
                                   </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
-                                  24-08-1994
+                                  {user.birthday}
                                 </Grid>
                               </Grid>
                             </Grid>
