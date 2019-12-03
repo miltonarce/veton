@@ -10,7 +10,6 @@ import {
   Button,
   Card,
 } from "@material-ui/core";
-import {EditOutlined} from "@material-ui/icons";
 
 import {withStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
@@ -105,6 +104,9 @@ const styles = {
     paddingLeft: "20px",
     paddingRight: "20px",
   },
+  spinner: {
+    marginTop: "200px",
+  },
 };
 
 class PetDetail extends React.Component {
@@ -138,9 +140,17 @@ class PetDetail extends React.Component {
     } = this.context;
     if (isLoading) {
       return (
-        <div className="veton-container-spinner">
-          <CircularProgress color="secondary" />
-        </div>
+        <Container fixed>
+          <Grid
+            container
+            alignItems="center"
+            className={classes.spinner}
+            direction="row"
+            justify="center"
+          >
+            <CircularProgress color="secondary" />
+          </Grid>
+        </Container>
       );
     }
     if (error) {

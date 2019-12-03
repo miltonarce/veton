@@ -1,10 +1,12 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
-import {Grid, Button} from "@material-ui/core/";
+import {Grid, Button, Modal} from "@material-ui/core/";
 import {Check} from "@material-ui/icons";
 import {useSnackbar} from "notistack";
+
 import ApiVet from "../../Services/ApiVet";
+import ModalConsultation from "../Messages/ModalConsultation";
 
 // Default styles for components...
 const useStyles = makeStyles(theme => ({
@@ -45,6 +47,7 @@ const Consultation = ({dataConsultation, user}) => {
     comments: dataConsultation.comments,
     hasError: null,
     hasDisabled: user.id_role !== 3,
+    openModal: false,
   });
 
   React.useEffect(() => {
@@ -65,11 +68,15 @@ const Consultation = ({dataConsultation, user}) => {
     setValues({...values, [name]: event.target.value});
   };
 
+  const handleOpenModal = () => {
+    setValues({...values, openModal: !values.openModal});
+  };
+
   return (
     <>
       <Grid container alignItems="center" justify="space-between">
-        <Grid item xs={10}>
-          <div className={classes.consultList}>
+        <Grid item xs={user.id_role === 3 ? 10 : 12}>
+          <div className={classes.consultList} onClick={handleOpenModal}>
             <Grid
               container
               alignItems="center"
@@ -91,23 +98,32 @@ const Consultation = ({dataConsultation, user}) => {
             </Grid>
           </div>
         </Grid>
-        <Grid item xs={2}>
-          <Link
-            className={classes.ContentLink}
-            to={`/veterinary/edit-consultation/${dataConsultation.id_consultation}`}
-          >
-            <Button
-              className={classes.button}
-              color="primary"
-              size="small"
-              type="submit"
-              variant="contained"
+        {user.id_role === 3 ? (
+          <Grid item xs={2}>
+            <Link
+              className={classes.ContentLink}
+              to={`/veterinary/edit-consultation/${dataConsultation.id_consultation}`}
             >
-              Editar
-            </Button>
-          </Link>
-        </Grid>
+              <Button
+                className={classes.button}
+                color="primary"
+                size="small"
+                type="submit"
+                variant="contained"
+              >
+                Editar
+              </Button>
+            </Link>
+          </Grid>
+        ) : (
+          ""
+        )}
       </Grid>
+      <ModalConsultation
+        close={handleOpenModal}
+        data={dataConsultation}
+        open={values.openModal}
+      />
     </>
   );
 };

@@ -14,7 +14,7 @@ class AddIdHistoryToConsultationsTable extends Migration
     public function up()
     {
         Schema::table('consultations', function (Blueprint $table) {
-            $table->unsignedInteger('id_history')->default(1)->after('id_veterinary');
+            $table->unsignedInteger('id_history')->unsigned();
             $table->foreign('id_history')->references('id_history')->on('clinicalhistories');
         });
     }

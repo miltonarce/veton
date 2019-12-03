@@ -56,6 +56,7 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     color: "#5C2299",
+    marginBottom: 0,
   },
   ContentLink: {
     textDecoration: "none",
@@ -70,7 +71,7 @@ const useStyles = makeStyles(theme => ({
   },
   first: {
     marginTop: "-.5rem",
-    marginBottom: "2rem",
+    marginBottom: "1rem",
   },
   second: {
     marginTop: "2rem",

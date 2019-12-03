@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
   Container,
   CssBaseline,
@@ -9,6 +9,7 @@ import {
 import {makeStyles} from "@material-ui/core/styles";
 
 import TitlePages from "../../../Components/TitlePages";
+import {AppContext} from "../../../Store";
 
 const useStyles = makeStyles(() => ({
   Main: {
@@ -33,9 +34,9 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     boxShadow: "0px 3px 11px 5px rgba(0, 0, 0, 0.16)",
     borderRadius: "123px",
-    left: "2rem", 
+    left: "2rem",
   },
-  BusinessName: {
+  UserName: {
     color: "#4E4E4E",
     fontSize: "1.87rem",
     fontWeight: 600,
@@ -48,14 +49,17 @@ const useStyles = makeStyles(() => ({
 
 const Profile = () => {
   const classes = useStyles();
+  const {
+    auth: {user},
+  } = useContext(AppContext);
 
   return (
     <>
       <CssBaseline />
       <Container fixed>
         <TitlePages
-          subtitle="Aquí podra editar su veterinaria."
-          title="Perfil de veterinaria"
+          subtitle="Aquí podra editar su perfil de usuario."
+          title="Perfil de usuario"
         />
         <Grid
           container
@@ -87,7 +91,11 @@ const Profile = () => {
                       <img
                         alt=""
                         className={classes.ImageUser}
-                        src="http://api.veton/imgs/maskkotas.jpg"
+                        src={
+                          user.image
+                            ? `http://api.veton/imgs/${user.image}`
+                            : "/assets/no-image.png"
+                        }
                       />
                     </Grid>
                     <Grid item className={classes.Paper} xs={9}>
@@ -102,11 +110,11 @@ const Profile = () => {
                         <Grid item xs={8}>
                           <Grid item xs={12}>
                             <Typography
-                              className={classes.BusinessName}
+                              className={classes.UserName}
                               component="h3"
                               variant="h3"
                             >
-                              Maskkotas SA
+                              {user.name} {user.last_name}
                             </Typography>
                           </Grid>
                           <Grid item xs={12}>
@@ -120,51 +128,31 @@ const Profile = () => {
                               <Grid item xs={4}>
                                 <Grid item xs={12}>
                                   <Typography color="secondary" component="p">
-                                    CUIT_CUIL
+                                    DNI
                                   </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
-                                  12345678
+                                  {user.dni}
                                 </Grid>
                               </Grid>
                               <Grid item xs={4}>
                                 <Grid item xs={12}>
                                   <Typography color="secondary" component="p">
-                                    TELEFONO
+                                    EMAIL
                                   </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
-                                  123456789
+                                  {user.email}
                                 </Grid>
                               </Grid>
                               <Grid item xs={4}>
                                 <Grid item xs={12}>
                                   <Typography color="secondary" component="p">
-                                    TELEFONO2
+                                    CUMPLEAÑOS
                                   </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
-                                  123456789
-                                </Grid>
-                              </Grid>
-                              <Grid item xs={4}>
-                                <Grid item xs={12}>
-                                  <Typography color="secondary" component="p">
-                                    DIRECCION
-                                  </Typography>
-                                </Grid>
-                                <Grid item xs={12}>
-                                  Calle falsa 123
-                                </Grid>
-                              </Grid>
-                              <Grid item xs={4}>
-                                <Grid item xs={12}>
-                                  <Typography color="secondary" component="p">
-                                    ENTRE CALLES
-                                  </Typography>
-                                </Grid>
-                                <Grid item xs={12}>
-                                  Calle siempre viva y Elm street
+                                  {user.birthday}
                                 </Grid>
                               </Grid>
                             </Grid>
