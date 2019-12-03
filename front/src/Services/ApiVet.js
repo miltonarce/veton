@@ -12,11 +12,18 @@ export default {
     edit: (idHistory, request) =>
       axiosInstance.put(`/clinicalhistories/${idHistory}`, request),
   },
+  clinicalhistory: {
+    fetch: idHistory => axiosInstance.get(`/clinicalhistory/${idHistory}`),
+  },
   consultations: {
     create: (idHistory, request) =>
       axiosInstance.post(`/consultations/${idHistory}`, request),
     edit: (idConsultation, request) =>
       axiosInstance.put(`/consultations/${idConsultation}`, request),
+  },
+  consultation: {
+    fetch: idConsultation =>
+      axiosInstance.get(`/consultation/${idConsultation}`),
   },
   users: {
     fetch: id => axiosInstance.get(`/users/${id}`),
@@ -27,5 +34,5 @@ export default {
   },
   veterinaries: {
     fetch: () => axiosInstance.get("/veterinaries"),
-  }
+  },
 };

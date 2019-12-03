@@ -15,15 +15,16 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     border: "0 20px 0 20px",
     borderRadius: "0 20px",
+    zIndex: 99999999,
   },
   inline: {
     display: "inline",
   },
 }));
 
-//Component item to show info user in autocomplete
+// Component item to show info user in autocomplete
 const ItemUser = ({name, last_name, email, image, onUserSelected}) => (
-  <ListItem alignItems="flex-start" button onClick={onUserSelected}>
+  <ListItem button alignItems="flex-start" onClick={onUserSelected}>
     <ListItemAvatar>
       <Avatar
         alt={name}
@@ -39,7 +40,7 @@ const ItemUser = ({name, last_name, email, image, onUserSelected}) => (
   </ListItem>
 );
 
-//Component to retrieve in list all users by autocomplete...
+// Component to retrieve in list all users by autocomplete...
 export default function ListItemUsers({users, onUserSelected}) {
   const classes = useStyles();
   return (
@@ -53,4 +54,4 @@ export default function ListItemUsers({users, onUserSelected}) {
       ))}
     </List>
   );
-};
+}

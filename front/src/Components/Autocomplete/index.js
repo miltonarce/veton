@@ -1,12 +1,9 @@
 import React from "react";
-import ListItemUsers from "./users";
-import {
-    CircularProgress,
-    TextField
-} from "@material-ui/core";
+import {CircularProgress, TextField} from "@material-ui/core";
 import SearchOutlined from "@material-ui/icons/SearchOutlined";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { styled } from "@material-ui/core/styles";
+import {styled, withStyles} from "@material-ui/core/styles";
+import ListItemUsers from "./users";
 import ApiVet from "../../Services/ApiVet";
 
 const CircularProgressAbsolute = styled(CircularProgress)({
@@ -16,6 +13,16 @@ const CircularProgressAbsolute = styled(CircularProgress)({
   width: "20px !important",
   bottom: "20px",
 });
+
+const styles = {
+  Search: {
+    border: "1px solid #5C2299",
+    borderRadius: "23px",
+    padding: "3px",
+    paddingLeft: "10px",
+    marginLeft: "3rem",
+  },
+};
 
 class Autocomplete extends React.Component {
   constructor(props) {
@@ -36,7 +43,7 @@ class Autocomplete extends React.Component {
    */
   async handleOnChange(event) {
     const {value} = event.target;
-    if (value.length > 2) {
+    if (value.length >= 1) {
       try {
         this.setState({...this.state, loading: true});
         const {data} = await ApiVet.users.autocomplete(value);
@@ -67,15 +74,13 @@ class Autocomplete extends React.Component {
       handleUserSelected,
       props: {placeholder},
     } = this;
+    const {classes} = this.props;
     return (
       <>
         <TextField
-          placeholder={placeholder}
           fullWidth
           required
-          onChange={handleOnChange}
-          onBlur={handleFocus}
-          onFocus={handleFocus}
+          className={classes.Search}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -84,6 +89,10 @@ class Autocomplete extends React.Component {
             ),
             disableUnderline: true,
           }}
+          placeholder={placeholder}
+          onBlur={handleFocus}
+          onChange={handleOnChange}
+          onFocus={handleFocus}
         />
         {loading && <CircularProgressAbsolute />}
         <ListItemUsers users={users} onUserSelected={handleUserSelected} />
@@ -92,4 +101,4 @@ class Autocomplete extends React.Component {
   }
 }
 
-export default Autocomplete;
+export default withStyles(styles)(Autocomplete);

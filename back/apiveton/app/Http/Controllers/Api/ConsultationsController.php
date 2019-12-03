@@ -57,6 +57,12 @@ class ConsultationsController extends Controller
         return response()->json($consultations);
     }
 
+    public function findOneById($id)
+    {
+        $consultation = Consultation::where('id_consultation',$id)->first();
+        return response()->json($consultation);
+    }
+
     public function editConsultation (Request $request, $idConsultation)
     {
         try {
