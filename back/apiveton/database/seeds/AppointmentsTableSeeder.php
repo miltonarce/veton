@@ -44,5 +44,82 @@ class AppointmentsTableSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
+        DB::table('appointments')->insert([
+            'id_appointment' => 4,
+            'id_veterinary' => 1,
+            'id_user' => 11,
+            'date' => '2019-12-3',
+            'time' =>'11-12',
+            'type' =>2,
+            'reason' =>'Chad Nieto, vacunacion',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('appointments')->insert([
+            'id_appointment' => 5,
+            'id_veterinary' => 1,
+            'id_user' => 12,
+            'date' => '2019-12-3',
+            'time' =>'13-14',
+            'type' =>2,
+            'reason' =>'Narciso Salazar, chequeo anual.',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('appointments')->insert([
+            'id_appointment' => 6,
+            'id_veterinary' => 1,
+            'id_user' => 10,
+            'date' => '2019-12-4',
+            'time' =>'9-10',
+            'type' =>2,
+            'reason' =>'Azul Diaz, consulta anual.',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('appointments')->insert([
+            'id_appointment' => 7,
+            'id_veterinary' => 1,
+            'id_user' => 12,
+            'date' => '2019-12-4',
+            'time' =>'10-11',
+            'type' =>2,
+            'reason' =>'Octavio Salazar, vacunación.',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('appointments')->insert([
+            'id_appointment' => 8,
+            'id_veterinary' => 1,
+            'id_user' => 12,
+            'date' => '2019-12-5',
+            'time' =>'10-11',
+            'type' =>2,
+            'reason' =>'Anastasio Salazar, chequeo.',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('appointments')->insert([
+            'id_appointment' => 9,
+            'id_veterinary' => 1,
+            'id_user' => 12,
+            'date' => '2019-12-3',
+            'time' =>'14-15',
+            'type' =>2,
+            'reason' =>'Anastasio Salazar, chequeo.',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('appointments')->insert([
+            'id_appointment' => 10,
+            'id_veterinary' => 1,
+            'id_user' => 10,
+            'date' => '2019-12-3',
+            'time' =>'14-15',
+            'type' =>2,
+            'reason' =>'Azul Diaz, chequeo.',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
     }
 }
