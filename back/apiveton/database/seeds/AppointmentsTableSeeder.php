@@ -121,5 +121,49 @@ class AppointmentsTableSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
+        DB::table('appointments')->insert([
+            'id_appointment' => 11,
+            'id_veterinary' => 1,
+            'id_user' => 2,
+            'date' => '2019-12-6',
+            'time' =>'9-10',
+            'type' =>2,
+            'reason' =>'Luli Perez, chequeo.',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('appointments')->insert([
+            'id_appointment' => 12,
+            'id_veterinary' => 1,
+            'id_user' => 2,
+            'date' => '2019-12-9',
+            'time' =>'10-11',
+            'type' =>2,
+            'reason' =>'Tom Perez, chequeo.',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('appointments')->insert([
+            'id_appointment' => 13,
+            'id_veterinary' => 1,
+            'id_user' => 2,
+            'date' => '2019-12-19',
+            'time' =>'10-11',
+            'type' =>2,
+            'reason' =>'Tom Perez, chequeo.',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('appointments')->insert([
+            'id_appointment' => 14,
+            'id_veterinary' => 1,
+            'id_user' => 2,
+            'date' => '2019-12-23',
+            'time' =>'10-11',
+            'type' =>2,
+            'reason' =>'Fiaca Perez, chequeo.',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
     }
 }
