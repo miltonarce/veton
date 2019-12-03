@@ -43,6 +43,12 @@ const useStyles = makeStyles(theme => ({
   rowImg: {
     marginTop: "1rem",
   },
+  ContentCardText: {
+    "& p": {
+      wordBreak: "break-all",
+      marginTop: 0,
+    },
+  },
 }));
 
 const History = ({dataHistory, user}) => {
@@ -104,7 +110,7 @@ const History = ({dataHistory, user}) => {
                     </Typography>
                   </Grid>
                   <Grid item xs={12}>
-                    {dataHistory.id_history}
+                    <p>{dataHistory.id_history}</p>
                   </Grid>
                 </Grid>
                 <Grid item xs={4}>
@@ -114,7 +120,7 @@ const History = ({dataHistory, user}) => {
                     </Typography>
                   </Grid>
                   <Grid item xs={12}>
-                    {dataHistory.created_at}
+                    <p>{dataHistory.created_at}</p>
                   </Grid>
                 </Grid>
                 <Grid item xs={5}>
@@ -124,7 +130,7 @@ const History = ({dataHistory, user}) => {
                     </Typography>
                   </Grid>
                   <Grid item xs={12}>
-                    {dataHistory.updated_at}
+                    <p>{dataHistory.updated_at}</p>
                   </Grid>
                 </Grid>
               </Grid>
@@ -143,7 +149,7 @@ const History = ({dataHistory, user}) => {
                     </Typography>
                   </Grid>
                   <Grid item xs={12}>
-                    {dataHistory.afflictions_procedures}
+                    <p>{dataHistory.afflictions_procedures}</p>
                   </Grid>
                 </Grid>
                 <Grid item xs={5}>
@@ -153,7 +159,7 @@ const History = ({dataHistory, user}) => {
                     </Typography>
                   </Grid>
                   <Grid item xs={12}>
-                    {dataHistory.comments}
+                    <p>{dataHistory.comments}</p>
                   </Grid>
                 </Grid>
               </Grid>

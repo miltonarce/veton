@@ -107,6 +107,9 @@ const styles = {
   spinner: {
     marginTop: "200px",
   },
+  comment: {
+    wordBreak: "break-all",
+  },
 };
 
 class PetDetail extends React.Component {
@@ -326,10 +329,7 @@ class PetDetail extends React.Component {
                           </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                          <Typography
-                            className={classes.comments}
-                            component="p"
-                          >
+                          <Typography className={classes.comment} component="p">
                             {dataPet.comments}
                           </Typography>
                         </Grid>

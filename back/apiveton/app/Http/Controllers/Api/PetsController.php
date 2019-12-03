@@ -58,7 +58,7 @@ class PetsController extends Controller
             //query para tener las 10 mascotas antendidas
             $pets = Pet::join('clinicalhistories', 'pets.id_pet', '=', 'clinicalhistories.id_pet')
                         ->join('consultations', 'consultations.id_history', '=', 'clinicalhistories.id_history')
-                        ->where('consultations.id_veterinary', '=', $idVet)->orderBy('consultations.updated_at', 'asc')->limit(10)->get();
+                        ->where('clinicalhistories.id_veterinary', '=', $idVet)->orderBy('consultations.updated_at', 'desc')->limit(4)->get();
             return response()->json([
                 'success' => true,
                 'pets' => $pets
