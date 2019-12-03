@@ -1,5 +1,5 @@
 import React from "react";
-import {CircularProgress, TextField} from "@material-ui/core";
+import {CircularProgress, TextField, Container, Grid} from "@material-ui/core";
 import SearchOutlined from "@material-ui/icons/SearchOutlined";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import {styled, withStyles} from "@material-ui/core/styles";
@@ -94,7 +94,19 @@ class Autocomplete extends React.Component {
           onChange={handleOnChange}
           onFocus={handleFocus}
         />
-        {loading && <CircularProgressAbsolute />}
+        {loading && (
+          <Container fixed>
+            <Grid
+              container
+              alignItems="center"
+              className={classes.spinner}
+              direction="row"
+              justify="center"
+            >
+              <CircularProgress color="secondary" />
+            </Grid>
+          </Container>
+        )}
         <ListItemUsers users={users} onUserSelected={handleUserSelected} />
       </>
     );

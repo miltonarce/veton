@@ -17,6 +17,10 @@
   display: none !important;
 }
 
+.withRouter\(\)-ContentIcon-464, .withRouter\(\)-ContentIcon-859{
+  vertical-align: bottom !important;
+}
+
 /*Scrollbar styles */
 .veton-app::-webkit-scrollbar-track
 {

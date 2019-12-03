@@ -25,7 +25,7 @@ class UsersController extends Controller
 
     public function search($input) 
     {
-        $users = User::where('name', 'like', '%' . $input . "%")->orWhere('dni', 'like', '%' . $input . "%")->get();
+        $users = User::where('email', 'like', '%' . $input . "%")->orWhere('dni', 'like', '%' . $input . "%")->get();
         return response()->json($users);
     }
 

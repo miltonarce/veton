@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
   },
   Paper: {
     borderRadius: "23px",
-    padding: "1.5rem",
+    padding: ".5rem",
     height: "auto",
   },
   ContentCardUserProfile: {
@@ -40,7 +40,7 @@ const useStyles = makeStyles(() => ({
     color: "#4E4E4E",
     fontSize: "1.87rem",
     fontWeight: 600,
-    marginBottom: ".2 rem",
+    marginBottom: "1rem",
   },
   Content: {
     margin: ".75rem",
@@ -69,7 +69,7 @@ const Profile = () => {
           justify="center"
           spacing={3}
         >
-          <Grid item md={12} xs={12}>
+          <Grid item xs={12}>
             <Grid
               container
               alignItems="center"
@@ -114,7 +114,9 @@ const Profile = () => {
                               component="h3"
                               variant="h3"
                             >
-                              {user.name} {user.last_name}
+                              {user.name && user.last_name
+                                ? `${user.name} ${user.last_name}`
+                                : "Sin nombre registrado."}
                             </Typography>
                           </Grid>
                           <Grid item xs={12}>
@@ -125,7 +127,7 @@ const Profile = () => {
                               justify="flex-start"
                               spacing={4}
                             >
-                              <Grid item xs={4}>
+                              <Grid item xs={3}>
                                 <Grid item xs={12}>
                                   <Typography color="secondary" component="p">
                                     DNI
@@ -135,7 +137,7 @@ const Profile = () => {
                                   {user.dni}
                                 </Grid>
                               </Grid>
-                              <Grid item xs={4}>
+                              <Grid item xs={5}>
                                 <Grid item xs={12}>
                                   <Typography color="secondary" component="p">
                                     EMAIL

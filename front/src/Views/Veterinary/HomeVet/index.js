@@ -5,12 +5,12 @@ import {
   Container,
   Grid,
 } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+import {withStyles} from "@material-ui/core/styles";
 import ListPets from "../../../Components/ListPets";
 import LastPetsByVet from "../../../Components/LastPetsByVet";
 import AppointmentListWithDate from "../../../Components/AppointmentListWithDate";
 import Api from "../../../Services/Api";
-import { AppContext } from "../../../Store";
+import {AppContext} from "../../../Store";
 
 // All classes by component
 const styles = {
@@ -41,11 +41,11 @@ class HomeVet extends React.Component {
   async componentDidMount() {
     try {
       const {
-        auth: { user },
+        auth: {user},
       } = this.context;
-      this.setState({ ...this.state, isLoadingLastPets: true });
+      this.setState({...this.state, isLoadingLastPets: true});
       const {
-        data: { success, pets },
+        data: {success, pets},
       } = await Api.pets.lastPetsByVet(user.id_user);
       if (success) {
         this.setState({
@@ -77,11 +77,11 @@ class HomeVet extends React.Component {
    */
   fetchPetsByUser = async user => {
     try {
-      this.setState({ ...this.state, isLoading: true, userSelected: user });
-      const { data } = await Api.pets.fetch(user.id_user);
-      this.setState({ ...this.state, petsByUser: data, isLoading: false });
+      this.setState({...this.state, isLoading: true, userSelected: user});
+      const {data} = await Api.pets.fetch(user.id_user);
+      this.setState({...this.state, petsByUser: data, isLoading: false});
     } catch (err) {
-      this.setState({ ...this.state, petsByUser: [], isLoading: false });
+      this.setState({...this.state, petsByUser: [], isLoading: false});
     }
   };
 
@@ -93,29 +93,50 @@ class HomeVet extends React.Component {
       isLoadingLastPets,
       lastPetsAttended,
     } = this.state;
-    const { classes } = this.props;
-    const {  auth: { user: { id_veterinary } } } = this.context;
+    const {classes} = this.props;
+    const {
+      auth: {
+        user: {id_veterinary},
+      },
+    } = this.context;
     return (
       <>
         <CssBaseline />
         <Container fixed>
           <Grid container direction="row" justify="center" spacing={2}>
-            <Grid item xs={12} md={4} xl={3}>
+            <Grid item md={4} xl={3} xs={12}>
               <AppointmentListWithDate idVet={id_veterinary} />
             </Grid>
-            <Grid item xs={12} md={8} xl={9}>
-              <h2 className={classes.title}>Últimas consultas realizadas</h2>
-              {isLoadingLastPets && <CircularProgress />}
-              {!isLoadingLastPets && lastPetsAttended.length > 0 && (
-                <LastPetsByVet pets={lastPetsAttended} />
+            <Grid item md={8} xl={9} xs={12}>
+              {isLoadingLastPets && (
+                <Container fixed>
+                  <Grid
+                    container
+                    alignItems="center"
+                    className={classes.spinner}
+                    direction="row"
+                    justify="center"
+                  >
+                    <CircularProgress color="secondary" />
+                  </Grid>
+                </Container>
               )}
-              {!isLoadingLastPets && lastPetsAttended.length === 0 && (
-                <p>No existen consultas registradas esta semana</p>
-              )}
-            </Grid>
-          </Grid>
-          <Grid container direction="row" justify="center" spacing={2}>
-            <Grid item xs={12}>
+
+              {!isLoadingLastPets &&
+                lastPetsAttended.length > 0 &&
+                !userSelected && (
+                  <div>
+                    <h2 className={classes.title}>
+                      Últimas consultas realizadas
+                    </h2>{" "}
+                    <LastPetsByVet pets={lastPetsAttended} />
+                  </div>
+                )}
+              {!isLoadingLastPets &&
+                lastPetsAttended.length === 0 &&
+                !userSelected && (
+                  <p>No existen consultas registradas esta semana</p>
+                )}
               {userSelected && (
                 <div>
                   <h2 className={classes.title}>
@@ -123,7 +144,7 @@ class HomeVet extends React.Component {
                   </h2>
                   {isLoading && <CircularProgress />}
                   {!isLoading && petsByUser.length > 0 && (
-                    <ListPets pets={petsByUser} />
+                    <LastPetsByVet pets={petsByUser} />
                   )}
                   {!isLoading && petsByUser.length === 0 && (
                     <p>No existen mascotas registradas</p>

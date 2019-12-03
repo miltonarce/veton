@@ -1,55 +1,60 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import React from "react";
+import PropTypes from "prop-types";
+import {styled} from "@material-ui/core/styles";
+import {Grid} from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        width: '100%',
-    },
-    heading: {
-        fontSize: theme.typography.pxToRem(15),
-        flexBasis: '33.33%',
-        flexShrink: 0,
-        fontWeight: '700',
-    },
-    secondaryHeading: {
-        fontSize: theme.typography.pxToRem(15),
-        color: theme.palette.text.secondary,
-    },
-}));
+import Pet from "../Pet";
 
-export default function LastPetsByVet({ pets }) {
-    const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
+const GridList = styled(Grid)({
+  marginBottom: "2rem",
+});
 
-    const handleChange = panel => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
-    };
+class LastPetsByVet extends React.Component {
+  showAddClinicalHistory = idPet => {
+    const {clinicalHistories} = this.props;
+    return (
+      clinicalHistories.find(clinical => clinical.id_pet === idPet) ===
+      undefined
+    );
+  };
+
+  render() {
+    const {pets} = this.props;
 
     return (
-        <div className={classes.root}>
-            {pets.map((pet, index) => {
-                return (
-                    <ExpansionPanel key={index} expanded={expanded === index} onChange={handleChange(index)}>
-                        <ExpansionPanelSummary
-                            expandIcon={<ExpandMoreIcon />}
-                        >
-                            <Typography className={classes.heading}>{pet.updated_at}</Typography>
-                            <Typography className={classes.secondaryHeading}>{pet.comments}</Typography>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                            <Typography>
-                                {pet.afflictions_procedures}
-                            </Typography>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                )
-            })}
-
-        </div>
+      <Grid
+        container
+        alignItems="flex-start"
+        direction="row"
+        justify="flex-start"
+        spacing={2}
+      >
+        {pets.map((pet, i) => (
+          <GridList key={i} item lg={6} md={6} xl={6} xs={12}>
+            <Grid
+              container
+              alignItems="center"
+              direction="row"
+              justify="center"
+            >
+              <Pet {...pet} />
+            </Grid>
+          </GridList>
+        ))}
+      </Grid>
     );
+  }
 }
+
+LastPetsByVet.propTypes = {
+  pets: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      last_name: PropTypes.string,
+      image: PropTypes.string,
+      birthday: PropTypes.string,
+    })
+  ),
+};
+
+export default LastPetsByVet;

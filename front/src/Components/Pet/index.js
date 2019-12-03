@@ -85,7 +85,7 @@ const Pet = ({id_pet, name, last_name, image, birthday, weight, comments}) => {
   const {
     auth: {user},
   } = useContext(AppContext);
-  
+
   return (
     <CardPet>
       <ContentMedia>

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import moment from "moment";
-import {CircularProgress} from "@material-ui/core";
+import {CircularProgress, Container, Grid} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import NavigateNextOutlined from "@material-ui/icons/NavigateNextOutlined";
@@ -115,7 +115,7 @@ const AppointmentListWithDate = ({idVet}) => {
         >
           <NavigateBeforeOutlined />
         </IconButton>
-        <p style={{userSelect: "none"}} className={classes.date}>
+        <p className={classes.date} style={{userSelect: "none"}}>
           {moment(selectedDate).format("LL")}
         </p>
         <IconButton
@@ -130,7 +130,19 @@ const AppointmentListWithDate = ({idVet}) => {
         {!loading && appointments.length > 0 && (
           <AppointmentList appointments={appointments} showDate={false} />
         )}
-        {loading && <CircularProgress />}
+        {loading && (
+          <Container fixed>
+            <Grid
+              container
+              alignItems="center"
+              className={classes.spinner}
+              direction="row"
+              justify="center"
+            >
+              <CircularProgress color="secondary" />
+            </Grid>
+          </Container>
+        )}
         {!loading && error && <p>{error}</p>}
         {!loading && !error && appointments.length === 0 && <p>Sin turnos</p>}
       </div>

@@ -20,9 +20,9 @@ class ClinicalHistory extends Model
     /** @var array las reglas de validación. */
     public static $rules = [
         // 'id_pet' => 'required|integer|exists:pets',
-        'comments' => 'min:10',
-        'hide_comments' => 'min:10',
-        'afflictions_procedures' => 'min:10'
+        'comments' => 'min:1',
+        'hide_comments' => 'min:1',
+        'afflictions_procedures' => 'min:1'
     ];
 
     /** @var array Los mensajes de error de las $rules */

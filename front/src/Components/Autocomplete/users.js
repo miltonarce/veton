@@ -35,7 +35,12 @@ const ItemUser = ({name, last_name, email, image, onUserSelected}) => (
         }
       />
     </ListItemAvatar>
-    <ListItemText primary={`${last_name}, ${name}`} secondary={email} />
+    <ListItemText
+      primary={
+        name && last_name ? `${last_name}, ${name}` : "Sin nombre registrado."
+      }
+      secondary={email}
+    />
     <Divider component="li" variant="inset" />
   </ListItem>
 );

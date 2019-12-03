@@ -57,7 +57,16 @@ const AddClinicalHistory = props => {
         <Grid container alignItems="center" direction="row" justify="center">
           <Grid item xs={7}>
             {values.isLoading ? (
-              <CircularProgress color="secondary" />
+              <Container fixed>
+                <Grid
+                  container
+                  alignItems="center"
+                  direction="row"
+                  justify="center"
+                >
+                  <CircularProgress color="secondary" />
+                </Grid>
+              </Container>
             ) : (
               <FormClinicalHistory
                 title="Registrar Historia Clínica"
