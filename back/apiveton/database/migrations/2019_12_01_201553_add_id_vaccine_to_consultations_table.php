@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIdVeterinaryToConsultationsTable extends Migration
+class AddIdVaccineToConsultationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class AddIdVeterinaryToConsultationsTable extends Migration
     public function up()
     {
         Schema::table('consultations', function (Blueprint $table) {
-            $table->unsignedInteger('id_veterinary')->after('id_user');
-            $table->foreign('id_veterinary')->references('id_veterinary')->on('veterinaries');
+            $table->unsignedInteger('id_vaccine')->after('image_3')->nullable();
+            $table->foreign('id_vaccine')->references('id_vaccine')->on('vaccines');
         });
     }
 
@@ -27,8 +27,8 @@ class AddIdVeterinaryToConsultationsTable extends Migration
     public function down()
     {
         Schema::table('consultations', function (Blueprint $table) {
-            $table->dropForeign(['id_veterinary']);
-            $table->dropColumn('id_veterinary');
+            $table->dropForeign(['id_vaccine']);
+            $table->dropColumn('id_vaccine');
         });
     }
 }
