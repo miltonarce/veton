@@ -51,7 +51,38 @@ class Appointments extends React.Component {
         }
     }
 
+    /**
+     * Method to handle when user is click on confirm dialog to cancel appointment
+     * call delete method from API to cancel reservation
+     * @param {number} idAppointment
+     * @returns {void}
+     */
+    onClickCancelAppointment = async idAppointment => {
+        const { auth: { user } } = this.context;
+        try {
+            this.setState({ ...this.state, isLoading: true });
+            const { data : { success }} = await Api.appointments.cancel(user.id_user, idAppointment);
+            if (success) {
+                this.setState({ ...this.state, isLoading: false, appointments: this.removeAppointmentFromList(idAppointment) });
+            } else {
+                this.setState({ ...this.state, isLoading: false });
+            }
+        } catch (err) {
+            this.setState({ isLoading: false });
+        }
+    }
+
+    /**
+     * Remove appointment from list
+     * @param {number} idAppointment
+     * @returns {object[]}
+     */
+    removeAppointmentFromList = idAppointment => {
+        return this.state.appointments.filter(appointment => appointment.id_appointment !== idAppointment);
+    }
+
     render() {
+        const { onClickCancelAppointment } = this;
         const { isLoading, error, appointments } = this.state;
         return (
             <>
@@ -88,14 +119,13 @@ class Appointments extends React.Component {
                         </Grid>
                         {isLoading && <Spinner />}
                         {!isLoading && error && <p>{error}</p>}
-                        {appointments.length > 0 && <AppointmentList appointments={appointments} />}
+                        {appointments.length > 0 && <AppointmentList appointments={appointments} showCancelation={true} onClickCancelAppointment={onClickCancelAppointment} />}
                         {appointments.length === 0 && !isLoading && <p>No se has realizado ningún turno</p>}
                     </Grid>
                 </Container>
             </>
         );
     }
-
 
 }
 
