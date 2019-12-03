@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Grid } from "@material-ui/core";
 import moment from "moment";
+import DialogConfirmation from "../DialogConfirmation";
 
 const useStyles = makeStyles(theme => ({
     ctn: {
@@ -35,9 +36,19 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+/**
+ * Method to check if the date is greater than today
+ * @param {string} date
+ * @returns {boolean}
+ */
+const checkDateIsGreaterToday = date => {
+    const today = moment(new Date()).format("YYYY-MM-DD");
+    return moment(date).isSameOrAfter(today);
+}
 
-const AppointmentItem = ({ date, time, reason, showDate }) => {
+const AppointmentItem = ({ date, time, reason, idAppointment, showDate, showCancelation, onClickCancelAppointment }) => {
     const classes = useStyles();
+    const showButtonCancel = showCancelation && checkDateIsGreaterToday(date);
     return (
         <Grid
             className={classes.ctn}
@@ -61,12 +72,16 @@ const AppointmentItem = ({ date, time, reason, showDate }) => {
                     <Typography component="p">
                         {reason}
                     </Typography>
+                    {showButtonCancel && <DialogConfirmation 
+                    title="¿Estás seguro de cancelar el turno?" 
+                    text="Puedes volver a reservar el turno desde esta misma página" 
+                    onClickConfirm={() => onClickCancelAppointment(idAppointment)} />}
                 </Paper>
             </Grid>
         </Grid>
     );
 }
 
-export default function AppointmentList({ appointments, showDate = true }) {
-    return appointments.map((app, index) => <AppointmentItem key={index} date={app.date} time={app.time} reason={app.reason} showDate={showDate} />);
+export default function AppointmentList({ appointments, showDate = true, showCancelation = false, onClickCancelAppointment }) {
+    return appointments.map((app, index) => <AppointmentItem key={index} date={app.date} time={app.time} reason={app.reason} idAppointment={app.id_appointment} showDate={showDate} showCancelation={showCancelation} onClickCancelAppointment={onClickCancelAppointment} />);
 }
