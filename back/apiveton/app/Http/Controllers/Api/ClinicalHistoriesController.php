@@ -117,6 +117,12 @@ class ClinicalHistoriesController extends Controller
         return response()->json($clinicalHistories);
     }
 
+    public function findOneById($id)
+    {
+        $clinicalHistory = ClinicalHistory::where('id_history',$id)->first();
+        return response()->json($clinicalHistory);
+    }
+
     public function findByVeterinaries($idVet)
     {
         $clinicalhistories = ClinicalHistory::where('id_veterinary', '=', $idVet)->get();

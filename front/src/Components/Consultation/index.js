@@ -1,33 +1,34 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import {Button, TextField, Grid} from "@material-ui/core/";
-import {EditOutlined} from "@material-ui/icons";
+import {Link} from "react-router-dom";
+import {Grid, Button} from "@material-ui/core/";
+import {Check} from "@material-ui/icons";
 import {useSnackbar} from "notistack";
 import ApiVet from "../../Services/ApiVet";
 
-//Default styles for components...
+// Default styles for components...
 const useStyles = makeStyles(theme => ({
-  container: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    "& label": {
-      color: "#FE3090 !important",
+  consultList: {
+    background: "#f3f3f3",
+    borderRadius: "23px",
+    marginTop: "1rem",
+    marginBottom: "1rem",
+    color: "#5c2299",
+    transition: ".5s",
+    padding: "5px",
+    "&:hover": {
+      background: "#dbdbdb",
+      cursor: "pointer",
     },
   },
-  dense: {
-    marginTop: theme.spacing(2),
+  ContentLink: {
+    textDecoration: "none",
   },
-  menu: {
-    width: 200,
+  centerElements: {
+    textAlign: "center",
   },
   button: {
-    marginRight: "4rem",
-    height: "40px",
-    width: "160px",
+    marginLeft: "3rem",
   },
 }));
 
@@ -54,148 +55,60 @@ const Consultation = ({dataConsultation, user}) => {
         comments: dataConsultation.comments,
       });
     }
-  // eslint-disable-next-line
-  }, []);           
+    // eslint-disable-next-line
+  }, []);
 
-  /***
+  /** *
    * Method to handle change status
    */
   const handleChange = name => event => {
     setValues({...values, [name]: event.target.value});
   };
 
-  const handleOnSubmit = async event => {
-    event.preventDefault();
-    try {
-      const {data} = await ApiVet.consultations.edit(
-        dataConsultation.id_consultation,
-        {
-          ...values,
-          id_user: user.id_user,
-          id_history: dataConsultation.id_history,
-        }
-      );
-      if (data.success) {
-        enqueueSnackbar(data.msg, {variant: "success"});
-      } else {
-        enqueueSnackbar(data.msg, {variant: "error"});
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
-    <form
-      noValidate
-      autoComplete="off"
-      className={classes.container}
-      onSubmit={handleOnSubmit}
-    >
-      <Grid container alignItems="center" direction="row" justify="flex-end">
-        {!values.hasDisabled ? (
-          <Button
-            className={classes.button}
-            color="primary"
-            size="small"
-            startIcon={<EditOutlined />}
-            type="submit"
-            variant="contained"
-          >
-            Editar consulta
-          </Button>
-        ) : (
-          ""
-        )}
-      </Grid>
-      <Grid
-        container
-        alignItems="flex-start"
-        direction="row"
-        justify="flex-start"
-        spacing={3}
-      >
-        <Grid item xs={6}>
-          <Grid
-            container
-            alignItems="flex-start"
-            direction="column"
-            justify="flex-start"
-          >
-            <Grid item xs={12}>
-              <TextField
-                disabled
-                className={classes.textField}
-                id="outlined-id_consultation"
-                label="#ID CONSULTA"
-                margin="normal"
-                value={values.id_consultation}
-                onChange={handleChange("id_consultation")}
-              />
+    <>
+      <Grid container alignItems="center" justify="space-between">
+        <Grid item xs={10}>
+          <div className={classes.consultList}>
+            <Grid
+              container
+              alignItems="center"
+              direction="row"
+              justify="center"
+            >
+              <Grid item className={classes.centerElements} xs={4}>
+                <span>
+                  #{dataConsultation.id_consultation}--
+                  {dataConsultation.created_at}
+                </span>
+              </Grid>
+              <Grid item className={classes.centerElements} xs={4}>
+                <Check />
+              </Grid>
+              <Grid item className={classes.centerElements} xs={4}>
+                <Check />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                disabled
-                className={classes.textField}
-                id="outlined-created_at"
-                label="FECHA DE INICIO DE CONSULTA"
-                margin="normal"
-                value={values.created_at}
-                onChange={handleChange("created_at")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                disabled
-                className={classes.textField}
-                id="outlined-updated_at"
-                label="FECHA DE ÚLTIMA ACTUALIZACIÓN"
-                margin="normal"
-                value={values.updated_at}
-                onChange={handleChange("updated_at")}
-              />
-            </Grid>
-          </Grid>
+          </div>
         </Grid>
-        <Grid item xs={6}>
-          <Grid
-            container
-            alignItems="flex-start"
-            direction="column"
-            justify="flex-start"
+        <Grid item xs={2}>
+          <Link
+            className={classes.ContentLink}
+            to={`/veterinary/edit-consultation/${dataConsultation.id_consultation}`}
           >
-            <Grid item xs={12}>
-              <TextField
-                multiline
-                className={classes.textField}
-                col="20"
-                disabled={values.hasDisabled}
-                id="outlined-afflictions_procedures"
-                label="AFLICCIONES"
-                margin="normal"
-                rows="6"
-                value={values.afflictions_procedures}
-                onChange={handleChange("afflictions_procedures")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                multiline
-                className={classes.textField}
-                col="20"
-                disabled={values.hasDisabled}
-                id="outlined-comments"
-                label="OBSERVACIONES"
-                margin="normal"
-                rows="6"
-                value={values.comments}
-                onChange={handleChange("comments")}
-              />
-            </Grid>
-          </Grid>
+            <Button
+              className={classes.button}
+              color="primary"
+              size="small"
+              type="submit"
+              variant="contained"
+            >
+              Editar
+            </Button>
+          </Link>
         </Grid>
       </Grid>
-    </form>
+    </>
   );
 };
 

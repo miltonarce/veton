@@ -1,48 +1,27 @@
 import React, {useContext} from "react";
-import PropTypes from "prop-types";
-import SwipeableViews from "react-swipeable-views";
 import {makeStyles, useTheme} from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+import {Typography, CssBaseline, Grid, Tooltip} from "@material-ui/core";
+import {
+  AssignmentOutlined,
+  BugReportOutlined,
+  ColorizeOutlined,
+  EditOutlined,
+} from "@material-ui/icons";
 
 import Consultation from "../Consultation";
 import {AppContext} from "../../Store";
 
-const TabPanel = props => {
-  const {children, value, index, ...other} = props;
-
-  return (
-    <Typography
-      aria-labelledby={`full-width-tab-${index}`}
-      component="div"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      role="tabpanel"
-      {...other}
-    >
-      <Box p={3}>{children}</Box>
-    </Typography>
-  );
-};
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-const a11yProps = index => ({
-  id: `full-width-tab-${index}`,
-  "aria-controls": `full-width-tabpanel-${index}`,
-});
-
 const useStyles = makeStyles(theme => ({
-  root: {
-    backgroundColor: theme.palette.background.paper,
-    width: 500,
+  headerConsult: {
+    border: "2px solid #5c2299",
+    borderRadius: "23px",
+    borderStyle: "dashed",
+    padding: "10px",
+    marginTop: "1rem",
+    color: "#5c2299",
+  },
+  centerElements: {
+    textAlign: "center",
   },
 }));
 
@@ -64,42 +43,46 @@ const ListConsultations = ({consultations}) => {
   } = useContext(AppContext);
 
   return (
-    <div className={classes.root}>
-      <AppBar color="default" position="static">
-        <Tabs
-          aria-label="full width tabs"
-          indicatorColor="primary"
-          textColor="primary"
-          value={value}
-          variant="scrollable"
-          onChange={handleChange}
-        >
+    <>
+      <CssBaseline />
+      <Grid container alignItems="center" direction="row" justify="flex-start">
+        <Grid item xs={10}>
+          <div className={classes.headerConsult}>
+            <Grid
+              container
+              alignItems="center"
+              direction="row"
+              justify="center"
+            >
+              <Grid item className={classes.centerElements} xs={4}>
+                <Tooltip title="Consultas">
+                  <AssignmentOutlined />
+                </Tooltip>
+              </Grid>
+              <Grid item className={classes.centerElements} xs={4}>
+                <Tooltip title="Vacunas">
+                  <ColorizeOutlined />
+                </Tooltip>
+              </Grid>
+              <Grid item className={classes.centerElements} xs={4}>
+                <Tooltip title="Desparasitantes">
+                  <BugReportOutlined />
+                </Tooltip>
+              </Grid>
+            </Grid>
+          </div>
+        </Grid>
+        <Grid item xs={12}>
           {consultations.map((consultation, index) => (
-            <Tab
+            <Consultation
               key={index}
-              label={`#ID CONSULTA ${consultation.id_consultation}`}
-              {...a11yProps(index)}
+              dataConsultation={consultation}
+              user={user}
             />
           ))}
-        </Tabs>
-      </AppBar>
-      <SwipeableViews
-        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        {consultations.map((consultation, index) => (
-          <TabPanel
-            key={index}
-            dir={theme.direction}
-            index={index}
-            value={value}
-          >
-            <Consultation dataConsultation={consultation} user={user} />
-          </TabPanel>
-        ))}
-      </SwipeableViews>
-    </div>
+        </Grid>
+      </Grid>
+    </>
   );
 };
 

@@ -54,6 +54,8 @@ Route::post('clinicalhistories/{idPet}', 'Api\\ClinicalHistoriesController@store
 Route::put('clinicalhistories/{idHistory}', 'Api\\ClinicalHistoriesController@editHistory');
 // ClinicalHistories (Borrar una historia clinica)
 Route::delete('clinicalhistories/{idHistory}', 'Api\\ClinicalHistoriesController@removeHistory');
+// ClinicalHistory (Traer una sola por id)
+Route::get('clinicalhistory/{id}', 'Api\\ClinicalHistoriesController@findOneById');
 
 // Consultations (Obtener todas las consultas)
 Route::get('consultations', 'Api\\ConsultationsController@all');
@@ -63,6 +65,9 @@ Route::get('consultations/{id}', 'Api\\ConsultationsController@findById');
 Route::post('consultations/{idHistory}', 'Api\\ConsultationsController@store');
 Route::put('consultations/{idConsultation}', 'Api\\ConsultationsController@editConsultation');
 Route::delete('consultations/{idConsultation}', 'Api\\ConsultationsController@removeConsultation');
+//Consultation traer una consulta por id
+Route::get('consultation/{id}', 'Api\\ConsultationsController@findOneById');
+
 
 // Appointments (Registrar un turno)
 Route::post('appointments', 'Api\\AppointmentsController@save');

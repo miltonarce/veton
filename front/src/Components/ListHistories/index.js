@@ -10,6 +10,7 @@ import {
   Grid,
   Button,
 } from "@material-ui/core";
+import {EditOutlined} from "@material-ui/icons";
 import {Link} from "react-router-dom";
 
 import History from "../History";
@@ -48,6 +49,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     display: "flex",
+    borderRadius: "23px",
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
@@ -57,6 +59,21 @@ const useStyles = makeStyles(theme => ({
   },
   ContentLink: {
     textDecoration: "none",
+  },
+  panelTab: {
+    width: "100%",
+  },
+  button: {
+    paddingLeft: "20px",
+    paddingRight: "20px",
+    marginLeft: "1rem",
+  },
+  first: {
+    marginTop: "-.5rem",
+    marginBottom: "2rem",
+  },
+  second: {
+    marginTop: "2rem",
   },
 }));
 
@@ -90,17 +107,53 @@ const ListHistories = ({histories}) => {
         ))}
       </Tabs>
       {histories.map((history, index) => (
-        <TabPanel key={index} index={index} value={value}>
+        <TabPanel
+          key={index}
+          className={classes.panelTab}
+          index={index}
+          value={value}
+        >
           <Grid
             container
             alignItems="flex-start"
             direction="row"
             justify="center"
           >
-            <Grid item xs={6}>
+            <Grid item className={classes.first} xs={12}>
+              <Grid
+                container
+                alignItems="center"
+                direction="row"
+                justify="space-between"
+              >
+                <h3 className={classes.title}>Historia</h3>
+                {user.id_role === 3 ? (
+                  <div>
+                    <Link
+                      className={classes.ContentLink}
+                      to={`/veterinary/edit-history/${history.id_history}`}
+                    >
+                      <Button
+                        className={classes.button}
+                        color="primary"
+                        size="small"
+                        startIcon={<EditOutlined />}
+                        type="submit"
+                        variant="contained"
+                      >
+                        Editar Historia
+                      </Button>
+                    </Link>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </Grid>
+            </Grid>
+            <Grid item xs={12}>
               <History dataHistory={history} user={user} />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item className={classes.second} xs={12}>
               <Grid
                 container
                 alignItems="center"

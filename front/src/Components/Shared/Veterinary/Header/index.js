@@ -24,20 +24,30 @@ const styles = {
     backgroundImage: "url('assets/Logo.png')",
     fontSize: 0,
   },
-  ContentLogo: {flexGrow: 1},
   ButtonLogout: {
     color: "#999999",
+  },
+  Div: {
+    flexGrow: 1,
   },
   ContentLink: {
     marginRight: "2rem",
     textDecoration: "none",
     color: "#999999",
+    "&:hover": {
+      color: "#5c2299",
+      transition: ".5s",
+    },
   },
-  ContentIcon: {marginRight: ".5rem"},
+  ContentIcon: {marginRight: ".5rem", cursor: "pointer"},
   ContentAutocomplete: {
     backgroundColor: "#fff",
     borderRadius: "23px",
     padding: "0 10px",
+  },
+  Icons: {
+    verticalAlign: "text-bottom",
+    marginRight: "10px",
   },
   ContainerFlex: {
     display: "flex",
@@ -69,17 +79,14 @@ const Header = ({onUserSelected, classes}) => {
             </div>
             <div className={classes.ContentAutocomplete}>
               <Autocomplete
-                placeholder="Buscar usuarios"
+                placeholder="Buscar pacientes"
                 onUserSelected={onUserSelected}
               />
             </div>
+            <div className={classes.Div} />
             <Link className={classes.ContentLink} to="/veterinary">
-              <Button color="inherit">
-                <div className={classes.ContentIcon}>
-                  <Home />
-                </div>
-                Inicio
-              </Button>
+              <Home className={classes.Icons} />
+              Inicio
             </Link>
             <div className={classes.ContentLink}>
               <div>

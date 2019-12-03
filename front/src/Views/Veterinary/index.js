@@ -7,15 +7,27 @@ import {styled} from "@material-ui/core/styles";
 import HomeVet from "./HomeVet";
 import AddClinicalHistory from "./AddClinicalHistory";
 import AddConsultation from "./AddConsultation";
+import EditConsultation from "./EditConsultation";
+import EditHistory from "./EditHistory";
 import Header from "../../Components/Shared/Veterinary/Header";
 import PetDetail from "./PetDetail";
 import Profile from "./Profile";
+import Footer from "../../Components/Shared/Footer";
 
 const ContentMain = styled("div")({
   width: "100%",
   top: "0",
   bottom: "0",
   position: "absolute",
+  height: "100vh",
+  overflowX: "hidden",
+  backgroundImage: "url('assets/pattern-veton2.png')",
+  backgroundSize: "cover",
+});
+
+const ContainerMain = styled("main")({
+  height: "auto",
+  minHeight: "-webkit-fill-available",
 });
 
 class Veterinary extends React.Component {
@@ -41,21 +53,32 @@ class Veterinary extends React.Component {
       <ContentMain>
         <CssBaseline />
         <Header onUserSelected={handleOnUserSelected} />
-        <Route
-          exact
-          path={match.path}
-          render={() => <HomeVet userSelected={userSelected} />}
-        />
-        <Route
-          component={AddClinicalHistory}
-          path={`${match.path}/add-clinical-history/:idPet`}
-        />
-        <Route component={PetDetail} path={`${match.path}/pet/:id`} />
-        <Route
-          component={AddConsultation}
-          path={`${match.path}/add-consultation/:idHistory`}
-        />
-        <Route component={Profile} path={`${match.path}/profile`} />
+        <ContainerMain>
+          <Route
+            exact
+            path={match.path}
+            render={() => <HomeVet userSelected={userSelected} />}
+          />
+          <Route
+            component={AddClinicalHistory}
+            path={`${match.path}/add-clinical-history/:idPet`}
+          />
+          <Route component={PetDetail} path={`${match.path}/pet/:id`} />
+          <Route
+            component={AddConsultation}
+            path={`${match.path}/add-consultation/:idHistory`}
+          />
+          <Route
+            component={EditConsultation}
+            path={`${match.path}/edit-consultation/:idConsultation`}
+          />
+          <Route
+            component={EditHistory}
+            path={`${match.path}/edit-history/:idHistory`}
+          />
+          <Route component={Profile} path={`${match.path}/profile`} />
+        </ContainerMain>
+        <Footer />
       </ContentMain>
     );
   }
