@@ -78,6 +78,26 @@ class AppointmentsController extends Controller
         }
     }
 
+
+    public function findByUserFuture($idUser) {
+        try{
+            $appointments = Appointment::where('id_user', '=', $idUser)
+                ->where('date', '>=', date('Y-m-d'))
+                ->get();
+            return response()->json([
+                'success' => true,
+                'data'    => $appointments,
+                'stack'   => ''
+            ]);
+        }catch (QueryException $e){
+            return response()->json([
+                'success' =>false,
+                'msg'     => 'Hubo un problema con el historial de turnos',
+                'stack'   => $e,
+            ]);
+        }
+    } 
+
     /**
      * ELIMINAR EL TURNO DE UNA PERSONA....
      * HACER UN DELETE * FROM appointments where fk_id_user = $elusuariologeado

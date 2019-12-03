@@ -160,6 +160,27 @@ class PetsController extends Controller
         }
     }
 
+    public function statistics($id) {
+        return response()->json([
+            'success' => true,
+            'msg' => null,
+            'data' => [
+                [
+                    'name' => 'Lulita Perez',
+                    'y' => 11.84
+                ], 
+                [
+                    'name' => 'Chocolate Perez',
+                    'y' => 10.85
+                ],
+                [
+                    'name' => 'Bondido',
+                    'y' => 4.67
+                ]
+              ]
+        ]);
+    }
+
     private function saveImageIfExists($request, $data) 
     {
         if ($request->hasFile('image')) {

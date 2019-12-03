@@ -4,6 +4,7 @@ import {CssBaseline} from "@material-ui/core";
 import {styled} from "@material-ui/core/styles";
 
 // User all Views
+import HomeUser from "./HomeUser";
 import Profile from "./Profile";
 import Pets from "./Pets";
 import PetDetail from "./PetDetail";
@@ -37,7 +38,7 @@ class User extends React.Component {
         <CssBaseline />
         <Header />
         <ContainerMain>
-          <Route exact component={Pets} path={match.path} />
+          <Route exact component={HomeUser} path={match.path} />
           <Route component={Pets} path={`${match.path}/pets`} />
           <Route component={PetDetail} path={`${match.path}/pet/:id`} />
           <Route component={Profile} path={`${match.path}/profile`} />
