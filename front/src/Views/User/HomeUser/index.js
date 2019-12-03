@@ -1,12 +1,9 @@
 import React from "react";
-import {
-  Container,
-  Grid,
-} from "@material-ui/core";
+import {Container, Grid} from "@material-ui/core";
+import {withStyles} from "@material-ui/core/styles";
 import AppointmentDatePickerUser from "../../../Components/AppointmentDatePickerUser";
 import PieConsultation from "../../../Components/PieConsultation";
 import TitlePages from "../../../Components/TitlePages";
-import {withStyles} from "@material-ui/core/styles";
 import {AppContext} from "../../../Store";
 import Api from "../../../Services/Api";
 
@@ -18,6 +15,9 @@ const styles = {
   },
   ctn: {
     paddingTop: "20px !important",
+  },
+  marginNot: {
+    marginLeft: "3rem",
   },
 };
 
@@ -62,20 +62,24 @@ class HomeUser extends React.Component {
           />
           <Grid
             container
+            className={classes.paddingTop}
             direction="row"
             justify="center"
             spacing={2}
-            className={classes.paddingTop}
           >
-            <Grid item md={3} style={{ padding: '20px' }} xs={12}>
+            <Grid item md={3} style={{padding: "20px"}} xs={12}>
               <AppointmentDatePickerUser idUser={user.id_user} />
             </Grid>
             <Grid item md={9} xs={12}>
-              {statistics.length > 0 && (
+              {statistics.length > 0 ? (
                 <PieConsultation
-                  title="Cantidad de consultas"
                   statistics={statistics}
+                  title="Cantidad de consultas"
                 />
+              ) : (
+                <section className={classes.marginNot}>
+                  <p>No hay mascotas registradas para mostrar estadisticas.</p>
+                </section>
               )}
             </Grid>
           </Grid>

@@ -3,6 +3,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Pet;
 use App\Models\User;
+use App\Models\ClinicalHistory;
+use App\Models\Consultation;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -161,23 +163,27 @@ class PetsController extends Controller
     }
 
     public function statistics($id) {
+        $statistics = [];
+        $pets = Pet::where('id_user', '=', $id)->get();
+        foreach ($pets as $pet) {
+            $clinicalHistories = ClinicalHistory::all()->where('id_pet', '=', $pet->id_pet);
+            $cantConsultas = 0;
+            foreach($clinicalHistories as $history){
+                $consultations = Consultation::all()->where('id_history', '=', $history->id_history);
+                $cantConsultas = $cantConsultas + count($consultations);
+                
+            }
+            $completName = $pet->name.' '.$pet->last_name;
+            array_push($statistics, ["name"=> $completName, 'y' => $cantConsultas]);       
+        }
+        
+        
+
+      
         return response()->json([
             'success' => true,
             'msg' => null,
-            'data' => [
-                [
-                    'name' => 'Lulita Perez',
-                    'y' => 11.84
-                ], 
-                [
-                    'name' => 'Chocolate Perez',
-                    'y' => 10.85
-                ],
-                [
-                    'name' => 'Bondido',
-                    'y' => 4.67
-                ]
-              ]
+            'data' => $statistics
         ]);
     }
 
