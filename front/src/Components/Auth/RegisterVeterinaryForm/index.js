@@ -147,6 +147,7 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
+              id="email"
               label="Email"
               margin="normal"
               name="email"
@@ -173,6 +174,7 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
+              id="password"
               label="Contraseña"
               margin="normal"
               name="password"
@@ -193,6 +195,7 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
+              id="dni"
               label="DNI (Solo números)"
               margin="normal"
               name="dni"
@@ -223,6 +226,7 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
+              id="business_name"
               label="Nombre de la empresa"
               margin="normal"
               name="business_name"
@@ -242,6 +246,7 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
+              id="fantasy_name"
               label="Nombre de fantasía"
               margin="normal"
               name="fantasy_name"
@@ -261,6 +266,7 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
+              id="cuit_cuil"
               label="CUIT/CUIL (Solo números)"
               margin="normal"
               name="cuit_cuil"
@@ -281,6 +287,7 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
+              id="phone"
               label="Teléfono (Solo números)"
               margin="normal"
               name="phone1"
@@ -302,6 +309,7 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
+              id="street"
               label="Domicilio"
               margin="normal"
               name="street"

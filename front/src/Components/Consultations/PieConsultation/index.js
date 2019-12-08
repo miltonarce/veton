@@ -61,11 +61,7 @@ const PieConsultation = ({ title, statistics }) => {
       },
     ],
   };
-  return (
-    <section>
-      <HighchartsReact highcharts={Highcharts} options={options} />
-    </section>
-  );
+  return <HighchartsReact highcharts={Highcharts} options={options} />;
 };
 
 PieConsultation.propTypes = {

@@ -39,6 +39,7 @@ const ListHistories = ({ histories }) => {
         value={value}
         variant="scrollable"
         onChange={handleChange}
+        component="aside"
       >
         {histories.map((history, index) => (
           <Tab
@@ -60,6 +61,7 @@ const ListHistories = ({ histories }) => {
             alignItems="flex-start"
             direction="row"
             justify="center"
+            component="section"
           >
             <Grid item className={classes.first} xs={12}>
               <Grid

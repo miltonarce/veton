@@ -89,9 +89,10 @@ class Appointments extends React.Component {
     return (
       <>
         <CssBaseline />
-        <Container fixed>
+        <Container fixed component="section">
           <Grid item xs={12}>
             <Grid
+              component="header"
               container
               alignItems="center"
               direction="row"

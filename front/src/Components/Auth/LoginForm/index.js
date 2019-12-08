@@ -65,6 +65,7 @@ class LoginForm extends Component {
                 </InputAdornment>
               ),
             }}
+            id="email"
             label="Email"
             margin="normal"
             name="email"
@@ -86,6 +87,7 @@ class LoginForm extends Component {
                 </InputAdornment>
               ),
             }}
+            id="password"
             label="Contraseña"
             margin="normal"
             name="password"
@@ -98,8 +100,9 @@ class LoginForm extends Component {
         </Grid>
         <Grid item xs={12}>
           <FormControlLabel
-            control={<Checkbox color="primary" value="remember" />}
+            control={<Checkbox color="primary" value="remember" id="remindme" />}
             label="Recordarme"
+            htmlFor="remindme"
           />
         </Grid>
         <Grid item xs={12}>

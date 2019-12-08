@@ -199,6 +199,7 @@ class AppointmentForm extends React.Component {
                 className={classes.Autocomplete}
                 getOptionLabel={option => option.business_name}
                 options={veterinaries}
+                id="autocomplete_vet"
                 renderInput={params => (
                   <TextField {...params} fullWidth label="Buscar veterinaria" />
                 )}
@@ -261,7 +262,7 @@ class AppointmentForm extends React.Component {
                 </Grid>
               </Grid>
               <FormControl fullWidth>
-                <InputLabel id="type">Tipo</InputLabel>
+                <InputLabel htmlFor="type">Tipo</InputLabel>
                 <Select
                   displayEmpty
                   id="type"
@@ -287,6 +288,7 @@ class AppointmentForm extends React.Component {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                id="reason"
                 label="Motivo del turno"
                 margin="normal"
                 name="reason"

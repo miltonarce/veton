@@ -127,6 +127,7 @@ class RegisterUserForm extends Component {
                 </InputAdornment>
               ),
             }}
+            id="email"
             label="Ingrese su email"
             margin="normal"
             name="email"
@@ -153,6 +154,7 @@ class RegisterUserForm extends Component {
                 </InputAdornment>
               ),
             }}
+            id="password"
             label="Ingrese su contraseña"
             margin="normal"
             name="password"
@@ -173,6 +175,7 @@ class RegisterUserForm extends Component {
                 </InputAdornment>
               ),
             }}
+            id="dni"
             label="DNI (Solo números)"
             margin="normal"
             name="dni"

@@ -69,11 +69,13 @@ class PetDetail extends React.Component {
     return (
       <>
         <CssBaseline />
-        <Container fixed>
-          <TitlePages
-            subtitle="Aquí ver y editar los detalles de tu mascota incluyendo su historia clínica."
-            title="Detalle de mascota"
-          />
+        <Container fixed component="section">
+          <header>
+            <TitlePages
+              subtitle="Aquí ver y editar los detalles de tu mascota incluyendo su historia clínica."
+              title="Detalle de mascota"
+            />
+          </header>
           <Grid
             container
             alignItems="flex-start"
@@ -81,7 +83,7 @@ class PetDetail extends React.Component {
             justify="center"
             spacing={3}
           >
-            <Grid item className={classes.DatosPet} xs={12}>
+            <Grid item className={classes.DatosPet} xs={12} component="section">
               <Grid
                 container
                 alignItems="center"
@@ -89,7 +91,7 @@ class PetDetail extends React.Component {
                 justify="space-between"
                 spacing={3}
               >
-                <Grid item className={classes.ContentCardPet} lg={8} xs={12}>
+                <Grid item className={classes.ContentCardPet} lg={8} xs={12} component="article">
                   <Paper className={classes.Paper}>
                     <Grid
                       container
@@ -100,6 +102,7 @@ class PetDetail extends React.Component {
                     >
                       <Grid
                         item
+                        component="figure"
                         className={classes.contenImage}
                         lg={3}
                         md={3}
@@ -249,7 +252,7 @@ class PetDetail extends React.Component {
                 </Grid> */}
               </Grid>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} component="section">
               <Grid
                 container
                 alignItems="center"
@@ -276,33 +279,33 @@ class PetDetail extends React.Component {
                     ""
                   )}
               </Grid>
-            </Grid>
-            <Grid item xs={12}>
-              {dataPet.clinical_history.length > 0 ? (
-                <ListHistories histories={dataPet.clinical_history} />
-              ) : (
-                  <Card className={classes.root}>
-                    <Grid
-                      container
-                      alignItems="center"
-                      direction="row"
-                      justify="center"
-                    >
-                      <Grid item xs={12}>
-                        <img
-                          alt="Ups algo salio mal."
-                          className={classes.ups}
-                          src="/assets/ups.svg"
-                        />
+              <Grid item xs={12}>
+                {dataPet.clinical_history.length > 0 ? (
+                  <ListHistories histories={dataPet.clinical_history} />
+                ) : (
+                    <Card className={classes.root}>
+                      <Grid
+                        container
+                        alignItems="center"
+                        direction="row"
+                        justify="center"
+                      >
+                        <Grid item xs={12}>
+                          <img
+                            alt="Ups algo salio mal."
+                            className={classes.ups}
+                            src="/assets/ups.svg"
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Typography className={classes.noHistory} component="h3">
+                            No hay historias clínicas registradas.
+                        </Typography>
+                        </Grid>
                       </Grid>
-                      <Grid item xs={12}>
-                        <Typography className={classes.noHistory} component="h3">
-                          No hay historias clínicas registradas.
-                      </Typography>
-                      </Grid>
-                    </Grid>
-                  </Card>
-                )}
+                    </Card>
+                  )}
+                </Grid>
             </Grid>
           </Grid>
         </Container>

@@ -17,7 +17,7 @@ const Register = () => {
   };
 
   return (
-    <div className={classes.Content}>
+    <section className={classes.Content}>
       <CssBaseline />
       <Grid container alignItems="center" direction="row" justify="center">
         <Grid
@@ -38,7 +38,7 @@ const Register = () => {
               direction="row"
               justify="center"
             >
-              <Grid item xs={10}>
+              <Grid item xs={10} component="figure">
                 <img
                   alt="Vet On, veterinaria online"
                   src="assets/Logo.svg"
@@ -51,12 +51,13 @@ const Register = () => {
                 className={classes.TitleRegister}
                 color="secondary"
                 variant="body2"
+                component="h1"
               >
                 Registro
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <Typography className={classes.TitlesForm} component="h3">
+              <Typography className={classes.TitlesForm} component="h2">
                 Seleccione su tipo de usuario{" "}
               </Typography>
               <RolSelect
@@ -66,7 +67,7 @@ const Register = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Typography className={classes.TitlesForm} component="h3">
+              <Typography className={classes.TitlesForm} component="h2">
                 Complete los siguientes datos
               </Typography>
               {values.id_role === 4 ? (
@@ -78,7 +79,7 @@ const Register = () => {
           </Paper>
         </Grid>
       </Grid>
-    </div>
+    </section>
   );
 };
 

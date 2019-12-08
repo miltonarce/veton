@@ -38,8 +38,8 @@ class Pets extends React.Component {
     return (
       <>
         <CssBaseline />
-        <Container fixed>
-          <Grid item xs={12}>
+        <Container fixed component="section">
+          <Grid item xs={12} component="header">
             <Grid
              container
              direction="row"

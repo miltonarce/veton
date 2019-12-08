@@ -34,6 +34,7 @@ const AppointmentDatePicker = ({ defaultValue, onDateChange, isDisabled = false 
     return (
         <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} locale="es">
             <DatePicker
+                id="day_selected"
                 required
                 showTodayButton
                 disablePast

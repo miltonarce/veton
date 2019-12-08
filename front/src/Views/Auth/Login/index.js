@@ -85,23 +85,19 @@ class Login extends Component {
                 direction="row"
                 justify="space-around"
               >
-                <Grid item lg={5} md={8} xs={12}>
-                  <img
-                    alt="Vet On, veterinaria online"
-                    className={classes.Cimg1}
-                    src="assets/Logo.svg"
-                  />
-                  <img
-                    alt="Personas con mascotas y la marca Veton"
-                    className={classes.Cimg2}
-                    src="assets/login-resource1.svg"
-                  />
+                <Grid item lg={5} md={8} xs={12} component="aside">
+                  <figure>
+                    <img alt="Vet On, veterinaria online" className={classes.Cimg1} src="assets/Logo.svg" />
+                  </figure>
+                  <figure>
+                    <img alt="Personas con mascotas y la marca Veton" className={classes.Cimg2} src="assets/login-resource1.svg"/>
+                  </figure>
                 </Grid>
-                <Grid item lg={5} md={8} xs={12}>
+                <Grid item lg={5} md={8} xs={12} component="section">
                   <Typography
                     className={classes.TitleForm}
                     color="secondary"
-                    component="p"
+                    component="h1"
                   >
                     Iniciar sesión
                   </Typography>

@@ -31,7 +31,7 @@ const Pet = ({ id_pet, name, last_name, image, birthday, weight, comments }) => 
           src={
             image ? `http://api.veton/imgs/${image}` : "/assets/no-image.png"
           }
-          title="Mascota Imagen"
+          title={`Mascota ${name}`}
         />
       </ContentMedia>
       <CardPetHeader

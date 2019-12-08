@@ -82,7 +82,7 @@ class AddAppointment extends React.Component {
       state: { isLoading, hasError, openModal, msg },
     } = this;
     return (
-      <Container fixed>
+      <Container fixed component="section">
         <TitlePages
           subtitle="Aquí podrás reservar un turno en cualquier veterinaria."
           title="Reserva de turnos"

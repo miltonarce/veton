@@ -42,7 +42,7 @@ class HomeUser extends React.Component {
     } = this.context;
     return (
       <>
-        <Container fixed style={{ padingTop: "20px !important" }}>
+        <Container fixed style={{ padingTop: "20px !important" }} component="section">
           <TitlePages
             subtitle="Aquí podrás encontrar información relevante sobre todas tus mascotas"
             title="Inicio"
@@ -54,7 +54,7 @@ class HomeUser extends React.Component {
             justify="center"
             spacing={2}
           >
-            <Grid item md={3} style={{ padding: "20px" }} xs={12}>
+            <Grid item md={3} style={{ padding: "20px" }} xs={12} component="aside">
               <AppointmentDatePickerUser idUser={user.id_user} />
             </Grid>
             <Grid item md={9} xs={12}>
