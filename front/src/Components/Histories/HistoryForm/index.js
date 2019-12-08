@@ -43,6 +43,7 @@ class HistoryForm extends React.Component {
             <Grid item xs={12}>
               <TextField
                 fullWidth
+                multiline
                 required
                 id="comments"
                 label="Comentarios"
@@ -56,6 +57,7 @@ class HistoryForm extends React.Component {
             <Grid item xs={12}>
               <TextField
                 fullWidth
+                multiline
                 required
                 id="hide_comments"
                 label="Comentarios ocultos"
