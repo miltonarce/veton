@@ -1,20 +1,11 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import {CssBaseline, Container, Button, Grid} from "@material-ui/core";
-import {Add} from "@material-ui/icons";
-import {styled} from "@material-ui/core/styles";
-import Api from "../../../Services/Api";
-import ListPets from "../../../Components/ListPets";
-import {AppContext} from "../../../Store";
-import TitlePages from "../../../Components/TitlePages";
-
-//New custom components by styled hook...
-const PetLink = styled(Link)({
-  textDecoration: "none",
-});
-const ContainerMain = styled("div")({
-  marginTop: "2rem",
-});
+import { CssBaseline, Container, Button, Grid } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
+import { Api } from "../../../Services";
+import { ListPets } from "../../../Components/Pets";
+import { AppContext } from "../../../Store";
+import TitlePages from "../../../Components/Shared/TitlePages";
+import { PetLink, ContainerMain } from "./styles";
 
 class Pets extends React.Component {
   constructor() {

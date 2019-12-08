@@ -1,16 +1,15 @@
-import React, {useState, useContext} from "react";
+import React, { useState, useContext } from "react";
 import {
   Container,
   Grid,
   CssBaseline,
   CircularProgress,
 } from "@material-ui/core";
-import {useSnackbar} from "notistack";
-
-import FormConsultation from "../../../Components/Forms/FormConsultation";
-import ApiVet from "../../../Services/ApiVet";
-import TitlePages from "../../../Components/TitlePages";
-import {AppContext} from "../../../Store";
+import { useSnackbar } from "notistack";
+import { ConsultationForm } from "../../../Components/Consultations";
+import { ApiVet } from "../../../Services";
+import TitlePages from "../../../Components/Shared/TitlePages";
+import { AppContext } from "../../../Store";
 
 const AddConsultation = props => {
   const [values, setValues] = useState({
@@ -20,13 +19,13 @@ const AddConsultation = props => {
    * Hook para context
    */
   const {
-    auth: {user},
+    auth: { user },
   } = useContext(AppContext);
 
   /**
    * Hook para notificaciones
    */
-  const {enqueueSnackbar} = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   /**
    * Method to handle submit from form, create new consultation
    * @param {object} request
@@ -36,21 +35,21 @@ const AddConsultation = props => {
     console.log(props);
 
     try {
-      setValues({isLoading: true});
-      const {data} = await ApiVet.consultations.create(
+      setValues({ isLoading: true });
+      const { data } = await ApiVet.consultations.create(
         props.match.params.idHistory,
         request
       );
       if (data.success) {
-        enqueueSnackbar(data.msg, {variant: "success"});
-        setValues({isLoading: true});
+        enqueueSnackbar(data.msg, { variant: "success" });
+        setValues({ isLoading: true });
         setTimeout(() => {
           props.history.goBack();
         }, 3000);
       } else {
         alert("no entramos");
-        enqueueSnackbar(data.msg, {variant: "error"});
-        setValues({isLoading: false});
+        enqueueSnackbar(data.msg, { variant: "error" });
+        setValues({ isLoading: false });
       }
     } catch (err) {
       console.log(err);
@@ -79,12 +78,12 @@ const AddConsultation = props => {
                 </Grid>
               </Container>
             ) : (
-              <FormConsultation
-                title="Registrar Consulta"
-                user={user}
-                onSubmit={handleOnSubmit}
-              />
-            )}
+                <ConsultationForm
+                  title="Registrar Consulta"
+                  user={user}
+                  onSubmit={handleOnSubmit}
+                />
+              )}
           </Grid>
         </Grid>
       </Container>

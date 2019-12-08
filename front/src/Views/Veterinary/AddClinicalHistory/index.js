@@ -1,14 +1,14 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   Container,
   Grid,
   CssBaseline,
   CircularProgress,
 } from "@material-ui/core";
-import {useSnackbar} from "notistack";
-import FormClinicalHistory from "../../../Components/Forms/FormClinicalHistory";
-import Api from "../../../Services/Api";
-import TitlePages from "../../../Components/TitlePages";
+import { useSnackbar } from "notistack";
+import { HistoryForm } from "../../../Components/Histories";
+import { Api } from "../../../Services";
+import TitlePages from "../../../Components/Shared/TitlePages";
 
 const AddClinicalHistory = props => {
   const [values, setValues] = useState({
@@ -17,7 +17,7 @@ const AddClinicalHistory = props => {
   /**
    * Hook para notificaciones
    */
-  const {enqueueSnackbar} = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   /**
    * Method to handle submit from form create new clinical history
    * @param {object} request
@@ -26,24 +26,24 @@ const AddClinicalHistory = props => {
 
   const handleOnSubmit = async request => {
     try {
-      setValues({isLoading: true});
-      const {data} = await Api.clinicalhistories.create(
+      setValues({ isLoading: true });
+      const { data } = await Api.clinicalhistories.create(
         props.match.params.idPet,
         request
       );
       if (data.success) {
-        enqueueSnackbar(data.msg, {variant: "success"});
-        setValues({isLoading: true});
+        enqueueSnackbar(data.msg, { variant: "success" });
+        setValues({ isLoading: true });
         setTimeout(() => {
           props.history.push(`/veterinary/pet/${props.match.params.idPet}`);
         }, 3000);
       } else {
-        enqueueSnackbar(data.msg, {variant: "error"});
-        setValues({isLoading: false});
+        enqueueSnackbar(data.msg, { variant: "error" });
+        setValues({ isLoading: false });
       }
     } catch (err) {
       console.log(err);
-      setValues({isLoading: false});
+      setValues({ isLoading: false });
     }
   };
   return (
@@ -68,11 +68,11 @@ const AddClinicalHistory = props => {
                 </Grid>
               </Container>
             ) : (
-              <FormClinicalHistory
-                title="Registrar Historia Clínica"
-                onSubmit={handleOnSubmit}
-              />
-            )}
+                <HistoryForm
+                  title="Registrar Historia Clínica"
+                  onSubmit={handleOnSubmit}
+                />
+              )}
           </Grid>
         </Grid>
       </Container>

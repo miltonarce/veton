@@ -1,38 +1,10 @@
-import React, {useState} from "react";
-import {Grid, Paper, CssBaseline, Typography} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
-
-import RolSelect from "../../../Components/Forms/RolSelect";
-import FormRegisterUser from "../../../Components/Forms/FormRegisterUser";
-import FormRegistarVeterinary from "../../../Components/Forms/FormRegisterVeterinary";
-
-const styles = makeStyles({
-  Content: {
-    height: "100vh",
-    overflowY: "auto",
-    display: "flex",
-    backgroundImage: "url('assets/pattern-veton.jpg')",
-    backgroundSize: "cover",
-  },
-  PaperLogin: {
-    padding: "2rem",
-    borderRadius: "23px",
-  },
-  TitleRegister: {
-    padding: "1rem",
-    textAlign: "center",
-    fontSize: "2rem",
-  },
-  TitlesForm: {
-    textAlign: "center",
-    margin: "2rem",
-    color: "#5c2299",
-    fontWeight: 500,
-  },
-});
+import React, { useState } from "react";
+import { Grid, Paper, CssBaseline, Typography } from "@material-ui/core";
+import { RolSelect, RegisterUserForm , RegisterVeterinaryForm } from "../../../Components/Auth";
+import useStyles from "./styles";
 
 const Register = () => {
-  const classes = styles();
+  const classes = useStyles();
   const [values, setValues] = useState({
     isLoading: false,
     hasError: null,
@@ -41,7 +13,7 @@ const Register = () => {
   });
 
   const handleOnRolSelected = id_role => {
-    setValues({...values, id_role});
+    setValues({ ...values, id_role });
   };
 
   return (
@@ -98,10 +70,10 @@ const Register = () => {
                 Complete los siguientes datos
               </Typography>
               {values.id_role === 4 ? (
-                <FormRegisterUser idRole={values.id_role} />
+                <RegisterUserForm idRole={values.id_role} />
               ) : (
-                <FormRegistarVeterinary idRole={values.id_role} />
-              )}
+                  <RegisterVeterinaryForm idRole={values.id_role} />
+                )}
             </Grid>
           </Paper>
         </Grid>

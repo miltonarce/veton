@@ -1,25 +1,12 @@
 import React from "react";
-import {Container, Grid} from "@material-ui/core";
-import {withStyles} from "@material-ui/core/styles";
-import AppointmentDatePickerUser from "../../../Components/AppointmentDatePickerUser";
-import PieConsultation from "../../../Components/PieConsultation";
-import TitlePages from "../../../Components/TitlePages";
-import {AppContext} from "../../../Store";
-import Api from "../../../Services/Api";
-
-const styles = {
-  title: {
-    color: "#5C2299",
-    paddingTop: "1rem",
-    paddingBottom: "1rem",
-  },
-  ctn: {
-    paddingTop: "20px !important",
-  },
-  marginNot: {
-    marginLeft: "3rem",
-  },
-};
+import { Container, Grid } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { AppointmentDatePickerUser } from "../../../Components/Appointments";
+import { PieConsultation } from "../../../Components/Consultations";
+import TitlePages from "../../../Components/Shared/TitlePages";
+import { AppContext } from "../../../Store";
+import { Api } from "../../../Services";
+import styles from "./styles";
 
 class HomeUser extends React.Component {
   constructor(props) {
@@ -32,30 +19,30 @@ class HomeUser extends React.Component {
 
   async componentDidMount() {
     try {
-      this.setState({...this.state, isLoading: true});
+      this.setState({ ...this.state, isLoading: true });
       const {
-        auth: {user},
+        auth: { user },
       } = this.context;
-      const {data} = await Api.statistics.fetch(user.id_user);
+      const { data } = await Api.statistics.fetch(user.id_user);
       if (data.success) {
-        this.setState({...this.state, statistics: data.data});
+        this.setState({ ...this.state, statistics: data.data });
       } else {
-        this.setState({...this.state, statistics: []});
+        this.setState({ ...this.state, statistics: [] });
       }
     } catch (err) {
-      this.setState({...this.state, statistics: []});
+      this.setState({ ...this.state, statistics: [] });
     }
   }
 
   render() {
-    const {statistics} = this.state;
-    const {classes} = this.props;
+    const { statistics } = this.state;
+    const { classes } = this.props;
     const {
-      auth: {user},
+      auth: { user },
     } = this.context;
     return (
       <>
-        <Container fixed style={{padingTop: "20px !important"}}>
+        <Container fixed style={{ padingTop: "20px !important" }}>
           <TitlePages
             subtitle="Aquí podrás encontrar información relevante sobre todas tus mascotas"
             title="Inicio"
@@ -67,7 +54,7 @@ class HomeUser extends React.Component {
             justify="center"
             spacing={2}
           >
-            <Grid item md={3} style={{padding: "20px"}} xs={12}>
+            <Grid item md={3} style={{ padding: "20px" }} xs={12}>
               <AppointmentDatePickerUser idUser={user.id_user} />
             </Grid>
             <Grid item md={9} xs={12}>
@@ -77,10 +64,10 @@ class HomeUser extends React.Component {
                   title="Cantidad de consultas"
                 />
               ) : (
-                <section className={classes.marginNot}>
-                  <p>No hay mascotas registradas para mostrar estadisticas.</p>
-                </section>
-              )}
+                  <section className={classes.marginNot}>
+                    <p>No hay mascotas registradas para mostrar estadisticas.</p>
+                  </section>
+                )}
             </Grid>
           </Grid>
         </Container>

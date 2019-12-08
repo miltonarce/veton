@@ -1,6 +1,6 @@
 import React from "react";
-import {BrowserRouter as Router} from "react-router-dom";
-import {SnackbarProvider} from "notistack";
+import { BrowserRouter as Router } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
 import Main from "./Components/Shared/Main";
 import AppProvider from "./Store";
 

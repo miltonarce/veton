@@ -1,11 +1,11 @@
 /**
  * Method to get the current age from pet
  * @param {date}
- * @returns {number}
+ * @returns {number|null}
  */
-const calculateAge = FechaNacimiento => {
-  if (FechaNacimiento === null) return "Sin cumpleaños";
-  const fechaNace = new Date(FechaNacimiento);
+const calculateAge = dateOfBirdth => {
+  if (dateOfBirdth === null) return "Sin cumpleaños";
+  const fechaNace = new Date(dateOfBirdth);
   const fechaActual = new Date();
   const mes = fechaActual.getMonth();
   const dia = fechaActual.getDate();
@@ -22,7 +22,7 @@ const calculateAge = FechaNacimiento => {
 /**
  * Get the free hours avalaibles for appointments
  * @param {object[]}
- * @returns {object}
+ * @returns {object[]}
  */
 const findFreeHours = appointments => {
   const APPOINTMENTS_HOURS = ['9-10', '10-11', '11-12', '13-14', '15-16', '16-17', '17-18', '19-20'];
@@ -30,7 +30,5 @@ const findFreeHours = appointments => {
   return APPOINTMENTS_HOURS.filter(time => !hoursSelectedByDate.includes(time));
 }
 
-export {calculateAge, findFreeHours};
-
-
+export { calculateAge, findFreeHours };
 export const URL_BASE = "http://api.veton/api/";

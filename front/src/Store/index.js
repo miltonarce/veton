@@ -1,4 +1,4 @@
-import React, {Component, createContext} from "react";
+import React, { Component, createContext } from "react";
 
 //Create context for VetonApp
 export const AppContext = createContext();
@@ -11,13 +11,13 @@ class AppProvider extends Component {
       user: {},
     },
     login: val => {
-      const {state} = this;
-      this.setState({...state, auth: val});
+      const { state } = this;
+      this.setState({ ...state, auth: val });
     },
   };
 
   componentDidMount() {
-    const {state} = this;
+    const { state } = this;
 
     if (localStorage.getItem("userData") !== null) {
       this.setState({
@@ -31,7 +31,7 @@ class AppProvider extends Component {
   }
 
   render() {
-    const {children} = this.props;
+    const { children } = this.props;
     return (
       <AppContext.Provider value={this.state}>{children}</AppContext.Provider>
     );

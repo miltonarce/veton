@@ -1,22 +1,13 @@
 import React from "react";
-import {
-  Container,
-} from "@material-ui/core";
-import {withStyles} from "@material-ui/core/styles";
-import FormAppointment from "../../../Components/Forms/FormAppointment";
-import {AppContext} from "../../../Store";
-import Api from "../../../Services/Api";
-import TitlePages from "../../../Components/TitlePages";
-import ModalMsg from "../../../Components/Messages/ModalMsg";
-import {withRouter} from "react-router-dom";
-
-const styles = {
-  TitleAppointment: {
-    fontWeight: 500,
-    marginBottom: "1rem",
-    textAlign: "center",
-  },
-};
+import { Container } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { AppointmentForm } from "../../../Components/Appointments";
+import { ModalMsg } from "../../../Components/Notifications";
+import { AppContext } from "../../../Store";
+import { Api } from "../../../Services";
+import TitlePages from "../../../Components/Shared/TitlePages";
+import { withRouter } from "react-router-dom";
+import styles from "./styles";
 
 class AddAppointment extends React.Component {
   state = {
@@ -29,14 +20,14 @@ class AddAppointment extends React.Component {
   handleOnSubmit = async request => {
     const {
       auth: {
-        user: {id_user},
+        user: { id_user },
       },
     } = this.context;
-    const requestAppointment = {...request, id_user};
+    const requestAppointment = { ...request, id_user };
     try {
-      this.setState({...this.state, isLoading: true});
+      this.setState({ ...this.state, isLoading: true });
       const {
-        data: {msg, success},
+        data: { msg, success },
       } = await Api.appointments.register(requestAppointment);
       if (success) {
         this.setState({
@@ -88,7 +79,7 @@ class AddAppointment extends React.Component {
   render() {
     const {
       handleOnSubmit,
-      state: {isLoading, hasError, openModal, msg},
+      state: { isLoading, hasError, openModal, msg },
     } = this;
     return (
       <Container fixed>
@@ -96,7 +87,7 @@ class AddAppointment extends React.Component {
           subtitle="Aquí podrás reservar un turno en cualquier veterinaria."
           title="Reserva de turnos"
         />
-        <FormAppointment onSubmit={handleOnSubmit} />
+        <AppointmentForm onSubmit={handleOnSubmit} />
         {!isLoading && openModal && <ModalMsg success={hasError === null} msg={msg} />}
       </Container>
     );

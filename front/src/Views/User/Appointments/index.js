@@ -1,26 +1,13 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import {Add} from "@material-ui/icons";
-import {withStyles, styled} from "@material-ui/core/styles";
+import { Add } from "@material-ui/icons";
+import { withStyles } from "@material-ui/core/styles";
 import { CssBaseline, Container, Button, Grid } from "@material-ui/core";
 import { AppContext } from "../../../Store";
-
-import TitlePages from "../../../Components/TitlePages";
-import Spinner from "../../../Components/Spinner";
-import AppointmentList from "../../../Components/AppointmentList";
-import Api from "../../../Services/Api";
-
-const styles = {
-  TitleAppointment: {
-    fontWeight: 500,
-    marginBottom: "1rem",
-    textAlign: "center",
-  },
-};
-// New custom components by styled hook...
-const AppointmentLink = styled(Link)({
-  textDecoration: "none",
-});
+import TitlePages from "../../../Components/Shared/TitlePages";
+import { Spinner } from "../../../Components/Notifications";
+import { AppointmentList } from "../../../Components/Appointments";
+import { Api }  from "../../../Services";
+import { styles, AppointmentLink } from "./styles";
 
 class Appointments extends React.Component {
   constructor() {
@@ -35,15 +22,15 @@ class Appointments extends React.Component {
   // Get all appointments history by user logged
   async componentDidMount() {
     const {
-      auth: {user},
+      auth: { user },
     } = this.context;
     try {
-      this.setState({...this.state, isLoading: true});
+      this.setState({ ...this.state, isLoading: true });
       const {
-        data: {success, data, msg},
+        data: { success, data, msg },
       } = await Api.appointments.fetchByUser(user.id_user);
       if (success) {
-        this.setState({...this.state, isLoading: false, appointments: data});
+        this.setState({ ...this.state, isLoading: false, appointments: data });
       } else {
         this.setState({
           ...this.state,
@@ -53,7 +40,7 @@ class Appointments extends React.Component {
         });
       }
     } catch (err) {
-      this.setState({isLoading: false});
+      this.setState({ isLoading: false });
     }
   }
 
@@ -65,12 +52,12 @@ class Appointments extends React.Component {
    */
   onClickCancelAppointment = async idAppointment => {
     const {
-      auth: {user},
+      auth: { user },
     } = this.context;
     try {
-      this.setState({...this.state, isLoading: true});
+      this.setState({ ...this.state, isLoading: true });
       const {
-        data: {success},
+        data: { success },
       } = await Api.appointments.cancel(user.id_user, idAppointment);
       if (success) {
         this.setState({
@@ -79,10 +66,10 @@ class Appointments extends React.Component {
           appointments: this.removeAppointmentFromList(idAppointment),
         });
       } else {
-        this.setState({...this.state, isLoading: false});
+        this.setState({ ...this.state, isLoading: false });
       }
     } catch (err) {
-      this.setState({isLoading: false});
+      this.setState({ isLoading: false });
     }
   };
 
@@ -97,8 +84,8 @@ class Appointments extends React.Component {
     );
 
   render() {
-    const {onClickCancelAppointment} = this;
-    const {isLoading, error, appointments} = this.state;
+    const { onClickCancelAppointment } = this;
+    const { isLoading, error, appointments } = this.state;
     return (
       <>
         <CssBaseline />
