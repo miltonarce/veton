@@ -64,7 +64,7 @@ const Header = ({ classes }) => {
                   <MenuItem onClick={handleClose}>Perfil</MenuItem>
                 </Link>
                 <Link className={classes.ContentLink} to="/">
-                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                  <MenuItem onClick={handleClose}>Salir</MenuItem>
                 </Link>
               </Menu>
             </div>
