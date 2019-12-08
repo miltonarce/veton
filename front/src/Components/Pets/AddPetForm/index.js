@@ -169,9 +169,9 @@ class AddPetForm extends React.Component {
                 <Grid item xs={6}>
                   <MuiPickersUtilsProvider utils={MomentUtils}>
                     <KeyboardDatePicker
-                      disableToolbar
                       fullWidth
                       autoOk
+                      disableFuture
                       id="birdthay"
                       KeyboardButtonProps={{
                         'aria-label': 'change date',

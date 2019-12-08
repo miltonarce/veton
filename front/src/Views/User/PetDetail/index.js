@@ -142,7 +142,7 @@ class PetDetail extends React.Component {
                                 className={classes.petName}
                                 component="h3"
                                 variant="h3"
-                              >{`${dataPet.name} ${dataPet.last_name}`}</Typography>
+                              >{`${dataPet.name} ${dataPet.last_name ? dataPet.last_name : ''}`}</Typography>
                             </Grid>
                             <Grid item xs={12}>
                               <Grid
