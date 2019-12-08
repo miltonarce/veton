@@ -22,7 +22,7 @@ const Footer = () => {
               justify="center"
             >
               <img
-                alt="Logo veton"
+                alt="VetOn, veterinaria online"
                 className={classes.Logo}
                 src="/assets/Logo2.png"
               />

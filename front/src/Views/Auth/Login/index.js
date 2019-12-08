@@ -87,7 +87,7 @@ class Login extends Component {
               >
                 <Grid item lg={5} md={8} xs={12}>
                   <img
-                    alt="Logo vet On, veterinaria online"
+                    alt="Vet On, veterinaria online"
                     className={classes.Cimg1}
                     src="assets/Logo.svg"
                   />

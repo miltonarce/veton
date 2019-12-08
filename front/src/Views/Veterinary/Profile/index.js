@@ -52,7 +52,7 @@ const Profile = () => {
                   >
                     <Grid item className={classes.ContentImage} xs={2}>
                       <img
-                        alt=""
+                        alt={`usuario ${user.name}`}
                         className={classes.ImageUser}
                         src={
                           user.image

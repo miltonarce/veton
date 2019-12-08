@@ -11,12 +11,12 @@ const Spinner = props => {
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <img
-            alt="Logo veton"
+            alt="Vet On, veterinaria online"
             className={classes.Logo}
             src="/assets/Logo.svg"
           />
           <img
-            alt="spinner"
+            alt="Cargando..."
             className={classes.Spinner}
             src="/assets/spinner.svg"
           />

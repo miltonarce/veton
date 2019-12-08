@@ -107,7 +107,7 @@ const History = ({ dataHistory, user }) => {
         <Grid item className={classes.rowImg} xs={12}>
           <Grid container alignItems="center" direction="row" justify="center">
             <img
-              alt="no hay imagenes cargadas aun."
+              alt="No hay imágenes cargadas todavía."
               className={classes.hisImg}
               src="/assets/no-image.png"
             />

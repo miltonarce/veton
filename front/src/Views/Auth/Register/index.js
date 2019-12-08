@@ -40,7 +40,7 @@ const Register = () => {
             >
               <Grid item xs={10}>
                 <img
-                  alt="Logo vet On, veterinaria online"
+                  alt="Vet On, veterinaria online"
                   src="assets/Logo.svg"
                 />
               </Grid>

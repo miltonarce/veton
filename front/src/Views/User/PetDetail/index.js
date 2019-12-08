@@ -290,7 +290,7 @@ class PetDetail extends React.Component {
                     >
                       <Grid item xs={12}>
                         <img
-                          alt="ups algo salio mal."
+                          alt="Ups algo salio mal."
                           className={classes.ups}
                           src="/assets/ups.svg"
                         />

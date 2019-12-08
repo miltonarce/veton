@@ -338,7 +338,7 @@ class AddPetForm extends React.Component {
                   {previewImage && (
                     <Grid container>
                       <Avatar
-                        alt="Preview image"
+                        alt="Preview pet"
                         className={classes.avatar}
                         src={previewImage}
                       />
