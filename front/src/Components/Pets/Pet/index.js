@@ -36,7 +36,7 @@ const Pet = ({ id_pet, name, last_name, image, birthday, weight, comments }) => 
       </ContentMedia>
       <CardPetHeader
         subheader={comments || "Sin comentarios."}
-        title={`${name} ${last_name}`}
+        title={`${name} ${last_name ? last_name : ''}`}
       />
       <CardContent>
         <Grid
