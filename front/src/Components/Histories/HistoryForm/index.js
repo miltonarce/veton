@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Paper, Typography, Grid, TextField, Button } from "@material-ui/core";
+import { Paper, Typography, Grid, TextField, Button, FormHelperText } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
 
@@ -67,6 +67,7 @@ class HistoryForm extends React.Component {
                 value={hide_comments}
                 onChange={handleOnChange}
               />
+              <FormHelperText>Permite aportar al veterinario medidas de seguridad sobre el animal, si es agresivo, muerde constantemente, entre otros</FormHelperText>
             </Grid>
             <Grid item xs={12}>
               <TextField
