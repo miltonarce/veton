@@ -25,6 +25,7 @@ const AppointmentListWithDate = ({ idVet }) => {
   useEffect(() => {
     const date = moment(selectedDate).format("YYYY-MM-DD");
     getAppointmentsByDate(date);
+  // eslint-disable-next-line
   }, [selectedDate]);
 
   /**

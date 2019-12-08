@@ -106,7 +106,7 @@ const Pet = ({ id_pet, name, last_name, image, birthday, weight, comments }) => 
 Pet.propTypes = {
   id_pet: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  last_name: PropTypes.string.isRequired,
+  last_name: PropTypes.string,
   image: PropTypes.string,
   birthday: PropTypes.string.isRequired,
   weight: PropTypes.number.isRequired,

@@ -30,6 +30,7 @@ const AppointmentDatePickerUser = ({ idUser }) => {
 
   useEffect(() => {
     getAppointmentsByUser();
+    // eslint-disable-next-line
   }, []);
 
   return (

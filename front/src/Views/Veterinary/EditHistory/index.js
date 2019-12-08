@@ -30,6 +30,7 @@ const EditHistory = props => {
    */
   useEffect(() => {
     getHistory();
+    // eslint-disable-next-line
   }, []);
 
   /**

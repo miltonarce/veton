@@ -32,6 +32,7 @@ const EditConsultation = props => {
    */
   useEffect(() => {
     getConsultation();
+    // eslint-disable-next-line
   }, []);
 
   /**
