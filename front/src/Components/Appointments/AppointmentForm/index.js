@@ -278,7 +278,7 @@ class AppointmentForm extends React.Component {
                   <MenuItem value={3}>Otras</MenuItem>
                 </Select>
                 <FormHelperText>
-                  Para ayudarnos mejor elige un tipo de turno
+                  Para poder ofrecerte una mejor atención, por favor elegí el tipo de consulta
                 </FormHelperText>
               </FormControl>
               <TextValidator
