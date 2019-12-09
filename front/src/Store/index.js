@@ -1,41 +1,33 @@
-import React, { Component, createContext } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
-//Create context for VetonApp
 export const AppContext = createContext();
 
-//Provider Class for handle context...
-class AppProvider extends Component {
-  state = {
+const AppProvider = ({ children }) => {
+  const auth = localStorage.getItem('auth') ?  JSON.parse(localStorage.getItem('auth')) : null;
+  const userData = localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null;
+  const [logged, setLogged] = useState(auth);
+  const [user, setUser] = useState(userData);
+
+  useEffect(() => {
+    if (logged !== null && user !== null) {
+      localStorage.setItem('auth', logged);
+      localStorage.setItem('userData', JSON.stringify(user));
+    }
+  }, [logged, user]);
+
+  const defaultContext = {
+    login: auth => {
+      setLogged(auth.logged);
+      setUser(auth.user);
+    },
     auth: {
-      logged: false,
-      user: {},
-    },
-    login: val => {
-      const { state } = this;
-      this.setState({ ...state, auth: val });
-    },
+      logged,
+      user
+    }
   };
 
-  componentDidMount() {
-    const { state } = this;
+  return <AppContext.Provider value={defaultContext}>{children}</AppContext.Provider>
 
-    if (localStorage.getItem("userData") !== null) {
-      this.setState({
-        ...state,
-        auth: {
-          logged: true,
-          user: JSON.parse(localStorage.getItem("userData")),
-        },
-      });
-    }
-  }
-
-  render() {
-    const { children } = this.props;
-    return (
-      <AppContext.Provider value={this.state}>{children}</AppContext.Provider>
-    );
-  }
 }
 
 export default AppProvider;

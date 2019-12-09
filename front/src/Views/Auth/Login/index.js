@@ -36,7 +36,6 @@ class Login extends Component {
       if (success) {
         this.setState({ ...state, isLoading: false, hasError: null });
         login({ logged: true, user: additional_info });
-        localStorage.setItem("userData", JSON.stringify(additional_info));
         const defaultView = ROLES[additional_info.id_role];
         history.push(`/${defaultView}`);
       } else {
