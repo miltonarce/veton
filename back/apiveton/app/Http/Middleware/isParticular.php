@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-
+use Auth;
 class isParticular
 {
     /**
@@ -16,7 +16,7 @@ class isParticular
     public function handle($request, Closure $next)
     {
         $user = auth()->user();
-        if($user->id_role !== 4) {
+        if(Auth::check() && Auth::user()->id_role !== 4) {
             return response()->json(['error' => 'No podés estar acá.'], 401);
         }
 

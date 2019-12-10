@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-
+use Auth;
 class isDoctor
 {
     /**
@@ -15,8 +15,8 @@ class isDoctor
      */
     public function handle($request, Closure $next)
     {
-        $user = auth()->user();
-        if($user->id_role !== 3) {
+        //$user = auth()->user();
+        if (Auth::check() && Auth::user()->id_role !== 3) {
             return response()->json(['error' => 'No podés estar acá.'], 401);
         }
 
