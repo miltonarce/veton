@@ -22,4 +22,6 @@ class isDoctor
 
         return $next($request);
     }
+
+
 }

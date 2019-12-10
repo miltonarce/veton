@@ -26,7 +26,7 @@ Route::get('auth/logout', 'Api\\AuthController@logout');
 Route::post('auth/register', 'Api\\AuthController@register');
 
 
-Route::middleware('isParticular')->group(function() {
+Route::middleware('particular')->group(function() {
 
     // Pets (Obtener todas las mascotas)
     Route::get('pets', 'Api\\PetsController@all');
@@ -50,7 +50,7 @@ Route::middleware('isParticular')->group(function() {
 });
 
 
-Route::middleware('isDoctor')->group(function() {
+Route::middleware('doctor')->group(function() {
 
     // Pets (Obtener las ultimas 10 mascotas atendidas por una veterinaria)
     Route::get('pets/last/veterinary/{idUser}', 'Api\\PetsController@findLastByVeterinary');
