@@ -25,6 +25,7 @@ Route::get('auth/logout', 'Api\\AuthController@logout');
 // Auth (Registrase con email y password, usuarios con rol "3")
 Route::post('auth/register', 'Api\\AuthController@register');
 
+Route::middleware('auth')->group(function() {
 // Pets (Obtener todas las mascotas)
 Route::get('pets', 'Api\\PetsController@all');
 // Pets (Obtener las ultimas 10 mascotas atendidas por una veterinaria)
@@ -88,7 +89,9 @@ Route::get('breeds', 'Api\\BreedsController@all');
 Route::get('types', 'Api\\TypesController@all');
 Route::get('vaccines', 'Api\\VaccinesController@all');
 Route::get('dewormers', 'Api\\DewormersController@all');
-
+Route::post('pets', 'Api\\PetsController@store');
+});
+/*
 Route::group(['middleware' => 'api'], function() {
 Route::post('pets', 'Api\\PetsController@store');
- });
+ });*/
