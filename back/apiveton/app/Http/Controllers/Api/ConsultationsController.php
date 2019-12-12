@@ -11,12 +11,22 @@ use App\Http\Controllers\Controller;
 
 class ConsultationsController extends Controller
 {
+    /**
+     * Retrieve all consultations
+     * @return Response
+     */
     public function all()
     {
         $consultations = Consultation::all();
         return response()->json($consultations);
     }
 
+    /**
+     * Save consultation with idHistory
+     * @param int $idHistory
+     * @param Request request
+     * @return Response
+     */
     public function store($idHistory, Request $request)
     {
        try {
@@ -51,31 +61,39 @@ class ConsultationsController extends Controller
         }
     }
 
+    /**
+     * Retrieve consultations with id history
+     * @param int $id
+     * @return Response
+     */
     public function findById($id)
     {
         $consultations = Consultation::all()->where('id_history', '=', $id);
         return response()->json($consultations);
     }
 
+    /**
+     * Retrieve consultation with id_consultation
+     * @param int $id
+     * @return Response
+     */
     public function findOneById($id)
     {
         $consultation = Consultation::where('id_consultation',$id)->first();
         return response()->json($consultation);
     }
 
-    public function editConsultation (Request $request, $idConsultation)
+    /**
+     * Update consultation
+     * @param Request $request
+     * @param int $idConsultation
+     * @return Response
+     */
+    public function editConsultation(Request $request, $idConsultation)
     {
         try {
             $request->validate(Consultation::$rules, Consultation::$errorMessages);
             $data = $request->all();
-//            if($request->hasFile('image')){
-//                $file = $request->image;
-//                $imageName= time(). "." . $file->extension();
-//                $file->move(public_path('/imgs'), $imageName);
-//                $data['image'] = 'imgs/' . $imageName;
-//            }else {
-//                $data['image'] = '';
-//            }
             $consultation = Consultation::findOrFail($idConsultation);
             $consultation->update($data);
             return response()->json([
@@ -92,6 +110,11 @@ class ConsultationsController extends Controller
         }
     }
 
+    /**
+     * Delte consultation by id
+     * @param int $id
+     * @return Response
+     */
     public function removeConsultation($id)
     {
         try {

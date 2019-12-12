@@ -9,26 +9,21 @@ use App\Http\Controllers\Controller;
 
 class VeterinariesController extends Controller
 {
+    /**
+     * Retrieve all veterinaries
+     * @return Response
+     */
     public function all()
     {
         $veterinaries = Veterinary::all();
         return response()->json($veterinaries);
     }
-/*
-    public function store(Request $request)
-    {
-        try {
-            $request->validate(Veterinary::$rules, Veterinary::$errorMessages);
-            $data = $request->all();
-            Veterinary::create($data);
-            return response()->json([
-                'success' => true
-            ]);
-        } catch (QueryException $e) {
-            return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear una veterinaria', 'error_stack' => $e]);
-        }
-    }
-*/
+
+    /**
+     * Save vet pending approve to validate
+     * @param Request $request
+     * @return Response
+     */
     public function storePendingApproval(Request $request)
     {
         try {

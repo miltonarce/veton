@@ -29,4 +29,5 @@ class Dewormer extends Model
     {
         return $this->hasMany(Consultation::class, 'id_dewormer', 'id_dewormer');
     }
+
 }

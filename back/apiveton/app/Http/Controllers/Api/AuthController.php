@@ -32,11 +32,9 @@ class AuthController extends Controller
                 return response()->json(['success' => false, 'msg' => 'Datos incorrectos, vuelva a intentar.']);
             }
             $user = auth()->user();
-
             if ($this->isUserVet($user['id_role'])) {
                 $user['id_veterinary'] = $this->getIdVeterinary($user['id_user']);
             }
-
             return response()->json([
                 'success' => true,
                 'msg' => 'Login exitoso',
@@ -65,9 +63,9 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        if($request['id_role'] == '2' ){
+        if ($request['id_role'] == '2' ) {
              DB::beginTransaction();
-            try{
+            try {
                 $request->validate(User::$rules);
                 $user = $request->all();
                 $user['password'] = Hash::make($request['password']);
@@ -82,7 +80,7 @@ class AuthController extends Controller
                     'success' => true,
                     'msg' => 'El usuario y la veterinaria fueron creados con exito!',
                 ]);
-            } catch(QueryException $e){
+            } catch(QueryException $e) {
                  DB::rollback();
                 return response()->json(['success' => false, 'msg' => 'Se produjo un error al crear su usuario, por favor ingrese datos distintos.', 'stack' => $e]);
             }
@@ -109,8 +107,8 @@ class AuthController extends Controller
 
     /**
      * Private method to retrieve info to user
-     * @param Array
-     * @return Array
+     * @param array
+     * @return array
      */
     private function getAditionalInfo($data) 
     {
@@ -129,7 +127,7 @@ class AuthController extends Controller
 
     /**
      * Validate if exists email
-     * @param String $email
+     * @param string $email
      * @return bool
      */
     private function existsMail($email) 
@@ -142,7 +140,8 @@ class AuthController extends Controller
      * Get the id of the vet to which it belongs
      * @return number
      */
-    private function getIdVeterinary($idUser) {
+    private function getIdVeterinary($idUser) 
+    {
         $userVeterinaryInfo = DB::table('user_veterinary')->where('id_user', '=', $idUser)->first();
         return $userVeterinaryInfo->id_veterinary;
     }
@@ -152,7 +151,8 @@ class AuthController extends Controller
      * @param number
      * @return bool
      */
-    private function isUserVet($idRole) {
+    private function isUserVet($idRole) 
+    {
         return $idRole === 3;
     }
 

@@ -11,45 +11,45 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Support\Facades\DB;
 
-/**
-* @OA\Info(title="API Pets", version="1.0")
-*
-* @OA\Server(url="https://api.veton")
-*/
 class PetsController extends Controller
 {
     /**
-    * @OA\Get(
-    *     path="/api/pets",
-    *     summary="Lista todas las mascotas",
-    *     @OA\Response(
-    *         response=200,
-    *         description="success"
-    *     ),
-    *     @OA\Response(
-    *         response="default",
-    *         description="Ha ocurrido un error."
-    *     )
-    * )
-    */
+     * Retrieve all pets
+     * @return Response
+     */
     public function all()
     {
         $pets = Pet::all();
         return response()->json($pets);
     }
 
+    /**
+     * Retrieve pet detail by id_pet
+     * @param int $id
+     * @return Response
+     */
     public function detail($id)
     {
         $pets = Pet::with(['type', 'breed', 'gender', 'user', 'clinicalHistory', 'clinicalHistory.consultations'])->findOrFail($id);
         return response()->json($pets);
     }
 
+    /**
+     * Retrieve all pets form user by id
+     * @param int $idUser
+     * @return Response
+     */
     public function findByUser($idUser) 
     {
         $pets = Pet::where('id_user', '=', $idUser)->get();
         return response()->json($pets);
     }
 
+    /**
+     * Retrieve last vets
+     * @param int $idUser
+     * @return Response
+     */
     public function findLastByVeterinary($idUser)
     {
        try {
@@ -74,35 +74,9 @@ class PetsController extends Controller
     }
 
     /**
-    * @OA\Post(
-    *     path="/api/pets",
-    *     summary="Da de alta una mascota",
-    *  @OA\RequestBody(
-    *   @OA\JsonContent(
-    *        type="object",
-    *        @OA\Property(property="id_user", type="integer", description="id del usuario"),
-    *        @OA\Property(property="id_type", type="integer", description="id de mascota"),
-    *        @OA\Property(property="id_breed", type="integer", description="id deraza"),
-    *        @OA\Property(property="id_gender", type="integer", description="id de genero"),
-    *        @OA\Property(property="birthday", type="string", description="fecha de nacimiento"),
-    *        @OA\Property(property="name", type="string", description="nombre de la mascota"),
-    *        @OA\Property(property="last_name", type="string", description="apellido de la mascota"),
-    *        @OA\Property(property="image", type="string", description="imagen de perfil de la mascota"),
-    *        @OA\Property(property="weight", type="integer", description="peso de la mascota en Kgs"),
-    *        @OA\Property(property="colors", type="string", description="color de la mascota"),
-    *        @OA\Property(property="comments", type="string", description="comentarios extras")
-    *    )
-    *  ),
-    *     @OA\Response(
-    *         response=200,
-    *         description="success"
-    *     ),
-    *     @OA\Response(
-    *         response="default",
-    *         description="Ha ocurrido un error."
-    *     )
-    * )
-    */
+     * Save pet , validate fields, save image
+     * @param Request $request
+     */
     public function store(Request $request)
     {
         try {
@@ -122,6 +96,12 @@ class PetsController extends Controller
         }
     }
 
+    /**
+     * Update pet
+     * @param Request request
+     * @param int $idPet
+     * @return Response
+     */
     public function editPet(Request $request, $idPet)
     {
         try {
@@ -144,7 +124,13 @@ class PetsController extends Controller
         }
     }
 
-    public function removePet($idPet) {
+    /**
+     * Delete pet by idPet
+     * @param int $idPet
+     * @return Response
+     */
+    public function removePet($idPet) 
+    {
         try {
             $pet = Pet::findOrFail($idPet);
             $pet->delete();
@@ -162,7 +148,13 @@ class PetsController extends Controller
         }
     }
 
-    public function statistics($id) {
+    /**
+     * Retrieve statics from pet
+     * @param int $idPet
+     * @return Response
+     */
+    public function statistics($id) 
+    {
         $statistics = [];
         $pets = Pet::where('id_user', '=', $id)->get();
         foreach ($pets as $pet) {
@@ -176,10 +168,6 @@ class PetsController extends Controller
             $completName = $pet->name.' '.$pet->last_name;
             array_push($statistics, ["name"=> $completName, 'y' => $cantConsultas]);       
         }
-        
-        
-
-      
         return response()->json([
             'success' => true,
             'msg' => null,
@@ -187,6 +175,12 @@ class PetsController extends Controller
         ]);
     }
 
+    /**
+     * Handle input images from save and move to folder assets
+     * @param Request $request
+     * @param array $data
+     * @return array
+     */
     private function saveImageIfExists($request, $data) 
     {
         if ($request->hasFile('image')) {

@@ -29,4 +29,5 @@ class Vaccine extends Model
     {
         return $this->hasMany(Consultation::class, 'id_vaccine', 'id_vaccine');
     }
+
 }

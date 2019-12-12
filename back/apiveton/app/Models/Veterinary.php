@@ -42,21 +42,19 @@ class Veterinary extends Model
         'street.required' => 'La dirección de la veterinaria no puede estar vacía.',
     ];
 
-//    public function user()
-//    {
-//        return $this->hasMany(User::class, 'id_veterinary', 'id_veterinary');
-//    }
-
     public function users()
     {
         return $this->belongsToMany(User::class, 'user_veterinary', 'id_veterinary', 'id_user', 'id_veterinary', 'id_user')->withTimestamps();
     }
+
     public function appointments()
     {
         return $this->hasMany(Appointment::class, 'id_veterinary', 'id_veterinary');
     }
+
     public function friends()
     {
         return $this->morphToMany(Friends::class, 'user_veterinary_friendship');
     }
+
 }

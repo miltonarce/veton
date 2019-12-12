@@ -17,4 +17,5 @@ class Type extends Model
     {
         return $this->hasMany(Breed::class, 'id_type', 'id_type');
     }
+
 }

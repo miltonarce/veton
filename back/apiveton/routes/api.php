@@ -70,7 +70,6 @@ Route::delete('consultations/{idConsultation}', 'Api\\ConsultationsController@re
 //Consultation traer una consulta por id
 Route::get('consultation/{id}', 'Api\\ConsultationsController@findOneById');
 
-
 // Appointments (Registrar un turno)
 Route::post('appointments', 'Api\\AppointmentsController@save');
 // Appointments (Obtener los turnos que realizó una persona)

@@ -17,4 +17,5 @@ class Breed extends Model
     {
         return $this->belongsTo(Type::class, 'id_type', 'id_type');
     }
+
 }
