@@ -93,12 +93,12 @@ class HomeVet extends React.Component {
     return (
       <>
         <CssBaseline />
-        <Container fixed>
+        <Container fixed component="section">
           <Grid container direction="row" justify="center" spacing={2}>
-            <Grid item md={4} xl={3} xs={12}>
+            <Grid item md={4} xl={3} xs={12} component="aside">
               <AppointmentListWithDate idVet={id_veterinary} />
             </Grid>
-            <Grid item md={8} xl={9} xs={12}>
+            <Grid item md={8} xl={9} xs={12} component="section">
               {isLoadingLastPets && (
                 <Container fixed>
                   <Grid
@@ -116,12 +116,12 @@ class HomeVet extends React.Component {
               {!isLoadingLastPets &&
                 lastPetsAttended.length > 0 &&
                 !userSelected && (
-                  <div>
+                  <React.Fragment>
                     <h2 className={classes.title}>
                       Últimas consultas realizadas
                     </h2>{" "}
                     <ListPets pets={lastPetsAttended} />
-                  </div>
+                  </React.Fragment>
                 )}
               {!isLoadingLastPets &&
                 lastPetsAttended.length === 0 &&

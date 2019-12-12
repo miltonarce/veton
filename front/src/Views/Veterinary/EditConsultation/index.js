@@ -80,7 +80,7 @@ const EditConsultation = props => {
   return (
     <>
       <CssBaseline />
-      <Container fixed>
+      <Container fixed component="section">
         <TitlePages
           subtitle=" Aquí podrás editar una consulta creada."
           title="Editar consulta"

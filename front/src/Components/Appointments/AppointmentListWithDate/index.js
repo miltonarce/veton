@@ -69,7 +69,7 @@ const AppointmentListWithDate = ({ idVet }) => {
   };
 
   return (
-    <section>
+    <>
       <h2 className={classes.title}>Turnos del día de hoy</h2>
       <div className={classes.ctnDateSelection}>
         <IconButton aria-label="before" className={classes.icons} onClick={handleBeforeDay}>
@@ -94,7 +94,7 @@ const AppointmentListWithDate = ({ idVet }) => {
         {!loading && error && <p>{error}</p>}
         {!loading && !error && appointments.length === 0 && <p>Sin turnos</p>}
       </div>
-    </section>
+    </>
   );
 };
 

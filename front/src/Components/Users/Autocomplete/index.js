@@ -63,6 +63,7 @@ class Autocomplete extends React.Component {
         <TextField
           fullWidth
           required
+          id="autocomplete_veton"
           className={classes.Search}
           InputProps={{
             startAdornment: (
@@ -77,6 +78,7 @@ class Autocomplete extends React.Component {
           onChange={handleOnChange}
           onFocus={handleFocus}
         />
+        <label htmlFor="autocomplete_veton" style={{visibility: "hidden"}} />
         {loading && (
           <Container fixed>
             <Grid

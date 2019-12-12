@@ -69,7 +69,7 @@ class PetDetail extends React.Component {
     return (
       <>
         <CssBaseline />
-        <Container fixed>
+        <Container fixed component="section">
           <TitlePages
             subtitle="Aquí ver y editar los detalles de tu mascota incluyendo su historia clínica."
             title="Detalle de mascota"
@@ -81,7 +81,7 @@ class PetDetail extends React.Component {
             justify="center"
             spacing={3}
           >
-            <Grid item className={classes.DatosPet} xs={12}>
+            <Grid item className={classes.DatosPet} xs={12} component="section">
               <Grid
                 container
                 alignItems="center"
@@ -89,7 +89,7 @@ class PetDetail extends React.Component {
                 justify="space-between"
                 spacing={3}
               >
-                <Grid item className={classes.ContentCardPet} lg={8} xs={12}>
+                <Grid item className={classes.ContentCardPet} lg={8} xs={12} component="article">
                   <Paper className={classes.Paper}>
                     <Grid
                       container
@@ -100,6 +100,7 @@ class PetDetail extends React.Component {
                     >
                       <Grid
                         item
+                        component="figure"
                         className={classes.contenImage}
                         lg={3}
                         md={3}

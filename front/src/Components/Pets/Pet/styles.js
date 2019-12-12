@@ -29,10 +29,11 @@ const CardPetMedia = styled(CardMedia)({
     boxShadow: "0px 3px 11px 5px rgba(0, 0, 0, 0.16)",
 });
 
-const ContentMedia = styled("div")({
+const ContentMedia = styled("figure")({
     position: "relative",
     width: "100%",
     height: 195,
+    margin: 0,
 });
 
 const CardPetHeader = styled(CardHeader)({
