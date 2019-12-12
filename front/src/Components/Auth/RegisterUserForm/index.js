@@ -1,17 +1,17 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { withRouter, Link } from "react-router-dom";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { InputAdornment, Grid, IconButton, Button } from "@material-ui/core";
+import {withRouter, Link} from "react-router-dom";
+import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
+import {InputAdornment, Grid, IconButton, Button} from "@material-ui/core";
 import {
   Email,
   Visibility,
   VisibilityOff,
   FeaturedPlayList,
 } from "@material-ui/icons";
-import { withStyles } from "@material-ui/core/styles";
-import { Auth } from "../../../Services";
-import { ModalMsg, Spinner } from "../../Notifications";
+import {withStyles} from "@material-ui/core/styles";
+import {Auth} from "../../../Services";
+import {ModalMsg, Spinner} from "../../Notifications";
 import styles from "./styles";
 
 class RegisterUserForm extends Component {
@@ -35,9 +35,9 @@ class RegisterUserForm extends Component {
    * @returns {void}
    */
   handleOnChange = event => {
-    const { formData } = this.state;
+    const {formData} = this.state;
     formData[event.target.name] = event.target.value;
-    this.setState({ formData });
+    this.setState({formData});
   };
 
   /**
@@ -46,41 +46,37 @@ class RegisterUserForm extends Component {
    * @returns {void}
    */
   handleSubmit = async () => {
-    const { state } = this;
-    const { history } = this.props;
+    const {state} = this;
+    const {history} = this.props;
 
     try {
-      this.setState({ ...state, isLoading: true });
-      const { data } = await Auth.register(state.formData);
+      this.setState({...state, isLoading: true});
+      const {data} = await Auth.register(state.formData);
       if (data.success) {
-        setTimeout(() => {
-          this.setState({
-            ...state,
-            isLoading: false,
-            openMsg: true,
-            hasMsg: data.msg,
-            success: data.success,
-          });
-        }, 3000);
+        this.setState({
+          ...state,
+          isLoading: false,
+          openMsg: true,
+          hasMsg: data.msg,
+          success: data.success,
+        });
         setTimeout(() => {
           history.push(`/`);
-        }, 6000);
-      } else {
-        setTimeout(() => {
-          this.setState({
-            ...state,
-            isLoading: false,
-            hasMsg: data.msg,
-            openMsg: true,
-            success: data.success,
-          });
         }, 3000);
+      } else {
+        this.setState({
+          ...state,
+          isLoading: false,
+          hasMsg: data.msg,
+          openMsg: true,
+          success: data.success,
+        });
         setTimeout(() => {
           this.setState({
             ...state,
             openMsg: false,
           });
-        }, 6000);
+        }, 3000);
       }
     } catch (err) {
       this.setState({
@@ -95,7 +91,7 @@ class RegisterUserForm extends Component {
           ...state,
           openMsg: false,
         });
-      }, 6000);
+      }, 3000);
     }
   };
 
@@ -104,10 +100,10 @@ class RegisterUserForm extends Component {
    * @returns {void}
    */
   handleClickShowPassword = () => {
-    const { state } = this;
-    this.setState({ ...state, showPassword: !state.showPassword });
+    const {state} = this;
+    this.setState({...state, showPassword: !state.showPassword});
   };
-  
+
   /**
    * Prevent mouse down
    * @param {Event} event
@@ -118,7 +114,7 @@ class RegisterUserForm extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
     const {
       formData,
       showPassword,
@@ -139,6 +135,7 @@ class RegisterUserForm extends Component {
           <TextValidator
             fullWidth
             errorMessages={['Este campo es requerido.', 'No es un email valido.']}
+            id="email"
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -146,7 +143,6 @@ class RegisterUserForm extends Component {
                 </InputAdornment>
               ),
             }}
-            id="email"
             label="Ingrese su email"
             margin="normal"
             name="email"
@@ -159,6 +155,7 @@ class RegisterUserForm extends Component {
           <TextValidator
             fullWidth
             errorMessages={['La contraseña es requerida', 'La contraseña debe tener un mínimo de 4 caracteres', 'La contraseñá puede tener un máximo de 100 caracteres', 'Solo se aceptan letras y numeros para la contraseñá, sin espacios.']}
+            id="password"
             InputProps={{
               endAdornment: (
                 <InputAdornment className={classes.Adorment} position="end">
@@ -173,7 +170,6 @@ class RegisterUserForm extends Component {
                 </InputAdornment>
               ),
             }}
-            id="password"
             label="Ingrese su contraseña"
             margin="normal"
             name="password"
@@ -187,6 +183,7 @@ class RegisterUserForm extends Component {
           <TextValidator
             fullWidth
             errorMessages={['Este campo es requerido.', 'El dni debe ser un número.', 'Debe tener un minimo de 4 numeros', 'Debe tener un máximo de 12 números.']}
+            id="dni"
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -194,7 +191,6 @@ class RegisterUserForm extends Component {
                 </InputAdornment>
               ),
             }}
-            id="dni"
             label="DNI (Solo números)"
             margin="normal"
             name="dni"

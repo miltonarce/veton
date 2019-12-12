@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { withRouter, Link } from "react-router-dom";
+import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
+import {withRouter, Link} from "react-router-dom";
 import {
   InputAdornment,
   Grid,
@@ -20,9 +20,9 @@ import {
   Phone,
   AspectRatio,
 } from "@material-ui/icons";
-import { withStyles } from "@material-ui/core/styles";
-import { Spinner, ModalMsg } from "../../Notifications";
-import { Auth } from "../../../Services";
+import {withStyles} from "@material-ui/core/styles";
+import {Spinner, ModalMsg} from "../../Notifications";
+import {Auth} from "../../../Services";
 import styles from "./styles";
 
 class RegisterVeterinaryForm extends Component {
@@ -51,9 +51,9 @@ class RegisterVeterinaryForm extends Component {
    * @returns {void}
    */
   handleOnChange = event => {
-    const { formData } = this.state;
+    const {formData} = this.state;
     formData[event.target.name] = event.target.value;
-    this.setState({ formData });
+    this.setState({formData});
   };
 
   /**
@@ -61,8 +61,8 @@ class RegisterVeterinaryForm extends Component {
    * @returns {void}
    */
   handleClickShowPassword = () => {
-    const { state } = this;
-    this.setState({ ...state, showPassword: !state.showPassword });
+    const {state} = this;
+    this.setState({...state, showPassword: !state.showPassword});
   };
 
   /**
@@ -80,25 +80,23 @@ class RegisterVeterinaryForm extends Component {
    * @returns {void}
    */
   handleSubmit = async () => {
-    const { state } = this;
-    const { history } = this.props;
+    const {state} = this;
+    const {history} = this.props;
 
     try {
-      this.setState({ ...state, isLoading: true });
-      const { data } = await Auth.register(state.formData);
+      this.setState({...state, isLoading: true});
+      const {data} = await Auth.register(state.formData);
       if (data.success) {
-        setTimeout(() => {
-          this.setState({
-            ...state,
-            isLoading: false,
-            openMsg: true,
-            hasMsg: data.msg,
-            success: data.success,
-          });
-        }, 3000);
+        this.setState({
+          ...state,
+          isLoading: false,
+          openMsg: true,
+          hasMsg: data.msg,
+          success: data.success,
+        });
         setTimeout(() => {
           history.push(`/`);
-        }, 6000);
+        }, 3000);
       } else {
         setTimeout(() => {
           this.setState({
@@ -108,13 +106,13 @@ class RegisterVeterinaryForm extends Component {
             openMsg: true,
             success: data.success,
           });
-        }, 3000);
+        }, 1000);
         setTimeout(() => {
           this.setState({
             ...state,
             openMsg: false,
           });
-        }, 6000);
+        }, 2000);
       }
     } catch (err) {
       this.setState({
@@ -129,12 +127,12 @@ class RegisterVeterinaryForm extends Component {
           ...state,
           openMsg: false,
         });
-      }, 6000);
+      }, 3000);
     }
   };
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
     const {
       formData,
       showPassword,
@@ -159,6 +157,7 @@ class RegisterVeterinaryForm extends Component {
             <TextValidator
               fullWidth
               errorMessages={['Este campo es requerido.', 'No es un email valido.']}
+              id="email"
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
@@ -166,7 +165,6 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
-              id="email"
               label="Email"
               margin="normal"
               name="email"
@@ -179,6 +177,7 @@ class RegisterVeterinaryForm extends Component {
             <TextValidator
               fullWidth
               errorMessages={['La contraseña es requerida', 'La contraseña debe tener un mínimo de 4 caracteres', 'La contraseñá puede tener un máximo de 100 caracteres', 'Solo se aceptan letras y numeros para la contraseñá, sin espacios.']}
+              id="password"
               InputProps={{
                 endAdornment: (
                   <InputAdornment className={classes.Adorment} position="end">
@@ -193,7 +192,6 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
-              id="password"
               label="Contraseña"
               margin="normal"
               name="password"
@@ -207,6 +205,7 @@ class RegisterVeterinaryForm extends Component {
             <TextValidator
               fullWidth
               errorMessages={['Este campo es requerido.', 'El dni debe ser un número.', 'Debe tener un minimo de 4 numeros', 'Debe tener un máximo de 12 números.']}
+              id="dni"
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
@@ -214,7 +213,6 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
-              id="dni"
               label="DNI (Solo números)"
               margin="normal"
               name="dni"
@@ -238,6 +236,7 @@ class RegisterVeterinaryForm extends Component {
             <TextValidator
               fullWidth
               errorMessages={['Este campo es requerido.', 'El nombre debe tener al menos 2 caracteres']}
+              id="business_name"
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
@@ -245,7 +244,6 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
-              id="business_name"
               label="Nombre de la empresa"
               margin="normal"
               name="business_name"
@@ -258,6 +256,7 @@ class RegisterVeterinaryForm extends Component {
             <TextValidator
               fullWidth
               errorMessages={['Este campo es requerido.', 'El nombre de fantasia debe tener al menos 2 caracteres']}
+              id="fantasy_name"
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
@@ -265,7 +264,6 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
-              id="fantasy_name"
               label="Nombre de fantasía"
               margin="normal"
               name="fantasy_name"
@@ -278,6 +276,7 @@ class RegisterVeterinaryForm extends Component {
             <TextValidator
               fullWidth
               errorMessages={['Este campo es requerido.', 'El cuit debe ser un número', 'Debe tener un minimo de 4 numeros', 'Debe tener un máximo de 20 números.']}
+              id="cuit_cuil"
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
@@ -285,7 +284,6 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
-              id="cuit_cuil"
               label="CUIT/CUIL (Solo números)"
               margin="normal"
               name="cuit_cuil"
@@ -299,6 +297,7 @@ class RegisterVeterinaryForm extends Component {
             <TextValidator
               fullWidth
               errorMessages={['Este campo es requerido.', 'El  teléfono debe ser un numero']}
+              id="phone"
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
@@ -306,7 +305,6 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
-              id="phone"
               label="Teléfono (Solo números)"
               margin="normal"
               name="phone1"
@@ -321,6 +319,7 @@ class RegisterVeterinaryForm extends Component {
             <TextValidator
               fullWidth
               errorMessages={['Este campo es requerido.']}
+              id="street"
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
@@ -328,7 +327,6 @@ class RegisterVeterinaryForm extends Component {
                   </InputAdornment>
                 ),
               }}
-              id="street"
               label="Domicilio"
               margin="normal"
               name="street"

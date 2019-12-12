@@ -1,10 +1,10 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
-import { Container, CssBaseline, Grid } from "@material-ui/core";
-import { AddPetForm } from "../../../Components/Pets";
-import { Api } from "../../../Services";
+import {withRouter} from "react-router-dom";
+import {Container, CssBaseline, Grid} from "@material-ui/core";
+import {AddPetForm} from "../../../Components/Pets";
+import {Api} from "../../../Services";
 import TitlePages from "../../../Components/Shared/TitlePages";
-import { ModalMsg, Spinner } from "../../../Components/Notifications";
+import {ModalMsg, Spinner} from "../../../Components/Notifications";
 
 class AddPet extends React.Component {
   state = {
@@ -21,7 +21,7 @@ class AddPet extends React.Component {
   // Get breeds and type to populate form
   // Promise all to better solution
   async componentDidMount() {
-    const { state } = this;
+    const {state} = this;
     try {
       const [breeds, types] = await Promise.all([
         Api.breeds.fetch(),
@@ -33,7 +33,7 @@ class AddPet extends React.Component {
         types: types.data,
       });
     } catch (err) {
-      this.setState({ ...state, isLoading: false });
+      this.setState({...state, isLoading: false});
     }
   }
 
@@ -43,51 +43,48 @@ class AddPet extends React.Component {
    * @returns {void}
    */
   handleOnSubmit = async pet => {
-    const { state } = this;
-    const { history } = this.props;
-    this.setState({ ...state, isLoading: true });
+    const {state} = this;
+    const {history} = this.props;
+    this.setState({...state, isLoading: true});
     try {
-      this.setState({ ...state, isLoading: true });
-      const { data } = await Api.pets.createPet(pet);
+      this.setState({...state, isLoading: true});
+      const {data} = await Api.pets.createPet(pet);
       if (data.success) {
-        setTimeout(() => {
-          this.setState({
-            ...state,
-            isLoading: false,
-            openMsg: true,
-            hasMsg: data.msg,
-            success: data.success,
-          });
-        }, 3000);
+        this.setState({
+          ...state,
+          isLoading: false,
+          openMsg: true,
+          hasMsg: data.msg,
+          success: data.success,
+        });
         setTimeout(() => {
           history.push(`/user/pets`);
-        }, 6000);
-      } else {
-        setTimeout(() => {
-          this.setState({
-            ...state,
-            hasMsg: data.msg,
-            isLoading: false,
-            openMsg: true,
-            success: data.success,
-          });
         }, 3000);
+      } else {
+        this.setState({
+          ...state,
+          hasMsg: data.msg,
+          isLoading: false,
+          openMsg: true,
+          success: data.success,
+        });
         setTimeout(() => {
           this.setState({
             ...state,
             openMsg: false,
           });
-        }, 6000);
+        }, 3000);
       }
     } catch (err) {
       if (err.response && err.response.data) {
-        const { errors } = err.response.data;
-        this.setState({...state, isLoading: false, errors });
+        const {errors} = err.response.data;
+        this.setState({...state, isLoading: false, errors});
       } else {
         this.setState({
           ...state,
           isLoading: false,
-          hasMsg: "Se produjo un error al registarse, por favor verifique sus datos.",
+          hasMsg:
+            "Se produjo un error al registarse, por favor verifique sus datos.",
           openMsg: true,
         });
         setTimeout(() => {
@@ -95,14 +92,22 @@ class AddPet extends React.Component {
             ...state,
             openMsg: false,
           });
-        }, 6000);
+        }, 3000);
       }
     }
   };
 
   render() {
-    const { breeds, types, openMsg, hasMsg, isLoading, success, errors } = this.state;
-    const { handleOnSubmit } = this;
+    const {
+      breeds,
+      types,
+      openMsg,
+      hasMsg,
+      isLoading,
+      success,
+      errors,
+    } = this.state;
+    const {handleOnSubmit} = this;
     return (
       <>
         <CssBaseline />
@@ -115,10 +120,10 @@ class AddPet extends React.Component {
             <Grid item lg={7} xs={12}>
               <AddPetForm
                 breeds={breeds}
+                errors={errors}
                 title="Ingrese los datos de la mascota Mascota"
                 types={types}
                 onSubmit={handleOnSubmit}
-                errors={errors}
               />
             </Grid>
           </Grid>
