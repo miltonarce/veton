@@ -1,56 +1,15 @@
-import React, {Component} from "react";
-import {withRouter, Link} from "react-router-dom";
-import {Grid, Paper, CssBaseline, Typography} from "@material-ui/core";
-import {withStyles} from "@material-ui/core/styles";
-
-import Api from "../../../Services/Api";
-import Auth from "../../../Services/Auth";
-import FormLogin from "../../../Components/Forms/FormLogin";
-import {AppContext} from "../../../Store";
-import Spinner from "../../../Components/Spinner";
-import ModalMsg from "../../../Components/Messages/ModalMsg";
+import React, { Component } from "react";
+import { withRouter, Link } from "react-router-dom";
+import { Grid, Paper, CssBaseline, Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { Api, Auth } from "../../../Services";
+import { LoginForm } from "../../../Components/Auth";
+import { ModalMsg, Spinner } from "../../../Components/Notifications";
+import { AppContext } from "../../../Store";
+import styles from "./styles";
 
 // Roles by view
 const ROLES = Api.roles.all();
-
-const styles = {
-  Content: {
-    height: "100vh",
-    overflowY: "auto",
-    display: "flex",
-    backgroundImage: "url('assets/pattern-veton.jpg')",
-    backgroundSize: "cover",
-  },
-  PaperLogin: {
-    padding: "2rem",
-    borderRadius: "23px",
-  },
-  ContentLogin: {
-    marginTop: "2rem",
-  },
-  SpanError: {
-    display: "flex",
-    alignItems: "center",
-  },
-  Register: {
-    marginTop: "1rem",
-  },
-  LinkReg: {
-    marginTop: "2rem",
-  },
-  TitleForm: {
-    fontWeight: 500,
-    marginBottom: "1rem",
-    textAlign: "center",
-    fontSize: "2rem",
-  },
-  Cimg1: {
-    maxHeight: "155px",
-  },
-  Cimg2: {
-    maxHeight: "270px",
-  },
-};
 
 class Login extends Component {
   state = {
@@ -65,19 +24,18 @@ class Login extends Component {
    * @returns {void}
    */
   handleOnSubmit = async request => {
-    const {state} = this;
-    const {login} = this.context;
-    const {history} = this.props;
+    const { state } = this;
+    const { login } = this.context;
+    const { history } = this.props;
 
     try {
-      this.setState({...state, isLoading: true});
+      this.setState({ ...state, isLoading: true });
       const {
-        data: {success, additional_info, msg},
+        data: { success, additional_info, msg },
       } = await Auth.login(request);
       if (success) {
-        this.setState({...state, isLoading: false, hasError: null});
-        login({logged: true, user: additional_info});
-        localStorage.setItem("userData", JSON.stringify(additional_info));
+        this.setState({ ...state, isLoading: false, hasError: null });
+        login({ logged: true, user: additional_info });
         const defaultView = ROLES[additional_info.id_role];
         history.push(`/${defaultView}`);
       } else {
@@ -111,9 +69,9 @@ class Login extends Component {
   };
 
   render() {
-    const {isLoading, openError, hasError} = this.state;
-    const {handleOnSubmit} = this;
-    const {classes} = this.props;
+    const { isLoading, openError, hasError } = this.state;
+    const { handleOnSubmit } = this;
+    const { classes } = this.props;
     return (
       <div className={classes.Content}>
         <CssBaseline />
@@ -126,23 +84,19 @@ class Login extends Component {
                 direction="row"
                 justify="space-around"
               >
-                <Grid item lg={5} md={8} xs={12}>
-                  <img
-                    alt="Logo vet On, veterinaria online"
-                    className={classes.Cimg1}
-                    src="assets/Logo.svg"
-                  />
-                  <img
-                    alt="Personas con mascotas y la marca Veton"
-                    className={classes.Cimg2}
-                    src="assets/login-resource1.svg"
-                  />
+                <Grid item lg={5} md={8} xs={12} component="aside">
+                  <figure>
+                    <img alt="Vet On, veterinaria online" className={classes.Cimg1} src="assets/Logo.svg" />
+                  </figure>
+                  <figure>
+                    <img alt="Personas con mascotas y la marca Veton" className={classes.Cimg2} src="assets/login-resource1.svg"/>
+                  </figure>
                 </Grid>
-                <Grid item lg={5} md={8} xs={12}>
+                <Grid item lg={5} md={8} xs={12} component="section">
                   <Typography
                     className={classes.TitleForm}
                     color="secondary"
-                    component="p"
+                    component="h1"
                   >
                     Iniciar sesión
                   </Typography>
@@ -150,13 +104,13 @@ class Login extends Component {
                     {isLoading ? (
                       <Spinner />
                     ) : (
-                      <FormLogin onSubmit={handleOnSubmit} />
-                    )}
+                        <LoginForm onSubmit={handleOnSubmit} />
+                      )}
                     {openError ? (
                       <ModalMsg hasSucces={false} msg={hasError} />
                     ) : (
-                      ""
-                    )}
+                        ""
+                      )}
                   </div>
                   <Grid item className={classes.LinkReg} md={12} xs={12}>
                     <Link to="/register">No tiene cuenta? Registrarse</Link>

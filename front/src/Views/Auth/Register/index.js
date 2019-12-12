@@ -1,38 +1,10 @@
-import React, {useState} from "react";
-import {Grid, Paper, CssBaseline, Typography} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
-
-import RolSelect from "../../../Components/Forms/RolSelect";
-import FormRegisterUser from "../../../Components/Forms/FormRegisterUser";
-import FormRegistarVeterinary from "../../../Components/Forms/FormRegisterVeterinary";
-
-const styles = makeStyles({
-  Content: {
-    height: "100vh",
-    overflowY: "auto",
-    display: "flex",
-    backgroundImage: "url('assets/pattern-veton.jpg')",
-    backgroundSize: "cover",
-  },
-  PaperLogin: {
-    padding: "2rem",
-    borderRadius: "23px",
-  },
-  TitleRegister: {
-    padding: "1rem",
-    textAlign: "center",
-    fontSize: "2rem",
-  },
-  TitlesForm: {
-    textAlign: "center",
-    margin: "2rem",
-    color: "#5c2299",
-    fontWeight: 500,
-  },
-});
+import React, { useState } from "react";
+import { Grid, Paper, CssBaseline, Typography } from "@material-ui/core";
+import { RolSelect, RegisterUserForm , RegisterVeterinaryForm } from "../../../Components/Auth";
+import useStyles from "./styles";
 
 const Register = () => {
-  const classes = styles();
+  const classes = useStyles();
   const [values, setValues] = useState({
     isLoading: false,
     hasError: null,
@@ -41,11 +13,11 @@ const Register = () => {
   });
 
   const handleOnRolSelected = id_role => {
-    setValues({...values, id_role});
+    setValues({ ...values, id_role });
   };
 
   return (
-    <div className={classes.Content}>
+    <section className={classes.Content}>
       <CssBaseline />
       <Grid container alignItems="center" direction="row" justify="center">
         <Grid
@@ -66,9 +38,9 @@ const Register = () => {
               direction="row"
               justify="center"
             >
-              <Grid item xs={10}>
+              <Grid item xs={10} component="figure">
                 <img
-                  alt="Logo vet On, veterinaria online"
+                  alt="Vet On, veterinaria online"
                   src="assets/Logo.svg"
                 />
               </Grid>
@@ -79,12 +51,13 @@ const Register = () => {
                 className={classes.TitleRegister}
                 color="secondary"
                 variant="body2"
+                component="h1"
               >
                 Registro
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <Typography className={classes.TitlesForm} component="h3">
+              <Typography className={classes.TitlesForm} component="h2">
                 Seleccione su tipo de usuario{" "}
               </Typography>
               <RolSelect
@@ -93,20 +66,20 @@ const Register = () => {
                 onSetNext={() => true}
               />
             </Grid>
-            <Grid item xs={12}>
-              <Typography className={classes.TitlesForm} component="h3">
+            <Grid item xs={12} component="section">
+              <Typography className={classes.TitlesForm} component="h2">
                 Complete los siguientes datos
               </Typography>
               {values.id_role === 4 ? (
-                <FormRegisterUser idRole={values.id_role} />
+                <RegisterUserForm idRole={values.id_role} />
               ) : (
-                <FormRegistarVeterinary idRole={values.id_role} />
-              )}
+                  <RegisterVeterinaryForm idRole={values.id_role} />
+                )}
             </Grid>
           </Paper>
         </Grid>
       </Grid>
-    </div>
+    </section>
   );
 };
 

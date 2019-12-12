@@ -10,107 +10,14 @@ import {
   Button,
   Card,
 } from "@material-ui/core";
-
-import {withStyles} from "@material-ui/core/styles";
-import {Link} from "react-router-dom";
-import Api from "../../../Services/Api";
-import {calculateAge} from "../../../Utils/globals";
-import ListHistories from "../../../Components/ListHistories";
-import {AppContext} from "../../../Store";
-import TitlePages from "../../../Components/TitlePages";
-
-// All classes by component
-const styles = {
-  root: {
-    flexGrow: 1,
-    backgroundColor: "#ffffff",
-    display: "flex",
-    borderRadius: "23px",
-    padding: "2rem",
-    minHeight: "400px",
-  },
-  ContainerTypo: {
-    marginTop: "1rem",
-    marginBottom: "1rem",
-    fontSize: "2rem",
-    color: "#5c2299",
-    fontWeight: 600,
-  },
-  Paper: {
-    borderRadius: "23px",
-    padding: "1rem",
-  },
-  PaperMedic: {
-    background: "#5c2299",
-    borderRadius: "23px",
-  },
-  ContentCardPet: {
-    marginTop: ".5rem",
-  },
-  contenImage: {
-    position: "relative",
-    textAlign: "center",
-  },
-  ImagePet: {
-    top: "-0.7rem",
-    width: "160px",
-    height: "160px",
-    boxShadow: "0px 3px 11px 5px rgba(0, 0, 0, 0.16)",
-    borderRadius: "123px",
-    left: "2rem",
-  },
-  petName: {
-    color: "#4E4E4E",
-    fontSize: "1.87rem",
-    fontWeight: 600,
-    marginBottom: "1rem",
-  },
-  ContentCardText: {
-    paddingTop: 0,
-    "& p, h3, div": {
-      overflow: "hidden",
-      whiteSpace: "nowrap",
-      textOverflow: "ellipsis",
-    },
-  },
-  DatosPet: {
-    marginTop: "1rem",
-  },
-  divRel: {
-    width: "100%",
-    height: "47px",
-  },
-  ContentLink: {
-    textDecoration: "none",
-  },
-  title: {
-    color: "#5C2299",
-    fontSize: "2rem",
-    padding: "12px",
-    margin: 0,
-  },
-  noHistory: {
-    fontSize: "2rem",
-    color: "#CDCDCD",
-    textAlign: "center",
-    marginTop: "2rem",
-  },
-  ups: {
-    maxWidth: "400px",
-    display: "block",
-    margin: "0 auto",
-  },
-  button: {
-    paddingLeft: "20px",
-    paddingRight: "20px",
-  },
-  spinner: {
-    marginTop: "200px",
-  },
-  comment: {
-    wordBreak: "break-all",
-  },
-};
+import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
+import { Api } from "../../../Services";
+import { calculateAge } from "../../../Utils/globals";
+import { ListHistories } from "../../../Components/Histories";
+import { AppContext } from "../../../Store";
+import TitlePages from "../../../Components/Shared/TitlePages";
+import styles from "./styles";
 
 class PetDetail extends React.Component {
   state = {
@@ -121,25 +28,25 @@ class PetDetail extends React.Component {
 
   // Retrieve detail pet by id
   async componentDidMount() {
-    const {match} = this.props;
-    const {state} = this;
+    const { match } = this.props;
+    const { state } = this;
     try {
-      const {data} = await Api.pet.fetch(match.params.id);
+      const { data } = await Api.pet.fetch(match.params.id);
       this.setState({
         ...state,
         dataPet: data,
         isLoading: false,
       });
     } catch (error) {
-      this.setState({...state, isLoading: false, error: true});
+      this.setState({ ...state, isLoading: false, error: true });
     }
   }
 
   render() {
-    const {classes} = this.props;
-    const {dataPet, isLoading, error} = this.state;
+    const { classes } = this.props;
+    const { dataPet, isLoading, error } = this.state;
     const {
-      auth: {user},
+      auth: { user },
     } = this.context;
     if (isLoading) {
       return (
@@ -162,11 +69,13 @@ class PetDetail extends React.Component {
     return (
       <>
         <CssBaseline />
-        <Container fixed>
-          <TitlePages
-            subtitle="Aquí ver y editar los detalles de tu mascota incluyendo su historia clínica."
-            title="Detalle de mascota"
-          />
+        <Container fixed component="section">
+          <header>
+            <TitlePages
+              subtitle="Aquí ver y editar los detalles de tu mascota incluyendo su historia clínica."
+              title="Detalle de mascota"
+            />
+          </header>
           <Grid
             container
             alignItems="flex-start"
@@ -174,7 +83,7 @@ class PetDetail extends React.Component {
             justify="center"
             spacing={3}
           >
-            <Grid item className={classes.DatosPet} xs={12}>
+            <Grid item className={classes.DatosPet} xs={12} component="section">
               <Grid
                 container
                 alignItems="center"
@@ -182,7 +91,7 @@ class PetDetail extends React.Component {
                 justify="space-between"
                 spacing={3}
               >
-                <Grid item className={classes.ContentCardPet} lg={8} xs={12}>
+                <Grid item className={classes.ContentCardPet} lg={8} xs={12} component="article">
                   <Paper className={classes.Paper}>
                     <Grid
                       container
@@ -193,6 +102,7 @@ class PetDetail extends React.Component {
                     >
                       <Grid
                         item
+                        component="figure"
                         className={classes.contenImage}
                         lg={3}
                         md={3}
@@ -232,7 +142,7 @@ class PetDetail extends React.Component {
                                 className={classes.petName}
                                 component="h3"
                                 variant="h3"
-                              >{`${dataPet.name} ${dataPet.last_name}`}</Typography>
+                              >{`${dataPet.name} ${dataPet.last_name ? dataPet.last_name : ''}`}</Typography>
                             </Grid>
                             <Grid item xs={12}>
                               <Grid
@@ -319,7 +229,7 @@ class PetDetail extends React.Component {
                       </Grid>
                       <Grid item md={3} xs={12}>
                         <Grid item xs={12}>
-                          <Box display={{xs: "none", md: "block"}}>
+                          <Box display={{ xs: "none", md: "block" }}>
                             <div className={classes.divRel} />
                           </Box>
                         </Grid>
@@ -342,7 +252,7 @@ class PetDetail extends React.Component {
                 </Grid> */}
               </Grid>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} component="section">
               <Grid
                 container
                 alignItems="center"
@@ -366,36 +276,36 @@ class PetDetail extends React.Component {
                     </Button>
                   </Link>
                 ) : (
-                  ""
-                )}
+                    ""
+                  )}
               </Grid>
-            </Grid>
-            <Grid item xs={12}>
-              {dataPet.clinical_history.length > 0 ? (
-                <ListHistories histories={dataPet.clinical_history} />
-              ) : (
-                <Card className={classes.root}>
-                  <Grid
-                    container
-                    alignItems="center"
-                    direction="row"
-                    justify="center"
-                  >
-                    <Grid item xs={12}>
-                      <img
-                        alt="ups algo salio mal."
-                        className={classes.ups}
-                        src="/assets/ups.svg"
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Typography className={classes.noHistory} component="h3">
-                        No hay historias clínicas registradas.
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Card>
-              )}
+              <Grid item xs={12}>
+                {dataPet.clinical_history.length > 0 ? (
+                  <ListHistories histories={dataPet.clinical_history} />
+                ) : (
+                    <Card className={classes.root}>
+                      <Grid
+                        container
+                        alignItems="center"
+                        direction="row"
+                        justify="center"
+                      >
+                        <Grid item xs={12}>
+                          <img
+                            alt="Ups algo salio mal."
+                            className={classes.ups}
+                            src="/assets/ups.svg"
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Typography className={classes.noHistory} component="h3">
+                            No hay historias clínicas registradas.
+                        </Typography>
+                        </Grid>
+                      </Grid>
+                    </Card>
+                  )}
+                </Grid>
             </Grid>
           </Grid>
         </Container>

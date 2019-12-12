@@ -1,8 +1,7 @@
-import React, {useContext} from "react";
-import {Route, Switch} from "react-router-dom";
-
-import RouteAuth from "../../RouteAuth";
-import {AppContext} from "../../../Store";
+import React, { useContext } from "react";
+import { Route, Switch } from "react-router-dom";
+import RouteAuth from "../../Auth/RouteAuth";
+import { AppContext } from "../../../Store";
 import User from "../../../Views/User";
 import Veterinary from "../../../Views/Veterinary";
 import Admin from "../../../Views/Admin";

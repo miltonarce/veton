@@ -1,5 +1,5 @@
 import axios from "axios";
-import {URL_BASE} from "../Utils/globals";
+import { URL_BASE } from "../Utils/globals";
 
 // Default instace for axios with API path and timeout
 const axiosInstance = axios.create({

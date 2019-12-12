@@ -1,7 +1,7 @@
 import React from "react";
-import {Route} from "react-router-dom";
-import {CssBaseline} from "@material-ui/core";
-import {styled} from "@material-ui/core/styles";
+import { Route } from "react-router-dom";
+import { CssBaseline } from "@material-ui/core";
+import { styled } from "@material-ui/core/styles";
 
 // Veterinary all Views
 import HomeVet from "./HomeVet";
@@ -41,13 +41,13 @@ class Veterinary extends React.Component {
    * @returns {void}
    */
   handleOnUserSelected = userSelected =>
-    this.setState({...this.state, userSelected});
+    this.setState({ ...this.state, userSelected });
 
   render() {
     const {
-      props: {match},
+      props: { match },
       handleOnUserSelected,
-      state: {userSelected},
+      state: { userSelected },
     } = this;
     return (
       <ContentMain>
