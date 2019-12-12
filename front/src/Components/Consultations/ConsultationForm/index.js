@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Paper, Typography, Grid, TextField, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import { InvalidField } from "../../Notifications";
 import styles from "./styles";
 
 class ConsultationForm extends React.Component {
@@ -34,7 +35,7 @@ class ConsultationForm extends React.Component {
   };
 
   render() {
-    const { title, classes } = this.props;
+    const { title, classes, errors } = this.props;
     const {
       form: { comments, afflictions_procedures },
     } = this.state;
@@ -62,6 +63,7 @@ class ConsultationForm extends React.Component {
                 value={comments}
                 onChange={handleOnChange}
               />
+              <InvalidField errors={errors} field="comments" />
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -75,8 +77,8 @@ class ConsultationForm extends React.Component {
                 value={afflictions_procedures}
                 onChange={handleOnChange}
               />
+              <InvalidField errors={errors} field="afflictions_procedures" />
             </Grid>
-
             <Grid item className={classes.GridButton} xs={12}>
               <Grid
                 container

@@ -15,6 +15,7 @@ const EditHistory = props => {
   const [values, setValues] = useState({
     isLoading: true,
     dataHistory: null,
+    errors: []
   });
   const getHistory = async () => {
     const { match } = props;
@@ -66,7 +67,10 @@ const EditHistory = props => {
         props.history.goBack();
       }, 3000);
     } catch (err) {
-      console.log(err);
+      if (err.response && err.response.data) {
+        const { errors } = err.response.data;
+        setValues({ ...values, errors });
+      }
     }
   };
 
@@ -97,6 +101,7 @@ const EditHistory = props => {
                   title="Editar Historia"
                   user={user}
                   onSubmit={handleOnSubmit}
+                  errors={values.errors}
                 />
               )}
           </Grid>

@@ -66,7 +66,7 @@ const Register = () => {
                 onSetNext={() => true}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} component="section">
               <Typography className={classes.TitlesForm} component="h2">
                 Complete los siguientes datos
               </Typography>

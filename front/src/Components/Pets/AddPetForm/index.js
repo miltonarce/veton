@@ -24,6 +24,7 @@ import * as moment from "moment";
 import Avatar from "@material-ui/core/Avatar";
 import { withStyles } from "@material-ui/core/styles";
 import { AppContext } from "../../../Store";
+import { InvalidField } from "../../Notifications";
 import styles from "./styles";
 
 class AddPetForm extends React.Component {
@@ -89,7 +90,7 @@ class AddPetForm extends React.Component {
   };
 
   render() {
-    const { types, breeds, title, classes } = this.props;
+    const { types, breeds, title, classes, errors } = this.props;
     const {
       form: {
         name,
@@ -111,7 +112,6 @@ class AddPetForm extends React.Component {
       handleOnChangeDate,
       handleInputFile,
     } = this;
-
     return (
       <>
         <Paper className={classes.Paper}>
@@ -143,6 +143,7 @@ class AddPetForm extends React.Component {
                     value={name}
                     onChange={handleOnChange}
                   />
+                  <InvalidField errors={errors} field="name" />
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
@@ -281,6 +282,7 @@ class AddPetForm extends React.Component {
                         </MenuItem>
                       ))}
                     </Select>
+                    <InvalidField errors={errors} field="id_type" />
                   </FormControl>
                 </Grid>
                 <Grid item xs={6}>
@@ -301,6 +303,7 @@ class AddPetForm extends React.Component {
                         </MenuItem>
                       ))}
                     </Select>
+                    <InvalidField errors={errors} field="id_breed" />
                   </FormControl>
                 </Grid>
               </Grid>

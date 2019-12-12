@@ -13,6 +13,7 @@ import TitlePages from "../../../Components/Shared/TitlePages";
 const AddClinicalHistory = props => {
   const [values, setValues] = useState({
     isLoading: false,
+    errors: [],
   });
   /**
    * Hook para notificaciones
@@ -42,8 +43,12 @@ const AddClinicalHistory = props => {
         setValues({ isLoading: false });
       }
     } catch (err) {
-      console.log(err);
-      setValues({ isLoading: false });
+      if (err.response && err.response.data) {
+        const { errors } = err.response.data;
+        setValues({ ...values, isLoading: false, errors });
+      } else {
+        setValues({ isLoading: false });
+      }
     }
   };
   return (
@@ -71,6 +76,7 @@ const AddClinicalHistory = props => {
                 <HistoryForm
                   title="Registrar Historia Clínica"
                   onSubmit={handleOnSubmit}
+                  errors={values.errors}
                 />
               )}
           </Grid>

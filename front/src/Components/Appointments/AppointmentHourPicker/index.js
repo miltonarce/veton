@@ -31,7 +31,7 @@ const AppointmentHourPicker = ({ hours, onHourChange, label }) => {
 }
 
 AppointmentHourPicker.propTypes = {
-    hours: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+    hours: PropTypes.arrayOf(PropTypes.string).isRequired,
     onHourChange: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired,
 };

@@ -15,6 +15,7 @@ class AddPet extends React.Component {
     breeds: [],
     types: [],
     statusPet: {},
+    errors: [],
   };
 
   // Get breeds and type to populate form
@@ -79,24 +80,28 @@ class AddPet extends React.Component {
         }, 6000);
       }
     } catch (err) {
-      this.setState({
-        ...state,
-        isLoading: false,
-        hasMsg:
-          "Se produjo un error al registarse, por favor verifique sus datos.",
-        openMsg: true,
-      });
-      setTimeout(() => {
+      if (err.response && err.response.data) {
+        const { errors } = err.response.data;
+        this.setState({...state, isLoading: false, errors });
+      } else {
         this.setState({
           ...state,
-          openMsg: false,
+          isLoading: false,
+          hasMsg: "Se produjo un error al registarse, por favor verifique sus datos.",
+          openMsg: true,
         });
-      }, 6000);
+        setTimeout(() => {
+          this.setState({
+            ...state,
+            openMsg: false,
+          });
+        }, 6000);
+      }
     }
   };
 
   render() {
-    const { breeds, types, openMsg, hasMsg, isLoading, success } = this.state;
+    const { breeds, types, openMsg, hasMsg, isLoading, success, errors } = this.state;
     const { handleOnSubmit } = this;
     return (
       <>
@@ -113,6 +118,7 @@ class AddPet extends React.Component {
                 title="Ingrese los datos de la mascota Mascota"
                 types={types}
                 onSubmit={handleOnSubmit}
+                errors={errors}
               />
             </Grid>
           </Grid>

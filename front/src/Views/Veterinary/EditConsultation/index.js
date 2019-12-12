@@ -15,6 +15,7 @@ const EditConsultation = props => {
   const [values, setValues] = useState({
     isLoading: true,
     dataConsultation: null,
+    errors: [],
   });
   const getConsultation = async () => {
     const { match } = props;
@@ -69,7 +70,10 @@ const EditConsultation = props => {
         props.history.goBack();
       }, 3000);
     } catch (err) {
-      console.log(err);
+      if (err.response && err.response.data) {
+        const { errors } = err.response.data;
+        setValues({ ...values, errors });
+      }
     }
   };
 
@@ -91,6 +95,7 @@ const EditConsultation = props => {
                   title="Editar Consulta"
                   user={user}
                   onSubmit={handleOnSubmit}
+                  errors={values.errors}
                 />
               )}
           </Grid>

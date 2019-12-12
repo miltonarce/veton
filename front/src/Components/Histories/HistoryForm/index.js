@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Paper, Typography, Grid, TextField, Button, FormHelperText } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import { InvalidField } from "../../Notifications";
 import styles from "./styles";
 
 class HistoryForm extends React.Component {
@@ -26,7 +27,7 @@ class HistoryForm extends React.Component {
   };
 
   render() {
-    const { title, classes } = this.props;
+    const { title, classes, errors } = this.props;
     const { comments, hide_comments, afflictions_procedures } = this.state.form;
     const { handleOnSubmit, handleOnChange } = this;
     return (
@@ -53,6 +54,7 @@ class HistoryForm extends React.Component {
                 value={comments}
                 onChange={handleOnChange}
               />
+              <InvalidField errors={errors} field="comments" />
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -68,6 +70,7 @@ class HistoryForm extends React.Component {
                 onChange={handleOnChange}
               />
               <FormHelperText>Permite aportar al veterinario medidas de seguridad sobre el animal, si es agresivo, muerde constantemente, entre otros</FormHelperText>
+              <InvalidField errors={errors} field="hide_comments" />
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -81,6 +84,7 @@ class HistoryForm extends React.Component {
                 value={afflictions_procedures}
                 onChange={handleOnChange}
               />
+              <InvalidField errors={errors} field="afflictions_procedures" />
             </Grid>
             <Grid item className={classes.GridButton} xs={12}>
               <Grid

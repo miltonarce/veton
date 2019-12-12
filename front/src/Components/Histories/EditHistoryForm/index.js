@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Paper, Typography, Grid, TextField, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import { InvalidField } from "../../Notifications";
 import styles from "./styles";
 
 class EditHistoryForm extends React.Component {
@@ -37,7 +38,7 @@ class EditHistoryForm extends React.Component {
   };
 
   render() {
-    const { title, classes, data } = this.props;
+    const { title, classes, data, errors } = this.props;
     const {
       form: { comments, afflictions_procedures },
     } = this.state;
@@ -65,6 +66,7 @@ class EditHistoryForm extends React.Component {
                 value={comments}
                 onChange={handleOnChange}
               />
+              <InvalidField errors={errors} field="comments" />
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -78,8 +80,8 @@ class EditHistoryForm extends React.Component {
                 value={afflictions_procedures}
                 onChange={handleOnChange}
               />
+              <InvalidField errors={errors} field="afflictions_procedures" />
             </Grid>
-
             <Grid item className={classes.GridButton} xs={12}>
               <Grid
                 container

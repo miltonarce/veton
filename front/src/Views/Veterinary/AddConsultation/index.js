@@ -14,6 +14,7 @@ import { AppContext } from "../../../Store";
 const AddConsultation = props => {
   const [values, setValues] = useState({
     isLoading: false,
+    errors: []
   });
   /**
    * Hook para context
@@ -47,12 +48,14 @@ const AddConsultation = props => {
           props.history.goBack();
         }, 3000);
       } else {
-        alert("no entramos");
         enqueueSnackbar(data.msg, { variant: "error" });
         setValues({ isLoading: false });
       }
     } catch (err) {
-      console.log(err);
+      if (err.response && err.response.data) {
+        const { errors } = err.response.data;
+        setValues({ ...values, errors });
+      }
     }
   };
 
@@ -82,6 +85,7 @@ const AddConsultation = props => {
                   title="Registrar Consulta"
                   user={user}
                   onSubmit={handleOnSubmit}
+                  errors={values.errors}
                 />
               )}
           </Grid>

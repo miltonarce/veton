@@ -22,6 +22,7 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 import moment from "moment";
 import AppointmentDatePicker from "../AppointmentDatePicker";
 import AppointmentHourPicker from "../AppointmentHourPicker";
+import { InvalidField } from "../../Notifications";
 import { Api, ApiVet } from "../../../Services";
 import styles from "./styles";
 
@@ -163,7 +164,7 @@ class AppointmentForm extends React.Component {
 
   render() {
     const {
-      props: { classes },
+      props: { classes, errors },
       handleOnDateChange,
       handleOnHourChange,
       handleOnSubmit,
@@ -280,6 +281,7 @@ class AppointmentForm extends React.Component {
                 <FormHelperText>
                   Para poder ofrecerte una mejor atención, por favor elegí el tipo de consulta
                 </FormHelperText>
+                <InvalidField errors={errors} field="type" />
               </FormControl>
               <TextValidator
                 ref={this.reasonRef}
@@ -298,6 +300,7 @@ class AppointmentForm extends React.Component {
                 onBlur={handleOnBlur}
                 onChange={handleOnChange}
               />
+              <InvalidField errors={errors} field="reason" />
               <Grid
                 container
                 alignItems="center"
