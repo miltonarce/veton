@@ -46,6 +46,11 @@ class AddPetForm extends React.Component {
     imageSrc: null,
   };
 
+  /**
+   * OnSubmit event form validate if any image to append request
+   * @param {Event} event
+   * @returns {void}
+   */
   handleOnSubmit = event => {
     const { state, props } = this;
     event.preventDefault();
@@ -56,6 +61,11 @@ class AddPetForm extends React.Component {
     props.onSubmit(request);
   };
 
+  /**
+   * Handle when date change in datepicker component update date format
+   * @param {Event} event
+   * @returns {void}
+   */
   handleOnChangeDate = event => {
     const { state } = this;
     const date = moment(event._d).format("YYYY-MM-DD");
@@ -63,6 +73,11 @@ class AddPetForm extends React.Component {
     this.setState({ form: { ...state.form, birthday: date } });
   };
 
+  /**
+   * Handle on change event to validate in time errors and set state
+   * @param {Event} event
+   * @returns {void}
+   */
   handleOnChange = event => {
     const { state } = this;
     const { name, value } = event.target;
@@ -73,6 +88,11 @@ class AddPetForm extends React.Component {
     }
   };
 
+  /**
+   * Handle event input to add preview image in form
+   * @param {Event} event
+   * @returns {void}
+   */
   handleInputFile = event => {
     if (event.target.files.length > 0) {
       const [imagePath] = event.target.files;

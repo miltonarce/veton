@@ -29,12 +29,22 @@ class RegisterUserForm extends Component {
     success: false,
   };
 
+  /**
+   * Handle on change input form
+   * @param {Event} event
+   * @returns {void}
+   */
   handleOnChange = event => {
     const { formData } = this.state;
     formData[event.target.name] = event.target.value;
     this.setState({ formData });
   };
 
+  /**
+   * Method to handle when user submit form, validate all values
+   * show sucess or error
+   * @returns {void}
+   */
   handleSubmit = async () => {
     const { state } = this;
     const { history } = this.props;
@@ -89,11 +99,20 @@ class RegisterUserForm extends Component {
     }
   };
 
+  /**
+   * Handle click show password form
+   * @returns {void}
+   */
   handleClickShowPassword = () => {
     const { state } = this;
     this.setState({ ...state, showPassword: !state.showPassword });
   };
-
+  
+  /**
+   * Prevent mouse down
+   * @param {Event} event
+   * @returns {void}
+   */
   handleMouseDownPassword = event => {
     event.preventDefault();
   };

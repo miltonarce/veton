@@ -16,7 +16,7 @@ const AppointmentDatePickerUser = ({ idUser }) => {
 
   /**
    * Fetch all appointments by the user to show in Datepicker
-   * @returns {void}
+   * @returns {Promise<void>}
    */
   const getAppointmentsByUser = async () => {
     const {

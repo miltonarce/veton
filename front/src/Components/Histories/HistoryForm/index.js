@@ -14,12 +14,22 @@ class HistoryForm extends React.Component {
     },
   };
 
+  /**
+   * Handle submit event, call callback parent
+   * @param {Event} event
+   * @returns {void}
+   */
   handleOnSubmit = event => {
     const { props, state } = this;
     event.preventDefault();
     props.onSubmit(state.form);
   };
 
+  /**
+   * Method to check handle on change in form inputs
+   * @param {Event} event
+   * @returns {void}
+   */
   handleOnChange = event => {
     const { state } = this;
     const { name, value } = event.target;

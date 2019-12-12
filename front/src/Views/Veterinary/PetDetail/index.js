@@ -245,9 +245,6 @@ class PetDetail extends React.Component {
                     </Grid>
                   </Paper>
                 </Grid>
-                {/* <Grid item xs={4}>
-                  <Paper className={classes.PaperMedic}>Informacion</Paper>
-                </Grid> */}
               </Grid>
             </Grid>
             <Grid item xs={12}>

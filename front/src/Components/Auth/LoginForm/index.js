@@ -21,6 +21,11 @@ class LoginForm extends Component {
   emailRef = React.createRef();
   passwordRef = React.createRef();
 
+  /**
+   * Validate inputs in blur event
+   * @param {Event} event
+   * @returns {void}
+   */
   handleOnBlur = event => {
     const { emailRef, passwordRef } = this;
     if (event.target.name === "email") {
@@ -30,12 +35,22 @@ class LoginForm extends Component {
     }
   };
 
+  /**
+   * Handle on change input form
+   * @param {Event} event
+   * @returns {void}
+   */
   handleOnChange = event => {
     const { formData } = this.state;
     formData[event.target.name] = event.target.value;
     this.setState({ formData });
   };
 
+  /**
+   * Method to handle when user submit form, validate all values
+   * show sucess or error
+   * @returns {void}
+   */
   handleOnSubmit = event => {
     const { props, state } = this;
     event.preventDefault();

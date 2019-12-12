@@ -79,7 +79,7 @@ class AppointmentForm extends React.Component {
       );
       this.setState({ ...this.state, hours });
     } catch (err) {
-      console.error("err", err);
+
     }
   };
 

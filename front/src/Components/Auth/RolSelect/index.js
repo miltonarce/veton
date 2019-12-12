@@ -12,10 +12,14 @@ class RolSelect extends React.Component {
     onSetNext(true);
   }
 
+  /**
+   * Handle when user selected other rol, call callback
+   * @param {Event} event
+   * @returns {void}
+   */
   handleOnChange = event => {
     const { state, props } = this;
     const type_rol = Number(event.target.value);
-
     this.setState({ ...state, type_rol });
     props.onRolSelected(type_rol);
   };

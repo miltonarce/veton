@@ -32,6 +32,10 @@ const Consultation = ({ dataConsultation, user }) => {
     // eslint-disable-next-line
   }, []);
 
+  /***
+   * Handle action open modal state
+   * @returns {void}
+   */
   const handleOpenModal = () => {
     setValues({ ...values, openModal: !values.openModal });
   };
