@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Pet;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -41,6 +42,51 @@ class UsersController extends Controller
     {
         $users = User::where('email', 'like', '%' . $input . "%")->orWhere('dni', 'like', '%' . $input . "%")->get();
         return response()->json($users);
+    }
+    /**
+     * Update pet
+     * @param Request request
+     * @param int $idUser
+     * @return Response
+     */
+    public function editUser(Request $request, $idUser)
+    {
+        try {
+            $request->validate(User::$rules, User::$errorMessages);
+            $data = $request->all();
+            $user = User::findOrFail($idUser);
+            $data = $this->saveImageIfExists($request, $data);
+            $user->update($data);
+            return response()->json([
+                'success' => true,
+                'msg'     => 'El usuario se edito correctamente.',
+                'stack'   => ''
+            ]);
+        } catch (QueryException $e) {
+            return response()->json([
+                'success' => false,
+                'msg' => 'Se produjo un error al editar el usuario',
+                'stack' => $e
+            ]);
+        }
+    }
+    /**
+     * Handle input images from save and move to folder assets
+     * @param Request $request
+     * @param array $data
+     * @return array
+     */
+    private function saveImageIfExists($request, $data)
+    {
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $nameImageWithExtension = time() . "." . $image->extension();
+            $image->move(public_path('./imgs'), $nameImageWithExtension);
+            $data['image'] = $nameImageWithExtension;
+        } else {
+            $data['image'] = '';
+        }
+        return $data;
     }
 
 }

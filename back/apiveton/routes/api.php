@@ -43,6 +43,8 @@ Route::get('/pets/users/{id}/statistics', 'Api\\PetsController@statistics');
 Route::get('/users/{dni}', 'Api\\UsersController@find');
 // Users Obtener usuarios por dni like o nombre)
 Route::get('/users/search/{input}', 'Api\\UsersController@search');
+//Users update
+Route::put('/users/{idUser}', 'Api\\UsersController@editUser');
 
 // ClinicalHistories (Obtener todas las historias clinicas)
 Route::get('clinicalhistories', 'Api\\ClinicalHistoriesController@all');
