@@ -29,31 +29,34 @@ class ConsultationsController extends Controller
      */
     public function store($idHistory, Request $request)
     {
-       try {
-        $request['id_history'] = $idHistory;
-        $request->validate(Consultation::$rules, Consultation::$errorMessages);
-        $data = $request->all();
-        if ($request->hasFile('image')) {
-            $file = $request->image;
-            $nameImage = time() . "." . $file->extension();
-            $file->move(public_path('/imgs'), $nameImage);
-            $data['image'] = 'imgs/' . $nameImage;
-        } else {
-            $data['image'] = '';
-        }
-        if ($request->has('id_vaccine')){
-            $data['next_dosis_vaccine']= Carbon::now()->addyear();
-        }
-        if ($request->has('id_dewormer')){
-            $data['next_dosis_dewormer']= Carbon::now()->addmonth();
-        }
-        Consultation::create($data);
-        return response()->json([
-            'success' => true,
-            'msg' => 'La nueva consulta se creo exitosamente.',
-            'stack' => ''
-        ]);
-       } catch (QueryException $e) {
+        try {
+            $request['id_history'] = $idHistory;
+            $request->validate(Consultation::$rules, Consultation::$errorMessages);
+            $data = $request->all();
+            if ($request->hasFile('image')) {
+                $file = $request->image;
+                $nameImage = time() . "." . $file->extension();
+                $file->move(public_path('/imgs'), $nameImage);
+                $data['image'] = 'imgs/' . $nameImage;
+            } else {
+                $data['image'] = '';
+            }
+            if ($request->has('id_vaccine') && $request->id_vaccine == 8){
+                $data['next_dosis_vaccine']= Carbon::now()->addyear();
+            }
+            if ($request->has('id_vaccine') && $request->id_vaccine == 15){
+                $data['next_dosis_vaccine']= Carbon::now()->addyear();
+            }
+            if ($request->has('id_dewormer')){
+                $data['next_dosis_dewormer']= Carbon::now()->addmonth();
+            }
+            Consultation::create($data);
+            return response()->json([
+                'success' => true,
+                'msg' => 'La nueva consulta se creo exitosamente.',
+                'stack' => ''
+            ]);
+        } catch (QueryException $e) {
             return response()->json([
                 'success' => false,
                 'msg' => 'Se produjo un error al crear la consulta',
