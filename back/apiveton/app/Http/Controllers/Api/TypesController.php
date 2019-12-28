@@ -5,14 +5,13 @@ use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-/**
-* @OA\Info(title="API Pets", version="1.0")
-*
-* @OA\Server(url="https://api.veton")
-*/
 class TypesController extends Controller
 {
    
+    /**
+     * Retrieve all types from pets
+     * @return Response
+     */
     public function all()
     {
         $breeds = Type::all();

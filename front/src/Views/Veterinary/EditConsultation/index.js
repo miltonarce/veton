@@ -1,29 +1,29 @@
-import React, {useState, useContext, useEffect} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Container,
   Grid,
   CssBaseline,
   CircularProgress,
 } from "@material-ui/core";
-import {useSnackbar} from "notistack";
-
-import FormEditConsultation from "../../../Components/Forms/FormEditConsultation";
-import ApiVet from "../../../Services/ApiVet";
-import TitlePages from "../../../Components/TitlePages";
-import {AppContext} from "../../../Store";
+import { useSnackbar } from "notistack";
+import { EditConsultationForm } from "../../../Components/Consultations";
+import { ApiVet } from "../../../Services";
+import TitlePages from "../../../Components/Shared/TitlePages";
+import { AppContext } from "../../../Store";
 
 const EditConsultation = props => {
   const [values, setValues] = useState({
     isLoading: true,
     dataConsultation: null,
+    errors: [],
   });
   const getConsultation = async () => {
-    const {match} = props;
+    const { match } = props;
     try {
-      const {data} = await ApiVet.consultation.fetch(
+      const { data } = await ApiVet.consultation.fetch(
         match.params.idConsultation
       );
-      setValues({...values, dataConsultation: data, isLoading: false});
+      setValues({ ...values, dataConsultation: data, isLoading: false });
     } catch (err) {
       console.log(err);
     }
@@ -33,19 +33,20 @@ const EditConsultation = props => {
    */
   useEffect(() => {
     getConsultation();
+    // eslint-disable-next-line
   }, []);
 
   /**
    * Hook para context
    */
   const {
-    auth: {user},
+    auth: { user },
   } = useContext(AppContext);
 
   /**
    * Hook para notificaciones
    */
-  const {enqueueSnackbar} = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   /**
    * Method to handle submit from form, edit  consultation
    * @param {object} request
@@ -53,7 +54,7 @@ const EditConsultation = props => {
    */
   const handleOnSubmit = async dataEdited => {
     try {
-      const {data} = await ApiVet.consultations.edit(
+      const { data } = await ApiVet.consultations.edit(
         values.dataConsultation.id_consultation,
         {
           ...dataEdited,
@@ -61,22 +62,25 @@ const EditConsultation = props => {
         }
       );
       if (data.success) {
-        enqueueSnackbar(data.msg, {variant: "success"});
+        enqueueSnackbar(data.msg, { variant: "success" });
       } else {
-        enqueueSnackbar(data.msg, {variant: "error"});
+        enqueueSnackbar(data.msg, { variant: "error" });
       }
       setTimeout(() => {
         props.history.goBack();
       }, 3000);
     } catch (err) {
-      console.log(err);
+      if (err.response && err.response.data) {
+        const { errors } = err.response.data;
+        setValues({ ...values, errors });
+      }
     }
   };
 
   return (
     <>
       <CssBaseline />
-      <Container fixed>
+      <Container fixed component="section">
         <TitlePages
           subtitle=" Aquí podrás editar una consulta creada."
           title="Editar consulta"
@@ -86,13 +90,14 @@ const EditConsultation = props => {
             {values.isLoading ? (
               <CircularProgress color="secondary" />
             ) : (
-              <FormEditConsultation
-                data={values.dataConsultation}
-                title="Editar Consulta"
-                user={user}
-                onSubmit={handleOnSubmit}
-              />
-            )}
+                <EditConsultationForm
+                  data={values.dataConsultation}
+                  title="Editar Consulta"
+                  user={user}
+                  onSubmit={handleOnSubmit}
+                  errors={values.errors}
+                />
+              )}
           </Grid>
         </Grid>
       </Container>

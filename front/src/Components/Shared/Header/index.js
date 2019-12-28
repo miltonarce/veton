@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Link, withRouter} from "react-router-dom";
+import React, { useState } from "react";
+import { Link, withRouter } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -14,53 +14,13 @@ import {
   StoreOutlined,
   HomeOutlined,
 } from "@material-ui/icons";
-import {withStyles} from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
+import styles from "./styles";
 
-const styles = {
-  Appbar: {
-    background: "white",
-  },
-  Logo: {
-    width: "121px",
-    height: "42px",
-    backgroundImage: "url('assets/Logo.png')",
-    fontSize: 0,
-  },
-  ContentLogo: {flexGrow: 1},
-  ButtonLogout: {
-    color: "#999999",
-  },
-  ContentLink: {
-    marginRight: "2rem",
-    textDecoration: "none",
-    color: "#999999",
-    "&:hover": {
-      color: "#5c2299",
-      transition: ".5s",
-    },
-  },
-  ContentIcon: {marginRight: ".5rem", cursor: "pointer"},
-  ContainerFlex: {
-    display: "flex",
-    position: "relative",
-    alignItems: "center",
-  },
-  Icons: {
-    verticalAlign: "text-bottom",
-    marginRight: "10px",
-  },
-};
-
-const Header = ({classes}) => {
+const Header = ({ classes }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const handleClick = event => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
 
   return (
     <AppBar position="static">
@@ -72,14 +32,6 @@ const Header = ({classes}) => {
                 Vet On
               </Typography>
             </div>
-            {/* <Link className={classes.ContentLink} to="/user">
-            <Button color="inherit">
-              <div className={classes.ContentIcon}>
-                <Home />
-              </div>{" "}
-              Inicio
-            </Button>
-  */}
             <Link className={classes.ContentLink} to="/user">
               <HomeOutlined className={classes.Icons} />
               Inicio
@@ -112,7 +64,10 @@ const Header = ({classes}) => {
                   <MenuItem onClick={handleClose}>Perfil</MenuItem>
                 </Link>
                 <Link className={classes.ContentLink} to="/">
-                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                  <MenuItem onClick={() => {
+                    localStorage.clear();
+                    handleClose();
+                  }}>Salir</MenuItem>
                 </Link>
               </Menu>
             </div>

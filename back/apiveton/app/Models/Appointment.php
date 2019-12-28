@@ -43,12 +43,15 @@ class Appointment extends Model
         'reason.min'             => 'Mínimo 5 caracteres.',
 
     ];
+
     public function users()
     {
         return $this->belongsTo(User::class);
     }
+
     public function veterinaries()
     {
         return $this->belongsTo(Veterinary::class);
     }
+
 }

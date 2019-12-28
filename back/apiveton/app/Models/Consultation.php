@@ -53,4 +53,5 @@ class Consultation extends Model
     {
         return $this->belongsTo(Dewormer::class, 'id_dewormer', 'id_dewormer');
     }
+
 }

@@ -54,4 +54,5 @@ class ClinicalHistory extends Model
     {
         return $this->belongsTo( Veterinary::class, 'id_veterinary','id_veterinary');
     }
+
 }

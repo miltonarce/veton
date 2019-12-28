@@ -5,21 +5,12 @@ import {
   Container,
   Grid,
 } from "@material-ui/core";
-import {withStyles} from "@material-ui/core/styles";
-import ListPets from "../../../Components/ListPets";
-import LastPetsByVet from "../../../Components/LastPetsByVet";
-import AppointmentListWithDate from "../../../Components/AppointmentListWithDate";
-import Api from "../../../Services/Api";
-import {AppContext} from "../../../Store";
-
-// All classes by component
-const styles = {
-  title: {
-    color: "#5C2299",
-    paddingTop: "1rem",
-    paddingBottom: "1rem",
-  },
-};
+import { withStyles } from "@material-ui/core/styles";
+import { ListPets } from "../../../Components/Pets";
+import { AppointmentListWithDate } from "../../../Components/Appointments";
+import { Api } from "../../../Services";
+import { AppContext } from "../../../Store";
+import styles from "./styles";
 
 class HomeVet extends React.Component {
   state = {
@@ -41,11 +32,11 @@ class HomeVet extends React.Component {
   async componentDidMount() {
     try {
       const {
-        auth: {user},
+        auth: { user },
       } = this.context;
-      this.setState({...this.state, isLoadingLastPets: true});
+      this.setState({ ...this.state, isLoadingLastPets: true });
       const {
-        data: {success, pets},
+        data: { success, pets },
       } = await Api.pets.lastPetsByVet(user.id_user);
       if (success) {
         this.setState({
@@ -77,11 +68,11 @@ class HomeVet extends React.Component {
    */
   fetchPetsByUser = async user => {
     try {
-      this.setState({...this.state, isLoading: true, userSelected: user});
-      const {data} = await Api.pets.fetch(user.id_user);
-      this.setState({...this.state, petsByUser: data, isLoading: false});
+      this.setState({ ...this.state, isLoading: true, userSelected: user });
+      const { data } = await Api.pets.fetch(user.id_user);
+      this.setState({ ...this.state, petsByUser: data, isLoading: false });
     } catch (err) {
-      this.setState({...this.state, petsByUser: [], isLoading: false});
+      this.setState({ ...this.state, petsByUser: [], isLoading: false });
     }
   };
 
@@ -93,21 +84,21 @@ class HomeVet extends React.Component {
       isLoadingLastPets,
       lastPetsAttended,
     } = this.state;
-    const {classes} = this.props;
+    const { classes } = this.props;
     const {
       auth: {
-        user: {id_veterinary},
+        user: { id_veterinary },
       },
     } = this.context;
     return (
       <>
         <CssBaseline />
-        <Container fixed>
+        <Container fixed component="section">
           <Grid container direction="row" justify="center" spacing={2}>
-            <Grid item md={4} xl={3} xs={12}>
+            <Grid item md={4} xl={3} xs={12} component="aside">
               <AppointmentListWithDate idVet={id_veterinary} />
             </Grid>
-            <Grid item md={8} xl={9} xs={12}>
+            <Grid item md={8} xl={9} xs={12} component="section">
               {isLoadingLastPets && (
                 <Container fixed>
                   <Grid
@@ -125,12 +116,12 @@ class HomeVet extends React.Component {
               {!isLoadingLastPets &&
                 lastPetsAttended.length > 0 &&
                 !userSelected && (
-                  <div>
+                  <React.Fragment>
                     <h2 className={classes.title}>
                       Últimas consultas realizadas
                     </h2>{" "}
-                    <LastPetsByVet pets={lastPetsAttended} />
-                  </div>
+                    <ListPets pets={lastPetsAttended} />
+                  </React.Fragment>
                 )}
               {!isLoadingLastPets &&
                 lastPetsAttended.length === 0 &&
@@ -144,7 +135,7 @@ class HomeVet extends React.Component {
                   </h2>
                   {isLoading && <CircularProgress />}
                   {!isLoading && petsByUser.length > 0 && (
-                    <LastPetsByVet pets={petsByUser} />
+                    <ListPets pets={petsByUser} />
                   )}
                   {!isLoading && petsByUser.length === 0 && (
                     <p>No existen mascotas registradas</p>

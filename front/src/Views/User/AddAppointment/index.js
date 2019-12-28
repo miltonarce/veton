@@ -1,22 +1,13 @@
 import React from "react";
-import {
-  Container,
-} from "@material-ui/core";
-import {withStyles} from "@material-ui/core/styles";
-import FormAppointment from "../../../Components/Forms/FormAppointment";
-import {AppContext} from "../../../Store";
-import Api from "../../../Services/Api";
-import TitlePages from "../../../Components/TitlePages";
-import ModalMsg from "../../../Components/Messages/ModalMsg";
-import {withRouter} from "react-router-dom";
-
-const styles = {
-  TitleAppointment: {
-    fontWeight: 500,
-    marginBottom: "1rem",
-    textAlign: "center",
-  },
-};
+import { Container } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { AppointmentForm } from "../../../Components/Appointments";
+import { ModalMsg } from "../../../Components/Notifications";
+import { AppContext } from "../../../Store";
+import { Api } from "../../../Services";
+import TitlePages from "../../../Components/Shared/TitlePages";
+import { withRouter } from "react-router-dom";
+import styles from "./styles";
 
 class AddAppointment extends React.Component {
   state = {
@@ -24,19 +15,20 @@ class AddAppointment extends React.Component {
     hasError: null,
     msg: null,
     openModal: false,
+    errors: [],
   };
 
   handleOnSubmit = async request => {
     const {
       auth: {
-        user: {id_user},
+        user: { id_user },
       },
     } = this.context;
-    const requestAppointment = {...request, id_user};
+    const requestAppointment = { ...request, id_user };
     try {
-      this.setState({...this.state, isLoading: true});
+      this.setState({ ...this.state, isLoading: true });
       const {
-        data: {msg, success},
+        data: { msg, success },
       } = await Api.appointments.register(requestAppointment);
       if (success) {
         this.setState({
@@ -69,34 +61,39 @@ class AddAppointment extends React.Component {
         }, 3000);
       }
     } catch (err) {
-      this.setState({
-        ...this.state,
-        isLoading: false,
-        hasError: true,
-        openModal: true,
-        msg: "Se produjo un error al reservar el turno",
-      });
-      setTimeout(() => {
+      if (err.response && err.response.data) {
+        const { errors } = err.response.data;
+        this.setState({ ...this.state, isLoading: false, errors });
+      } else {
         this.setState({
           ...this.state,
-          openModal: false,
+          isLoading: false,
+          hasError: true,
+          openModal: true,
+          msg: "Se produjo un error al reservar el turno",
         });
-      }, 3000);
+        setTimeout(() => {
+          this.setState({
+            ...this.state,
+            openModal: false,
+          });
+        }, 3000);
+      }
     }
   };
 
   render() {
     const {
       handleOnSubmit,
-      state: {isLoading, hasError, openModal, msg},
+      state: { isLoading, hasError, openModal, msg, errors },
     } = this;
     return (
-      <Container fixed>
+      <Container fixed component="section">
         <TitlePages
           subtitle="Aquí podrás reservar un turno en cualquier veterinaria."
           title="Reserva de turnos"
         />
-        <FormAppointment onSubmit={handleOnSubmit} />
+        <AppointmentForm onSubmit={handleOnSubmit} errors={errors} />
         {!isLoading && openModal && <ModalMsg success={hasError === null} msg={msg} />}
       </Container>
     );

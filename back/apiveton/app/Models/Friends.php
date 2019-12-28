@@ -12,8 +12,10 @@ class Friends extends Model
     {
         return $this->morphedByMany(User::class, 'user_veterinary_friendship');
     }
+
     public function veterinaries()
     {
         return $this->morphedByMany(Veterinary::class, 'user_veterinary_friendship');
     }
+
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {findFreeHours, URL_BASE} from "../Utils/globals";
+import { findFreeHours, URL_BASE } from "../Utils/globals";
 // Default instace for axios with API path and timeout
 const axiosInstance = axios.create({
   baseURL: URL_BASE,
@@ -41,7 +41,7 @@ export default {
       axiosInstance
         .get(`/appointments/veterinary/${idVet}/${date}`)
         .then(response => {
-          const {success, data} = response.data;
+          const { success, data } = response.data;
           if (success) {
             return findFreeHours(data);
           }
@@ -54,7 +54,7 @@ export default {
     cancel: (idUser, idAppointment) => axiosInstance.delete(`appointments/${idUser}/${idAppointment}`),
   },
   statistics: {
-    fetch: idUser  => axiosInstance.get(`/pets/users/${idUser}/statistics`),
+    fetch: idUser => axiosInstance.get(`/pets/users/${idUser}/statistics`),
   },
   roles: {
     all: () => ({

@@ -1,7 +1,7 @@
 import React from "react";
-import {Route} from "react-router-dom";
-import {CssBaseline} from "@material-ui/core";
-import {styled} from "@material-ui/core/styles";
+import { Route } from "react-router-dom";
+import { CssBaseline } from "@material-ui/core";
+import { styled } from "@material-ui/core/styles";
 
 // User all Views
 import HomeUser from "./HomeUser";
@@ -32,7 +32,7 @@ const ContainerMain = styled("main")({
 
 class User extends React.Component {
   render() {
-    const {match} = this.props;
+    const { match } = this.props;
     return (
       <ContentMain>
         <CssBaseline />
