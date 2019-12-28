@@ -41,8 +41,11 @@ class ConsultationsController extends Controller
         } else {
             $data['image'] = '';
         }
-        if ($request->has('id_vaccine')){
-            $data['next_dosis_vaccine']= Carbon::now()->addyear();
+        if ($request->has('id_vaccine') && $request->id_vaccine == 8){
+           $data['next_dosis_vaccine']= Carbon::now()->addyear();
+        }
+        if ($request->has('id_vaccine') && $request->id_vaccine == 15){
+           $data['next_dosis_vaccine']= Carbon::now()->addyear();
         }
         if ($request->has('id_dewormer')){
             $data['next_dosis_dewormer']= Carbon::now()->addmonth();
