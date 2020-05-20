@@ -26,6 +26,7 @@ class CreateVeterinariesPendingApprovalTable extends Migration
             $table->integer('approved')->unsigned();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
