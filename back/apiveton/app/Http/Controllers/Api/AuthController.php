@@ -12,6 +12,7 @@ use Auth;
 use Hash;
 use Validator;
 
+
 class AuthController extends Controller
 {
 
@@ -155,5 +156,40 @@ class AuthController extends Controller
     {
         return $idRole === 3;
     }
+
+
+    public function loginAdmin(Request $request)
+    {
+        if ($this->existsMail($request['email'])) {
+            $credentials = [
+                'email' => $request['email'],
+                'password' => $request['password']
+            ];
+            if (! $token = auth()->attempt($credentials)) {
+                return redirect(url('/'))
+                    ->withInput($request->all())
+                    ->with('message', 'Error al tratar de iniciar sesión. Las credenciales introducidas no coinciden con nuestros registros.');
+            }
+            $user = auth()->user();
+            if ($this->isUserAdmin($user['id_role'])) {
+                return redirect(url('/veterinaries'));
+            }
+            return response()->json([
+                'success' => true,
+                'msg' => 'Login exitoso',
+                'additional_info' => $this->getAditionalInfo($user),
+            ])->withCookie('token', $token, auth()->factory()->getTTL() * 60, '/', null, false, true);
+        } else {
+            return redirect(url('/'))
+                ->withInput($request->all())
+                ->with('message', 'El email ingresado no es válido');
+        }
+    }
+    private function isUserAdmin($idRole)
+    {
+        return $idRole === 1;
+    }
+
+
 
 }

@@ -1,0 +1,120 @@
+body {
+    background-color: #DCA2C0;
+}
+#navbar_titulo{
+    font-size: 0;
+    background: url(../recursos/Logo.png) no-repeat;
+    display: inline-block;
+    height: 40px;
+    text-indent: -9999px;
+    width: 140px;
+    margin: 0 10px;
+}
+.nav-item {
+    display: flex;
+    align-items: center;
+}
+#link_sesion {
+    position: absolute;
+    left: 65%;
+}
+.nav-item b{
+    margin-left: 10px;
+}
+.navbar_user_foto{
+    width: 5%;
+    margin: 5px;
+}
+.main-content.container {
+    padding: 25px;
+}
+.main-content.container h2 {
+    text-align: center;
+    color:black;
+    font-weight: 600;
+}
+.titulo_index {
+    font-family: "poppinsbold";
+    font-size: 4em;
+}
+.parrafo_index {
+    font-family: "poppinsregular";
+    font-size: 1.25em;
+    margin-bottom: 60px;
+}
+.subtitulo_index {
+    font-family: "poppinsmedium";
+    font-size: 2.5em;
+}
+div.index_container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.main-footer {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #6a1c9d;
+    text-align: center;
+    color: white;
+}
+.wrapper {
+    display: flex;
+    min-height: calc(100vh - 150px);
+    background-color: #DCA2C0;
+}
+
+.contenedor_botones_detalle {
+    display: flex;
+    margin: 20px;
+}
+table.table-bordered{
+    border:1px solid #d21b1b;
+    margin-top:20px;
+}
+table.table-bordered > thead > tr > th{
+    border:1px solid #d21b1b;
+    white-space: nowrap;
+    font-family: "poppinsregular";
+}
+table.table-bordered > tbody > tr > td{
+    border:1px solid #d21b1b;
+    white-space: nowrap;
+    font-family: "poppinslight";
+}
+.icono_aceptar {
+    display: inline-block;
+    background: url(../recursos/aceptar.png) no-repeat;
+    height: 32px;
+    text-indent: -9999px;
+    width: 32px;
+    margin: 0 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.icono_eliminar{
+    display: inline-block;
+    background: url(../recursos/basura.png) no-repeat;
+    height: 32px;
+    text-indent: -9999px;
+    width: 32px;
+    margin: 0 10px;
+    border: none;
+    cursor: pointer;
+
+}
+.icono_aceptar:hover,
+.icono_eliminar:hover {
+    opacity: 0.6;
+}
+table.table-bordered > tbody > tr > td.celda_acciones {
+    display: flex;
+}
+
+td.celda_acciones {
+    justify-content: space-around;
+}
+
+
